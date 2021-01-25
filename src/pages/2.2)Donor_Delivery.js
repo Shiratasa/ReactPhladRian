@@ -1,5 +1,19 @@
 import React from 'react';
 import {Helmet} from "react-helmet";
+import wall from "./resources/imgs/wallpaper.jpg";
+import but1 from "./resources/imgs/home.png";
+import but2 from "./resources/imgs/request.png";
+import but3 from "./resources/imgs/reward.png";
+import but4 from "./resources/imgs/account.png";
+import but5 from "./resources/imgs/report.png";
+import but6 from "./resources/imgs/logout.png";
+import blank from "./resources/imgs/shop/white.jpg"
+import del1 from "./resources/imgs/shop/grab.png";
+import del2 from "./resources/imgs/shop/gojek.png";
+import del3 from "./resources/imgs/shop/line.png";
+import del4 from "./resources/imgs/shop/kerry.png";
+import del5 from "./resources/imgs/shop/thai.png";
+import del6 from "./resources/imgs/shop/lala.png";
 
 class App extends React.Component {
   render (){
@@ -12,7 +26,6 @@ class App extends React.Component {
     <script async="true" src="resources/js/vendor/bootstrap.min.js"/>
     <script async="true" src="resources/js/plugins.js"/>
     <script async="true" src="resources/js/main.js"/>
-</Helmet>
          <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <title>Phlad Rian</title>
@@ -32,22 +45,97 @@ class App extends React.Component {
         <link href="resources/css/main.css" rel="stylesheet" />
         <link href="resources/css/responsive.css" rel="stylesheet" />
         <link href="resources/css/bootstrap-responsive.min.css" rel="stylesheet" />
-        <style dangerouslySetInnerHTML={{__html: "\n\t\t\t.midimg\n\t\t\t{display: block; margin-left: auto; margin-right: auto;}\n\t\t\t.searchform input \n\t\t\t{width: 169px; height: 33px}\n\t\t\t::-webkit-input-placeholder \n\t\t\t{ {/* Chrome/Opera/Safari */}color: lightgrey;}\n\t\t\t::-moz-placeholder \n\t\t\t{ {/* Firefox 19+ */}color: lightgrey;}\n\t\t\t:-ms-input-placeholder \n\t\t\t{ {/* IE 10+ */}color: lightgrey;}\n\t\t\t:-moz-placeholder \n\t\t\t{ {/* Firefox 18- */}color: lightgrey;}\n\t\t\t.swapper:hover \n\t\t\t{color: #F39C12; border: 1px solid #F39C12;}\n\t\t\t.aswap:hover\n\t\t\t{color: white; background: #F39C12; border: 1px solid #F39C12;}\n\t\t\t.swappor  \n\t\t\t{color: white; background: #F39C12; border: 1px solid #F39C12;}\n\t\t\t.swappor:hover \n\t\t\t{color: black; background: #EBEDEF; border: 1px solid black;}\n\t\t\t.pull-center:hover \n\t\t\t{color: black; font-weight: bold;}\n      .demo \n      {display: inline-block;}\n      .demo a \n      {color: red; padding: 5px 12px; text-decoration: none; transition: background-color 2s; border: 1px solid orange; font-size: 15px;} \n      .demo a.active \n      {background-color: orange; color: white;}\n\t\t" }} />
+        </Helmet>
+        <style>{`
+      .midimg
+      {
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+      }
+      .searchform input 
+      {
+          width: 169px;
+          height: 33px
+      }
+      ::-webkit-input-placeholder 
+      { /* Chrome/Opera/Safari */
+          color: lightgrey;
+      }
+      ::-moz-placeholder 
+      { /* Firefox 19+ */
+          color: lightgrey;
+      }
+      :-ms-input-placeholder 
+      { /* IE 10+ */
+          color: lightgrey;
+      }
+      :-moz-placeholder 
+      { /* Firefox 18- */
+          color: lightgrey;
+      }
+      .swapper:hover 
+      {
+          color: #F39C12;
+          border: 1px solid #F39C12;
+      }
+      .aswap:hover
+      {
+          color: white;
+          background: #F39C12;
+          border: 1px solid #F39C12;
+      }
+      .swappor  
+      {
+          color: white;
+          background: #F39C12;
+          border: 1px solid #F39C12;
+      }
+      .swappor:hover 
+      {
+          color: black;
+          background: #EBEDEF;
+          border: 1px solid black;
+      }
+      .pull-center:hover 
+      {
+          color: black;
+          font-weight: bold;
+      }
+      .demo
+      {
+        display: inline-block;
+      }
+      .demo a
+      {
+        color: red; 
+        padding: 5px 12px; 
+        text-decoration: none; 
+        transition: background-color 2s; 
+        border: 1px solid orange; 
+        font-size: 15px;
+      } 
+      .demo a.active
+      {
+        background-color: orange; 
+        color: white;
+      }
+    `}</style>
         <div className="overlay" />
         <section className="top-part">
-          <img src="resources/imgs/wallpaper.jpg" />
+          <img src={wall} />
         </section>
         <section className="cd-hero">
           <div className="cd-slider-nav">
             <nav>
               <span className="cd-marker item-1" />
               <ul>
-                <li><a href="#0"><div className="image-icon"><img src="resources/imgs/home.png" width={40} height={35} /></div><h6>Home</h6></a></li>
-                <li className="selected"><a href="#0"><div className="image-icon"><img src="resources/imgs/request.png" width={43} height={35} /></div><h6>Request</h6></a></li>
-                <li><a href="#0"><div className="image-icon"><img src="resources/imgs/reward.png" width={45} height={40} /></div><h6>Trade</h6></a></li>
-                <li><a href="#0"><div className="image-icon"><img src="resources/imgs/account.png" width={40} height={38} /></div><h6>Account</h6></a></li>
-                <li><a href="#0"><div className="image-icon"><img src="resources/imgs/report.png" width={38} height={33} /></div><h6>Contact</h6></a></li>
-                <li><a href="#0"><div className="image-icon"><img src="resources/imgs/logout.png" width={39} height={35} /></div><h6>Logout</h6></a></li>
+                <li><a href="#0"><div className="image-icon"><img src={but1} width={40} height={35} /></div><h6>Home</h6></a></li>
+                <li className="selected"><a href="#0"><div className="image-icon"><img src={but2} width={43} height={35} /></div><h6>Request</h6></a></li>
+                <li><a href="#0"><div className="image-icon"><img src={but3} width={45} height={40} /></div><h6>Trade</h6></a></li>
+                <li><a href="#0"><div className="image-icon"><img src={but4} width={40} height={38} /></div><h6>Account</h6></a></li>
+                <li><a href="#0"><div className="image-icon"><img src={but5} width={38} height={33} /></div><h6>Contact</h6></a></li>
+                <li><a href="#0"><div className="image-icon"><img src={but6} width={39} height={35} /></div><h6>Logout</h6></a></li>
               </ul>
             </nav> 
           </div> 
@@ -82,15 +170,15 @@ class App extends React.Component {
                               <div className="brands-name">
                                 <fieldset>
                                   <div className="col-md-4">
-                                    <img htmlFor="grab" style={{width: '50px', height: '50px'}} className="midimg" src="resources/imgs/shop/grab.png" alt="" />
+                                    <img htmlFor="grab" style={{width: '50px', height: '50px'}} className="midimg" src={del1} alt="" />
                                     <input type="radio" id="grab" name="delivery" defaultValue="grab" style={{marginLeft: '48%'}} />
                                   </div>
                                   <div className="col-md-4">
-                                    <img htmlFor="get" style={{width: '50px', height: '50px'}} className="midimg" src="resources/imgs/shop/gojek.png" alt="" /> 
+                                    <img htmlFor="get" style={{width: '50px', height: '50px'}} className="midimg" src={del2} alt="" /> 
                                     <input type="radio" id="get" name="delivery" defaultValue="get" style={{marginLeft: '48%'}} />                 
                                   </div>
                                   <div className="col-md-4">
-                                    <img htmlFor="line" style={{width: '50px', height: '50px'}} className="midimg" src="resources/imgs/shop/line.png" alt="" /> 
+                                    <img htmlFor="line" style={{width: '50px', height: '50px'}} className="midimg" src={del3} alt="" /> 
                                     <input type="radio" id="line" name="delivery" defaultValue="line" style={{marginLeft: '48%'}} />
                                   </div>
                                 </fieldset>
@@ -99,15 +187,15 @@ class App extends React.Component {
                               <div className="brands-name">
                                 <fieldset>
                                   <div className="col-md-4">
-                                    <img htmlFor="grab" style={{width: '50px', height: '50px'}} className="midimg" src="resources/imgs/shop/kerry.png" alt="" />
+                                    <img htmlFor="grab" style={{width: '50px', height: '50px'}} className="midimg" src={del4} alt="" />
                                     <input type="radio" id="grab" name="delivery" defaultValue="grab" style={{marginLeft: '48%'}} />
                                   </div>
                                   <div className="col-md-4">
-                                    <img htmlFor="get" style={{width: '50px', height: '50px'}} className="midimg" src="resources/imgs/shop/thai.png" alt="" /> 
+                                    <img htmlFor="get" style={{width: '50px', height: '50px'}} className="midimg" src={del5} alt="" /> 
                                     <input type="radio" id="get" name="delivery" defaultValue="get" style={{marginLeft: '48%'}} />                 
                                   </div>
                                   <div className="col-md-4">
-                                    <img htmlFor="line" style={{width: '50px', height: '50px'}} className="midimg" src="resources/imgs/shop/lala.png" alt="" /> 
+                                    <img htmlFor="line" style={{width: '50px', height: '50px'}} className="midimg" src={del6} alt="" /> 
                                     <input type="radio" id="line" name="delivery" defaultValue="line" style={{marginLeft: '48%'}} />
                                   </div>
                                 </fieldset>

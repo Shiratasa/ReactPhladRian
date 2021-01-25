@@ -2,6 +2,13 @@ import React from 'react';
 import {Helmet} from "react-helmet";
 import book from "./resources/web_logo_bg.png";
 import ScriptTag from 'react-script-tag';
+import props from 'prop-types';
+import {
+    BrowserRouter as Router,
+    Route, useHistory
+} from 'react-router-dom'
+import R_Main from "./3)Receiver_Main.js";
+import D_Main from "./2)Donor_Main.js";
 
 class App extends React.Component {
   render (){
@@ -9,6 +16,8 @@ class App extends React.Component {
       <div className="App">
  <div>
  <Helmet>
+ <script async="true" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"/>
+<script async="true" src="javascript/smoothscroll.js"/>
      <script async="true" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"/>
     <script async="true" src="./resources/js/jquery (0).js"/>
     <script async="true" src="./resources/js/bootstrap.min (0).js"/>
@@ -45,7 +54,13 @@ class App extends React.Component {
         <link rel="stylesheet" href="resources/css/style.css" />
         <link href="https://fonts.googleapis.com/css?family=Rajdhani:400,500,700" rel="stylesheet" type="text/css" />
 </Helmet>
-        <section id="home">
+<style>{`
+  .home
+  {
+    background-image: url('resources/imgs/authen/slide-1.jpg');
+  }
+  `}</style>
+        <section id="home" style={{backgroundImage: `url("resources/imgs/authen/slide-1.jpg")`, backgroundSize: "cover"}}>
           <div className="container">
             <div className="row">
               <div className="col-md-offset-2 col-md-8 col-sm-12">
@@ -71,13 +86,14 @@ class App extends React.Component {
                 <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                 <br /><h2 className="modal-title">Account Access</h2>
               </div>
+              
               <form action="#" method="post">
                 <br /><br /><br />
                 <input name="username" type="text" className="form-control" id="username" placeholder="Username" />
                 <br /><br /><br />
                 <input name="password" type="text" className="form-control" id="password" placeholder="Password" />
                 <br /><br /><br /><br /><br /><br />
-                <input name="submit" type="submit" className="form-control" id="submit" defaultValue="Log-in" />
+                <input name="submit" type="button" className="form-control" id="submit" defaultValue="Log-in" onclick={"props.history.push({R_Main})"}/>
               </form>
               <p>Welcome back to our community!</p><br />
             </div>
@@ -101,7 +117,7 @@ class App extends React.Component {
                 <label for="Student ID" style={{color: 'red', fontSize: '15px'}}>Student ID</label>
                 <input name="Student ID" type="file" className="form-control" id="card" placeholder="Student ID" />
                 <br />
-                <input name="submit" type="submit" className="form-control" id="submit" defaultValue="Create Account" />
+                <input name="submit" type="button" className="form-control" id="submit" defaultValue="Create Account" />
               </form>
               <p>Thank you for your visiting!</p><br />
             </div>

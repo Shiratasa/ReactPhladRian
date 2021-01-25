@@ -5,15 +5,14 @@ class App extends React.Component {
   render (){
     return (
       <div className="App">
-<div>
-      <Helmet>
+ <div>
+       <Helmet>
     <script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"/>
     <script async="true" src="resources/js/vendor/jquery-1.11.2.min.js"/>
     <script async="true" src="resources/js/vendor/bootstrap.min.js"/>
     <script async="true" src="resources/js/plugins.js"/>
     <script async="true" src="resources/js/main.js"/>
-</Helmet>
-        <meta charSet="utf-8" />
+         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <title>Phlad Rian</title>
         <meta name="description" content />
@@ -32,7 +31,82 @@ class App extends React.Component {
         <link href="resources/css/main.css" rel="stylesheet" />
         <link href="resources/css/responsive.css" rel="stylesheet" />
         <link href="resources/css/bootstrap-responsive.min.css" rel="stylesheet" />
-        <style dangerouslySetInnerHTML={{__html: "\n\t\t\t.midimg\n\t\t\t{display: block; margin-left: auto; margin-right: auto;}\n\t\t\t.searchform input \n\t\t\t{width: 169px; height: 33px}\n\t\t\t::-webkit-input-placeholder \n\t\t\t{ {/* Chrome/Opera/Safari */}color: lightgrey;}\n\t\t\t::-moz-placeholder \n\t\t\t{ {/* Firefox 19+ */}color: lightgrey;}\n\t\t\t:-ms-input-placeholder \n\t\t\t{ {/* IE 10+ */}color: lightgrey;}\n\t\t\t:-moz-placeholder \n\t\t\t{ {/* Firefox 18- */}color: lightgrey;}\n\t\t\t.swapper:hover \n\t\t\t{color: #F39C12; border: 1px solid #F39C12;}\n\t\t\t.aswap:hover\n\t\t\t{color: white; background: #F39C12; border: 1px solid #F39C12;}\n\t\t\t.swappor  \n\t\t\t{color: white; background: #F39C12; border: 1px solid #F39C12;}\n\t\t\t.swappor:hover \n\t\t\t{color: black; background: #EBEDEF; border: 1px solid black;}\n\t\t\t.pull-center:hover \n\t\t\t{color: black; font-weight: bold;}\n      .demo \n      {display: inline-block;}\n      .demo a \n      {color: red; padding: 5px 12px; text-decoration: none; transition: background-color 2s; border: 1px solid orange; font-size: 15px;} \n      .demo a.active \n      {background-color: orange; color: white;}\n\t\t" }} />
+        </Helmet>
+        <style>{`
+      .midimg
+      {
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+      }
+      .searchform input 
+      {
+          width: 169px;
+          height: 33px
+      }
+      ::-webkit-input-placeholder 
+      { /* Chrome/Opera/Safari */
+          color: lightgrey;
+      }
+      ::-moz-placeholder 
+      { /* Firefox 19+ */
+          color: lightgrey;
+      }
+      :-ms-input-placeholder 
+      { /* IE 10+ */
+          color: lightgrey;
+      }
+      :-moz-placeholder 
+      { /* Firefox 18- */
+          color: lightgrey;
+      }
+      .swapper:hover 
+      {
+          color: #F39C12;
+          border: 1px solid #F39C12;
+      }
+      .aswap:hover
+      {
+          color: white;
+          background: #F39C12;
+          border: 1px solid #F39C12;
+      }
+      .swappor  
+      {
+          color: white;
+          background: #F39C12;
+          border: 1px solid #F39C12;
+      }
+      .swappor:hover 
+      {
+          color: black;
+          background: #EBEDEF;
+          border: 1px solid black;
+      }
+      .pull-center:hover 
+      {
+          color: black;
+          font-weight: bold;
+      }
+      .demo
+      {
+        display: inline-block;
+      }
+      .demo a
+      {
+        color: red; 
+        padding: 5px 12px; 
+        text-decoration: none; 
+        transition: background-color 2s; 
+        border: 1px solid orange; 
+        font-size: 15px;
+      } 
+      .demo a.active
+      {
+        background-color: orange; 
+        color: white;
+      }
+    `}</style>
         <div className="overlay" />
         <section className="top-part">
           <img src="resources/imgs/wallpaper.jpg" />
@@ -42,9 +116,9 @@ class App extends React.Component {
             <nav>
               <span className="cd-marker item-1" />
               <ul>
-                <li><a href="#0"><div className="image-icon"><img src="resources/imgs/home.png" width={40} height={35} /></div><h6>Home</h6></a></li>
-                <li><a href="#0"><div className="image-icon"><img src="resources/imgs/request.png" width={43} height={35} /></div><h6>Request</h6></a></li>
-                <li className="selected"><a href="#0"><div className="image-icon"><img src="resources/imgs/reward.png" width={45} height={40} /></div><h6>Trade</h6></a></li>
+                <li className="selected"><a href="#0"><div className="image-icon"><img src="resources/imgs/home.png" width={40} height={35} /></div><h6>Home</h6></a></li>
+                <li><a href="#0"><div className="image-icon"><img src="resources/imgs/delivery.png" width={45} height={33} /></div><h6>Delivery</h6></a></li>
+                <li><a href="#0"><div className="image-icon"><img src="resources/imgs/reward.png" width={45} height={40} /></div><h6>Trade</h6></a></li>
                 <li><a href="#0"><div className="image-icon"><img src="resources/imgs/account.png" width={40} height={38} /></div><h6>Account</h6></a></li>
                 <li><a href="#0"><div className="image-icon"><img src="resources/imgs/report.png" width={38} height={33} /></div><h6>Contact</h6></a></li>
                 <li><a href="#0"><div className="image-icon"><img src="resources/imgs/logout.png" width={39} height={35} /></div><h6>Logout</h6></a></li>
@@ -53,23 +127,10 @@ class App extends React.Component {
           </div> 
           <ul className="cd-hero-slider">
             {/*-/Home page-*/}
-            <li>
-              <div className="heading">
-                <h1>Reward Exchanging</h1>
-                <span>Trade your charity point for various exclusive items</span> 
-              </div>
-            </li>
-            {/*-/Home page-*/}
-            <li>
-              <div className="heading">
-                <h1>Reward Exchanging</h1>
-                <span>Trade your charity point for various exclusive items</span> 
-              </div>
-            </li>
             <li className="selected">
               <div className="heading">
-                <h1>Reward Exchanging</h1>
-                <span>Trade your charity point for various exclusive items</span> 
+                <h1>Reward Center</h1>
+                <span>Time to repay for the kindness of Donor's charity</span>
               </div>
               <div className="cd-full-width first-slide">
                 <div className="container">
@@ -113,10 +174,9 @@ class App extends React.Component {
                               </tbody>
                             </table>
                             <hr className="soft" />
-                            <span className="cart-total-price text-center" style={{fontSize: '18px', color: '#F39C12'}}>Total special point:</span>
-                            <span className="cart-total-price text-center" style={{fontSize: '16px'}}>520</span>
-                            <hr className="soft" />
-                            <button type="submit" className="btn btn-default swappor"><i className="fa fa fa-dollar" /> 500 point</button>
+                            <button type="submit" className="btn btn-default swappor"><i className="fa fa fa-edit" /> Edit detail</button>
+                            <img style={{width: '180px', height: '50px'}} src="resources/imgs/shop/white.jpg" alt="" />
+                            <button type="submit" className="btn btn-default swapper"><i className="fa fa-trash-o" /> Delete item</button>
                           </div>
                         </div>
                       </div>
@@ -127,20 +187,32 @@ class App extends React.Component {
             </li>
             <li>
               <div className="heading">
-                <h1>Reward Exchanging</h1>
-                <span>Trade your charity point for various exclusive items</span> 
-              </div> 
-            </li>
-            <li>
-              <div className="heading">
-                <h1>Reward Exchanging</h1>
-                <span>Trade your charity point for various exclusive items</span> 
+                <h1>Reward Center</h1>
+                <span>Time to repay for the kindness of Donor's charity</span>
               </div>  
             </li>
             <li>
               <div className="heading">
-                <h1>Reward Exchanging</h1>
-                <span>Trade your charity point for various exclusive items</span> 
+                <h1>Reward Center</h1>
+                <span>Time to repay for the kindness of Donor's charity</span>
+              </div> 
+            </li>
+            <li>
+              <div className="heading">
+                <h1>Reward Center</h1>
+                <span>Time to repay for the kindness of Donor's charity</span>
+              </div>
+            </li>
+            <li>
+              <div className="heading">
+                <h1>Reward Center</h1>
+                <span>Time to repay for the kindness of Donor's charity</span>
+              </div>
+            </li>
+            <li>
+              <div className="heading">
+                <h1>Reward Center</h1>
+                <span>Time to repay for the kindness of Donor's charity</span>
               </div>
             </li>
           </ul> 

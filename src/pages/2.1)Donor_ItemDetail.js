@@ -3,28 +3,28 @@ import {Helmet} from "react-helmet";
 import wall from "./resources/imgs/wallpaper.jpg";
 import but1 from "./resources/imgs/home.png";
 import but2 from "./resources/imgs/request.png";
-import but3 from "./resources/imgs/wish.png";
+import but3 from "./resources/imgs/reward.png";
 import but4 from "./resources/imgs/account.png";
 import but5 from "./resources/imgs/report.png";
 import but6 from "./resources/imgs/logout.png";
+import blank from "./resources/imgs/shop/white.jpg"
 import large from "./resources/imgs/shop/product6.jpg"
 import small1 from "./resources/imgs/shop/1.jpg"
 import small2 from "./resources/imgs/shop/2.jpg"
 import small3 from "./resources/imgs/shop/3.jpg"
-import blank from "./resources/imgs/shop/white.jpg"
 
 class App extends React.Component {
   render (){
     return (
       <div className="App">
- <div>
-       <Helmet>
+<div>
+      <Helmet>
     <script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"/>
     <script async="true" src="resources/js/vendor/jquery-1.11.2.min.js"/>
     <script async="true" src="resources/js/vendor/bootstrap.min.js"/>
     <script async="true" src="resources/js/plugins.js"/>
     <script async="true" src="resources/js/main.js"/>
-         <meta charSet="utf-8" />
+        <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <title>Phlad Rian</title>
         <meta name="description" content />
@@ -130,7 +130,7 @@ class App extends React.Component {
               <ul>
                 <li className="selected"><a href="#0"><div className="image-icon"><img src={but1} width={40} height={35} /></div><h6>Home</h6></a></li>
                 <li><a href="#0"><div className="image-icon"><img src={but2} width={43} height={35} /></div><h6>Request</h6></a></li>
-                <li><a href="#0"><div className="image-icon"><img src={but3} width={40} height={35} /></div><h6>Wishlist</h6></a></li>
+                <li><a href="#0"><div className="image-icon"><img src={but3} width={45} height={40} /></div><h6>Trade</h6></a></li>
                 <li><a href="#0"><div className="image-icon"><img src={but4} width={40} height={38} /></div><h6>Account</h6></a></li>
                 <li><a href="#0"><div className="image-icon"><img src={but5} width={38} height={33} /></div><h6>Contact</h6></a></li>
                 <li><a href="#0"><div className="image-icon"><img src={but6} width={39} height={35} /></div><h6>Logout</h6></a></li>
@@ -189,12 +189,9 @@ class App extends React.Component {
                               </tbody>
                             </table>
                             <hr className="soft" />
-                            <span className="cart-total-price text-center" style={{fontSize: '18px', color: '#F39C12'}}>Weekly request chance:</span>
-                            <span className="cart-total-price text-center" style={{fontSize: '16px'}}>(1/5)</span>
-                            <hr className="soft" />
-                            <button type="submit" className="btn btn-default swappor"><i className="fa fa-download" /> Send request</button>
+                            <button type="submit" className="btn btn-default swappor"><i className="fa fa fa-edit" /> Edit detail</button>
                             <img style={{width: '180px', height: '50px'}} src={blank} alt="" />
-                            <button type="submit" className="btn btn-default swapper"><i className="fa fa-plus" /> Add to wishlist</button>
+                            <button type="submit" className="btn btn-default swapper"><i className="fa fa-trash-o" /> Delete item</button>
                           </div>
                         </div>
                       </div>
