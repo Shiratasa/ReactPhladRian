@@ -93,7 +93,7 @@ class App extends React.Component {
                 <br /><br /><br />
                 <input name="password" type="text" className="form-control" id="password" placeholder="Password" />
                 <br /><br /><br /><br /><br /><br />
-                <input name="submit" type="button" className="form-control" id="submit" defaultValue="Log-in" onclick={"props.history.push({R_Main})"}/>
+                <input name="submit" type="submit" className="form-control" id="submit" defaultValue="Log-in" /> {/*type="button" onclick={"props.history.push({R_Main})"}*/}
               </form>
               <p>Welcome back to our community!</p><br />
             </div>
@@ -117,7 +117,7 @@ class App extends React.Component {
                 <label for="Student ID" style={{color: 'red', fontSize: '15px'}}>Student ID</label>
                 <input name="Student ID" type="file" className="form-control" id="card" placeholder="Student ID" />
                 <br />
-                <input name="submit" type="button" className="form-control" id="submit" defaultValue="Create Account" />
+                <input name="submit" type="submit" className="form-control" id="submit" defaultValue="Create Account" />
               </form>
               <p>Thank you for your visiting!</p><br />
             </div>

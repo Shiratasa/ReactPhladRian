@@ -1,5 +1,17 @@
 import React from 'react';
 import {Helmet} from "react-helmet";
+import wall from "./resources/imgs/wallpaper.jpg";
+import but1 from "./resources/imgs/home.png";
+import but2 from "./resources/imgs/delivery.png";
+import but3 from "./resources/imgs/reward.png";
+import but4 from "./resources/imgs/account.png";
+import but5 from "./resources/imgs/report.png";
+import but6 from "./resources/imgs/logout.png";
+import blank from "./resources/imgs/shop/white.jpg"
+import large from "./resources/imgs/shop/reward1.jpg"
+import small1 from "./resources/imgs/shop/4.jpg"
+import small2 from "./resources/imgs/shop/5.jpg"
+import small3 from "./resources/imgs/shop/6.jpg"
 
 class App extends React.Component {
   render (){
@@ -109,19 +121,19 @@ class App extends React.Component {
     `}</style>
         <div className="overlay" />
         <section className="top-part">
-          <img src="resources/imgs/wallpaper.jpg" />
+          <img src={wall} />
         </section>
         <section className="cd-hero">
           <div className="cd-slider-nav">
             <nav>
               <span className="cd-marker item-1" />
               <ul>
-                <li className="selected"><a href="#0"><div className="image-icon"><img src="resources/imgs/home.png" width={40} height={35} /></div><h6>Home</h6></a></li>
-                <li><a href="#0"><div className="image-icon"><img src="resources/imgs/delivery.png" width={45} height={33} /></div><h6>Delivery</h6></a></li>
-                <li><a href="#0"><div className="image-icon"><img src="resources/imgs/reward.png" width={45} height={40} /></div><h6>Trade</h6></a></li>
-                <li><a href="#0"><div className="image-icon"><img src="resources/imgs/account.png" width={40} height={38} /></div><h6>Account</h6></a></li>
-                <li><a href="#0"><div className="image-icon"><img src="resources/imgs/report.png" width={38} height={33} /></div><h6>Contact</h6></a></li>
-                <li><a href="#0"><div className="image-icon"><img src="resources/imgs/logout.png" width={39} height={35} /></div><h6>Logout</h6></a></li>
+                <li className="selected"><a href="#0"><div className="image-icon"><img src={but1} width={40} height={35} /></div><h6>Home</h6></a></li>
+                <li><a href="#0"><div className="image-icon"><img src={but2} width={45} height={33} /></div><h6>Delivery</h6></a></li>
+                <li><a href="#0"><div className="image-icon"><img src={but3} width={45} height={40} /></div><h6>Trade</h6></a></li>
+                <li><a href="#0"><div className="image-icon"><img src={but4} width={40} height={38} /></div><h6>Account</h6></a></li>
+                <li><a href="#0"><div className="image-icon"><img src={but5} width={38} height={33} /></div><h6>Contact</h6></a></li>
+                <li><a href="#0"><div className="image-icon"><img src={but6} width={39} height={35} /></div><h6>Logout</h6></a></li>
               </ul>
             </nav> 
           </div> 
@@ -139,15 +151,15 @@ class App extends React.Component {
                       <div className="content first-content">
                         <div className="container">
                           <div id="gallery" className="col-sm-3">
-                            <a href="resources/imgs/shop/product6.jpg">
-                              <img src="resources/imgs/shop/reward1.jpg" width={250} height={340} />
+                            <a href={large}>
+                              <img src={large} width={250} height={340} />
                             </a><br /><br />
                             <div id="differentview" className="moreOptopm carousel slide">
                               <div className="carousel-inner">
                                 <button type id className="btn aswap" style={{width: '2px', height: '70px', textAlign: 'center'}}>«</button>
-                                <a href="resources/imgs/shop/1.jpg"> <img style={{width: '60px', height: '70px'}} src="resources/imgs/shop/4.jpg" alt="" /></a>
-                                <a href="resources/imgs/shop/2.jpg"> <img style={{width: '60px', height: '70px'}} src="resources/imgs/shop/5.jpg" alt="" /></a>
-                                <a href="resources/imgs/shop/3.jpg"> <img style={{width: '60px', height: '70px'}} src="resources/imgs/shop/6.jpg" alt="" /></a>
+                                <a href={small1}> <img style={{width: '60px', height: '70px'}} src={small1} alt="" /></a>
+                                <a href={small2}> <img style={{width: '60px', height: '70px'}} src={small2} alt="" /></a>
+                                <a href={small3}> <img style={{width: '60px', height: '70px'}} src={small3} alt="" /></a>
                                 <button type id className="btn aswap" style={{width: '2px', height: '70px', textAlign: 'center'}}>»</button>
                               </div>
                             </div>
@@ -175,7 +187,7 @@ class App extends React.Component {
                             </table>
                             <hr className="soft" />
                             <button type="submit" className="btn btn-default swappor"><i className="fa fa fa-edit" /> Edit detail</button>
-                            <img style={{width: '180px', height: '50px'}} src="resources/imgs/shop/white.jpg" alt="" />
+                            <img style={{width: '180px', height: '50px'}} src={blank} alt="" />
                             <button type="submit" className="btn btn-default swapper"><i className="fa fa-trash-o" /> Delete item</button>
                           </div>
                         </div>

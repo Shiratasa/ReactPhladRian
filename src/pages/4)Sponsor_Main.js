@@ -1,5 +1,29 @@
 import React from 'react';
 import {Helmet} from "react-helmet";
+import wall from "./resources/imgs/wallpaper.jpg";
+import but1 from "./resources/imgs/home.png";
+import but2 from "./resources/imgs/delivery.png";
+import but3 from "./resources/imgs/reward.png";
+import but4 from "./resources/imgs/account.png";
+import but5 from "./resources/imgs/report.png";
+import but6 from "./resources/imgs/logout.png";
+import blank from "./resources/imgs/shop/white.jpg"
+import ship from "./resources/imgs/home/shipping.jpg";
+import pro1 from "./resources/imgs/shop/product12.jpg";
+import pro2 from "./resources/imgs/shop/product11.jpg";
+import pro3 from "./resources/imgs/shop/product10.jpg";
+import pro4 from "./resources/imgs/shop/product9.jpg";
+import pro5 from "./resources/imgs/shop/product8.jpg";
+import pro6 from "./resources/imgs/shop/product7.jpg";
+import pro7 from "./resources/imgs/shop/product6.jpg";
+import adder from "./resources/imgs/shop/add.png";
+import re1 from "./resources/imgs/shop/reward1.jpg";
+import re2 from "./resources/imgs/shop/reward2.jpg";
+import re3 from "./resources/imgs/shop/reward3.jpg";
+import re4 from "./resources/imgs/shop/reward4.jpg";
+import re5 from "./resources/imgs/shop/reward5.jpg";
+import re6 from "./resources/imgs/shop/reward6.jpg";
+import del1 from "./resources/imgs/shop/grab.png";
 
 class App extends React.Component {
   render (){
@@ -109,19 +133,19 @@ class App extends React.Component {
     `}</style>
         <div className="overlay" />
         <section className="top-part">
-          <img src="resources/imgs/wallpaper.jpg" />
+          <img src={wall} />
         </section>
         <section className="cd-hero">
           <div className="cd-slider-nav">
             <nav>
               <span className="cd-marker item-1" />
               <ul>
-                <li className="selected"><a href="#0"><div className="image-icon"><img src="resources/imgs/home.png" width={40} height={35} /></div><h6>Home</h6></a></li>
-                <li><a href="#0"><div className="image-icon"><img src="resources/imgs/delivery.png" width={45} height={33} /></div><h6>Delivery</h6></a></li>
-                <li><a href="#0"><div className="image-icon"><img src="resources/imgs/reward.png" width={45} height={40} /></div><h6>Trade</h6></a></li>
-                <li><a href="#0"><div className="image-icon"><img src="resources/imgs/account.png" width={40} height={38} /></div><h6>Account</h6></a></li>
-                <li><a href="#0"><div className="image-icon"><img src="resources/imgs/report.png" width={38} height={33} /></div><h6>Contact</h6></a></li>
-                <li><a href="#0"><div className="image-icon"><img src="resources/imgs/logout.png" width={39} height={35} /></div><h6>Logout</h6></a></li>
+                <li className="selected"><a href="#0"><div className="image-icon"><img src={but1} width={40} height={35} /></div><h6>Home</h6></a></li>
+                <li><a href="#0"><div className="image-icon"><img src={but2} width={45} height={33} /></div><h6>Delivery</h6></a></li>
+                <li><a href="#0"><div className="image-icon"><img src={but3} width={45} height={40} /></div><h6>Trade</h6></a></li>
+                <li><a href="#0"><div className="image-icon"><img src={but4} width={40} height={38} /></div><h6>Account</h6></a></li>
+                <li><a href="#0"><div className="image-icon"><img src={but5} width={38} height={33} /></div><h6>Contact</h6></a></li>
+                <li><a href="#0"><div className="image-icon"><img src={but6} width={39} height={35} /></div><h6>Logout</h6></a></li>
               </ul>
             </nav> 
           </div> 
@@ -162,7 +186,7 @@ class App extends React.Component {
                                 </div>
                               </div><br /><br /><br /><br />
                               <div className="brands_products">{/*-shipping-*/}
-                                <img src="resources/imgs/home/shipping.jpg" alt="" width={265} height={315} />
+                                <img src={ship} alt="" width={265} height={315} />
                               </div>{/*-/shipping-*/}	
                             </div>
                             <div className="col-sm-9 padding-right">
@@ -174,7 +198,7 @@ class App extends React.Component {
                                   <div className="product-image-wrapper">
                                     <div className="single-products">
                                       <div className="productinfo text-center">
-                                        <img src="resources/imgs/shop/reward1.jpg" alt="" width={230} height={320} />
+                                        <img src={re1} alt="" width={230} height={320} />
                                         <h2 style={{fontSize: '15px'}}>Nike Air Shoes</h2><br />
                                         <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-eye" />View</a>
                                       </div>
@@ -191,7 +215,7 @@ class App extends React.Component {
                                   <div className="product-image-wrapper">
                                     <div className="single-products">
                                       <div className="productinfo text-center">
-                                        <img src="resources/imgs/shop/reward2.jpg" alt="" width={230} height={320} />
+                                        <img src={re2} alt="" width={230} height={320} />
                                         <h2 style={{fontSize: '15px'}}>Skull Ring</h2><br />
                                         <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-eye" />View</a>
                                       </div>
@@ -208,7 +232,7 @@ class App extends React.Component {
                                   <div className="product-image-wrapper">
                                     <div className="single-products">
                                       <div className="productinfo text-center">
-                                        <img src="resources/imgs/shop/reward3.jpg" alt="" width={230} height={320} />
+                                        <img src={re3} alt="" width={230} height={320} />
                                         <h2 style={{fontSize: '15px'}}>Major Cineplex Ticket</h2><br />
                                         <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-eye" />View</a>
                                       </div>
@@ -225,7 +249,7 @@ class App extends React.Component {
                                   <div className="product-image-wrapper">
                                     <div className="single-products">
                                       <div className="productinfo text-center">
-                                        <img src="resources/imgs/shop/reward4.jpg" alt="" width={230} height={320} />
+                                        <img src={re4} alt="" width={230} height={320} />
                                         <h2 style={{fontSize: '15px'}}>Leather Gloves</h2><br />
                                         <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-eye" />View</a>
                                       </div>
@@ -242,7 +266,7 @@ class App extends React.Component {
                                   <div className="product-image-wrapper">
                                     <div className="single-products">
                                       <div className="productinfo text-center">
-                                        <img src="resources/imgs/shop/reward5.jpg" alt="" width={230} height={320} />
+                                        <img src={re5} alt="" width={230} height={320} />
                                         <h2 style={{fontSize: '15px'}}>Line Mascot Dolls</h2><br />
                                         <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-eye" />View</a>
                                       </div>
@@ -259,7 +283,7 @@ class App extends React.Component {
                                   <div className="product-image-wrapper">
                                     <div className="single-products">
                                       <div className="productinfo text-center">
-                                        <img src="resources/imgs/shop/reward6.jpg" alt="" width={230} height={320} />
+                                        <img src={re6} alt="" width={230} height={320} />
                                         <h2 style={{fontSize: '15px'}}>Grab Food Voucher</h2><br />
                                         <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-eye" />View</a>
                                       </div>
@@ -276,7 +300,7 @@ class App extends React.Component {
                                   <div className="product-image-wrapper">
                                     <div className="single-products">
                                       <div className="productinfo text-center">
-                                        <img src="resources/imgs/shop/add.png" alt="" width={230} height={320} />
+                                        <img src={adder} alt="" width={230} height={320} />
                                       </div>
                                     </div>
                                   </div>
@@ -359,7 +383,7 @@ class App extends React.Component {
                                   <tbody>
                                     <tr>
                                       <td className="cart_product" style={{float: 'left'}}>
-                                        <a href><img src="resources/imgs/shop/product12.jpg" alt="" width={127} height={158} /></a>
+                                        <a href><img src={pro1} alt="" width={127} height={158} /></a>
                                       </td>
                                       <td className="cart_description" style={{float: 'left'}}>
                                         <br /><h2 className="cart_total_price" style={{textAlign: 'left', fontSize: '18px'}}>      Thai Literature Book 1</h2>
@@ -371,7 +395,7 @@ class App extends React.Component {
                                     </tr>
                                     <tr>
                                       <td className="cart_product" style={{float: 'left'}}>
-                                        <a href><img src="resources/imgs/shop/product11.jpg" alt="" width={127} height={158} /></a>
+                                        <a href><img src={pro2} alt="" width={127} height={158} /></a>
                                       </td>
                                       <td className="cart_description" style={{float: 'left'}}>
                                         <br /><h2 className="cart_total_price" style={{textAlign: 'left', fontSize: '18px'}}>      Mathematic Book 2</h2>
@@ -383,7 +407,7 @@ class App extends React.Component {
                                     </tr>
                                     <tr>
                                       <td className="cart_product" style={{float: 'left'}}>
-                                        <a href><img src="resources/imgs/shop/product10.jpg" alt="" width={127} height={158} /></a>
+                                        <a href><img src={pro3} alt="" width={127} height={158} /></a>
                                       </td>
                                       <td className="cart_description" style={{float: 'left'}}>
                                         <br /><h2 className="cart_total_price" style={{textAlign: 'left', fontSize: '18px'}}>      English Activity Book 3</h2>
@@ -395,7 +419,7 @@ class App extends React.Component {
                                     </tr>
                                     <tr>
                                       <td className="cart_product" style={{float: 'left'}}>
-                                        <a href><img src="resources/imgs/shop/product9.jpg" alt="" width={127} height={158} /></a>
+                                        <a href><img src={pro4} alt="" width={127} height={158} /></a>
                                       </td>
                                       <td className="cart_description" style={{float: 'left'}}>
                                         <br /><h2 className="cart_total_price" style={{textAlign: 'left', fontSize: '18px'}}>      General History Book 4</h2>
@@ -407,7 +431,7 @@ class App extends React.Component {
                                     </tr>
                                     <tr>
                                       <td className="cart_product" style={{float: 'left'}}>
-                                        <a href><img src="resources/imgs/shop/product8.jpg" alt="" width={127} height={158} /></a>
+                                        <a href><img src={pro5} alt="" width={127} height={158} /></a>
                                       </td>
                                       <td className="cart_description" style={{float: 'left'}}>
                                         <br /><h2 className="cart_total_price" style={{textAlign: 'left', fontSize: '18px'}}>      PE Book 5</h2>
@@ -419,7 +443,7 @@ class App extends React.Component {
                                     </tr>
                                     <tr>
                                       <td className="cart_product" style={{float: 'left'}}>
-                                        <a href><img src="resources/imgs/shop/product7.jpg" alt="" width={127} height={158} /></a>
+                                        <a href><img src={pro6} alt="" width={127} height={158} /></a>
                                       </td>
                                       <td className="cart_description" style={{float: 'left'}}>
                                         <br /><h2 className="cart_total_price" style={{textAlign: 'left', fontSize: '18px'}}>      Science Lab Book 6</h2>
@@ -508,7 +532,7 @@ class App extends React.Component {
                                   <tbody>
                                     <tr>
                                       <td className="cart_product" style={{float: 'left'}}>
-                                        <a href><img src="resources/imgs/shop/reward1.jpg" alt="" width={127} height={158} /></a>
+                                        <a href><img src={re1} alt="" width={127} height={158} /></a>
                                       </td>
                                       <td className="cart_description" style={{float: 'left'}}>
                                         <br /><h2 className="cart_total_price" style={{textAlign: 'left', fontSize: '18px'}}>      Nike Air Shoes</h2>
@@ -521,7 +545,7 @@ class App extends React.Component {
                                     </tr>
                                     <tr>
                                       <td className="cart_product" style={{float: 'left'}}>
-                                        <a href><img src="resources/imgs/shop/reward2.jpg" alt="" width={127} height={158} /></a>
+                                        <a href><img src={re2} alt="" width={127} height={158} /></a>
                                       </td>
                                       <td className="cart_description" style={{float: 'left'}}>
                                         <br /><h2 className="cart_total_price" style={{textAlign: 'left', fontSize: '18px'}}>      Skull Ring</h2>
@@ -534,7 +558,7 @@ class App extends React.Component {
                                     </tr>
                                     <tr>
                                       <td className="cart_product" style={{float: 'left'}}>
-                                        <a href><img src="resources/imgs/shop/reward3.jpg" alt="" width={127} height={158} /></a>
+                                        <a href><img src={re3} alt="" width={127} height={158} /></a>
                                       </td>
                                       <td className="cart_description" style={{float: 'left'}}>
                                         <br /><h2 className="cart_total_price" style={{textAlign: 'left', fontSize: '18px'}}>      Major Cineplex Ticket</h2>
@@ -547,7 +571,7 @@ class App extends React.Component {
                                     </tr>
                                     <tr>
                                       <td className="cart_product" style={{float: 'left'}}>
-                                        <a href><img src="resources/imgs/shop/reward4.jpg" alt="" width={127} height={158} /></a>
+                                        <a href><img src={re4} alt="" width={127} height={158} /></a>
                                       </td>
                                       <td className="cart_description" style={{float: 'left'}}>
                                         <br /><h2 className="cart_total_price" style={{textAlign: 'left', fontSize: '18px'}}>      Leather Gloves</h2>
@@ -560,7 +584,7 @@ class App extends React.Component {
                                     </tr>
                                     <tr>
                                       <td className="cart_product" style={{float: 'left'}}>
-                                        <a href><img src="resources/imgs/shop/reward5.jpg" alt="" width={127} height={158} /></a>
+                                        <a href><img src={re5} alt="" width={127} height={158} /></a>
                                       </td>
                                       <td className="cart_description" style={{float: 'left'}}>
                                         <br /><h2 className="cart_total_price" style={{textAlign: 'left', fontSize: '18px'}}>      Line Mascot Dolls</h2>
@@ -573,7 +597,7 @@ class App extends React.Component {
                                     </tr>
                                     <tr>
                                       <td className="cart_product" style={{float: 'left'}}>
-                                        <a href><img src="resources/imgs/shop/reward6.jpg" alt="" width={127} height={158} /></a>
+                                        <a href><img src={re6} alt="" width={127} height={158} /></a>
                                       </td>
                                       <td className="cart_description" style={{float: 'left'}}>
                                         <br /><h2 className="cart_total_price" style={{textAlign: 'left', fontSize: '18px'}}>      Grab Food Voucher</h2>
@@ -674,7 +698,7 @@ class App extends React.Component {
                             </div>
                             <div className="col-md-4">
                               <fieldset>
-                                <img style={{width: '350px', height: '1px'}} src="resources/imgs/shop/white.jpg" alt="" /> 
+                                <img style={{width: '350px', height: '1px'}} src={blank} alt="" /> 
                                 <a href="#" className="btn swappor" style={{float: 'left'}}><i className="fa fa-user" /> Edit Profile</a>
                                 <p style={{float: 'left'}}>      </p>
                                 <a href="#" className="btn swappor" style={{float: 'left'}}><i className="fa fa-lock" /> Change Pass</a>
@@ -725,7 +749,7 @@ Bangkok, 10240" required="required" style={{width: '100%', color: 'black', fontS
                             <div className="col-md-8">
                               <fieldset>
                                 <span className="cart-total-price text-center" style={{fontSize: '18px', color: '#F39C12'}}>   Agency from:</span>
-                                <span className="cart-total-price text-center" style={{fontSize: '16px'}}><img style={{width: '50px', height: '50px'}} src="resources/imgs/shop/grab.png" alt="" /> </span>
+                                <span className="cart-total-price text-center" style={{fontSize: '16px'}}><img style={{width: '50px', height: '50px'}} src={del1} alt="" /> </span>
                               </fieldset>
                             </div>
                             <div className="col-md-12">

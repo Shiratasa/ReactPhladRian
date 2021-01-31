@@ -1,5 +1,17 @@
 import React from 'react';
 import {Helmet} from "react-helmet";
+import wall from "./resources/imgs/wallpaper.jpg";
+import but1 from "./resources/imgs/home.png";
+import but2 from "./resources/imgs/delivery.png";
+import but3 from "./resources/imgs/reward.png";
+import but4 from "./resources/imgs/account.png";
+import but5 from "./resources/imgs/report.png";
+import but6 from "./resources/imgs/logout.png";
+import blank from "./resources/imgs/shop/white.jpg"
+import large from "./resources/imgs/shop/product6.jpg"
+import small1 from "./resources/imgs/shop/1.jpg"
+import small2 from "./resources/imgs/shop/2.jpg"
+import small3 from "./resources/imgs/shop/3.jpg"
 
 class App extends React.Component {
   render (){
@@ -109,19 +121,19 @@ class App extends React.Component {
     `}</style>
         <div className="overlay" />
         <section className="top-part">
-          <img src="resources/imgs/wallpaper.jpg" />
+          <img src={wall} />
         </section>
         <section className="cd-hero">
           <div className="cd-slider-nav">
             <nav>
               <span className="cd-marker item-1" />
               <ul>
-                <li><a href="#0"><div className="image-icon"><img src="resources/imgs/home.png" width={40} height={35} /></div><h6>Home</h6></a></li>
-                <li className="selected"><a href="#0"><div className="image-icon"><img src="resources/imgs/delivery.png" width={45} height={33} /></div><h6>Delivery</h6></a></li>
-                <li><a href="#0"><div className="image-icon"><img src="resources/imgs/reward.png" width={45} height={40} /></div><h6>Trade</h6></a></li>
-                <li><a href="#0"><div className="image-icon"><img src="resources/imgs/account.png" width={40} height={38} /></div><h6>Account</h6></a></li>
-                <li><a href="#0"><div className="image-icon"><img src="resources/imgs/report.png" width={38} height={33} /></div><h6>Contact</h6></a></li>
-                <li><a href="#0"><div className="image-icon"><img src="resources/imgs/logout.png" width={39} height={35} /></div><h6>Logout</h6></a></li>
+                <li><a href="#0"><div className="image-icon"><img src={but1} width={40} height={35} /></div><h6>Home</h6></a></li>
+                <li className="selected"><a href="#0"><div className="image-icon"><img src={but2} width={45} height={33} /></div><h6>Delivery</h6></a></li>
+                <li><a href="#0"><div className="image-icon"><img src={but3} width={45} height={40} /></div><h6>Trade</h6></a></li>
+                <li><a href="#0"><div className="image-icon"><img src={but4} width={40} height={38} /></div><h6>Account</h6></a></li>
+                <li><a href="#0"><div className="image-icon"><img src={but5} width={38} height={33} /></div><h6>Contact</h6></a></li>
+                <li><a href="#0"><div className="image-icon"><img src={but6} width={39} height={35} /></div><h6>Logout</h6></a></li>
               </ul>
             </nav> 
           </div> 
@@ -152,9 +164,28 @@ class App extends React.Component {
                                       <a className="cart_quantity_delete" href><i className="fa fa-times" /></a>
                                     </td>
                                   </tr></tbody></table>
-                              <fieldset>
-                                <img src="resources/imgs/QR.png" width={200} height={200} className="midimg" />                         
-                              </fieldset>
+                                                          <div className="container">
+                          <div id="gallery" className="col-sm-3">
+                            <a href={large}>
+                              <img src={large} width={250} height={340} />
+                            </a><br /><br />
+                          </div>  
+                          <div className="col-sm-9">
+                            <h2 className="title text-center">O-NET Examination Book</h2>
+                            <hr className="soft" />
+                            <h4 style={{textAlign: 'left'}}>General Information</h4>
+                            <table className="table table-bordered">
+                              <tbody>
+                                <tr className="techSpecRow"><td className="techSpecTD1"><b>Category:</b></td><td className="techSpecTD2">Book</td></tr>
+                                <tr className="techSpecRow"><td className="techSpecTD1"><b>School:</b></td><td className="techSpecTD2">Assumption</td></tr>
+                                <tr className="techSpecRow"><td className="techSpecTD1"><b>Release:</b></td><td className="techSpecTD2">13-11-2020</td></tr>
+                                <tr className="techSpecRow"><td className="techSpecTD1"><b>Condition:</b></td><td className="techSpecTD2">80%</td></tr>
+                                <tr className="techSpecRow"><td className="techSpecTD1"><b>Fragile:</b></td><td className="techSpecTD2">No</td></tr>
+                                <tr className="techSpecRow"><td className="techSpecTD1"><b>Payment:</b></td><td className="techSpecTD2">Shipping Cost</td></tr>
+                              </tbody>
+                            </table>
+                           </div>
+                        </div>
                             </div>
                             <div className="col-md-12">
                               <fieldset>
