@@ -24,6 +24,8 @@ import re4 from "./resources/imgs/shop/reward4.jpg";
 import re5 from "./resources/imgs/shop/reward5.jpg";
 import re6 from "./resources/imgs/shop/reward6.jpg";
 import del1 from "./resources/imgs/shop/grab.png";
+import eng from "./resources/imgs/authen/eng.png";
+import tha from "./resources/imgs/authen/tha.png";
 
 class App extends React.Component {
   render (){
@@ -130,12 +132,27 @@ class App extends React.Component {
         background-color: orange; 
         color: white;
       }
+      .demo a:hover
+      {
+        background-color: orange; 
+        color: white;
+      }
+        .reddit 
+      {
+          border: 2px solid red;
+      }
+    .reddot:hover 
+      {
+          border: 2px solid red;
+      }
     `}</style>
         <div className="overlay" />
         <section className="top-part">
           <img src={wall} />
         </section>
         <section className="cd-hero">
+        <br /><img src={eng} width={25} height={25} className="reddit" style={{position: "absolute", top: 25, right: 30}}/>
+  					<img src={tha} width={25} height={25} className="reddot" style={{position: "absolute", top: 25, right: 70}} />
           <div className="cd-slider-nav">
             <nav>
               <span className="cd-marker item-1" />

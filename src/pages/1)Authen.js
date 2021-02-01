@@ -3,6 +3,8 @@ import {Helmet} from "react-helmet";
 import book from "./resources/web_logo_bg.png";
 import ScriptTag from 'react-script-tag';
 import props from 'prop-types';
+import eng from "./resources/imgs/authen/eng.png";
+import tha from "./resources/imgs/authen/tha.png";
 import {
     BrowserRouter as Router,
     Route, useHistory
@@ -59,13 +61,23 @@ class App extends React.Component {
   {
     background-image: url('resources/imgs/authen/slide-1.jpg');
   }
+  .reddit 
+      {
+          border: 2px solid red;
+      }
+    .reddot:hover 
+      {
+          border: 2px solid red;
+      }
   `}</style>
         <section id="home" style={{backgroundImage: `url("resources/imgs/authen/slide-1.jpg")`, backgroundSize: "cover"}}>
           <div className="container">
             <div className="row">
+                              <br /><img src={eng} width={25} height={25} className="reddit" style={{position: "absolute", top: 25, right: 30}}/>
+  					<img src={tha} width={25} height={25} className="reddot" style={{position: "absolute", top: 25, right: 70}} />
               <div className="col-md-offset-2 col-md-8 col-sm-12">
                 <div className="home-thumb">
-                  <br /><br /><br /><br />
+                  <br /><br /><br />
                   <img src={book} width={125} height={125} />
                   <br /><br /><br />
                   <h1 className="wow fadeInUp" data-wow-delay="0.4s" style={{color: '#F39C12'}}>Welcome to<br />Phlad Rian Community</h1>
