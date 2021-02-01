@@ -82,7 +82,8 @@ class App extends React.Component {
                   <br /><br /><br />
                   <h1 className="wow fadeInUp" data-wow-delay="0.4s" style={{color: '#F39C12'}}>Welcome to<br />Phlad Rian Community</h1>
                   <a href="#about" data-toggle="modal" data-target="#modal1" className="btn btn-lg btn-default smoothScroll wow fadeInUp hidden-xs" data-wow-delay="0.6s">Sign In</a>
-                  <a href="#" data-toggle="modal" data-target="#modal2" className="btn btn-lg btn-success smoothScroll wow fadeInUp" data-wow-delay="0.8s">Sign Up</a>
+                  <a href="#" data-toggle="modal" data-target="#modal2" className="btn btn-lg btn-success smoothScroll wow fadeInUp" data-wow-delay="0.8s">Receiver Sign Up</a>
+                  <a href="#" data-toggle="modal" data-target="#modal3" className="btn btn-lg btn-success smoothScroll wow fadeInUp" data-wow-delay="0.8s">Donor Sign Up</a>
                   <br /><br /><br /><br />
                   <h3 className="wow fadeInUp" data-wow-delay="1.0s"><strong>Let's share our learning tools together!</strong></h3>
                 </div>
@@ -105,7 +106,7 @@ class App extends React.Component {
                 <br /><br /><br />
                 <input name="password" type="text" className="form-control" id="password" placeholder="Password" />
                 <br /><br /><br /><br /><br /><br />
-                <input name="submit" type="submit" className="form-control" id="submit" defaultValue="Log-in" /> {/*type="button" onclick={"props.history.push({R_Main})"}*/}
+                <input name="submit" type="submit" className="form-control" id="submit" defaultValue="Log-in" onclick={window.open({R_Main})} /> {/*type="button" onclick={"props.history.push({R_Main})"}*/}
               </form>
               <p>Welcome back to our community!</p><br />
             </div>
@@ -119,7 +120,7 @@ class App extends React.Component {
             <div className="modal-content modal-popup">
               <div className="modal-header">
                 <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <br /><h2 className="modal-title">Registration</h2>
+                <br /><h2 className="modal-title">Receiver Registration</h2>
               </div>
               <form action="#" method="post">
                 <input name="username" type="text" className="form-control" id="username" placeholder="Username" />
@@ -128,7 +129,25 @@ class App extends React.Component {
                 <input name="c_password" type="text" className="form-control" id="c_password" placeholder="Confirm Password" />
                 <label for="Student ID" style={{color: 'red', fontSize: '15px'}}>Student ID</label>
                 <input name="Student ID" type="file" className="form-control" id="card" placeholder="Student ID" />
-                <br />
+                <input name="submit" type="submit" className="form-control" id="submit" defaultValue="Create Account" />
+              </form>
+              <p>Thank you for your visiting!</p><br />
+            </div>
+          </div>
+        </div>
+        <div className="modal fade" id="modal3" tabIndex={-1} role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div className="modal-dialog">
+            <div className="modal-content modal-popup">
+              <div className="modal-header">
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <br /><h2 className="modal-title">Donor Registration</h2>
+              </div>
+              <form action="#" method="post">
+                <input name="username" type="text" className="form-control" id="username" placeholder="Username" />
+                <input name="email" type="text" className="form-control" id="email" placeholder="Email Address" />
+                <input name="password" type="text" className="form-control" id="password" placeholder="Password" />
+                <input name="c_password" type="text" className="form-control" id="c_password" placeholder="Confirm Password" />
+                <br /><br /><br /><br />
                 <input name="submit" type="submit" className="form-control" id="submit" defaultValue="Create Account" />
               </form>
               <p>Thank you for your visiting!</p><br />
