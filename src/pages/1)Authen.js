@@ -7,12 +7,13 @@ import eng from "./resources/imgs/authen/eng.png";
 import tha from "./resources/imgs/authen/tha.png";
 import {
     BrowserRouter as Router,
-    Route, useHistory
+    Route, useHistory, withRouter
 } from 'react-router-dom'
-import R_Main from "./3)Receiver_Main.js";
-import D_Main from "./2)Donor_Main.js";
 
 class App extends React.Component {
+	handleClick1 = () => {this.props.history.push("/r_main");}
+  handleClick2 = () => {this.props.history.push("/d_main");}
+  handleClick3 = () => {this.props.history.push("/s_main");}
   render (){
     return (
       <div className="App">
@@ -106,7 +107,7 @@ class App extends React.Component {
                 <br /><br /><br />
                 <input name="password" type="text" className="form-control" id="password" placeholder="Password" />
                 <br /><br /><br /><br /><br /><br />
-                <input name="submit" type="submit" className="form-control" id="submit" defaultValue="Log-in" onclick={window.open({R_Main})} /> {/*type="button" onclick={"props.history.push({R_Main})"}*/}
+                <input name="submit" type="submit" className="form-control" id="submit" defaultValue="Log-in" onClick={this.handleClick3} /> {/*type="button" onclick={"props.history.push({R_Main})"}*/}
               </form>
               <p>Welcome back to our community!</p><br />
             </div>
@@ -129,7 +130,7 @@ class App extends React.Component {
                 <input name="c_password" type="text" className="form-control" id="c_password" placeholder="Confirm Password" />
                 <label for="Student ID" style={{color: 'red', fontSize: '15px'}}>Student ID</label>
                 <input name="Student ID" type="file" className="form-control" id="card" placeholder="Student ID" />
-                <input name="submit" type="submit" className="form-control" id="submit" defaultValue="Create Account" />
+                <input name="submit" type="submit" className="form-control" id="submit" defaultValue="Create Account" onClick={this.handleClick1} />
               </form>
               <p>Thank you for your visiting!</p><br />
             </div>
@@ -148,7 +149,7 @@ class App extends React.Component {
                 <input name="password" type="text" className="form-control" id="password" placeholder="Password" />
                 <input name="c_password" type="text" className="form-control" id="c_password" placeholder="Confirm Password" />
                 <br /><br /><br /><br />
-                <input name="submit" type="submit" className="form-control" id="submit" defaultValue="Create Account" />
+                <input name="submit" type="submit" className="form-control" id="submit" defaultValue="Create Account" onClick={this.handleClick2}/>
               </form>
               <p>Thank you for your visiting!</p><br />
             </div>
@@ -160,4 +161,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withRouter (App);

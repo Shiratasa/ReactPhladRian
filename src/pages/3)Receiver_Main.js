@@ -19,6 +19,10 @@ import pro7 from "./resources/imgs/shop/product6.jpg";
 import card from "./resources/imgs/ID.png";
 import eng from "./resources/imgs/authen/eng.png";
 import tha from "./resources/imgs/authen/tha.png";
+import {
+    BrowserRouter as Router,
+    Route, useHistory, withRouter
+} from 'react-router-dom'
 
 class App extends React.Component {
   render (){
@@ -924,4 +928,4 @@ Bangkok, 10240" required="required" style={{width: '100%', color: 'black', fontS
   }
 }
 
-export default App;
+export default withRouter (App);

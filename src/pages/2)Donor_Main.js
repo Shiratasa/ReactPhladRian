@@ -25,6 +25,10 @@ import re5 from "./resources/imgs/shop/reward5.jpg";
 import re6 from "./resources/imgs/shop/reward6.jpg";
 import eng from "./resources/imgs/authen/eng.png";
 import tha from "./resources/imgs/authen/tha.png";
+import {
+    BrowserRouter as Router,
+    Route, useHistory, withRouter
+} from 'react-router-dom'
 
 class App extends React.Component {
   render (){
@@ -330,7 +334,7 @@ class App extends React.Component {
                                       <div className="productinfo text-center">
                                         <img src={pro7} alt="" width={230} height={320} />
                                         <h2 style={{fontSize: '15px'}}>O-NET Examination Book</h2><br />
-                                        <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-eye" />View</a>
+                                        <a href="/d_item" className="btn btn-default add-to-cart"><i className="fa fa-eye" />View</a>
                                       </div>
                                     </div>
                                     <div className="choose">
@@ -912,4 +916,4 @@ Bangkok, 10240" required="required" style={{width: '100%', color: 'black', fontS
   }
 }
 
-export default App;
+export default withRouter (App);

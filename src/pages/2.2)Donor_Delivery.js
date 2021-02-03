@@ -16,6 +16,10 @@ import del5 from "./resources/imgs/shop/thai.png";
 import del6 from "./resources/imgs/shop/lala.png";
 import eng from "./resources/imgs/authen/eng.png";
 import tha from "./resources/imgs/authen/tha.png";
+import {
+    BrowserRouter as Router,
+    Route, useHistory, withRouter
+} from 'react-router-dom'
 
 class App extends React.Component {
   render (){
@@ -277,4 +281,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withRouter (App);
