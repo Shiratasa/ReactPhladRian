@@ -30,6 +30,9 @@ function App() {
                     <Route exact path="/">
                         <Authen />
                     </Route>
+                    <Route exact path="/authen">
+                        <Authen />
+                    </Route>
                     <Route path="/d_main">
                         <D_Main />
                     </Route>

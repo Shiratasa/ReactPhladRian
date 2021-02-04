@@ -182,7 +182,7 @@ class App extends React.Component {
                             <div className="col-md-12">
                               <table className="table-condensed" style={{float: 'right'}}>
                                 <tbody><tr><td className="cart_delete">
-                                      <a className="cart_quantity_delete" href><i className="fa fa-times" /></a>
+                                      <a className="cart_quantity_delete" href="/s_main"><i className="fa fa-times" /></a>
                                     </td>
                                   </tr></tbody></table>
                                                           <div className="container">
@@ -280,7 +280,7 @@ Bangkok, 10110" required="required" style={{width: '100%', color: 'black', fontS
                             </div>
                             <div className="col-md-12">
                               <fieldset>
-                                <a href="#" className="btn swappor" style={{float: 'right'}}><i className="fa fa-truck" /> Start Delivery</a>
+                                <a  className="btn swappor" style={{float: 'right'}}><i className="fa fa-truck" /> Start Delivery</a>
                               </fieldset>
                               <div className="col-md-12">
                                 <fieldset>

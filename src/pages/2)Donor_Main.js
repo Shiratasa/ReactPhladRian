@@ -211,7 +211,7 @@ class App extends React.Component {
                               <div className="brands_products">
                                 <h2>Search</h2>
                                 <div className="brands-name">
-                                  <form action="#" className="searchform">
+                                  <form action="" className="searchform">
                                     <input type="text" placeholder="Item Name" style={{color: 'black', fontSize: '15px'}} required="required" />
                                     <button type="submit" className="btn btn-default" style={{height: '33px'}}><i className="fa fa-arrow-circle-o-right" /></button>
                                   </form>
@@ -232,7 +232,7 @@ class App extends React.Component {
                                       <div className="productinfo text-center">
                                         <img src={pro1} alt="" width={230} height={320} />
                                         <h2 style={{fontSize: '15px'}}>Thai Literature Book 1</h2><br />
-                                        <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-eye" />View</a>
+                                        <a href="/d_item" className="btn btn-default add-to-cart"><i className="fa fa-eye" />View</a>
                                       </div>
                                     </div>
                                     <div className="choose">
@@ -249,7 +249,7 @@ class App extends React.Component {
                                       <div className="productinfo text-center">
                                         <img src={pro2} alt="" width={230} height={320} />
                                         <h2 style={{fontSize: '15px'}}>Mathematic Book 2</h2><br />
-                                        <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-eye" />View</a>
+                                        <a href="/d_item" className="btn btn-default add-to-cart"><i className="fa fa-eye" />View</a>
                                       </div>
                                     </div>
                                     <div className="choose">
@@ -266,7 +266,7 @@ class App extends React.Component {
                                       <div className="productinfo text-center">
                                         <img src={pro3} alt="" width={230} height={320} />
                                         <h2 style={{fontSize: '15px'}}>English Activity Book 3</h2><br />
-                                        <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-eye" />View</a>
+                                        <a href="/d_item" className="btn btn-default add-to-cart"><i className="fa fa-eye" />View</a>
                                       </div>
                                     </div>
                                     <div className="choose">
@@ -283,7 +283,7 @@ class App extends React.Component {
                                       <div className="productinfo text-center">
                                         <img src={pro4} alt="" width={230} height={320} />
                                         <h2 style={{fontSize: '15px'}}>General History Book 4</h2><br />
-                                        <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-eye" />View</a>
+                                        <a href="/d_item" className="btn btn-default add-to-cart"><i className="fa fa-eye" />View</a>
                                       </div>
                                     </div>
                                     <div className="choose">
@@ -300,7 +300,7 @@ class App extends React.Component {
                                       <div className="productinfo text-center">
                                         <img src={pro5} alt="" width={230} height={320} />
                                         <h2 style={{fontSize: '15px'}}>PE Book 5</h2><br />
-                                        <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-eye" />View</a>
+                                        <a href="/d_item" className="btn btn-default add-to-cart"><i className="fa fa-eye" />View</a>
                                       </div>
                                     </div>
                                     <div className="choose">
@@ -317,7 +317,7 @@ class App extends React.Component {
                                       <div className="productinfo text-center">
                                         <img src={pro6} alt="" width={230} height={320} />
                                         <h2 style={{fontSize: '15px'}}>Science Lab Book 6</h2><br />
-                                        <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-eye" />View</a>
+                                        <a href="/d_item" className="btn btn-default add-to-cart"><i className="fa fa-eye" />View</a>
                                       </div>
                                     </div>
                                     <div className="choose">
@@ -439,7 +439,7 @@ class App extends React.Component {
                                         <p style={{textAlign: 'justify'}}>         Thai book with a summary of the content example of doing the problem Both a basic form and a shortcut way with<br />         exercises and solutions by explaining in simple language, according to the latest curriculum by explaining to be<br />         easy to understand, not boring, to create a good attitude...</p>
                                       </td>
                                       <td className="cart_delete" style={{float: 'right'}}><br /><br /><br /><br /><br /><br /><br />
-                                        <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-truck" />Deliver</a>
+                                        <a href="/d_deli" className="btn btn-default add-to-cart"><i className="fa fa-truck" />Deliver</a>
                                       </td>
                                     </tr>
                                     <tr>
@@ -451,7 +451,7 @@ class App extends React.Component {
                                         <p style={{textAlign: 'justify'}}>         Math book with a summary of the content example of doing the problem Both a basic form and a shortcut way with<br />         exercises and solutions by explaining in simple language, according to the latest curriculum by explaining to be<br />         easy to understand, not boring, to create a good attitude...</p>
                                       </td>
                                       <td className="cart_delete" style={{float: 'right'}}><br /><br /><br /><br /><br /><br /><br />
-                                        <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-truck" />Deliver</a>
+                                        <a href="/d_deli" className="btn btn-default add-to-cart"><i className="fa fa-truck" />Deliver</a>
                                       </td>
                                     </tr>
                                     <tr>
@@ -586,10 +586,10 @@ class App extends React.Component {
                                       <td className="cart_description" style={{float: 'left'}}>
                                         <br /><h2 className="cart_total_price" style={{textAlign: 'left', fontSize: '18px'}}>      Nike Air Shoes</h2>
                                         <p style={{textAlign: 'justify'}}>         Good-quality and valuable shoes. It is very useful and versatile. A worth reward to be traded with your point.<br />         We normally sell this item at high price since it is considered as limited edition item which is rarely made.<br />         Get this thing under your possession and enjoy....</p>
-                                        <a href="#" className="btn btn-default add-to-cart" style={{float: 'left'}}><i className="fa fa-eye" />View</a>
+                                        <a  className="btn btn-default add-to-cart" style={{float: 'left'}}><i className="fa fa-eye" />View</a>
                                       </td>
                                       <td className="cart_delete" style={{float: 'right'}}><br /><br /><br /><br /><br /><br /><br />
-                                        <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-clock-o" />Confirm</a>
+                                        <a href="/d_rewa" className="btn btn-default add-to-cart"><i className="fa fa-clock-o" />Confirm</a>
                                       </td>
                                     </tr>
                                     <tr>
@@ -599,10 +599,10 @@ class App extends React.Component {
                                       <td className="cart_description" style={{float: 'left'}}>
                                         <br /><h2 className="cart_total_price" style={{textAlign: 'left', fontSize: '18px'}}>      Skull Ring</h2>
                                         <p style={{textAlign: 'justify'}}>         Good-quality and valuable ring. It is very useful and versatile. A worth reward to be traded with your point.<br />         We normally sell this item at high price since it is considered as limited edition item which is rarely made.<br />         Get this thing under your possession and enjoy....</p>
-                                        <a href="#" className="btn btn-default add-to-cart" style={{float: 'left'}}><i className="fa fa-eye" />View</a>
+                                        <a  className="btn btn-default add-to-cart" style={{float: 'left'}}><i className="fa fa-eye" />View</a>
                                       </td>
                                       <td className="cart_delete" style={{float: 'right'}}><br /><br /><br /><br /><br /><br /><br />
-                                        <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-clock-o" />Confirm</a>
+                                        <a href="/d_rewa" className="btn btn-default add-to-cart"><i className="fa fa-clock-o" />Confirm</a>
                                       </td>
                                     </tr>
                                     <tr>
@@ -612,7 +612,7 @@ class App extends React.Component {
                                       <td className="cart_description" style={{float: 'left'}}>
                                         <br /><h2 className="cart_total_price" style={{textAlign: 'left', fontSize: '18px'}}>      Major Cineplex Ticket</h2>
                                         <p style={{textAlign: 'justify'}}>         Good-quality and valuable ticket. It is very useful and versatile. A worth reward to be traded with your point.<br />         We normally sell this item at high price since it is considered as limited edition item which is rarely made.<br />         Get this thing under your possession and enjoy....</p>
-                                        <a href="#" className="btn btn-default add-to-cart" style={{float: 'left'}}><i className="fa fa-eye" />View</a>
+                                        <a  className="btn btn-default add-to-cart" style={{float: 'left'}}><i className="fa fa-eye" />View</a>
                                       </td>
                                       <td className="cart_delete" style={{float: 'right'}}><br /><br /><br /><br /><br /><br /><br />
                                         <h2 style={{fontSize: '18px'}}><i className="fa fa-clock-o" />Pending...</h2>
@@ -625,7 +625,7 @@ class App extends React.Component {
                                       <td className="cart_description" style={{float: 'left'}}>
                                         <br /><h2 className="cart_total_price" style={{textAlign: 'left', fontSize: '18px'}}>      Leather Gloves</h2>
                                         <p style={{textAlign: 'justify'}}>         Good-quality and valuable gloves. It is very useful and versatile. A worth reward to be traded with your point.<br />         We normally sell this item at high price since it is considered as limited edition item which is rarely made.<br />         Get this thing under your possession and enjoy....</p>
-                                        <a href="#" className="btn btn-default add-to-cart" style={{float: 'left'}}><i className="fa fa-eye" />View</a>
+                                        <a  className="btn btn-default add-to-cart" style={{float: 'left'}}><i className="fa fa-eye" />View</a>
                                       </td>
                                       <td className="cart_delete" style={{float: 'right'}}><br /><br /><br /><br /><br /><br /><br />
                                         <h2 style={{fontSize: '18px'}}><i className="fa fa-clock-o" />Pending...</h2>
@@ -638,7 +638,7 @@ class App extends React.Component {
                                       <td className="cart_description" style={{float: 'left'}}>
                                         <br /><h2 className="cart_total_price" style={{textAlign: 'left', fontSize: '18px'}}>      Line Mascot Dolls</h2>
                                         <p style={{textAlign: 'justify'}}>         Good-quality and valuable doll. It is very useful and versatile. A worth reward to be traded with your point.<br />         We normally sell this item at high price since it is considered as limited edition item which is rarely made.<br />         Get this thing under your possession and enjoy....</p>
-                                        <a href="#" className="btn btn-default add-to-cart" style={{float: 'left'}}><i className="fa fa-eye" />View</a>
+                                        <a  className="btn btn-default add-to-cart" style={{float: 'left'}}><i className="fa fa-eye" />View</a>
                                       </td>
                                       <td className="cart_delete" style={{float: 'right', color: '#F39C12'}}><br /><br /><br /><br /><br /><br /><br />
                                         <h2 style={{fontSize: '18px'}}><i className="fa fa-check" />Received</h2>
@@ -651,7 +651,7 @@ class App extends React.Component {
                                       <td className="cart_description" style={{float: 'left'}}>
                                         <br /><h2 className="cart_total_price" style={{textAlign: 'left', fontSize: '18px'}}>      Grab Food Voucher</h2>
                                         <p style={{textAlign: 'justify'}}>         Good-quality and valuable voucher. It is very useful and versatile. A worth reward to be traded with your point.<br />         We normally sell this item at high price since it is considered as limited edition item which is rarely made.<br />         Get this thing under your possession and enjoy....</p>
-                                        <a href="#" className="btn btn-default add-to-cart" style={{float: 'left'}}><i className="fa fa-eye" />View</a>
+                                        <a  className="btn btn-default add-to-cart" style={{float: 'left'}}><i className="fa fa-eye" />View</a>
                                       </td>
                                       <td className="cart_delete" style={{float: 'right', color: '#F39C12'}}><br /><br /><br /><br /><br /><br /><br />
                                         <h2 style={{fontSize: '18px'}}><i className="fa fa-check" />Received</h2>
@@ -748,9 +748,9 @@ class App extends React.Component {
                             <div className="col-md-4">
                               <fieldset>
                                 <img style={{width: '350px', height: '1px'}} src={blank} alt="" /> 
-                                <a href="#" className="btn swappor" style={{float: 'left'}}><i className="fa fa-user" /> Edit Profile</a>
+                                <a  className="btn swappor" style={{float: 'left'}}><i className="fa fa-user" /> Edit Profile</a>
                                 <p style={{float: 'left'}}>      </p>
-                                <a href="#" className="btn swappor" style={{float: 'left'}}><i className="fa fa-lock" /> Change Pass</a>
+                                <a  className="btn swappor" style={{float: 'left'}}><i className="fa fa-lock" /> Change Pass</a>
                               </fieldset>
                             </div>
                             <div className="col-md-12">
@@ -860,9 +860,9 @@ Bangkok, 10240" required="required" style={{width: '100%', color: 'black', fontS
                               <p align="justify"> This section can be used to report about the critical situations that happen within this website only. Please DO NOT send the nonsensical message that is considered deceived or unrelated to this website. Spamming action is also not allowed. Any violence toward these rules will not be tolerated and must receive the punishment.<br /><br /></p>
                               <em>You can follow our work through these directions</em><br /><br />
                               <ul>
-                                <i><a href="#"><i className="fa fa-facebook" /></a></i>
-                                <i><a href="#"><i className="fa fa-youtube" /></a></i>
-                                <i><a href="#"><i className="fa fa-github" /></a></i>
+                                <i><a ><i className="fa fa-facebook" /></a></i>
+                                <i><a ><i className="fa fa-youtube" /></a></i>
+                                <i><a ><i className="fa fa-github" /></a></i>
                               </ul>
                             </div>
                           </div>
@@ -886,7 +886,7 @@ Bangkok, 10240" required="required" style={{width: '100%', color: 'black', fontS
                                 </div>
                                 <div className="col-md-12">
                                   <fieldset>
-                                    <br /><a href="#" className="btn swappor" style={{float: 'right'}}>Send Report</a>
+                                    <br /><a  className="btn swappor" style={{float: 'right'}}>Send Report</a>
                                   </fieldset>
                                 </div>
                               </form>
@@ -902,7 +902,7 @@ Bangkok, 10240" required="required" style={{width: '100%', color: 'black', fontS
             <li>
               <div className="heading">
                 <h1>Logout</h1>
-                <span>...</span> 
+                <a href="/authen" className="button">EXIT</a>
               </div>
             </li>
           </ul> 

@@ -188,7 +188,7 @@ class App extends React.Component {
                           <div className="col-sm-9">
                             <table className="table-condensed" style={{float: 'right'}}>
                               <tbody><tr><td className="cart_delete">
-                                    <a className="cart_quantity_delete" href><i className="fa fa-times" /></a>
+                                    <a className="cart_quantity_delete" href="/d_main"><i className="fa fa-times" /></a>
                                   </td>
                                 </tr></tbody></table>
                             <h2 className="title text-center">O-NET Examination Book</h2>

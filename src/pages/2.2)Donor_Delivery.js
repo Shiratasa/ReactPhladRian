@@ -184,7 +184,7 @@ class App extends React.Component {
                             <div className="col-md-12">
                               <table className="table-condensed" style={{float: 'right'}}>
                                 <tbody><tr><td className="cart_delete">
-                                      <a className="cart_quantity_delete" href><i className="fa fa-times" /></a>
+                                      <a className="cart_quantity_delete" href="/d_main"><i className="fa fa-times" /></a>
                                     </td>
                                   </tr></tbody></table>
                               <h2 style={{fontSize: '18px', color: '#F39C12', textAlign: 'left'}}>Most suitable service</h2><br />
@@ -229,7 +229,7 @@ class App extends React.Component {
                             </div>  
                             <div className="col-md-12">
                               <fieldset>
-                                <a href="#" className="btn swappor" style={{float: 'right'}}><i className="fa fa-qrcode" /> Send QR to agency</a>
+                                <a  className="btn swappor" style={{float: 'right'}}><i className="fa fa-qrcode" /> Send QR to agency</a>
                               </fieldset>
                             </div>  
                             <div className="col-md-12">
