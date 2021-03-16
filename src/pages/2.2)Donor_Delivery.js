@@ -229,7 +229,7 @@ class App extends React.Component {
                             </div>  
                             <div className="col-md-12">
                               <fieldset>
-                                <a  className="btn swappor" style={{float: 'right'}}><i className="fa fa-qrcode" /> Send QR to agency</a>
+                                <a  className="btn swappor" style={{float: 'right'}}><i className="fa fa-qrcode" /> Send to agency</a>
                               </fieldset>
                             </div>  
                             <div className="col-md-12">

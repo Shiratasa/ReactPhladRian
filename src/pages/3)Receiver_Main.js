@@ -117,26 +117,23 @@ class App extends React.Component {
       }
       .demo a
       {
-        color: red; 
+        color: grey; 
         padding: 5px 12px; 
         text-decoration: none; 
         transition: background-color 2s; 
-        border: 1px solid orange; 
+        border: 1px solid grey; 
         font-size: 15px;
       } 
       .demo a.active
       {
         background-color: orange; 
+        border: 1px solid orange; 
         color: white;
       }
             .demo a:hover
       {
         background-color: orange; 
-        color: white;
-      }
-      .demo a:hover
-      {
-        background-color: orange; 
+        border: 1px solid orange; 
         color: white;
       }
         .reddit 
@@ -223,10 +220,7 @@ class App extends React.Component {
                                     <a href><i className="fa fa-bell" /> Confirm</a>
                                   </div>
                                 </div>
-                              </div><br /><br /><br /><br />
-                              <div className="brands_products">{/*-shipping-*/}
-                                <img src={ship} alt="" width={265} height={315} />
-                              </div>{/*-/shipping-*/}	
+                              </div>	
                             </div>
                             <div className="col-sm-9 padding-right">
                               <div className="features_items">{/*-features_items-*/}
@@ -273,57 +267,6 @@ class App extends React.Component {
                                       <div className="productinfo text-center">
                                         <img src={pro3} alt="" width={230} height={320} />
                                         <h2 style={{fontSize: '15px'}}>English Activity Book 3</h2><br />
-                                        <a href="/r_item" className="btn btn-default add-to-cart"><i className="fa fa-eye" />View</a>
-                                      </div>
-                                    </div>
-                                    <div className="choose">
-                                      <ul className="nav nav-pills nav-justified">
-                                        <li><a href><i className="fa fa-plus-square" />Add to wishlist</a></li>
-                                        <li><a href><i className="fa fa-plus-square" />Add to wishlist</a></li>
-                                      </ul>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="col-sm-4">
-                                  <div className="product-image-wrapper">
-                                    <div className="single-products">
-                                      <div className="productinfo text-center">
-                                        <img src={pro4} alt="" width={230} height={320} />
-                                        <h2 style={{fontSize: '15px'}}>General History Book 4</h2><br />
-                                        <a href="/r_item" className="btn btn-default add-to-cart"><i className="fa fa-eye" />View</a>
-                                      </div>
-                                    </div>
-                                    <div className="choose">
-                                      <ul className="nav nav-pills nav-justified">
-                                        <li><a href><i className="fa fa-plus-square" />Add to wishlist</a></li>
-                                        <li><a href><i className="fa fa-plus-square" />Add to wishlist</a></li>
-                                      </ul>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="col-sm-4">
-                                  <div className="product-image-wrapper">
-                                    <div className="single-products">
-                                      <div className="productinfo text-center">
-                                        <img src={pro5} alt="" width={230} height={320} />
-                                        <h2 style={{fontSize: '15px'}}>PE Book 5</h2><br />
-                                        <a href="/r_item" className="btn btn-default add-to-cart"><i className="fa fa-eye" />View</a>
-                                      </div>
-                                    </div>
-                                    <div className="choose">
-                                      <ul className="nav nav-pills nav-justified">
-                                        <li><a href><i className="fa fa-plus-square" />Add to wishlist</a></li>
-                                        <li><a href><i className="fa fa-plus-square" />Add to wishlist</a></li>
-                                      </ul>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="col-sm-4">
-                                  <div className="product-image-wrapper">
-                                    <div className="single-products">
-                                      <div className="productinfo text-center">
-                                        <img src={pro6} alt="" width={230} height={320} />
-                                        <h2 style={{fontSize: '15px'}}>Science Lab Book 6</h2><br />
                                         <a href="/r_item" className="btn btn-default add-to-cart"><i className="fa fa-eye" />View</a>
                                       </div>
                                     </div>
@@ -422,7 +365,7 @@ class App extends React.Component {
                                 <table className="table table-condensed">
                                   <thead>
                                     <tr className="cart_menu">
-                                      <td className="image" style={{textAlign: 'left'}}>Request Items (11/100)</td>
+                                      <td className="image" style={{textAlign: 'left'}}>Request Items (3/100)</td>
                                       <td className="description" />
                                       <td />
                                     </tr>
@@ -449,7 +392,7 @@ class App extends React.Component {
                                         <p style={{textAlign: 'justify'}}>         Math book with a summary of the content example of doing the problem Both a basic form and a shortcut way with<br />         exercises and solutions by explaining in simple language, according to the latest curriculum by explaining to be<br />         easy to understand, not boring, to create a good attitude...</p>
                                       </td>
                                       <td className="cart_delete" style={{float: 'right'}}><br /><br /><br /><br /><br /><br /><br />
-                                        <a  className="btn btn-default add-to-cart"><i className="fa fa-clock-o" />Confirm</a>
+                                        <h2 style={{fontSize: '18px'}}><i className="fa fa-clock-o" />Pending...</h2>
                                       </td>
                                     </tr>
                                     <tr>
@@ -461,43 +404,7 @@ class App extends React.Component {
                                         <p style={{textAlign: 'justify'}}>         English book with a summary of the content example of doing the problem Both a basic form and a shortcut way with<br />         exercises and solutions by explaining in simple language, according to the latest curriculum by explaining to be<br />         easy to understand, not boring, to create a good attitude...</p>
                                       </td>
                                       <td className="cart_delete" style={{float: 'right'}}><br /><br /><br /><br /><br /><br /><br />
-                                        <h2 style={{fontSize: '18px'}}><i className="fa fa-clock-o" />Pending...</h2>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td className="cart_product" style={{float: 'left'}}>
-                                        <a href><img src={pro4} alt="" width={127} height={158} /></a>
-                                      </td>
-                                      <td className="cart_description" style={{float: 'left'}}>
-                                        <br /><h2 className="cart_total_price" style={{textAlign: 'left', fontSize: '18px'}}>      General History Book 4</h2>
-                                        <p style={{textAlign: 'justify'}}>         History book with a summary of the content example of doing the problem Both a basic form and a shortcut way with<br />         exercises and solutions by explaining in simple language, according to the latest curriculum by explaining to be<br />         easy to understand, not boring, to create a good attitude...</p>
-                                      </td>
-                                      <td className="cart_delete" style={{float: 'right'}}><br /><br /><br /><br /><br /><br /><br />
-                                        <h2 style={{fontSize: '18px'}}><i className="fa fa-clock-o" />Pending...</h2>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td className="cart_product" style={{float: 'left'}}>
-                                        <a href><img src={pro5} alt="" width={127} height={158} /></a>
-                                      </td>
-                                      <td className="cart_description" style={{float: 'left'}}>
-                                        <br /><h2 className="cart_total_price" style={{textAlign: 'left', fontSize: '18px'}}>      PE Book 5</h2>
-                                        <p style={{textAlign: 'justify'}}>         PE book with a summary of the content example of doing the problem Both a basic form and a shortcut way with<br />         exercises and solutions by explaining in simple language, according to the latest curriculum by explaining to be<br />         easy to understand, not boring, to create a good attitude...</p>
-                                      </td>
-                                      <td className="cart_delete" style={{float: 'right', color: '#F39C12'}}><br /><br /><br /><br /><br /><br /><br />
-                                        <h2 style={{fontSize: '18px'}}><i className="fa fa-check" />Received</h2>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td className="cart_product" style={{float: 'left'}}>
-                                        <a href><img src={pro6} alt="" width={127} height={158} /></a>
-                                      </td>
-                                      <td className="cart_description" style={{float: 'left'}}>
-                                        <br /><h2 className="cart_total_price" style={{textAlign: 'left', fontSize: '18px'}}>      Science Lab Book 6</h2>
-                                        <p style={{textAlign: 'justify'}}>         Science book with a summary of the content example of doing the problem Both a basic form and a shortcut way with<br />         exercises and solutions by explaining in simple language, according to the latest curriculum by explaining to be<br />         easy to understand, not boring, to create a good attitude...</p>
-                                      </td>
-                                      <td className="cart_delete" style={{float: 'right', color: '#F39C12'}}><br /><br /><br /><br /><br /><br /><br />
-                                        <h2 style={{fontSize: '18px'}}><i className="fa fa-check" />Received</h2>
+                                        <h2 style={{fontSize: '18px', color: '#90EE90'}}><i className="fa fa-check" />Received</h2>
                                       </td>
                                     </tr>
                                   </tbody>
@@ -575,7 +482,7 @@ class App extends React.Component {
                                 <table className="table table-condensed">
                                   <thead>
                                     <tr className="cart_menu">
-                                      <td className="image" style={{textAlign: 'left'}}>Favorite Items (11/100)</td>
+                                      <td className="image" style={{textAlign: 'left'}}>Favorite Items (2/100)</td>
                                       <td className="description" />
                                       <td />
                                     </tr>
@@ -601,58 +508,6 @@ class App extends React.Component {
                                       <td className="cart_description" style={{float: 'left'}}>
                                         <br /><h2 className="cart_total_price" style={{textAlign: 'left', fontSize: '18px'}}>      Mathematic Book 2</h2>
                                         <p style={{textAlign: 'justify'}}>         Math book with a summary of the content example of doing the problem Both a basic form and a shortcut way with<br />         exercises and solutions by explaining in simple language, according to the latest curriculum by explaining to be<br />         easy to understand, not boring, to create a good attitude...</p>
-                                        <a  className="btn btn-default add-to-cart" style={{float: 'left'}}><i className="fa fa-eye" />View</a>
-                                      </td>
-                                      <td className="cart_delete" style={{float: 'right'}}>
-                                        <a className="cart_quantity_delete" href><i className="fa fa-times" /></a>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td className="cart_product" style={{float: 'left'}}>
-                                        <a href><img src={pro3} alt="" width={127} height={158} /></a>
-                                      </td>
-                                      <td className="cart_description" style={{float: 'left'}}>
-                                        <br /><h2 className="cart_total_price" style={{textAlign: 'left', fontSize: '18px'}}>      English Activity Book 3</h2>
-                                        <p style={{textAlign: 'justify'}}>         English book with a summary of the content example of doing the problem Both a basic form and a shortcut way with<br />         exercises and solutions by explaining in simple language, according to the latest curriculum by explaining to be<br />         easy to understand, not boring, to create a good attitude...</p>
-                                        <a  className="btn btn-default add-to-cart" style={{float: 'left'}}><i className="fa fa-eye" />View</a>
-                                      </td>
-                                      <td className="cart_delete" style={{float: 'right'}}>
-                                        <a className="cart_quantity_delete" href><i className="fa fa-times" /></a>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td className="cart_product" style={{float: 'left'}}>
-                                        <a href><img src={pro4} alt="" width={127} height={158} /></a>
-                                      </td>
-                                      <td className="cart_description" style={{float: 'left'}}>
-                                        <br /><h2 className="cart_total_price" style={{textAlign: 'left', fontSize: '18px'}}>      General History Book 4</h2>
-                                        <p style={{textAlign: 'justify'}}>         History book with a summary of the content example of doing the problem Both a basic form and a shortcut way with<br />         exercises and solutions by explaining in simple language, according to the latest curriculum by explaining to be<br />         easy to understand, not boring, to create a good attitude...</p>
-                                        <a  className="btn btn-default add-to-cart" style={{float: 'left'}}><i className="fa fa-eye" />View</a>
-                                      </td>
-                                      <td className="cart_delete" style={{float: 'right'}}>
-                                        <a className="cart_quantity_delete" href><i className="fa fa-times" /></a>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td className="cart_product" style={{float: 'left'}}>
-                                        <a href><img src={pro5} alt="" width={127} height={158} /></a>
-                                      </td>
-                                      <td className="cart_description" style={{float: 'left'}}>
-                                        <br /><h2 className="cart_total_price" style={{textAlign: 'left', fontSize: '18px'}}>      PE Book 5</h2>
-                                        <p style={{textAlign: 'justify'}}>         PE book with a summary of the content example of doing the problem Both a basic form and a shortcut way with<br />         exercises and solutions by explaining in simple language, according to the latest curriculum by explaining to be<br />         easy to understand, not boring, to create a good attitude...</p>
-                                        <a  className="btn btn-default add-to-cart" style={{float: 'left'}}><i className="fa fa-eye" />View</a>
-                                      </td>
-                                      <td className="cart_delete" style={{float: 'right'}}>
-                                        <a className="cart_quantity_delete" href><i className="fa fa-times" /></a>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td className="cart_product" style={{float: 'left'}}>
-                                        <a href><img src={pro6} alt="" width={127} height={158} /></a>
-                                      </td>
-                                      <td className="cart_description" style={{float: 'left'}}>
-                                        <br /><h2 className="cart_total_price" style={{textAlign: 'left', fontSize: '18px'}}>      Science Lab Book 6</h2>
-                                        <p style={{textAlign: 'justify'}}>         Science book with a summary of the content example of doing the problem Both a basic form and a shortcut way with<br />         exercises and solutions by explaining in simple language, according to the latest curriculum by explaining to be<br />         easy to understand, not boring, to create a good attitude...</p>
                                         <a  className="btn btn-default add-to-cart" style={{float: 'left'}}><i className="fa fa-eye" />View</a>
                                       </td>
                                       <td className="cart_delete" style={{float: 'right'}}>

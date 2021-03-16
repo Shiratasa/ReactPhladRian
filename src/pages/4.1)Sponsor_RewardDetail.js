@@ -151,7 +151,6 @@ class App extends React.Component {
               <ul>
                 <li className="selected"><a href="#0"><div className="image-icon"><img src={but1} width={40} height={35} /></div><h6>Home</h6></a></li>
                 <li><a href="#0"><div className="image-icon"><img src={but2} width={45} height={33} /></div><h6>Delivery</h6></a></li>
-                <li><a href="#0"><div className="image-icon"><img src={but3} width={45} height={40} /></div><h6>Trade</h6></a></li>
                 <li><a href="#0"><div className="image-icon"><img src={but4} width={40} height={38} /></div><h6>Account</h6></a></li>
                 <li><a href="#0"><div className="image-icon"><img src={but5} width={38} height={33} /></div><h6>Contact</h6></a></li>
                 <li><a href="#0"><div className="image-icon"><img src={but6} width={39} height={35} /></div><h6>Logout</h6></a></li>
@@ -223,12 +222,6 @@ class App extends React.Component {
                 <h1>Reward Center</h1>
                 <span>Time to repay for the kindness of Donor's charity</span>
               </div>  
-            </li>
-            <li>
-              <div className="heading">
-                <h1>Reward Center</h1>
-                <span>Time to repay for the kindness of Donor's charity</span>
-              </div> 
             </li>
             <li>
               <div className="heading">

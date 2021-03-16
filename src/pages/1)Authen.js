@@ -58,10 +58,6 @@ class App extends React.Component {
         <link href="https://fonts.googleapis.com/css?family=Rajdhani:400,500,700" rel="stylesheet" type="text/css" />
 </Helmet>
 <style>{`
-  .home
-  {
-    background-image: url('resources/imgs/authen/slide-1.jpg');
-  }
   .reddit 
       {
           border: 2px solid red;

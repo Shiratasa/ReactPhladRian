@@ -112,22 +112,22 @@ class App extends React.Component {
       }
       .demo a
       {
-        color: red; 
+        color: grey; 
         padding: 5px 12px; 
         text-decoration: none; 
         transition: background-color 2s; 
-        border: 1px solid orange; 
+        border: 1px solid grey; 
         font-size: 15px;
       } 
       .demo a.active
       {
-        background-color: orange; 
-        color: white;
+        color: red;
+        border: 1px solid red; 
       }
             .demo a:hover
       {
-        background-color: orange; 
-        color: white;
+        color: red;
+        border: 1px solid red; 
       }
         .reddit 
       {
@@ -197,6 +197,10 @@ class App extends React.Component {
                                 <button type id className="btn aswap" style={{width: '2px', height: '70px', textAlign: 'center'}}>»</button>
                               </div>
                             </div>
+                            <br /><br /><br /><br />
+                            <div className="demo">
+                            <a href><i className="fa fa-exclamation-triangle" /> Report</a>
+                          </div> 
                           </div>  
                           <div className="col-sm-9">
                             <table className="table-condensed" style={{float: 'right'}}>

@@ -1,4 +1,5 @@
 npx create-react-app folder
+npm init -y
 npm install --save component
 cd folder
 npm start
