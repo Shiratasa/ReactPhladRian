@@ -18,60 +18,20 @@ import {
 } from "react-router-dom";
 
 function App() {
-	{
-    /* Values */
-  }
-  var regEx1 = /(^(?!\s))+([A-Z]{1}[a-z]{1,256})+([A-Z]{1}[a-z]{1,256})+($)/;
-  var regEx2 = /(^(?!\s))+([a-z0-9.]{1,256})+([@]{1}[a-z0-9]{1,256})+([.]{1}[a-z.]{2,3})+($)/;
-	function checkStringR() {
-    var user = document.getElementById("Username");
-    var mail = document.getElementById("Email");
-    var pass1 = document.getElementById("Password");
-    var pass2 = document.getElementById("C_password");
-  	if ((user.value == "") || (user.value.length < 6) || (regEx1.test(user.value) == false)) {
-      alert ("Please enter username using your real name...\nEx: AlanWalker");
-      pass2.value = "";
-      throw "exit";
-  	}
-  	if ((mail.value == "") || (regEx2.test(mail.value) == false)) {
-      alert ("Please enter valid email...\nEx: alan@gmail.com");
-      pass2.value = "";
-      throw "exit";
-  	}
-  	if ((pass1.value == "") || (pass1.value.length < 8)) {
-      alert ("Please enter password with at least 8 characters...");
-      pass2.value = "";
-      throw "exit";
-  	}
-    if (pass2.value == "") {
-      alert ("Please enter confirm password correctly...");
-      pass2.value = "";
-      throw "exit";
-    }
-    if (pass1.value != pass2.value) {
-      alert ("Passwords did not match, please try again...")
-      pass2.value = "";
-      throw "exit";
-    }
-  };
-  {
-    /* File */
-  }
   function checkFile() {
     var fileElement = document.getElementById("Image");
-    var pass2 = document.getElementById("C_password");
     var fileExtension = "";
-    checkStringR();
     if (fileElement.value.lastIndexOf(".") > 0) {
       fileExtension = fileElement.value.substring(
         fileElement.value.lastIndexOf(".") + 1,
         fileElement.value.length
       );
     }
-    if (fileExtension.toLowerCase() != "png") {
-      alert("Please select <.png> image file for upload...");
-      pass2.value = "";
-      throw "exit";
+    if (fileExtension.toLowerCase() == "png") {
+      return true;
+    } else {
+      alert("You must select .png image file for upload");
+      return false;
     }
   };
   {
@@ -88,7 +48,6 @@ function App() {
   const [R_imageReg, setR_imageReg] = useState("");
   const [R_passReg, setR_passReg] = useState("");
   const R_regis = () => {
-  	checkFile();
     Axios.post("http://localhost:5000/R_regis", {
       Username: R_nameReg,
       Email: R_emailReg,
@@ -97,7 +56,6 @@ function App() {
     }).then((response) => {
       console.log(response);
     });
-    location.reload();
   };
   {
     /* Donor */
@@ -333,15 +291,12 @@ function App() {
                 {/* Receiver */}
                 <h2 className="modal-title">Receiver Registration</h2>
               </div>
-              <form>
+              <form action="upload.aspx" enctype="multipart/form-data" onsubmit="return checkFile();">
                 <input
                   type="text"
                   className="form-control"
                   id="Username"
                   placeholder="Username"
-                  pattern="[a-zA-Z]{6,}"
-                  oninvalid={R_regis.exit}
-                  required
                   onChange={(x) => setR_nameReg(x.target.value)}
                 />
                 <input
@@ -349,9 +304,6 @@ function App() {
                   className="form-control"
                   id="Email"
                   placeholder="Email Address"
-                  pattern="[a-z0-9._%+-]+@[a-z0-9]+\.[a-z.]{2,5}$"
-                  oninvalid={R_regis.exit}
-                  required
                   onChange={(x) => setR_emailReg(x.target.value)}
                 />
                 <input
@@ -359,9 +311,6 @@ function App() {
                   className="form-control"
                   id="Password"
                   placeholder="Password"
-                  minlength="8"
-                  oninvalid={R_regis.exit}
-                  required
                   onChange={(x) => setR_passReg(x.target.value)}
                 />
                 <input
@@ -369,23 +318,19 @@ function App() {
                   className="form-control"
                   id="C_password"
                   placeholder="Confirm Password"
-                  minlength="8"
-                  oninvalid={R_regis.exit}
-                  required
                 />
                 <label
                   for="Student ID"
                   style={{ color: "red", fontSize: "15px" }}
                 >
-                  Student ID (.png only)
+                  Student ID
                 </label>
                 <input
                   type="file"
                   className="form-control"
                   id="Image"
                   accept=".png"
-                  oninvalid={R_regis.exit}
-                  required
+                  placeholder="Student ID"
                   onChange={(x) => setR_imageReg(x.target.value)}
                 />
                 <input

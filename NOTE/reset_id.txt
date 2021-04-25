@@ -1,1 +1,1 @@
-ALTER TABLE table_name AUTO_INCREMENT = value;
+ALTER TABLE UserStudent AUTO_INCREMENT = 1

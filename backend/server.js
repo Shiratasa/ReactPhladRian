@@ -42,6 +42,21 @@ app.post('/R_regis', function(req, resp){
 	})
 })
 
+app.post('/D_regis', function(req, resp){
+	const Username = req.body.Username;
+	const Email = req.body.Email;
+	const Password = req.body.Password;
+
+	connection.query("INSERT INTO UserDonor (Username, Email, Password) VALUES (?, ?, ?)", 
+		[Username, Email, Password], function(error, rows, fields){
+		if(error){
+			console.error('Insert failed:\n' + error.stack);
+			connection.end();
+			throw error;
+		}
+	})
+})
+
 app.get('/', function(req, resp){
 	connection.query("SELECT * FROM UserStudent", function(error, rows, fields){
 		if(error){
