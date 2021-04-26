@@ -23,21 +23,17 @@ function App() {
   }
   var regEx1 = /(^(?!\s))+([A-Z]{1}[a-z]{1,256})+([A-Z]{1}[a-z]{1,256})+($)/;
   var regEx2 = /(^(?!\s))+([a-z0-9.]{1,256})+([@]{1}[a-z0-9]{1,256})+([.]{1}[a-z.]{2,3})+($)/;
-  var regEx3 = /^\S*$/;
-  {
-    /* String Check */
-  }
   function checkStringR() {
-  	var user = document.getElementById("UsernameR");
-  	var mail = document.getElementById("EmailR");
-  	var pass1 = document.getElementById("PasswordR");
- 		var pass2 = document.getElementById("C_passwordR");
+    var user = document.getElementById("Username");
+    var mail = document.getElementById("Email");
+    var pass1 = document.getElementById("Password");
+    var pass2 = document.getElementById("C_password");
     if (
       user.value == "" ||
       user.value.length < 6 ||
       regEx1.test(user.value) == false
     ) {
-      alert("Please enter username using your real name and without space...\nEx: AlanWalker");
+      alert("Please enter username using your real name...\nEx: AlanWalker");
       pass2.value = "";
       throw "exit";
     }
@@ -46,8 +42,8 @@ function App() {
       pass2.value = "";
       throw "exit";
     }
-    if (pass1.value == "" || pass1.value.length < 8 || regEx3.test(pass1.value) == false) {
-      alert("Please enter password with at least 8 characters and without space...");
+    if (pass1.value == "" || pass1.value.length < 8) {
+      alert("Please enter password with at least 8 characters...");
       pass2.value = "";
       throw "exit";
     }
@@ -62,48 +58,14 @@ function App() {
       throw "exit";
     }
   }
-  function checkStringD() {
-  	var user = document.getElementById("UsernameD");
-  	var mail = document.getElementById("EmailD");
-  	var pass1 = document.getElementById("PasswordD");
- 		var pass2 = document.getElementById("C_passwordD");
-    if (
-      user.value == "" ||
-      user.value.length < 6 ||
-      regEx1.test(user.value) == false
-    ) {
-      alert("Please enter username using your real name and without space...\nEx: AlanWalker");
-      pass2.value = "";
-      throw "exit";
-    }
-    if (mail.value == "" || regEx2.test(mail.value) == false) {
-      alert("Please enter valid email...\nEx: alan@gmail.com");
-      pass2.value = "";
-      throw "exit";
-    }
-    if (pass1.value == "" || pass1.value.length < 8 || regEx3.test(pass1.value) == false) {
-      alert("Please enter password with at least 8 characters and without space...");
-      pass2.value = "";
-      throw "exit";
-    }
-    if (pass2.value == "") {
-      alert("Please enter confirm password correctly...");
-      pass2.value = "";
-      throw "exit";
-    }
-    if (pass1.value != pass2.value) {
-      alert("Passwords did not match, please try again...");
-      pass2.value = "";
-      throw "exit";
-    }
-  }
-
   {
-    /* File Check */
+    /* File */
   }
   function checkFile() {
-  	var fileElement = document.getElementById("ImageR");
-  	var fileExtension = "";
+    var fileElement = document.getElementById("Image");
+    var pass2 = document.getElementById("C_password");
+    var fileExtension = "";
+    checkStringR();
     if (fileElement.value.lastIndexOf(".") > 0) {
       fileExtension = fileElement.value.substring(
         fileElement.value.lastIndexOf(".") + 1,
@@ -116,23 +78,20 @@ function App() {
       throw "exit";
     }
   }
-
   {
-    /* Page Link */
+    /* Link */
   }
   const handleClickS = () => {
     (event) => (window.location.href = "/d_main");
   };
-
   {
-    /* Receiver Post */
+    /* Receiver */
   }
   const [R_nameReg, setR_nameReg] = useState("");
   const [R_emailReg, setR_emailReg] = useState("");
   const [R_imageReg, setR_imageReg] = useState("");
   const [R_passReg, setR_passReg] = useState("");
   const R_regis = () => {
-  	checkStringR();
     checkFile();
     Axios.post("http://localhost:5000/R_regis", {
       Username: R_nameReg,
@@ -142,26 +101,14 @@ function App() {
     }).then((response) => {
       console.log(response);
     });
-    window.location.reload();
+    location.reload();
   };
-  
   {
-    /* Donor Post */
+    /* Donor */
   }
   const [D_nameReg, setD_nameReg] = useState("");
   const [D_emailReg, setD_emailReg] = useState("");
   const [D_passReg, setD_passReg] = useState("");
-  const D_regis = () => {
-  	checkStringD();
-    Axios.post("http://localhost:5000/D_regis", {
-      Username: D_nameReg,
-      Email: D_emailReg,
-      Password: D_passReg,
-    }).then((response) => {
-      console.log(response);
-    });
-    window.location.reload();
-  };
 
   return (
     <div className="App">
@@ -394,7 +341,7 @@ function App() {
                 <input
                   type="text"
                   className="form-control"
-                  id="UsernameR"
+                  id="Username"
                   placeholder="Username"
                   pattern="[a-zA-Z]{6,}"
                   oninvalid={R_regis.exit}
@@ -404,7 +351,7 @@ function App() {
                 <input
                   type="text"
                   className="form-control"
-                  id="EmailR"
+                  id="Email"
                   placeholder="Email Address"
                   pattern="[a-z0-9._%+-]+@[a-z0-9]+\.[a-z.]{2,5}$"
                   oninvalid={R_regis.exit}
@@ -414,7 +361,7 @@ function App() {
                 <input
                   type="password"
                   className="form-control"
-                  id="PasswordR"
+                  id="Password"
                   placeholder="Password"
                   minlength="8"
                   oninvalid={R_regis.exit}
@@ -424,7 +371,7 @@ function App() {
                 <input
                   type="password"
                   className="form-control"
-                  id="C_passwordR"
+                  id="C_password"
                   placeholder="Confirm Password"
                   minlength="8"
                   oninvalid={R_regis.exit}
@@ -439,7 +386,7 @@ function App() {
                 <input
                   type="file"
                   className="form-control"
-                  id="ImageR"
+                  id="Image"
                   accept=".png"
                   oninvalid={R_regis.exit}
                   required
@@ -485,41 +432,26 @@ function App() {
                 <input
                   type="text"
                   className="form-control"
-                  id="UsernameD"
+                  id="username"
                   placeholder="Username"
-                  pattern="[a-zA-Z]{6,}"
-                  oninvalid={D_regis.exit}
-                  required
-                  onChange={(y) => setD_nameReg(y.target.value)}
                 />
                 <input
                   type="text"
                   className="form-control"
-                  id="EmailD"
+                  id="email"
                   placeholder="Email Address"
-                  pattern="[a-z0-9._%+-]+@[a-z0-9]+\.[a-z.]{2,5}$"
-                  oninvalid={D_regis.exit}
-                  required
-                  onChange={(y) => setD_emailReg(y.target.value)}
                 />
                 <input
-                  type="password"
+                  type="text"
                   className="form-control"
-                  id="PasswordD"
+                  id="password"
                   placeholder="Password"
-                  minlength="8"
-                  oninvalid={D_regis.exit}
-                  required
-                  onChange={(y) => setD_passReg(y.target.value)}
                 />
                 <input
-                  type="password"
+                  type="text"
                   className="form-control"
-                  id="C_passwordD"
+                  id="c_password"
                   placeholder="Confirm Password"
-                  minlength="8"
-                  oninvalid={D_regis.exit}
-                  required
                 />
                 <br />
                 <br />
@@ -529,7 +461,7 @@ function App() {
                   type="submit"
                   className="form-control"
                   id="DSignUp"
-                  onClick={D_regis}
+                  onclick={(event) => (window.location.href = "/d_main")}
                 />
               </form>
               <p>Thank you for your visiting!</p>
