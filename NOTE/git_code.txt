@@ -1,7 +1,7 @@
 git init
 git add README.md
 
->>> git add .
+>>> git add . or git add -u
 >>> git commit -m 'commend'
 
 git branch -M main
