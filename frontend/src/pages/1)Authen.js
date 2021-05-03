@@ -22,8 +22,8 @@ function App() {
   {
     /* Page Link */
   }
-  const handleClickS = async () => {
-    (event) => (window.location.href = "/d_main");
+  const handleClickS = async (e) => {
+    (e) => (window.location.href = "/d_main");
   };
 
   {
