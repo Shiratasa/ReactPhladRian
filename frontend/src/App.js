@@ -22,7 +22,7 @@ function App() {
         <Helmet>
           <script
             async="true"
-            src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+            src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"
           />
           <script async="true" src="java/smoothscroll.js" />
         </Helmet>

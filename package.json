@@ -1,7 +1,7 @@
 {
   "name": "phladrian",
-  "type": "module",
   "version": "1.0.0",
+  "type": "module",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -18,8 +18,10 @@
   },
   "homepage": "https://github.com/Shiratasa/ReactPhladRian#readme",
   "dependencies": {
+    "alert": "^5.0.10",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "js-alert": "^1.0.4",
     "mongodb": "^3.6.6",
     "mongoose": "^5.12.3",
     "mysql": "^2.18.1"

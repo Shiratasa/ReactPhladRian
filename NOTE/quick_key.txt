@@ -1,0 +1,3 @@
+VS Format => Shift + Alt + F
+Chrome Console => Shift + Ctrl + J
+Chrome Code => Ctrl + U
