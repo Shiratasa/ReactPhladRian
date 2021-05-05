@@ -1,0 +1,5 @@
+Backend
+cd D:/PhladRian
+
+Frontend
+cd D:/PhladRian/frontend
