@@ -1,7 +1,7 @@
 /* eslint-disable */
-import React, { Component, useEffect, useState } from "react";
+import React, {Component, useEffect, useState} from "react";
 import ReactDOM from "react-dom";
-import { Helmet } from "react-helmet";
+import {Helmet} from "react-helmet";
 import book from "./resources/web_logo_bg.png";
 import ScriptTag from "react-script-tag";
 import props from "prop-types";
@@ -20,38 +20,46 @@ import {
 
 function App() {
   {
-    /* Page Link */
-  }
-  const handleClickS = async (e) => {
-    (e) => (window.location.href = "/d_main");
-  };
-
-  {
     /* Values */
   }
-  var regEx1 = /(^(?!\s))+([A-Z]{1}[a-z]{1,256})+([A-Z]{1}[a-z]{1,256})+($)/;
-  var regEx2 = /(^(?!\s))+([a-z0-9.]{1,256})+([@]{1}[a-z0-9]{1,256})+([.]{1}[a-z.]{2,3})+($)/;
+  var regEx1 = /(^(?!\s))+([A-Z]{1}[a-z]{1,256})+(\s[A-Z]{1}[a-z]{1,256})+($)/;
+  var regEx2 = /(^(?!\s))+([a-z0-9.]{1,256})+([@]{1}[a-z0-9]{1,256})+([.]{1}[a-z.]{1,256})+($)/;
   var regEx3 = /^\S*$/;
+  var regEx4 = /(^(?!\s))+([0]{1}[6,8,9]{1}[0-9]{1,256})+($)/;
+  var regEx5 = /(^(?!\s))+([A-za-z0-9.,\s]{1,256})+([A-za-z0-9.]{1,256})+($)/;
   var userR = document.getElementById("UsernameR");
   var mailR = document.getElementById("EmailR");
+  var telR = document.getElementById("PhoneR");
+  var localR = document.getElementById("AddressR");
+  var cardR = document.getElementById("CardR");
+  var gradeR = document.getElementById("GradeR");
   var pass1R = document.getElementById("PasswordR");
   var pass2R = document.getElementById("C_passwordR");
   var userD = document.getElementById("UsernameD");
   var mailD = document.getElementById("EmailD");
+  var telD = document.getElementById("PhoneD");
+  var localD = document.getElementById("AddressD");
   var pass1D = document.getElementById("PasswordD");
   var pass2D = document.getElementById("C_passwordD");
   var fileElement = document.getElementById("ImageR");
   var fileExtension = "";
   var invali = "1";
-  const [A_nameLog, setA_nameLog] = useState("");
+  const [A_emailLog, setA_emailLog] = useState("");
   const [A_passLog, setA_passLog] = useState("");
   const [R_nameReg, setR_nameReg] = useState("");
   const [R_emailReg, setR_emailReg] = useState("");
+  const [R_phoneReg, setR_phoneReg] = useState("");
+  const [R_localReg, setR_localReg] = useState("");
+  const [R_gradeReg, setR_gradeReg] = useState("");
+  const [R_cardReg, setR_cardReg] = useState("");
   const [R_imageReg, setR_imageReg] = useState("");
   const [R_passReg, setR_passReg] = useState("");
   const [D_nameReg, setD_nameReg] = useState("");
   const [D_emailReg, setD_emailReg] = useState("");
+  const [D_phoneReg, setD_phoneReg] = useState("");
+  const [D_localReg, setD_localReg] = useState("");
   const [D_passReg, setD_passReg] = useState("");
+  let history = useHistory();
   {
     /* Delay */
   }
@@ -67,7 +75,28 @@ function App() {
     }
   };
   const handleSubmit2 = async (e) => {
-    e.preventDefault();
+  	e.preventDefault();
+    if (invali == "R") {
+    	JSAlert.alert("", "Login Success!", JSAlert.Icons.Success);
+      await timeout(1000).then($(this).unbind("submit").submit());
+      history.push("/r_main");
+      location.reload();
+    }
+    if (invali == "D") {
+    	JSAlert.alert("", "Login Success!", JSAlert.Icons.Success);
+      await timeout(1000).then($(this).unbind("submit").submit());
+      history.push("/d_main");
+      location.reload();
+    }
+    if (invali == "S") {
+    	JSAlert.alert("", "Login Success!", JSAlert.Icons.Success);
+      await timeout(1000).then($(this).unbind("submit").submit());
+      history.push("/s_main");
+      location.reload();
+    }
+  };
+  const handleSubmit3 = async (e) => {
+    JSAlert.alert("", "Password has been sent to your email...", JSAlert.Icons.Information);
   };
   {
     /* String Check */
@@ -79,8 +108,8 @@ function App() {
       regEx1.test(userR.value) == false
     ) {
       JSAlert.alert(
-        "Ex: AlanWalker",
-        "Please enter username using your real name and without space...",
+        "Ex: Alan Walker",
+        "Please enter username using real name...",
         JSAlert.Icons.Warning
       );
       pass2R.value = "";
@@ -90,6 +119,48 @@ function App() {
       JSAlert.alert(
         "Ex: alan@gmail.com",
         "Please enter valid email...",
+        JSAlert.Icons.Warning
+      );
+      pass2R.value = "";
+      throw "exit";
+    }
+    if (telR.value == "" || 
+    	telR.value.length != 10 ||
+    	regEx4.test(telR.value) == false) {
+      JSAlert.alert(
+        "Ex: 0891608019",
+        "Please enter phone number without <->...",
+        JSAlert.Icons.Warning
+      );
+      pass2R.value = "";
+      throw "exit";
+    }
+    if (localR.value == "" || 
+    	localR.value.length < 25 || 
+    	regEx5.test(localR.value) == false) {
+      JSAlert.alert(
+        "",
+        "Please enter location information in full detail...",
+        JSAlert.Icons.Warning
+      );
+      pass2R.value = "";
+      throw "exit";
+    }
+    if (cardR.value == "" || 
+    	cardR.value.length < 5 || 
+    	regEx5.test(cardR.value) == false) {
+      JSAlert.alert(
+        "",
+        "Please enter true ID number...",
+        JSAlert.Icons.Warning
+      );
+      pass2R.value = "";
+      throw "exit";
+    }
+    if (gradeR.value == "") {
+      JSAlert.alert(
+        "",
+        "Please select an education level...",
         JSAlert.Icons.Warning
       );
       pass2R.value = "";
@@ -134,8 +205,8 @@ function App() {
       regEx1.test(userD.value) == false
     ) {
       JSAlert.alert(
-        "Ex: AlanWalker",
-        "Please enter username using your real name and without space...",
+        "Ex: Alan Walker",
+        "Please enter username using real name...",
         JSAlert.Icons.Warning
       );
       pass2D.value = "";
@@ -145,6 +216,28 @@ function App() {
       JSAlert.alert(
         "Ex: alan@gmail.com",
         "Please enter valid email...",
+        JSAlert.Icons.Warning
+      );
+      pass2D.value = "";
+      throw "exit";
+    }
+    if (telD.value == "" || 
+    	telD.value.length != 10 ||
+    	regEx4.test(telD.value) == false) {
+      JSAlert.alert(
+        "Ex: 0891608019",
+        "Please enter phone number without <->...",
+        JSAlert.Icons.Warning
+      );
+      pass2D.value = "";
+      throw "exit";
+    }
+    if (localD.value == "" || 
+    	localD.value.length < 25 || 
+    	regEx5.test(localD.value) == false) {
+      JSAlert.alert(
+        "",
+        "Please enter location information in full detail...",
         JSAlert.Icons.Warning
       );
       pass2D.value = "";
@@ -184,6 +277,18 @@ function App() {
   }
 
   {
+    /* School Get */
+  }
+	const SchoolBox = async () => {
+    const response = await fetch('/School');
+    const newList = await response.json();
+    this.setState(previousState => ({
+      ...previousState,
+      list: newList,
+    }));
+  }
+
+  {
     /* EmailR Post */
   }
   const E_postR = async () => {
@@ -208,39 +313,6 @@ function App() {
         JSAlert.alert(
           "",
           "This email is already exist...",
-          JSAlert.Icons.Failed
-        );
-        pass2R.value = "";
-        throw "exit";
-      }
-    });
-  };
-
-  {
-    /* NameR Post */
-  }
-  const N_postR = async () => {
-    Axios.post("http://localhost:5000/N_post", {
-      Username: R_nameReg,
-    }).then((response) => {
-      console.log(response);
-    });
-  };
-
-  {
-    /* NameR Get */
-  }
-  const N_getR = async () => {
-    Axios.post("http://localhost:5000/N_get", {
-      Username: R_nameReg,
-    }).then((response) => {
-      if (response.data.message) {
-        E_getR();
-      } else {
-        invali = "1";
-        JSAlert.alert(
-          "",
-          "This username is already exist...",
           JSAlert.Icons.Failed
         );
         pass2R.value = "";
@@ -283,39 +355,6 @@ function App() {
   };
 
   {
-    /* NameD Post */
-  }
-  const N_postD = async () => {
-    Axios.post("http://localhost:5000/N_post", {
-      Username: D_nameReg,
-    }).then((response) => {
-      console.log(response);
-    });
-  };
-
-  {
-    /* NameD Get */
-  }
-  const N_getD = async () => {
-    Axios.post("http://localhost:5000/N_get", {
-      Username: D_nameReg,
-    }).then((response) => {
-      if (response.data.message) {
-        E_getD();
-      } else {
-        invali = "1";
-        JSAlert.alert(
-          "",
-          "This username is already exist...",
-          JSAlert.Icons.Failed
-        );
-        pass2D.value = "";
-        throw "exit";
-      }
-    });
-  };
-
-  {
     /* File Check */
   }
   function checkFile() {
@@ -327,11 +366,12 @@ function App() {
     }
     if (
       fileExtension.toLowerCase() != "png" &&
+      fileExtension.toLowerCase() != "jpeg" &&
       fileExtension.toLowerCase() != "jpg"
     ) {
       JSAlert.alert(
         "",
-        "Please select <.png, .jpg> image file for upload...",
+        "Please select <.png, .jpg, .jpeg> image file for upload...",
         JSAlert.Icons.Warning
       );
       pass2R.value = "";
@@ -345,13 +385,16 @@ function App() {
   const R_regis = async () => {
     checkStringR();
     checkFile();
-    N_getR();
+    E_getR();
     if (invali == "0") {
-      N_postR();
       E_postR();
       Axios.post("http://localhost:5000/R_regis", {
         Username: R_nameReg,
         Email: R_emailReg,
+        Phone: R_phoneReg,
+        Address: R_localReg,
+        Student_Card: R_cardReg,
+        Grade: R_gradeReg,
         Image: R_imageReg,
         Password: R_passReg,
       }).then((response) => {
@@ -365,23 +408,19 @@ function App() {
   }
   const R_login = async () => {
     Axios.post("http://localhost:5000/R_login", {
-      Username: A_nameLog,
+      Email: A_emailLog,
       Password: A_passLog,
     }).then((response) => {
       if (response.data.message) {
+      	invali = "1";
         JSAlert.alert(
           "",
-          "Wrong username or password...",
+          "Wrong email or password...",
           JSAlert.Icons.Failed
         );
         throw "exit";
       } else {
-        JSAlert.alert(
-          "",
-          response.data[0].Username + " - Receiver",
-          JSAlert.Icons.Information
-        );
-        throw "exit";
+        invali = "R";
       }
     });
   };
@@ -391,13 +430,14 @@ function App() {
   }
   const D_regis = async () => {
     checkStringD();
-    N_getD();
+    E_getD();
     if (invali == "0") {
-      N_postD();
       E_postD();
       Axios.post("http://localhost:5000/D_regis", {
         Username: D_nameReg,
         Email: D_emailReg,
+        Phone: D_phoneReg,
+        Address: D_localReg,
         Password: D_passReg,
       }).then((response) => {
         console.log(response);
@@ -410,18 +450,13 @@ function App() {
   }
   const D_login = async () => {
     Axios.post("http://localhost:5000/D_login", {
-      Username: A_nameLog,
+      Email: A_emailLog,
       Password: A_passLog,
     }).then((response) => {
       if (response.data.message) {
         R_login();
       } else {
-        JSAlert.alert(
-          "",
-          response.data[0].Username + " - Donor",
-          JSAlert.Icons.Information
-        );
-        throw "exit";
+        invali = "D";
       }
     });
   };
@@ -431,18 +466,13 @@ function App() {
   }
   const S_login = async () => {
     Axios.post("http://localhost:5000/S_login", {
-      Username: A_nameLog,
+      Email: A_emailLog,
       Password: A_passLog,
     }).then((response) => {
       if (response.data.message) {
         D_login();
       } else {
-        JSAlert.alert(
-          "",
-          response.data[0].Username + " - Sponsor",
-          JSAlert.Icons.Information
-        );
-        throw "exit";
+        invali = "S";
       }
     });
   };
@@ -452,18 +482,13 @@ function App() {
   }
   const A_login = async () => {
     Axios.post("http://localhost:5000/A_login", {
-      Username: A_nameLog,
+      Email: A_emailLog,
       Password: A_passLog,
     }).then((response) => {
       if (response.data.message) {
         S_login();
       } else {
-        JSAlert.alert(
-          "",
-          response.data[0].Username + " - Admin",
-          JSAlert.Icons.Information
-        );
-        throw "exit";
+        invali = "A";
       }
     });
   };
@@ -540,14 +565,14 @@ function App() {
                 width={25}
                 height={25}
                 className="reddit"
-                style={{ position: "absolute", top: 25, right: 30 }}
+                style={{position: "absolute", top: 25, right: 30}}
               />
               <img
                 src={tha}
                 width={25}
                 height={25}
                 className="reddot"
-                style={{ position: "absolute", top: 25, right: 70 }}
+                style={{position: "absolute", top: 25, right: 70}}
               />
               <div className="col-md-offset-2 col-md-8 col-sm-12">
                 <div className="home-thumb">
@@ -558,7 +583,7 @@ function App() {
                   <br />
                   <br />
                   <br />
-                  <h1 className="wow fadeInUp" style={{ color: "#F39C12" }}>
+                  <h1 className="wow fadeInUp" style={{color: "#F39C12"}}>
                     Welcome to
                     <br />
                     Phlad Rian Community
@@ -622,7 +647,6 @@ function App() {
                 >
                   <span aria-hidden="true">×</span>
                 </button>
-                <br />
                 <h2 className="modal-title">Account Access</h2>
               </div>
               <form onSubmit={handleSubmit2}>
@@ -632,10 +656,10 @@ function App() {
                 <input
                   type="text"
                   className="form-control"
-                  id="UsernameL"
-                  placeholder="Username"
+                  id="EmailL"
+                  placeholder="Email"
                   required
-                  onChange={(z) => setA_nameLog(z.target.value)}
+                  onChange={(z) => setA_emailLog(z.target.value)}
                 />
                 <br />
                 <br />
@@ -650,8 +674,9 @@ function App() {
                 />
                 <br />
                 <br />
-                <br />
-                <br />
+                <a onClick={handleSubmit3}>
+      						Forgot password?
+    						</a>
                 <br />
                 <br />
                 <input
@@ -662,7 +687,6 @@ function App() {
                 />
               </form>
               <p>Welcome back to our community!</p>
-              <br />
             </div>
           </div>
         </div>
@@ -698,7 +722,6 @@ function App() {
                   className="form-control"
                   id="UsernameR"
                   placeholder="Username"
-                  pattern="[a-zA-Z]{6,}"
                   onInvalid={R_regis.exit}
                   required
                   onChange={(x) => setR_nameReg(x.target.value)}
@@ -708,17 +731,81 @@ function App() {
                   className="form-control"
                   id="EmailR"
                   placeholder="Email Address"
-                  pattern="[a-z0-9._%+-]+@[a-z0-9]+\.[a-z.]{2,5}$"
                   onInvalid={R_regis.exit}
                   required
                   onChange={(x) => setR_emailReg(x.target.value)}
+                />
+                <input
+                  type="text"
+                  className="form-control"
+                  id="PhoneR"
+                  placeholder="Tel Number"
+                  onInvalid={R_regis.exit}
+                  required
+                  onChange={(x) => setR_phoneReg(x.target.value)}
+                />
+                <textarea
+                  type="text"
+                  className="form-control"
+                  rows="4"
+                  id="AddressR"
+                  placeholder="House Location"
+                  onInvalid={R_regis.exit}
+                  required
+                  onChange={(x) => setR_localReg(x.target.value)}
+                />
+                <input
+                  type="text"
+                  className="form-control"
+                  id="CardR"
+                  placeholder="Student ID"
+                  onInvalid={R_regis.exit}
+                  required
+                  onChange={(x) => setR_cardReg(x.target.value)}
+                />
+
+
+                
+                <label
+                  for="Student Card"
+                  style={{color: "red", fontSize: "15px"}}
+                >
+                  Student Card (.png, .jpg, .jpeg) &nbsp;
+                </label>
+                <select
+                	id="GradeR"
+                	onInvalid={R_regis.exit}
+                  required
+                  onChange={(x) => setR_gradeReg(x.target.value)}
+                	>
+                	<option value="" disabled selected="selected">-- Select education level --</option>
+  								<option value="P1">Prathom 1</option>
+  								<option value="P2">Prathom 2</option>
+  								<option value="P3">Prathom 3</option>
+  								<option value="P4">Prathom 4</option>
+  								<option value="P5">Prathom 5</option>
+  								<option value="P6">Prathom 6</option>
+  								<option value="M1">Matthayom 1</option>
+  								<option value="M2">Matthayom 2</option>
+  								<option value="M3">Matthayom 3</option>
+  								<option value="M4">Matthayom 4</option>
+  								<option value="M5">Matthayom 5</option>
+  								<option value="M6">Matthayom 6</option>
+								</select>
+                <input
+                  type="file"
+                  className="form-control"
+                  id="ImageR"
+                  accept=".png, .jpg, .jpeg"
+                  onInvalid={R_regis.exit}
+                  required
+                  onChange={(x) => setR_imageReg(x.target.value)}
                 />
                 <input
                   type="password"
                   className="form-control"
                   id="PasswordR"
                   placeholder="Password"
-                  minLength="8"
                   onInvalid={R_regis.exit}
                   required
                   onChange={(x) => setR_passReg(x.target.value)}
@@ -728,25 +815,10 @@ function App() {
                   className="form-control"
                   id="C_passwordR"
                   placeholder="Confirm Password"
-                  minLength="8"
                   onInvalid={R_regis.exit}
                   required
                 />
-                <label
-                  for="Student ID"
-                  style={{ color: "red", fontSize: "15px" }}
-                >
-                  Student ID (.png, .jpg)
-                </label>
-                <input
-                  type="file"
-                  className="form-control"
-                  id="ImageR"
-                  accept="image/*"
-                  onInvalid={R_regis.exit}
-                  required
-                  onChange={(x) => setR_imageReg(x.target.value)}
-                />
+                <br />
                 <input
                   type="submit"
                   className="form-control"
@@ -755,7 +827,6 @@ function App() {
                 />
               </form>
               <p>Thank you for your visiting!</p>
-              <br />
             </div>
           </div>
         </div>
@@ -789,7 +860,6 @@ function App() {
                   className="form-control"
                   id="UsernameD"
                   placeholder="Username"
-                  pattern="[a-zA-Z]{6,}"
                   onInvalid={D_regis.exit}
                   required
                   onChange={(y) => setD_nameReg(y.target.value)}
@@ -799,17 +869,34 @@ function App() {
                   className="form-control"
                   id="EmailD"
                   placeholder="Email Address"
-                  pattern="[a-z0-9._%+-]+@[a-z0-9]+\.[a-z.]{2,5}$"
                   onInvalid={D_regis.exit}
                   required
                   onChange={(y) => setD_emailReg(y.target.value)}
+                />
+                <input
+                  type="text"
+                  className="form-control"
+                  id="PhoneD"
+                  placeholder="Tel Number"
+                  onInvalid={D_regis.exit}
+                  required
+                  onChange={(y) => setD_phoneReg(y.target.value)}
+                />
+                <textarea
+                  type="text"
+                  className="form-control"
+                  rows="4"
+                  id="AddressD"
+                  placeholder="House Location"
+                  onInvalid={D_regis.exit}
+                  required
+                  onChange={(y) => setD_localReg(y.target.value)}
                 />
                 <input
                   type="password"
                   className="form-control"
                   id="PasswordD"
                   placeholder="Password"
-                  minLength="8"
                   onInvalid={D_regis.exit}
                   required
                   onChange={(y) => setD_passReg(y.target.value)}
@@ -819,13 +906,9 @@ function App() {
                   className="form-control"
                   id="C_passwordD"
                   placeholder="Confirm Password"
-                  minLength="8"
                   onInvalid={D_regis.exit}
                   required
                 />
-                <br />
-                <br />
-                <br />
                 <br />
                 <input
                   type="submit"
@@ -835,7 +918,6 @@ function App() {
                 />
               </form>
               <p>Thank you for your visiting!</p>
-              <br />
             </div>
           </div>
         </div>

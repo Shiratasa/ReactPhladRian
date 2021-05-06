@@ -1,9 +1,9 @@
 /* eslint-disable */
-import React, { Component, useEffect, useState } from "react";
+import React, {Component, useEffect, useState} from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { Helmet } from "react-helmet";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {Helmet} from "react-helmet";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Authen from "./pages/1)Authen.js";
 import D_Main from "./pages/2)Donor_Main.js";
 import D_Item from "./pages/2.1)Donor_ItemDetail.js";
