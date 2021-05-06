@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 03, 2021 at 08:05 PM
+-- Generation Time: May 06, 2021 at 10:09 AM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -41,27 +41,6 @@ INSERT INTO `AllEmail` (`Email_ID`, `Email`) VALUES
 (2, 'sunharn1998@gmail.com'),
 (3, 'yaranaikabaidu@gmail.com'),
 (4, 'kurenai.6shadow@gmail.com');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `AllUser`
---
-
-CREATE TABLE `AllUser` (
-  `User_ID` int(255) NOT NULL,
-  `Username` varchar(64) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `AllUser`
---
-
-INSERT INTO `AllUser` (`User_ID`, `Username`) VALUES
-(1, 'PutthiwatChalermvongsavej'),
-(2, 'KrittapasSukkhasame'),
-(3, 'TakakazuAbe'),
-(4, 'ShiratasaKusharane');
 
 -- --------------------------------------------------------
 
@@ -183,7 +162,24 @@ CREATE TABLE `ListSchool` (
 --
 
 INSERT INTO `ListSchool` (`School_ID`, `Name`, `Address`, `State`) VALUES
-(1, 'Debsirin', '1466 Krung Kasem Rd, Wat Thepsirin, Pom Prap Sattru Phai, Bangkok 10100', 1);
+(1, 'Debsirin', '1466 Krung Kasem Rd, Wat Thepsirin, Pom Prap Sattru Phai, Bangkok 10100', 1),
+(2, 'Suankularb', NULL, 1),
+(3, 'Assumption', NULL, NULL),
+(4, 'Bangkok Christian', NULL, NULL),
+(5, 'Saint Gabriel', NULL, NULL),
+(6, 'Saint Dominic', NULL, NULL),
+(7, 'Vajiravudh', NULL, NULL),
+(8, 'Wat Suthiwararam', NULL, NULL),
+(9, 'Traimit', NULL, NULL),
+(10, 'Wattana', NULL, NULL),
+(11, 'Saint Joseph', NULL, NULL),
+(12, 'Materdei', NULL, NULL),
+(13, 'Satriwitthaya', NULL, NULL),
+(14, 'Suksanari', NULL, NULL),
+(15, 'Wat Mahapruettaram', NULL, NULL),
+(16, 'Sainampeung', NULL, NULL),
+(17, 'Saipanya', NULL, NULL),
+(18, 'Phraharuthai', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -205,7 +201,7 @@ CREATE TABLE `UserAdmin` (
 --
 
 INSERT INTO `UserAdmin` (`Admin_ID`, `Username`, `Email`, `Phone`, `Password`, `State`) VALUES
-(1, 'ShiratasaKusharane', 'kurenai.6shadow@gmail.com', '0891608019', 'godofdev', 1);
+(1, 'Shiratasa Kusharane', 'kurenai.6shadow@gmail.com', '0891608019', 'godofdev', 1);
 
 -- --------------------------------------------------------
 
@@ -229,7 +225,7 @@ CREATE TABLE `UserDonor` (
 --
 
 INSERT INTO `UserDonor` (`Donor_ID`, `Username`, `Point`, `Email`, `Phone`, `Password`, `Address`, `State`) VALUES
-(1, 'KrittapasSukkhasame', 999, 'sunharn1998@gmail.com', '0818173984', 'lazieboi', 'Room 101, 37/2 San Chaomae Thapthim Alley, Tha Kham, Bang Khun Thian, Bangkok 10150', 1);
+(1, 'Krittapas Sukkhasame', 999, 'sunharn1998@gmail.com', '0818173984', 'lazieboi', 'Room 101, 37/2 San Chaomae Thapthim Alley, Tha Kham, Bang Khun Thian, Bangkok 10150', 1);
 
 -- --------------------------------------------------------
 
@@ -253,7 +249,7 @@ CREATE TABLE `UserSponsor` (
 --
 
 INSERT INTO `UserSponsor` (`Sponsor_ID`, `Company_ID`, `Username`, `Staff_Card`, `Email`, `Phone`, `Password`, `State`) VALUES
-(1, 1, 'TakakazuAbe', 'B9456888', 'yaranaikabaidu@gmail.com', '0867765634', 'xdeliver', 1);
+(1, 1, 'Takakazu Abe', 'B9456888', 'yaranaikabaidu@gmail.com', '0867765634', 'xdeliver', 1);
 
 -- --------------------------------------------------------
 
@@ -280,7 +276,7 @@ CREATE TABLE `UserStudent` (
 --
 
 INSERT INTO `UserStudent` (`Student_ID`, `School_ID`, `Username`, `Student_Card`, `Image`, `Grade`, `Email`, `Phone`, `Password`, `Address`, `State`) VALUES
-(1, 1, 'PutthiwatChalermvongsavej', '0010080243735', 0x5b76616c75652d365d, 'U4', 'putthiwat.kmutt@gmail.com', '0612562121', 'finalpro', '134/58, 30 Suk Sawat Rd, Bang Pakok, Rat Burana, Bangkok 10140', 1);
+(1, 1, 'Putthiwat Chalermvongsavej', '0010080243735', 0x5b76616c75652d365d, 'M6', 'putthiwat.kmutt@gmail.com', '0612562121', 'finalpro', '134/58, 30 Suk Sawat Rd, Bang Pakok, Rat Burana, Bangkok 10140', 1);
 
 -- --------------------------------------------------------
 
@@ -402,12 +398,6 @@ ALTER TABLE `AllEmail`
   ADD PRIMARY KEY (`Email_ID`);
 
 --
--- Indexes for table `AllUser`
---
-ALTER TABLE `AllUser`
-  ADD PRIMARY KEY (`User_ID`);
-
---
 -- Indexes for table `ItemDonate`
 --
 ALTER TABLE `ItemDonate`
@@ -521,12 +511,6 @@ ALTER TABLE `AllEmail`
   MODIFY `Email_ID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `AllUser`
---
-ALTER TABLE `AllUser`
-  MODIFY `User_ID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
 -- AUTO_INCREMENT for table `ItemDonate`
 --
 ALTER TABLE `ItemDonate`
@@ -554,7 +538,7 @@ ALTER TABLE `ListItem`
 -- AUTO_INCREMENT for table `ListSchool`
 --
 ALTER TABLE `ListSchool`
-  MODIFY `School_ID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `School_ID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `UserAdmin`
