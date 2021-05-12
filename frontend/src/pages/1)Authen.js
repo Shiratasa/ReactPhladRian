@@ -371,7 +371,7 @@ function App() {
     ) {
       JSAlert.alert(
         "",
-        "Please select <.png, .jpg, .jpeg> image file for upload...",
+        "Please select <.png, .jpg> image file for upload...",
         JSAlert.Icons.Warning
       );
       pass2R.value = "";
@@ -555,6 +555,8 @@ function App() {
           style={{
             backgroundImage: `url("resources/imgs/authen/slide-1.jpg")`,
             backgroundSize: "cover",
+            backgroundPosition: "center",
+  			backgroundRepeat: "no-repeat"
           }}
         >
           <div className="container">
@@ -763,14 +765,20 @@ function App() {
                   required
                   onChange={(x) => setR_cardReg(x.target.value)}
                 />
-
-
+<select
+                	id="SchoolR"
+                	>
+                	<option value="" disabled selected="selected">-- Select school --</option>
+  								<option value="P1">Prathom 1</option>
+  								<option value="P2">Prathom 2</option>
+  								<option value="P3">Prathom 3</option>
+								</select>
                 
                 <label
                   for="Student Card"
                   style={{color: "red", fontSize: "15px"}}
                 >
-                  Student Card (.png, .jpg, .jpeg) &nbsp;
+                  &nbsp; Student Card (.png, .jpg) &nbsp;
                 </label>
                 <select
                 	id="GradeR"
@@ -778,7 +786,7 @@ function App() {
                   required
                   onChange={(x) => setR_gradeReg(x.target.value)}
                 	>
-                	<option value="" disabled selected="selected">-- Select education level --</option>
+                	<option value="" disabled selected="selected">-- Select grade --</option>
   								<option value="P1">Prathom 1</option>
   								<option value="P2">Prathom 2</option>
   								<option value="P3">Prathom 3</option>

@@ -108,6 +108,10 @@ class App extends React.Component {
       { /* Firefox 18- */
           color: lightgrey;
       }
+      #SchoolR
+      {
+        width:225px;   
+      }
       .swapper:hover 
       {
           color: #F39C12;
@@ -265,50 +269,14 @@ class App extends React.Component {
                                   <h2>Categories</h2>
                                   <div className="brands-name">
                                     <ul className="nav nav-pills nav-stacked">
-                                      <a href>
-                                        {" "}
-                                        <span
-                                          className="pull-center"
-                                          style={{
-                                            fontWeight: "bold",
-                                            color: "black",
-                                          }}
-                                        >
-                                          Stationery (125)
-                                        </span>
-                                      </a>
-                                      <br />
-                                      <br />
-                                      <a href>
-                                        {" "}
-                                        <span className="pull-center">
-                                          Book (133)
-                                        </span>
-                                      </a>
-                                      <br />
-                                      <br />
-                                      <a href>
-                                        {" "}
-                                        <span className="pull-center">
-                                          Uniform (104)
-                                        </span>
-                                      </a>
-                                      <br />
-                                      <br />
-                                      <a href>
-                                        {" "}
-                                        <span className="pull-center">
-                                          Bag (116)
-                                        </span>
-                                      </a>
-                                      <br />
-                                      <br />
-                                      <a href>
-                                        {" "}
-                                        <span className="pull-center">
-                                          Device (98)
-                                        </span>
-                                      </a>
+                                      <select
+                	id="SchoolR"
+                	>
+                	<option value="" disabled selected="selected">-- Select category --</option>
+  								<option value="P1">Prathom 1</option>
+  								<option value="P2">Prathom 2</option>
+  								<option value="P3">Prathom 3</option>
+								</select>
                                     </ul>
                                   </div>
                                 </div>
@@ -321,50 +289,14 @@ class App extends React.Component {
                                   <h2>Schools</h2>
                                   <div className="brands-name">
                                     <ul className="nav nav-pills nav-stacked">
-                                      <a href>
-                                        {" "}
-                                        <span
-                                          className="pull-center"
-                                          style={{
-                                            fontWeight: "bold",
-                                            color: "black",
-                                          }}
-                                        >
-                                          Suankularb (73)
-                                        </span>
-                                      </a>
-                                      <br />
-                                      <br />
-                                      <a href>
-                                        {" "}
-                                        <span className="pull-center">
-                                          Debsirin (85)
-                                        </span>
-                                      </a>
-                                      <br />
-                                      <br />
-                                      <a href>
-                                        {" "}
-                                        <span className="pull-center">
-                                          Assumption (70)
-                                        </span>
-                                      </a>
-                                      <br />
-                                      <br />
-                                      <a href>
-                                        {" "}
-                                        <span className="pull-center">
-                                          Bangkok Christian (81)
-                                        </span>
-                                      </a>
-                                      <br />
-                                      <br />
-                                      <a href>
-                                        {" "}
-                                        <span className="pull-center">
-                                          Triam Udom (67)
-                                        </span>
-                                      </a>
+                                      <select
+                  id="SchoolR"
+                  >
+                  <option value="" disabled selected="selected">-- Select school --</option>
+                  <option value="P1">Prathom 1</option>
+                  <option value="P2">Prathom 2</option>
+                  <option value="P3">Prathom 3</option>
+                </select>
                                     </ul>
                                   </div>
                                 </div>
@@ -1205,7 +1137,7 @@ class App extends React.Component {
               </li>
               <li>
                 <div className="heading">
-                  <h1>Account Management</h1>
+                  <h1>Edit Profile</h1>
                   <span>View and edit your own profile information</span>
                 </div>
                 <div className="cd-full-width fivth-slide">
