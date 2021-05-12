@@ -242,27 +242,15 @@ class App extends React.Component {
               {/*-/Home page-*/}
               <li>
                 <div className="heading">
-                  <h1>Reward Exchanging</h1>
-                  <span>
-                    Trade your charity point for various exclusive items
-                  </span>
                 </div>
               </li>
               {/*-/Home page-*/}
               <li>
                 <div className="heading">
-                  <h1>Reward Exchanging</h1>
-                  <span>
-                    Trade your charity point for various exclusive items
-                  </span>
                 </div>
               </li>
               <li className="selected">
                 <div className="heading">
-                  <h1>Reward Exchanging</h1>
-                  <span>
-                    Trade your charity point for various exclusive items
-                  </span>
                 </div>
                 <div className="cd-full-width first-slide">
                   <div className="container">
@@ -435,26 +423,18 @@ class App extends React.Component {
               </li>
               <li>
                 <div className="heading">
-                  <h1>Reward Exchanging</h1>
-                  <span>
-                    Trade your charity point for various exclusive items
-                  </span>
                 </div>
               </li>
               <li>
                 <div className="heading">
-                  <h1>Reward Exchanging</h1>
-                  <span>
-                    Trade your charity point for various exclusive items
-                  </span>
                 </div>
               </li>
               <li>
-                <div className="heading">
-                  <h1>Reward Exchanging</h1>
-                  <span>
-                    Trade your charity point for various exclusive items
-                  </span>
+                                                <div className="heading">
+                  <h1>Logout</h1>
+                  <a href="/authen" className="button">
+                    EXIT
+                  </a>
                 </div>
               </li>
             </ul>

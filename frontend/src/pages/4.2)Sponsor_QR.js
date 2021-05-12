@@ -234,21 +234,11 @@ class App extends React.Component {
               {/*-/Home page-*/}
               <li>
                 <div className="heading">
-                  <h1>Delivery Request</h1>
-                  <span>
-                    Support the transportation sevice for users within this
-                    website
-                  </span>
                 </div>
               </li>
               {/*-/Home page-*/}
               <li className="selected">
                 <div className="heading">
-                  <h1>Delivery Request</h1>
-                  <span>
-                    Support the transportation sevice for users within this
-                    website
-                  </span>
                 </div>
                 <div className="cd-full-width fivth-slide">
                   <div className="container">
@@ -538,29 +528,18 @@ Bangkok, 10110"
               </li>
               <li>
                 <div className="heading">
-                  <h1>Delivery Request</h1>
-                  <span>
-                    Support the transportation sevice for users within this
-                    website
-                  </span>
                 </div>
               </li>
               <li>
                 <div className="heading">
-                  <h1>Delivery Request</h1>
-                  <span>
-                    Support the transportation sevice for users within this
-                    website
-                  </span>
                 </div>
               </li>
               <li>
-                <div className="heading">
-                  <h1>Delivery Request</h1>
-                  <span>
-                    Support the transportation sevice for users within this
-                    website
-                  </span>
+                                                <div className="heading">
+                  <h1>Logout</h1>
+                  <a href="/authen" className="button">
+                    EXIT
+                  </a>
                 </div>
               </li>
             </ul>

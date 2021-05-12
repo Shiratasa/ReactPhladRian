@@ -257,8 +257,6 @@ class App extends React.Component {
               {/*-/Home page-*/}
               <li className="selected">
                 <div className="heading">
-                  <h1>Donation Center</h1>
-                  <span>Let's share the valuable learning tools together</span>
                 </div>
                 <div className="cd-full-width first-slide">
                   <div className="container">
@@ -556,8 +554,6 @@ class App extends React.Component {
               {/*-/Home page-*/}
               <li>
                 <div className="heading">
-                  <h1>Pending Request</h1>
-                  <span>Deliver items to those who request them</span>
                 </div>
                 <div className="cd-full-width third-slide">
                   <div className="container">
@@ -855,10 +851,6 @@ class App extends React.Component {
               </li>
               <li>
                 <div className="heading">
-                  <h1>Reward Exchanging</h1>
-                  <span>
-                    Trade your charity point for various exclusive items
-                  </span>
                 </div>
                 <div className="cd-full-width third-slide">
                   <div className="container">
@@ -1180,8 +1172,6 @@ class App extends React.Component {
               </li>
               <li>
                 <div className="heading">
-                  <h1>Edit Profile</h1>
-                  <span>View and edit your own profile information</span>
                 </div>
                 <div className="cd-full-width fivth-slide">
                   <div className="container">
@@ -1433,10 +1423,6 @@ Bangkok, 10240"
               </li>
               <li>
                 <div className="heading">
-                  <h1>Contact Administrator</h1>
-                  <span>
-                    We are ready to solve every kinds of problem for you
-                  </span>
                 </div>
                 <div className="cd-full-width fivth-slide">
                   <div className="container">
@@ -1559,7 +1545,7 @@ Bangkok, 10240"
                 </div>
               </li>
               <li>
-                <div className="heading">
+                                <div className="heading">
                   <h1>Logout</h1>
                   <a href="/authen" className="button">
                     EXIT

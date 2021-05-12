@@ -35,15 +35,14 @@ connection.connect(function (error) {
   /* School Get */
 }
 app.get("/School", function (req, resp) {
-  connection.query("SELECT * FROM ListSchool", function (error, rows, fields) {
+  connection.query("SELECT * FROM ListSchool", function (error, result) {
     if (error) {
       console.error("Query failed:\n" + error.stack);
       connection.end();
       throw error;
     } else {
-      rows.forEach((result) => {
-        resp.json(result);
-      });
+    	resp.send(result);
+    	console.log(result);
     }
   });
 });
@@ -57,13 +56,14 @@ app.post("/R_regis", function (req, resp) {
   const Phone = req.body.Phone;
   const Address = req.body.Address;
   const Student_Card = req.body.Student_Card;
+  const School_ID = req.body.School_ID;
   const Grade = req.body.Grade;
   const Image = req.body.Image;
   const Password = req.body.Password;
   const State = req.body.State;
   connection.query(
-    "INSERT INTO UserStudent (Username, Email, Phone, Address, Student_Card, Grade, Image, Password, State) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)",
-    [Username, Email, Phone, Address, Student_Card, Grade, Image, Password, State],
+    "INSERT INTO UserStudent (Username, Email, Phone, Address, Student_Card, School_ID, Grade, Image, Password, State) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)",
+    [Username, Email, Phone, Address, Student_Card, School_ID, Grade, Image, Password, State],
     function (error, result) {
       if (error) {
         console.error("Insert failed:\n" + error.stack);

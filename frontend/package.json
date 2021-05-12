@@ -21,6 +21,9 @@
     "react-router-dom": "^5.2.0",
     "react-script-tag": "^1.1.2",
     "react-scripts": "4.0.1",
+    "react-select": "^4.3.1",
+    "react-select-async-paginate": "^0.5.3",
+    "react-select-fetch": "^0.3.1",
     "web-vitals": "^0.2.4"
   },
   "scripts": {

@@ -242,8 +242,6 @@ class App extends React.Component {
               {/*-/Home page-*/}
               <li className="selected">
                 <div className="heading">
-                  <h1>Donation Center</h1>
-                  <span>Let's share the valuable learning tools together</span>
                 </div>
                 <div className="cd-full-width first-slide">
                   <div className="container">
@@ -450,32 +448,26 @@ class App extends React.Component {
               {/*-/Home page-*/}
               <li>
                 <div className="heading">
-                  <h1>Donation Center</h1>
-                  <span>Let's share the valuable learning tools together</span>
                 </div>
               </li>
               <li>
                 <div className="heading">
-                  <h1>Donation Center</h1>
-                  <span>Let's share the valuable learning tools together</span>
                 </div>
               </li>
               <li>
                 <div className="heading">
-                  <h1>Donation Center</h1>
-                  <span>Let's share the valuable learning tools together</span>
                 </div>
               </li>
               <li>
                 <div className="heading">
-                  <h1>Donation Center</h1>
-                  <span>Let's share the valuable learning tools together</span>
                 </div>
               </li>
               <li>
-                <div className="heading">
-                  <h1>Donation Center</h1>
-                  <span>Let's share the valuable learning tools together</span>
+                                                <div className="heading">
+                  <h1>Logout</h1>
+                  <a href="/authen" className="button">
+                    EXIT
+                  </a>
                 </div>
               </li>
             </ul>

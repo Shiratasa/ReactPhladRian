@@ -32,6 +32,7 @@ function App() {
   var telR = document.getElementById("PhoneR");
   var localR = document.getElementById("AddressR");
   var cardR = document.getElementById("CardR");
+  var schoolR = document.getElementById("SchoolR");
   var gradeR = document.getElementById("GradeR");
   var pass1R = document.getElementById("PasswordR");
   var pass2R = document.getElementById("C_passwordR");
@@ -50,6 +51,7 @@ function App() {
   const [R_emailReg, setR_emailReg] = useState("");
   const [R_phoneReg, setR_phoneReg] = useState("");
   const [R_localReg, setR_localReg] = useState("");
+  const [R_schoolReg, setR_schoolReg] = useState("");
   const [R_gradeReg, setR_gradeReg] = useState("");
   const [R_cardReg, setR_cardReg] = useState("");
   const [R_imageReg, setR_imageReg] = useState("");
@@ -59,6 +61,7 @@ function App() {
   const [D_phoneReg, setD_phoneReg] = useState("");
   const [D_localReg, setD_localReg] = useState("");
   const [D_passReg, setD_passReg] = useState("");
+  const [school_List, setschool_List] = useState([]);
   let history = useHistory();
   {
     /* Delay */
@@ -152,6 +155,15 @@ function App() {
       JSAlert.alert(
         "",
         "Please enter true ID number...",
+        JSAlert.Icons.Warning
+      );
+      pass2R.value = "";
+      throw "exit";
+    }
+    if (schoolR.value == "") {
+      JSAlert.alert(
+        "",
+        "Please select a school...",
         JSAlert.Icons.Warning
       );
       pass2R.value = "";
@@ -280,13 +292,10 @@ function App() {
     /* School Get */
   }
 	const SchoolBox = async () => {
-    const response = await fetch('/School');
-    const newList = await response.json();
-    this.setState(previousState => ({
-      ...previousState,
-      list: newList,
-    }));
-  }
+    Axios.get("http://localhost:5000/School").then((response) => {
+      setschool_List(response.data);
+    });
+  };
 
   {
     /* EmailR Post */
@@ -394,6 +403,7 @@ function App() {
         Phone: R_phoneReg,
         Address: R_localReg,
         Student_Card: R_cardReg,
+        School_ID: R_schoolReg,
         Grade: R_gradeReg,
         Image: R_imageReg,
         Password: R_passReg,
@@ -602,6 +612,7 @@ function App() {
                     data-toggle="modal"
                     data-target="#modal2"
                     className="btn btn-lg btn-success wow fadeInUp"
+                    onClick={SchoolBox}
                   >
                     Receiver Sign Up
                   </a>
@@ -767,11 +778,19 @@ function App() {
                 />
 <select
                 	id="SchoolR"
+                  onInvalid={R_regis.exit}
+                  required
+                  onChange={(x) => setR_schoolReg(x.target.value)}
                 	>
                 	<option value="" disabled selected="selected">-- Select school --</option>
-  								<option value="P1">Prathom 1</option>
-  								<option value="P2">Prathom 2</option>
-  								<option value="P3">Prathom 3</option>
+      {school_List.map((val, key) => (
+        <option
+          key={val.School_ID}
+          value={val.School_ID}
+        >
+          {val.Name}
+        </option>
+      ))}
 								</select>
                 
                 <label

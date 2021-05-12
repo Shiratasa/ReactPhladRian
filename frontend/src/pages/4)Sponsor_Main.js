@@ -250,8 +250,6 @@ class App extends React.Component {
               {/*-/Home page-*/}
               <li className="selected">
                 <div className="heading">
-                  <h1>Reward Center</h1>
-                  <span>Time to repay for the kindness of Donor's charity</span>
                 </div>
                 <div className="cd-full-width first-slide">
                   <div className="container">
@@ -529,11 +527,6 @@ class App extends React.Component {
               {/*-/Home page-*/}
               <li>
                 <div className="heading">
-                  <h1>Delivery Request</h1>
-                  <span>
-                    Support the transportation sevice for users within this
-                    website
-                  </span>
                 </div>
                 <div className="cd-full-width third-slide">
                   <div className="container">
@@ -831,8 +824,6 @@ class App extends React.Component {
               </li>
               <li>
                 <div className="heading">
-                  <h1>Edit Profile</h1>
-                  <span>View and edit your own profile information</span>
                 </div>
                 <div className="cd-full-width fivth-slide">
                   <div className="container">
@@ -1061,10 +1052,6 @@ Bangkok, 10240"
               </li>
               <li>
                 <div className="heading">
-                  <h1>Contact Administrator</h1>
-                  <span>
-                    We are ready to solve every kinds of problem for you
-                  </span>
                 </div>
                 <div className="cd-full-width fivth-slide">
                   <div className="container">
