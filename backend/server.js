@@ -48,6 +48,22 @@ app.get("/School", function (req, resp) {
 });
 
 {
+  /* Category Get */
+}
+app.get("/Categ", function (req, resp) {
+  connection.query("SELECT * FROM ListItem", function (error, result) {
+    if (error) {
+      console.error("Query failed:\n" + error.stack);
+      connection.end();
+      throw error;
+    } else {
+      resp.send(result);
+      console.log(result);
+    }
+  });
+});
+
+{
   /* Receiver Post */
 }
 app.post("/R_regis", function (req, resp) {

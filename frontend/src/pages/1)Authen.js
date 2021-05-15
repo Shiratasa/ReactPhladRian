@@ -61,7 +61,7 @@ function App() {
   const [D_phoneReg, setD_phoneReg] = useState("");
   const [D_localReg, setD_localReg] = useState("");
   const [D_passReg, setD_passReg] = useState("");
-  const [school_List, setschool_List] = useState([]);
+  const [School_List, setSchool_List] = useState([]);
   let history = useHistory();
   {
     /* Delay */
@@ -139,8 +139,7 @@ function App() {
       throw "exit";
     }
     if (localR.value == "" || 
-    	localR.value.length < 25 || 
-    	regEx5.test(localR.value) == false) {
+    	localR.value.length < 25) {
       JSAlert.alert(
         "",
         "Please enter location information in full detail...",
@@ -245,8 +244,7 @@ function App() {
       throw "exit";
     }
     if (localD.value == "" || 
-    	localD.value.length < 25 || 
-    	regEx5.test(localD.value) == false) {
+    	localD.value.length < 25) {
       JSAlert.alert(
         "",
         "Please enter location information in full detail...",
@@ -293,7 +291,7 @@ function App() {
   }
 	const SchoolBox = async () => {
     Axios.get("http://localhost:5000/School").then((response) => {
-      setschool_List(response.data);
+      setSchool_List(response.data);
     });
   };
 
@@ -612,7 +610,6 @@ function App() {
                     data-toggle="modal"
                     data-target="#modal2"
                     className="btn btn-lg btn-success wow fadeInUp"
-                    onClick={SchoolBox}
                   >
                     Receiver Sign Up
                   </a>
@@ -778,12 +775,13 @@ function App() {
                 />
 <select
                 	id="SchoolR"
+                  onClick={SchoolBox}
                   onInvalid={R_regis.exit}
                   required
                   onChange={(x) => setR_schoolReg(x.target.value)}
                 	>
-                	<option value="" disabled selected="selected">-- Select school --</option>
-      {school_List.map((val, key) => (
+                	<option value="" disabled selected="selected">-- Select School --</option>
+      {School_List.map((val, key) => (
         <option
           key={val.School_ID}
           value={val.School_ID}
@@ -805,7 +803,7 @@ function App() {
                   required
                   onChange={(x) => setR_gradeReg(x.target.value)}
                 	>
-                	<option value="" disabled selected="selected">-- Select grade --</option>
+                	<option value="" disabled selected="selected">-- Select Grade --</option>
   								<option value="P1">Prathom 1</option>
   								<option value="P2">Prathom 2</option>
   								<option value="P3">Prathom 3</option>

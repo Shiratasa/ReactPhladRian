@@ -35,6 +35,10 @@ import {
 
 class App extends React.Component {
   render() {
+    const handleSubmit1 = async (e) => {
+    this.props.history.push("/d_item");
+    location.reload();
+  };
     return (
       <div className="App">
         <div>
@@ -335,7 +339,8 @@ class App extends React.Component {
                                   {/*-features_items-*/}
                                   <div className="brands_products">
                                     <h2 className="title text-center">
-                                      Recent Items
+                                      Recent Items&nbsp;&nbsp;&nbsp;
+                                      <button class="swappor" onClick={handleSubmit1}>Add item</button>
                                     </h2>
                                   </div>
                                   <div className="col-sm-4">
@@ -458,20 +463,6 @@ class App extends React.Component {
                                             </a>
                                           </li>
                                         </ul>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div className="col-sm-4">
-                                    <div className="product-image-wrapper">
-                                      <div className="single-products">
-                                        <div className="productinfo text-center">
-                                          <img
-                                            src={adder}
-                                            alt=""
-                                            width={230}
-                                            height={320}
-                                          />
-                                        </div>
                                       </div>
                                     </div>
                                   </div>
