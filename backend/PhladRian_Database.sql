@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2021 at 10:09 AM
+-- Generation Time: May 15, 2021 at 01:53 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -56,8 +56,6 @@ CREATE TABLE `ItemDonate` (
   `Pic2` varbinary(8000) DEFAULT NULL,
   `Pic3` varbinary(8000) DEFAULT NULL,
   `Pic4` varbinary(8000) DEFAULT NULL,
-  `Pic5` varbinary(8000) DEFAULT NULL,
-  `Pic6` varbinary(8000) DEFAULT NULL,
   `Type_ID` int(255) DEFAULT NULL,
   `School_ID` int(255) DEFAULT NULL,
   `Quantity` int(255) DEFAULT NULL,
@@ -72,8 +70,8 @@ CREATE TABLE `ItemDonate` (
 -- Dumping data for table `ItemDonate`
 --
 
-INSERT INTO `ItemDonate` (`Item_ID`, `Donor_ID`, `Object`, `Pic1`, `Pic2`, `Pic3`, `Pic4`, `Pic5`, `Pic6`, `Type_ID`, `School_ID`, `Quantity`, `Quality`, `Point`, `Detail`, `Warning`, `State`) VALUES
-(1, 1, 'English Book 3', 0x5b76616c75652d365d, 0x5b76616c75652d365d, 0x5b76616c75652d365d, 0x5b76616c75652d365d, 0x5b76616c75652d365d, 0x5b76616c75652d365d, 1, 1, 999, 5, 20, 'An English book for the high school year 3 education. Has little short notes and highlights which are useful for the exams.', 0, 1);
+INSERT INTO `ItemDonate` (`Item_ID`, `Donor_ID`, `Object`, `Pic1`, `Pic2`, `Pic3`, `Pic4`, `Type_ID`, `School_ID`, `Quantity`, `Quality`, `Point`, `Detail`, `Warning`, `State`) VALUES
+(1, 1, 'English Book 3', 0x5b76616c75652d365d, 0x5b76616c75652d365d, 0x5b76616c75652d365d, 0x5b76616c75652d365d, 1, 1, 999, 4, 20, 'An English book for the high school year 3 education. Has little short notes and highlights which are useful for the exams.', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -114,7 +112,6 @@ INSERT INTO `ItemReward` (`Reward_ID`, `Sponsor_ID`, `Object`, `Pic1`, `Pic2`, `
 CREATE TABLE `ListCompany` (
   `Company_ID` int(255) NOT NULL,
   `Name` varchar(64) DEFAULT NULL,
-  `Address` varchar(999) DEFAULT NULL,
   `State` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -122,8 +119,8 @@ CREATE TABLE `ListCompany` (
 -- Dumping data for table `ListCompany`
 --
 
-INSERT INTO `ListCompany` (`Company_ID`, `Name`, `Address`, `State`) VALUES
-(1, 'Grab', 'Pathum Wan, Pathum Wan District, Bangkok 10330', 1);
+INSERT INTO `ListCompany` (`Company_ID`, `Name`, `State`) VALUES
+(1, 'Grab', 1);
 
 -- --------------------------------------------------------
 
@@ -133,16 +130,20 @@ INSERT INTO `ListCompany` (`Company_ID`, `Name`, `Address`, `State`) VALUES
 
 CREATE TABLE `ListItem` (
   `Type_ID` int(255) NOT NULL,
-  `Category` varchar(64) DEFAULT NULL,
-  `State` tinyint(1) DEFAULT NULL
+  `Category` varchar(64) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `ListItem`
 --
 
-INSERT INTO `ListItem` (`Type_ID`, `Category`, `State`) VALUES
-(1, 'Book', 1);
+INSERT INTO `ListItem` (`Type_ID`, `Category`) VALUES
+(1, 'Stationery'),
+(2, 'Book'),
+(3, 'Uniform'),
+(4, 'Bag'),
+(5, 'Device'),
+(6, 'Others');
 
 -- --------------------------------------------------------
 
@@ -153,7 +154,6 @@ INSERT INTO `ListItem` (`Type_ID`, `Category`, `State`) VALUES
 CREATE TABLE `ListSchool` (
   `School_ID` int(255) NOT NULL,
   `Name` varchar(64) DEFAULT NULL,
-  `Address` varchar(999) DEFAULT NULL,
   `State` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -161,25 +161,27 @@ CREATE TABLE `ListSchool` (
 -- Dumping data for table `ListSchool`
 --
 
-INSERT INTO `ListSchool` (`School_ID`, `Name`, `Address`, `State`) VALUES
-(1, 'Debsirin', '1466 Krung Kasem Rd, Wat Thepsirin, Pom Prap Sattru Phai, Bangkok 10100', 1),
-(2, 'Suankularb', NULL, 1),
-(3, 'Assumption', NULL, NULL),
-(4, 'Bangkok Christian', NULL, NULL),
-(5, 'Saint Gabriel', NULL, NULL),
-(6, 'Saint Dominic', NULL, NULL),
-(7, 'Vajiravudh', NULL, NULL),
-(8, 'Wat Suthiwararam', NULL, NULL),
-(9, 'Traimit', NULL, NULL),
-(10, 'Wattana', NULL, NULL),
-(11, 'Saint Joseph', NULL, NULL),
-(12, 'Materdei', NULL, NULL),
-(13, 'Satriwitthaya', NULL, NULL),
-(14, 'Suksanari', NULL, NULL),
-(15, 'Wat Mahapruettaram', NULL, NULL),
-(16, 'Sainampeung', NULL, NULL),
-(17, 'Saipanya', NULL, NULL),
-(18, 'Phraharuthai', NULL, NULL);
+INSERT INTO `ListSchool` (`School_ID`, `Name`, `State`) VALUES
+(1, 'Debsirin', 1),
+(2, 'Suankularb', 1),
+(3, 'Assumption', 1),
+(4, 'Bangkok Christian', 1),
+(5, 'Saint Gabriel', 1),
+(6, 'Saint Dominic', 1),
+(7, 'Vajiravudh', 1),
+(8, 'Wat Suthiwararam', 1),
+(9, 'Traimit', 1),
+(10, 'Wattana', 1),
+(11, 'Saint Joseph', 1),
+(12, 'Materdei', 1),
+(13, 'Satriwitthaya', 1),
+(14, 'Suksanari', 1),
+(15, 'Wat Mahapruettaram', 1),
+(16, 'Sainampeung', 1),
+(17, 'Saipanya', 1),
+(18, 'Phraharuthai', 1),
+(19, 'Army Reserve Command', 1),
+(20, 'Others', NULL);
 
 -- --------------------------------------------------------
 
@@ -276,7 +278,7 @@ CREATE TABLE `UserStudent` (
 --
 
 INSERT INTO `UserStudent` (`Student_ID`, `School_ID`, `Username`, `Student_Card`, `Image`, `Grade`, `Email`, `Phone`, `Password`, `Address`, `State`) VALUES
-(1, 1, 'Putthiwat Chalermvongsavej', '0010080243735', 0x5b76616c75652d365d, 'M6', 'putthiwat.kmutt@gmail.com', '0612562121', 'finalpro', '134/58, 30 Suk Sawat Rd, Bang Pakok, Rat Burana, Bangkok 10140', 1);
+(1, 1, 'Putthiwat Chalermvongsavej', '0010080243735', 0x433a5c66616b65706174685c49442e706e67, 'M6', 'putthiwat.kmutt@gmail.com', '0612562121', 'finalpro', '134/58, 30 Suk Sawat Rd, Bang Pakok, Rat Burana, Bangkok 10140', 1);
 
 -- --------------------------------------------------------
 
@@ -532,13 +534,13 @@ ALTER TABLE `ListCompany`
 -- AUTO_INCREMENT for table `ListItem`
 --
 ALTER TABLE `ListItem`
-  MODIFY `Type_ID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Type_ID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `ListSchool`
 --
 ALTER TABLE `ListSchool`
-  MODIFY `School_ID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `School_ID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `UserAdmin`
