@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 15, 2021 at 01:53 PM
+-- Generation Time: May 16, 2021 at 07:55 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -51,7 +51,7 @@ INSERT INTO `AllEmail` (`Email_ID`, `Email`) VALUES
 CREATE TABLE `ItemDonate` (
   `Item_ID` int(255) NOT NULL,
   `Donor_ID` int(255) DEFAULT NULL,
-  `Object` varchar(64) DEFAULT NULL,
+  `Obj` varchar(64) DEFAULT NULL,
   `Pic1` varbinary(8000) DEFAULT NULL,
   `Pic2` varbinary(8000) DEFAULT NULL,
   `Pic3` varbinary(8000) DEFAULT NULL,
@@ -60,8 +60,8 @@ CREATE TABLE `ItemDonate` (
   `School_ID` int(255) DEFAULT NULL,
   `Quantity` int(255) DEFAULT NULL,
   `Quality` int(5) DEFAULT NULL,
-  `Point` int(255) DEFAULT NULL,
   `Detail` varchar(999) DEFAULT NULL,
+  `Fragile` tinyint(1) DEFAULT NULL,
   `Warning` int(255) DEFAULT NULL,
   `State` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -70,8 +70,8 @@ CREATE TABLE `ItemDonate` (
 -- Dumping data for table `ItemDonate`
 --
 
-INSERT INTO `ItemDonate` (`Item_ID`, `Donor_ID`, `Object`, `Pic1`, `Pic2`, `Pic3`, `Pic4`, `Type_ID`, `School_ID`, `Quantity`, `Quality`, `Point`, `Detail`, `Warning`, `State`) VALUES
-(1, 1, 'English Book 3', 0x5b76616c75652d365d, 0x5b76616c75652d365d, 0x5b76616c75652d365d, 0x5b76616c75652d365d, 1, 1, 999, 4, 20, 'An English book for the high school year 3 education. Has little short notes and highlights which are useful for the exams.', 0, 1);
+INSERT INTO `ItemDonate` (`Item_ID`, `Donor_ID`, `Obj`, `Pic1`, `Pic2`, `Pic3`, `Pic4`, `Type_ID`, `School_ID`, `Quantity`, `Quality`, `Detail`, `Fragile`, `Warning`, `State`) VALUES
+(1, 1, 'O-NET EXAMINATION BOOK', 0x433a5c66616b65706174685c70726f64756374362e6a7067, 0x433a5c66616b65706174685c312e6a7067, 0x433a5c66616b65706174685c322e6a7067, 0x433a5c66616b65706174685c332e6a7067, 2, 3, 50, 4, '5 in 1 O-NET exam preparation, P.6 complete. This is a book that I read before the exam. I must say that this book is very good as it summarizes 5 main subjects into one book. And it also has the exercises at the end of each chapter and the pass O-net exam of the previous years for you to try. If you still don\'t understand why each of these questions answered, it has complete detailed solutions for children to understand as well. In addition to the many exams for children to do, it also has content to study as well.', 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -82,7 +82,7 @@ INSERT INTO `ItemDonate` (`Item_ID`, `Donor_ID`, `Object`, `Pic1`, `Pic2`, `Pic3
 CREATE TABLE `ItemReward` (
   `Reward_ID` int(255) NOT NULL,
   `Sponsor_ID` int(255) DEFAULT NULL,
-  `Object` varchar(64) DEFAULT NULL,
+  `Obj` varchar(64) DEFAULT NULL,
   `Pic1` varbinary(8000) DEFAULT NULL,
   `Pic2` varbinary(8000) DEFAULT NULL,
   `Pic3` varbinary(8000) DEFAULT NULL,
@@ -100,7 +100,7 @@ CREATE TABLE `ItemReward` (
 -- Dumping data for table `ItemReward`
 --
 
-INSERT INTO `ItemReward` (`Reward_ID`, `Sponsor_ID`, `Object`, `Pic1`, `Pic2`, `Pic3`, `Pic4`, `Pic5`, `Pic6`, `Quantity`, `Price`, `Detail`, `Warning`, `State`) VALUES
+INSERT INTO `ItemReward` (`Reward_ID`, `Sponsor_ID`, `Obj`, `Pic1`, `Pic2`, `Pic3`, `Pic4`, `Pic5`, `Pic6`, `Quantity`, `Price`, `Detail`, `Warning`, `State`) VALUES
 (1, 1, 'Teddy Bear', 0x5b76616c75652d365d, 0x5b76616c75652d365d, 0x5b76616c75652d365d, 0x5b76616c75652d365d, 0x5b76616c75652d365d, 0x5b76616c75652d365d, 999, 25, 'The imported teddy bear product from Japan. Its body is squishy and has the lovely design.', 0, 1);
 
 -- --------------------------------------------------------
@@ -130,20 +130,21 @@ INSERT INTO `ListCompany` (`Company_ID`, `Name`, `State`) VALUES
 
 CREATE TABLE `ListItem` (
   `Type_ID` int(255) NOT NULL,
-  `Category` varchar(64) DEFAULT NULL
+  `Category` varchar(64) DEFAULT NULL,
+  `Point` int(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `ListItem`
 --
 
-INSERT INTO `ListItem` (`Type_ID`, `Category`) VALUES
-(1, 'Stationery'),
-(2, 'Book'),
-(3, 'Uniform'),
-(4, 'Bag'),
-(5, 'Device'),
-(6, 'Others');
+INSERT INTO `ListItem` (`Type_ID`, `Category`, `Point`) VALUES
+(1, 'Stationery', 20),
+(2, 'Book', 25),
+(3, 'Uniform', 35),
+(4, 'Bag', 30),
+(5, 'Device', 40),
+(6, 'Others', 25);
 
 -- --------------------------------------------------------
 

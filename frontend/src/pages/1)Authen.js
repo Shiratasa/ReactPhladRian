@@ -26,7 +26,8 @@ function App() {
   var regEx2 = /(^(?!\s))+([a-z0-9.]{1,256})+([@]{1}[a-z0-9]{1,256})+([.]{1}[a-z.]{1,256})+($)/;
   var regEx3 = /^\S*$/;
   var regEx4 = /(^(?!\s))+([0]{1}[6,8,9]{1}[0-9]{1,256})+($)/;
-  var regEx5 = /(^(?!\s))+([A-za-z0-9.,\s]{1,256})+([A-za-z0-9.]{1,256})+($)/;
+  var regEx5 = /(^(?!\s))+([A-Z0-9]{1,256})+($)/;
+  var regEx6 = /^[^\s]+(\s+[^\s]+)*$/;
   var userR = document.getElementById("UsernameR");
   var mailR = document.getElementById("EmailR");
   var telR = document.getElementById("PhoneR");
@@ -63,6 +64,7 @@ function App() {
   const [D_passReg, setD_passReg] = useState("");
   const [School_List, setSchool_List] = useState([]);
   let history = useHistory();
+
   {
     /* Delay */
   }
@@ -101,6 +103,7 @@ function App() {
   const handleSubmit3 = async (e) => {
     JSAlert.alert("", "Password has been sent to your email...", JSAlert.Icons.Information);
   };
+
   {
     /* String Check */
   }
@@ -111,8 +114,8 @@ function App() {
       regEx1.test(userR.value) == false
     ) {
       JSAlert.alert(
-        "Ex: Alan Walker",
-        "Please enter username using real name...",
+        "(Ex): Alan Walker",
+        "Please enter username using your real name...",
         JSAlert.Icons.Warning
       );
       pass2R.value = "";
@@ -120,8 +123,8 @@ function App() {
     }
     if (mailR.value == "" || regEx2.test(mailR.value) == false) {
       JSAlert.alert(
-        "Ex: alan@gmail.com",
-        "Please enter valid email...",
+        "(Ex): alan@gmail.com",
+        "Please enter your valid email...",
         JSAlert.Icons.Warning
       );
       pass2R.value = "";
@@ -131,18 +134,19 @@ function App() {
     	telR.value.length != 10 ||
     	regEx4.test(telR.value) == false) {
       JSAlert.alert(
-        "Ex: 0891608019",
-        "Please enter phone number without <->...",
+        "(Ex): 0891608019",
+        "Please enter your phone number without <-> or space...",
         JSAlert.Icons.Warning
       );
       pass2R.value = "";
       throw "exit";
     }
     if (localR.value == "" || 
-    	localR.value.length < 25) {
+    	localR.value.length < 25 || 
+      regEx6.test(localR.value) == false) {
       JSAlert.alert(
-        "",
-        "Please enter location information in full detail...",
+        "(Ex): 37/2, San Chaomae Thapthim Alley, Tha Kham, Bang Khun Thian, Bangkok 10150",
+        "Please enter your location information in full detail...",
         JSAlert.Icons.Warning
       );
       pass2R.value = "";
@@ -152,8 +156,8 @@ function App() {
     	cardR.value.length < 5 || 
     	regEx5.test(cardR.value) == false) {
       JSAlert.alert(
-        "",
-        "Please enter true ID number...",
+        "(Ex): 1022060240",
+        "Please enter your true ID number without <-> or space......",
         JSAlert.Icons.Warning
       );
       pass2R.value = "";
@@ -162,7 +166,7 @@ function App() {
     if (schoolR.value == "") {
       JSAlert.alert(
         "",
-        "Please select a school...",
+        "Please select your school...",
         JSAlert.Icons.Warning
       );
       pass2R.value = "";
@@ -171,7 +175,7 @@ function App() {
     if (gradeR.value == "") {
       JSAlert.alert(
         "",
-        "Please select an education level...",
+        "Please select your education level...",
         JSAlert.Icons.Warning
       );
       pass2R.value = "";
@@ -183,7 +187,7 @@ function App() {
       regEx3.test(pass1R.value) == false
     ) {
       JSAlert.alert(
-        "",
+        "(Ex): Pass1234",
         "Please enter password with at least 8 characters and without space...",
         JSAlert.Icons.Warning
       );
@@ -216,8 +220,8 @@ function App() {
       regEx1.test(userD.value) == false
     ) {
       JSAlert.alert(
-        "Ex: Alan Walker",
-        "Please enter username using real name...",
+        "(Ex): Alan Walker",
+        "Please enter username using your real name...",
         JSAlert.Icons.Warning
       );
       pass2D.value = "";
@@ -225,8 +229,8 @@ function App() {
     }
     if (mailD.value == "" || regEx2.test(mailD.value) == false) {
       JSAlert.alert(
-        "Ex: alan@gmail.com",
-        "Please enter valid email...",
+        "(Ex): alan@gmail.com",
+        "Please enter your valid email...",
         JSAlert.Icons.Warning
       );
       pass2D.value = "";
@@ -236,18 +240,19 @@ function App() {
     	telD.value.length != 10 ||
     	regEx4.test(telD.value) == false) {
       JSAlert.alert(
-        "Ex: 0891608019",
-        "Please enter phone number without <->...",
+        "(Ex): 0891608019",
+        "Please enter your phone number without <-> or space...",
         JSAlert.Icons.Warning
       );
       pass2D.value = "";
       throw "exit";
     }
     if (localD.value == "" || 
-    	localD.value.length < 25) {
+    	localD.value.length < 25 || 
+      regEx6.test(localD.value) == false) {
       JSAlert.alert(
-        "",
-        "Please enter location information in full detail...",
+        "(Ex): 37/2, San Chaomae Thapthim Alley, Tha Kham, Bang Khun Thian, Bangkok 10150",
+        "Please enter your location information in full detail...",
         JSAlert.Icons.Warning
       );
       pass2D.value = "";
@@ -259,7 +264,7 @@ function App() {
       regEx3.test(pass1D.value) == false
     ) {
       JSAlert.alert(
-        "",
+        "(Ex): Pass1234",
         "Please enter password with at least 8 characters and without space...",
         JSAlert.Icons.Warning
       );
@@ -423,7 +428,7 @@ function App() {
       	invali = "1";
         JSAlert.alert(
           "",
-          "Wrong email or password...",
+          "Invalid email or password...",
           JSAlert.Icons.Failed
         );
         throw "exit";
@@ -668,6 +673,7 @@ function App() {
                   className="form-control"
                   id="EmailL"
                   placeholder="Email"
+                  autocomplete="off"
                   required
                   onChange={(z) => setA_emailLog(z.target.value)}
                 />
@@ -679,6 +685,7 @@ function App() {
                   className="form-control"
                   id="PasswordL"
                   placeholder="Password"
+                  autocomplete="off"
                   required
                   onChange={(z) => setA_passLog(z.target.value)}
                 />
@@ -692,7 +699,6 @@ function App() {
                 <input
                   type="submit"
                   className="form-control"
-                  id="LogIn"
                   onClick={A_login}
                 />
               </form>
@@ -732,6 +738,7 @@ function App() {
                   className="form-control"
                   id="UsernameR"
                   placeholder="Username"
+                  autocomplete="off"
                   onInvalid={R_regis.exit}
                   required
                   onChange={(x) => setR_nameReg(x.target.value)}
@@ -741,6 +748,7 @@ function App() {
                   className="form-control"
                   id="EmailR"
                   placeholder="Email Address"
+                  autocomplete="off"
                   onInvalid={R_regis.exit}
                   required
                   onChange={(x) => setR_emailReg(x.target.value)}
@@ -750,6 +758,7 @@ function App() {
                   className="form-control"
                   id="PhoneR"
                   placeholder="Tel Number"
+                  autocomplete="off"
                   onInvalid={R_regis.exit}
                   required
                   onChange={(x) => setR_phoneReg(x.target.value)}
@@ -760,6 +769,7 @@ function App() {
                   rows="4"
                   id="AddressR"
                   placeholder="House Location"
+                  autocomplete="off"
                   onInvalid={R_regis.exit}
                   required
                   onChange={(x) => setR_localReg(x.target.value)}
@@ -769,6 +779,7 @@ function App() {
                   className="form-control"
                   id="CardR"
                   placeholder="Student ID"
+                  autocomplete="off"
                   onInvalid={R_regis.exit}
                   required
                   onChange={(x) => setR_cardReg(x.target.value)}
@@ -831,6 +842,7 @@ function App() {
                   className="form-control"
                   id="PasswordR"
                   placeholder="Password"
+                  autocomplete="off"
                   onInvalid={R_regis.exit}
                   required
                   onChange={(x) => setR_passReg(x.target.value)}
@@ -840,6 +852,7 @@ function App() {
                   className="form-control"
                   id="C_passwordR"
                   placeholder="Confirm Password"
+                  autocomplete="off"
                   onInvalid={R_regis.exit}
                   required
                 />
@@ -847,7 +860,6 @@ function App() {
                 <input
                   type="submit"
                   className="form-control"
-                  id="RSignUp"
                   onClick={R_regis}
                 />
               </form>
@@ -885,6 +897,7 @@ function App() {
                   className="form-control"
                   id="UsernameD"
                   placeholder="Username"
+                  autocomplete="off"
                   onInvalid={D_regis.exit}
                   required
                   onChange={(y) => setD_nameReg(y.target.value)}
@@ -894,6 +907,7 @@ function App() {
                   className="form-control"
                   id="EmailD"
                   placeholder="Email Address"
+                  autocomplete="off"
                   onInvalid={D_regis.exit}
                   required
                   onChange={(y) => setD_emailReg(y.target.value)}
@@ -903,6 +917,7 @@ function App() {
                   className="form-control"
                   id="PhoneD"
                   placeholder="Tel Number"
+                  autocomplete="off"
                   onInvalid={D_regis.exit}
                   required
                   onChange={(y) => setD_phoneReg(y.target.value)}
@@ -913,6 +928,7 @@ function App() {
                   rows="4"
                   id="AddressD"
                   placeholder="House Location"
+                  autocomplete="off"
                   onInvalid={D_regis.exit}
                   required
                   onChange={(y) => setD_localReg(y.target.value)}
@@ -922,6 +938,7 @@ function App() {
                   className="form-control"
                   id="PasswordD"
                   placeholder="Password"
+                  autocomplete="off"
                   onInvalid={D_regis.exit}
                   required
                   onChange={(y) => setD_passReg(y.target.value)}
@@ -931,6 +948,7 @@ function App() {
                   className="form-control"
                   id="C_passwordD"
                   placeholder="Confirm Password"
+                  autocomplete="off"
                   onInvalid={D_regis.exit}
                   required
                 />
@@ -938,7 +956,6 @@ function App() {
                 <input
                   type="submit"
                   className="form-control"
-                  id="DSignUp"
                   onClick={D_regis}
                 />
               </form>

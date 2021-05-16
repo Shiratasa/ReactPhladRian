@@ -1,6 +1,5 @@
 /* eslint-disable */
 import React, { useEffect, useState, Component } from "react";
-import ReactDOM from "react-dom";
 import { Helmet } from "react-helmet";
 import wall from "./resources/imgs/wallpaper.jpg";
 import but1 from "./resources/imgs/home.png";
@@ -29,23 +28,6 @@ function App() {
   {
     /* Values */
   }
-  var regEx1 = /^[^\s]+(\s+[^\s]+)*$/;
-  var regEx2 = /(^(?!\s))+([0-9]{1,256})+($)/;
-  var picI1 = document.getElementById("img1");
-  var picI2 = document.getElementById("img2");
-  var picI3 = document.getElementById("img3");
-  var picI4 = document.getElementById("img4");
-  var nameI = document.getElementById("ItemN");
-  var despI = document.getElementById("ItemD");
-  var categI = document.getElementById("ItemC");
-  var schoolI = document.getElementById("ItemS");
-  var qualI = document.getElementById("ItemA");
-  var fragI = document.getElementById("ItemF");
-  var quanI = document.getElementById("ItemQ");
-  var fileExtension1 = "";
-  var fileExtension2 = "";
-  var fileExtension3 = "";
-  var fileExtension4 = "";
   const [School_List, setSchool_List] = useState([]);
   const [Categ_List, setCateg_List] = useState([]);
   const [I_Obj, setI_Obj] = useState("");
@@ -59,22 +41,7 @@ function App() {
   const [I_Num, setI_Num] = useState("");
   const [I_Desp, setI_Desp] = useState("");
   const [I_Frag, setI_Frag] = useState("");
-  const images = [I_Pic1, I_Pic2, I_Pic3, I_Pic4];
-  let history = useHistory();
-
-  {
-    /* Delay */
-  }
-  function timeout(delay: number) {
-    return new Promise((res) => setTimeout(res, delay));
-  }
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    JSAlert.alert("", "Submit Success!", JSAlert.Icons.Success);
-    await timeout(1000).then($(this).unbind("submit").submit());
-    history.push("/d_main");
-    location.reload();
-  };
+  const images = [adder, I_Pic1, I_Pic2, I_Pic3, I_Pic4];
 
   {
     /* School Get */
@@ -95,188 +62,11 @@ function App() {
   };
 
   {
-    /* String Check */
-  }
-  function checkString() {
-  if (nameI.value == "" || 
-      nameI.value.length < 10 || 
-      regEx1.test(nameI.value) == false) {
-      JSAlert.alert(
-        "(Ex): English Book 3",
-        "Please enter item name properly...",
-        JSAlert.Icons.Warning
-      );
-      quanI.value = "";
-      throw "exit";
-    }
-      if (despI.value == "" || 
-      despI.value.length < 25 || 
-      regEx1.test(despI.value) == false) {
-      JSAlert.alert(
-        "(Ex): An English book for the high school year 3 education.",
-        "Please enter item information in full detail...",
-        JSAlert.Icons.Warning
-      );
-      quanI.value = "";
-      throw "exit";
-    }
-    if (categI.value == "") {
-      JSAlert.alert(
-        "",
-        "Please select category of item...",
-        JSAlert.Icons.Warning
-      );
-      quanI.value = "";
-      throw "exit";
-    }
-    if (schoolI.value == "") {
-      JSAlert.alert(
-        "",
-        "Please select school of item...",
-        JSAlert.Icons.Warning
-      );
-      quanI.value = "";
-      throw "exit";
-    }
-    if (qualI.value == "") {
-      JSAlert.alert(
-        "",
-        "Please select quality level of item...",
-        JSAlert.Icons.Warning
-      );
-      quanI.value = "";
-      throw "exit";
-    }
-    if (fragI.value == "") {
-      JSAlert.alert(
-        "",
-        "Please select fragility of item...",
-        JSAlert.Icons.Warning
-      );
-      quanI.value = "";
-      throw "exit";
-    }
-    if (quanI.value == "" || 
-      regEx2.test(quanI.value) == false) {
-      JSAlert.alert(
-        "(Ex): 5",
-        "Please enter item quantity number...",
-        JSAlert.Icons.Warning
-      );
-      quanI.value = "";
-      throw "exit";
-    }
-  }
-
-  {
-    /* File Check 1 */
-  }
-  function checkFile1() {
-    if (picI1.value.lastIndexOf(".") > 0) {
-      fileExtension1 = picI1.value.substring(
-        picI1.value.lastIndexOf(".") + 1,
-        picI1.value.length
-      );
-    }
-    if (
-      fileExtension1.toLowerCase() != "png" &&
-      fileExtension1.toLowerCase() != "jpeg" &&
-      fileExtension1.toLowerCase() != "jpg"
-    ) {
-      JSAlert.alert(
-        "",
-        "Please select <.png, .jpg> image file 1 for upload...",
-        JSAlert.Icons.Warning
-      );
-      quanI.value = "";
-      throw "exit";
-    }
-  }
-
-    {
-    /* File Check 2 */
-  }
-  function checkFile2() {
-    if (picI2.value.lastIndexOf(".") > 0) {
-      fileExtension2 = picI2.value.substring(
-        picI2.value.lastIndexOf(".") + 1,
-        picI2.value.length
-      );
-    }
-    if (
-      fileExtension2.toLowerCase() != "png" &&
-      fileExtension2.toLowerCase() != "jpeg" &&
-      fileExtension2.toLowerCase() != "jpg"
-    ) {
-      JSAlert.alert(
-        "",
-        "Please select <.png, .jpg> image file 2 for upload...",
-        JSAlert.Icons.Warning
-      );
-      quanI.value = "";
-      throw "exit";
-    }
-  }
-
-    {
-    /* File Check 3 */
-  }
-  function checkFile3() {
-    if (picI3.value.lastIndexOf(".") > 0) {
-      fileExtension3 = picI3.value.substring(
-        picI3.value.lastIndexOf(".") + 1,
-        picI3.value.length
-      );
-    }
-    if (
-      fileExtension3.toLowerCase() != "png" &&
-      fileExtension3.toLowerCase() != "jpeg" &&
-      fileExtension3.toLowerCase() != "jpg"
-    ) {
-      JSAlert.alert(
-        "",
-        "Please select <.png, .jpg> image file 3 for upload...",
-        JSAlert.Icons.Warning
-      );
-      quanI.value = "";
-      throw "exit";
-    }
-  }
-
-    {
-    /* File Check 4 */
-  }
-  function checkFile4() {
-    if (picI4.value.lastIndexOf(".") > 0) {
-      fileExtension4 = picI4.value.substring(
-        picI4.value.lastIndexOf(".") + 1,
-        picI4.value.length
-      );
-    }
-    if (
-      fileExtension4.toLowerCase() != "png" &&
-      fileExtension4.toLowerCase() != "jpeg" &&
-      fileExtension4.toLowerCase() != "jpg"
-    ) {
-      JSAlert.alert(
-        "",
-        "Please select <.png, .jpg> image file 4 for upload...",
-        JSAlert.Icons.Warning
-      );
-      quanI.value = "";
-      throw "exit";
-    }
-  }
-
-  {
     /* Item Post */
   }
   const I_donate = async () => {
-    checkString();
-      checkFile1();
-      checkFile2();
-      checkFile3();
-      checkFile4();
+    if (invali == "0") {
+      E_postR();
       Axios.post("http://localhost:5000/I_donate", {
         Obj: I_Obj,
         Pic1: I_Pic1,
@@ -285,13 +75,14 @@ function App() {
         Pic4: I_Pic4,
         Type_ID: I_Type,
         School_ID: I_School,
-        Quantity: I_Num,
-        Quality: I_All,
+        Quantity: I_All,
+        Quality: I_Num,
         Detail: I_Desp,
         Fragile: I_Frag,
       }).then((response) => {
         console.log(response);
       });
+    }
   };
 
   return (
@@ -520,7 +311,7 @@ function App() {
             {/*-/Home page-*/}
             <li className="selected">
               <div className="heading"></div>
-              <form onSubmit={handleSubmit}>
+              <form>
                 <div className="cd-full-width first-slide">
                   <div className="container">
                     <div className="row">
@@ -534,20 +325,11 @@ function App() {
                               />
                               <br />
                               <br />
-                              <label
-                  for="Student Card"
-                  style={{color: "red", fontSize: "15px"}}
-                >
-                  &nbsp; Item Photo (.png, .jpg) &nbsp;
-                </label>
-                <br />
-                              <br />
                               <input
                                 type="file"
                                 id="img1"
                                 accept=".png, .jpg, .jpeg"
                                 required
-                                onInvalid={I_donate.exit}
                                 onChange={(x) => setI_Pic1(x.target.value)}
                               />
                               <br />
@@ -556,7 +338,6 @@ function App() {
                                 id="img2"
                                 accept=".png, .jpg, .jpeg"
                                 required
-                                onInvalid={I_donate.exit}
                                 onChange={(x) => setI_Pic2(x.target.value)}
                               />
                               <br />
@@ -565,7 +346,6 @@ function App() {
                                 id="img3"
                                 accept=".png, .jpg, .jpeg"
                                 required
-                                onInvalid={I_donate.exit}
                                 onChange={(x) => setI_Pic3(x.target.value)}
                               />
                               <br />
@@ -574,7 +354,6 @@ function App() {
                                 id="img4"
                                 accept=".png, .jpg, .jpeg"
                                 required
-                                onInvalid={I_donate.exit}
                                 onChange={(x) => setI_Pic4(x.target.value)}
                               />
                             </div>
@@ -601,9 +380,7 @@ function App() {
                                   type="text"
                                   id="ItemN"
                                   placeholder="Item Name"
-                                  autocomplete="off"
                                   required
-                                  onInvalid={I_donate.exit}
                                   onChange={(x) => setI_Obj(x.target.value)}
                                 />
                               </h2>
@@ -613,9 +390,7 @@ function App() {
                                 type="address"
                                 id="ItemD"
                                 placeholder="Item Description"
-                                autocomplete="off"
                                 required
-                                onInvalid={I_donate.exit}
                                 onChange={(x) => setI_Desp(x.target.value)}
                               />
                               <hr className="soft" />
@@ -634,7 +409,6 @@ function App() {
                                         className="fitBox"
                                         onClick={CategBox}
                                         required
-                                        onInvalid={I_donate.exit}
                                         onChange={(x) =>
                                           setI_Type(x.target.value)
                                         }
@@ -667,7 +441,6 @@ function App() {
                                         className="fitBox"
                                         onClick={SchoolBox}
                                         required
-                                        onInvalid={I_donate.exit}
                                         onChange={(x) =>
                                           setI_School(x.target.value)
                                         }
@@ -699,7 +472,6 @@ function App() {
                                         id="ItemA"
                                         className="fitBox"
                                         required
-                                        onInvalid={I_donate.exit}
                                         onChange={(x) =>
                                           setI_All(x.target.value)
                                         }
@@ -727,7 +499,6 @@ function App() {
                                         id="ItemF"
                                         className="fitBox"
                                         required
-                                        onInvalid={I_donate.exit}
                                         onChange={(x) =>
                                           setI_Frag(x.target.value)
                                         }
@@ -753,9 +524,7 @@ function App() {
                                         type="text"
                                         id="ItemQ"
                                         placeholder="Item Quantity"
-                                        autocomplete="off"
                                         required
-                                        onInvalid={I_donate.exit}
                                         onChange={(x) =>
                                           setI_Num(x.target.value)
                                         }
@@ -768,10 +537,9 @@ function App() {
                               <button
                                 type="submit"
                                 className="btn btn-default swappor"
-                                onClick={I_donate}
                               >
                                 <i className="fa fa fa-edit" />
-                                 Save detail
+                                 Edit detail
                               </button>
                               <img
                                 style={{ width: "180px", height: "50px" }}
@@ -828,4 +596,3 @@ function App() {
 }
 
 export default withRouter(App);
-ReactDOM.render(<App />, document.getElementById("root"));

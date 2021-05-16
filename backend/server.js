@@ -305,6 +305,36 @@ app.post("/E_get", function (req, resp) {
 });
 
 {
+  /* Item Post */
+}
+app.post("/I_donate", function (req, resp) {
+  const Obj = req.body.Obj;
+  const Pic1 = req.body.Pic1;
+  const Pic2 = req.body.Pic2;
+  const Pic3 = req.body.Pic3;
+  const Pic4 = req.body.Pic4;
+  const Type_ID = req.body.Type_ID;
+  const School_ID = req.body.School_ID;
+  const Quantity = req.body.Quantity;
+  const Quality = req.body.Quality;
+  const Detail = req.body.Detail;
+  const Fragile = req.body.Fragile;
+  const Warning = req.body.Warning;
+  const State = req.body.State;
+  connection.query(
+    "INSERT INTO ItemDonate (Obj, Pic1, Pic2, Pic3, Pic4, Type_ID, School_ID, Quantity, Quality, Detail, Fragile, Warning, State) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 1)",
+    [Obj, Pic1, Pic2, Pic3, Pic4, Type_ID, School_ID, Quantity, Quality, Detail, Fragile, Warning, State],
+    function (error, result) {
+      if (error) {
+        console.error("Insert failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      }
+    }
+  );
+});
+
+{
   /* Admin Example */
 }
 app.get("/", function (req, resp) {
