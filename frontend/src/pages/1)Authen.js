@@ -2,11 +2,8 @@
 import React, {Component, useEffect, useState} from "react";
 import ReactDOM from "react-dom";
 import {Helmet} from "react-helmet";
-import book from "./resources/web_logo_bg.png";
 import ScriptTag from "react-script-tag";
 import props from "prop-types";
-import eng from "./resources/imgs/authen/eng.png";
-import tha from "./resources/imgs/authen/tha.png";
 import Axios from "axios";
 import $ from "jquery";
 import JSAlert from "js-alert";
@@ -19,6 +16,9 @@ import {
 } from "react-router-dom";
 
 function App() {
+	const eng = window.location.origin + "/resources/imgs/authen/eng.png";
+const tha = window.location.origin + "/resources/imgs/authen/tha.png";
+const book = window.location.origin + "/resources/web_logo_bg.png";
   {
     /* Values */
   }

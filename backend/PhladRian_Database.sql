@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 16, 2021 at 07:55 PM
+-- Generation Time: May 18, 2021 at 08:03 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -139,12 +139,12 @@ CREATE TABLE `ListItem` (
 --
 
 INSERT INTO `ListItem` (`Type_ID`, `Category`, `Point`) VALUES
-(1, 'Stationery', 20),
-(2, 'Book', 25),
-(3, 'Uniform', 35),
-(4, 'Bag', 30),
-(5, 'Device', 40),
-(6, 'Others', 25);
+(1, 'Stationery', 15),
+(2, 'Book', 20),
+(3, 'Uniform', 25),
+(4, 'Bag', 25),
+(5, 'Device', 30),
+(6, 'Others', 20);
 
 -- --------------------------------------------------------
 

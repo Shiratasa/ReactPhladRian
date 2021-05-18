@@ -1,20 +1,11 @@
 /* eslint-disable */
 import React from "react";
+import ReactDOM from "react-dom";
 import { Helmet } from "react-helmet";
-import wall from "./resources/imgs/wallpaper.jpg";
-import but1 from "./resources/imgs/home.png";
-import but2 from "./resources/imgs/delivery.png";
-import but3 from "./resources/imgs/reward.png";
-import but4 from "./resources/imgs/account.png";
-import but5 from "./resources/imgs/report.png";
-import but6 from "./resources/imgs/logout.png";
-import blank from "./resources/imgs/shop/white.jpg";
-import large from "./resources/imgs/shop/product6.jpg";
-import small1 from "./resources/imgs/shop/1.jpg";
-import small2 from "./resources/imgs/shop/2.jpg";
-import small3 from "./resources/imgs/shop/3.jpg";
-import eng from "./resources/imgs/authen/eng.png";
-import tha from "./resources/imgs/authen/tha.png";
+import Axios from "axios";
+import $ from "jquery";
+import JSAlert from "js-alert";
+window.$ = $;
 import {
   BrowserRouter as Router,
   Route,
@@ -22,8 +13,21 @@ import {
   withRouter,
 } from "react-router-dom";
 
-class App extends React.Component {
-  render() {
+function App() {
+	const wall = window.location.origin + "/resources/imgs/wallpaper.jpg";
+const but1 = window.location.origin + "/resources/imgs/home.png";
+const but2 = window.location.origin + "/resources/imgs/delivery.png";
+const but3 = window.location.origin + "/resources/imgs/reward.png";
+const but4 = window.location.origin + "/resources/imgs/account.png";
+const but5 = window.location.origin + "/resources/imgs/report.png";
+const but6 = window.location.origin + "/resources/imgs/logout.png";
+const blank = window.location.origin + "/resources/imgs/shop/white.jpg";
+const large = window.location.origin + "/resources/imgs/shop/product6.jpg";
+const small1 = window.location.origin + "/resources/imgs/shop/1.jpg";
+const small2 = window.location.origin + "/resources/imgs/shop/2.jpg";
+const small3 = window.location.origin + "/resources/imgs/shop/3.jpg";
+const eng = window.location.origin + "/resources/imgs/authen/eng.png";
+const tha = window.location.origin + "/resources/imgs/authen/tha.png";
     return (
       <div className="App">
         <div>
@@ -483,9 +487,7 @@ Bangkok, 10240"
                                     name="Alocate"
                                     rows={6}
                                     id="Alocate"
-                                    placeholder="240/97, Ekkamai 10 Alley,
-Chaeng Watthana Road, Khlong Tan District,
-Bangkok, 10110"
+                                    placeholder="240/97, Ekkamai 10 Alley, Chaeng Watthana Road, Khlong Tan District, Bangkok, 10110"
                                     required="required"
                                     style={{
                                       width: "100%",
@@ -537,7 +539,7 @@ Bangkok, 10110"
               <li>
                                                 <div className="heading">
                   <h1>Logout</h1>
-                  <a href="/authen" className="button">
+                  <a href="/" className="button">
                     EXIT
                   </a>
                 </div>
@@ -554,6 +556,6 @@ Bangkok, 10110"
       </div>
     );
   }
-}
 
 export default withRouter(App);
+ReactDOM.render(<App />, document.getElementById("root"));

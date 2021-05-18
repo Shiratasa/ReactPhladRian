@@ -1,31 +1,11 @@
 /* eslint-disable */
-import React from "react";
+import React, { useEffect, useState, Component } from "react";
+import ReactDOM from "react-dom";
 import { Helmet } from "react-helmet";
-import wall from "./resources/imgs/wallpaper.jpg";
-import but1 from "./resources/imgs/home.png";
-import but2 from "./resources/imgs/request.png";
-import but3 from "./resources/imgs/reward.png";
-import but4 from "./resources/imgs/account.png";
-import but5 from "./resources/imgs/report.png";
-import but6 from "./resources/imgs/logout.png";
-import blank from "./resources/imgs/shop/white.jpg";
-import ship from "./resources/imgs/home/shipping.jpg";
-import pro1 from "./resources/imgs/shop/product12.jpg";
-import pro2 from "./resources/imgs/shop/product11.jpg";
-import pro3 from "./resources/imgs/shop/product10.jpg";
-import pro4 from "./resources/imgs/shop/product9.jpg";
-import pro5 from "./resources/imgs/shop/product8.jpg";
-import pro6 from "./resources/imgs/shop/product7.jpg";
-import pro7 from "./resources/imgs/shop/product6.jpg";
-import adder from "./resources/imgs/shop/add.png";
-import re1 from "./resources/imgs/shop/reward1.jpg";
-import re2 from "./resources/imgs/shop/reward2.jpg";
-import re3 from "./resources/imgs/shop/reward3.jpg";
-import re4 from "./resources/imgs/shop/reward4.jpg";
-import re5 from "./resources/imgs/shop/reward5.jpg";
-import re6 from "./resources/imgs/shop/reward6.jpg";
-import eng from "./resources/imgs/authen/eng.png";
-import tha from "./resources/imgs/authen/tha.png";
+import Axios from "axios";
+import $ from "jquery";
+import JSAlert from "js-alert";
+window.$ = $;
 import {
   BrowserRouter as Router,
   Route,
@@ -33,12 +13,65 @@ import {
   withRouter,
 } from "react-router-dom";
 
-class App extends React.Component {
-  render() {
-    const handleSubmit1 = async (e) => {
-    this.props.history.push("/d_item");
+function App() {
+	const wall = window.location.origin + "/resources/imgs/wallpaper.jpg";
+const but1 = window.location.origin + "/resources/imgs/home.png";
+const but2 = window.location.origin + "/resources/imgs/request.png";
+const but3 = window.location.origin + "/resources/imgs/reward.png";
+const but4 = window.location.origin + "/resources/imgs/account.png";
+const but5 = window.location.origin + "/resources/imgs/report.png";
+const but6 = window.location.origin + "/resources/imgs/logout.png";
+const blank = window.location.origin + "/resources/imgs/shop/white.jpg";
+const ship = window.location.origin + "/resources/imgs/home/shipping.jpg";
+const pro1 = window.location.origin + "/resources/imgs/shop/product12.jpg";
+const pro2 = window.location.origin + "/resources/imgs/shop/product11.jpg";
+const pro3 = window.location.origin + "/resources/imgs/shop/product10.jpg";
+const pro4 = window.location.origin + "/resources/imgs/shop/product9.jpg";
+const pro5 = window.location.origin + "/resources/imgs/shop/product8.jpg";
+const pro6 = window.location.origin + "/resources/imgs/shop/product7.jpg";
+const pro7 = window.location.origin + "/resources/imgs/shop/product6.jpg";
+const adder = window.location.origin + "/resources/imgs/shop/add.png";
+const re1 = window.location.origin + "/resources/imgs/shop/reward1.jpg";
+const re2 = window.location.origin + "/resources/imgs/shop/reward2.jpg";
+const re3 = window.location.origin + "/resources/imgs/shop/reward3.jpg";
+const re4 = window.location.origin + "/resources/imgs/shop/reward4.jpg";
+const re5 = window.location.origin + "/resources/imgs/shop/reward5.jpg";
+const re6 = window.location.origin + "/resources/imgs/shop/reward6.jpg";
+const eng = window.location.origin + "/resources/imgs/authen/eng.png";
+const tha = window.location.origin + "/resources/imgs/authen/tha.png";
+  {
+    /* Values */
+  }
+  const [School_List, setSchool_List] = useState([]);
+  const [Categ_List, setCateg_List] = useState([]);
+  let history = useHistory();
+
+  {
+    /* Delay */
+  }
+  const handleSubmit1 = async (e) => {
+    history.push("/d_add");
     location.reload();
   };
+
+    {
+    /* School Get */
+  }
+  const SchoolBox = async () => {
+    Axios.get("http://localhost:5000/School").then((response) => {
+      setSchool_List(response.data);
+    });
+  };
+
+  {
+    /* Category Get */
+  }
+  const CategBox = async () => {
+    Axios.get("http://localhost:5000/Categ").then((response) => {
+      setCateg_List(response.data);
+    });
+  };
+
     return (
       <div className="App">
         <div>
@@ -181,6 +214,13 @@ class App extends React.Component {
       {
           border: 2px solid red;
       }
+      .fitBox
+    {
+     font-size:10pt;
+     width:230px;
+     background-color:white;
+     border:solid 1px black;
+    }
     `}</style>
           <div className="overlay" />
           <section className="top-part">
@@ -275,14 +315,23 @@ class App extends React.Component {
                                   <h2>Categories</h2>
                                   <div className="brands-name">
                                     <ul className="nav nav-pills nav-stacked">
-                                      <select
-                  id="SchoolR"
-                  >
-                  <option value="" disabled selected="selected">-- Select category --</option>
-                  <option value="P1">Prathom 1</option>
-                  <option value="P2">Prathom 2</option>
-                  <option value="P3">Prathom 3</option>
-                </select>
+                                      <select className="fitBox" onClick={CategBox}> 
+                                        <option
+                                          value=""
+                                          disabled
+                                          selected="selected"
+                                        >
+                                          -- Select Category --
+                                        </option>
+                                        {Categ_List.map((val, key) => (
+                                          <option
+                                            key={val.Type_ID}
+                                            value={val.Type_ID}
+                                          >
+                                            {val.Category}
+                                          </option>
+                                        ))}
+                                      </select>
                                     </ul>
                                   </div>
                                 </div>
@@ -295,14 +344,23 @@ class App extends React.Component {
                                   <h2>Schools</h2>
                                   <div className="brands-name">
                                     <ul className="nav nav-pills nav-stacked">
-                                      <select
-                  id="SchoolR"
-                  >
-                  <option value="" disabled selected="selected">-- Select school --</option>
-                  <option value="P1">Prathom 1</option>
-                  <option value="P2">Prathom 2</option>
-                  <option value="P3">Prathom 3</option>
-                </select>
+                                      <select className="fitBox" onClick={SchoolBox}>
+                                        <option
+                                          value=""
+                                          disabled
+                                          selected="selected"
+                                        >
+                                          -- Select School --
+                                        </option>
+                                        {School_List.map((val, key) => (
+                                          <option
+                                            key={val.School_ID}
+                                            value={val.School_ID}
+                                          >
+                                            {val.Name}
+                                          </option>
+                                        ))}
+                                      </select>
                                     </ul>
                                   </div>
                                 </div>
@@ -1538,7 +1596,7 @@ Bangkok, 10240"
               <li>
                                 <div className="heading">
                   <h1>Logout</h1>
-                  <a href="/authen" className="button">
+                  <a href="/" className="button">
                     EXIT
                   </a>
                 </div>
@@ -1554,7 +1612,7 @@ Bangkok, 10240"
         </div>
       </div>
     );
-  }
 }
 
 export default withRouter(App);
+ReactDOM.render(<App />, document.getElementById("root"));

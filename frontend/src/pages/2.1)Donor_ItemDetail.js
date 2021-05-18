@@ -2,17 +2,6 @@
 import React, { useEffect, useState, Component } from "react";
 import ReactDOM from "react-dom";
 import { Helmet } from "react-helmet";
-import wall from "./resources/imgs/wallpaper.jpg";
-import but1 from "./resources/imgs/home.png";
-import but2 from "./resources/imgs/request.png";
-import but3 from "./resources/imgs/reward.png";
-import but4 from "./resources/imgs/account.png";
-import but5 from "./resources/imgs/report.png";
-import but6 from "./resources/imgs/logout.png";
-import blank from "./resources/imgs/shop/white.jpg";
-import eng from "./resources/imgs/authen/eng.png";
-import tha from "./resources/imgs/authen/tha.png";
-import adder from "./resources/imgs/shop/add.png";
 import Gallereact from "gallereact";
 import Axios from "axios";
 import $ from "jquery";
@@ -26,6 +15,17 @@ import {
 } from "react-router-dom";
 
 function App() {
+	const wall = window.location.origin + "/resources/imgs/wallpaper.jpg";
+const but1 = window.location.origin + "/resources/imgs/home.png";
+const but2 = window.location.origin + "/resources/imgs/request.png";
+const but3 = window.location.origin + "/resources/imgs/reward.png";
+const but4 = window.location.origin + "/resources/imgs/account.png";
+const but5 = window.location.origin + "/resources/imgs/report.png";
+const but6 = window.location.origin + "/resources/imgs/logout.png";
+const blank = window.location.origin + "/resources/imgs/shop/white.jpg";
+const eng = window.location.origin + "/resources/imgs/authen/eng.png";
+const tha = window.location.origin + "/resources/imgs/authen/tha.png";
+const adder = window.location.origin + "/resources/imgs/shop/add.png";
   {
     /* Values */
   }
@@ -99,7 +99,7 @@ function App() {
   }
   function checkString() {
   if (nameI.value == "" || 
-      nameI.value.length < 10 || 
+      nameI.value.length < 5 || 
       regEx1.test(nameI.value) == false) {
       JSAlert.alert(
         "(Ex): English Book 3",
@@ -110,7 +110,7 @@ function App() {
       throw "exit";
     }
       if (despI.value == "" || 
-      despI.value.length < 25 || 
+      despI.value.length < 20 || 
       regEx1.test(despI.value) == false) {
       JSAlert.alert(
         "(Ex): An English book for the high school year 3 education.",
@@ -810,7 +810,7 @@ function App() {
             <li>
               <div className="heading">
                 <h1>Logout</h1>
-                <a href="/authen" className="button">
+                <a href="/" className="button">
                   EXIT
                 </a>
               </div>

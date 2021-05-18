@@ -1,32 +1,11 @@
 /* eslint-disable */
 import React from "react";
+import ReactDOM from "react-dom";
 import { Helmet } from "react-helmet";
-import wall from "./resources/imgs/wallpaper.jpg";
-import but1 from "./resources/imgs/home.png";
-import but2 from "./resources/imgs/delivery.png";
-import but3 from "./resources/imgs/reward.png";
-import but4 from "./resources/imgs/account.png";
-import but5 from "./resources/imgs/report.png";
-import but6 from "./resources/imgs/logout.png";
-import blank from "./resources/imgs/shop/white.jpg";
-import ship from "./resources/imgs/home/shipping.jpg";
-import pro1 from "./resources/imgs/shop/product12.jpg";
-import pro2 from "./resources/imgs/shop/product11.jpg";
-import pro3 from "./resources/imgs/shop/product10.jpg";
-import pro4 from "./resources/imgs/shop/product9.jpg";
-import pro5 from "./resources/imgs/shop/product8.jpg";
-import pro6 from "./resources/imgs/shop/product7.jpg";
-import pro7 from "./resources/imgs/shop/product6.jpg";
-import adder from "./resources/imgs/shop/add.png";
-import re1 from "./resources/imgs/shop/reward1.jpg";
-import re2 from "./resources/imgs/shop/reward2.jpg";
-import re3 from "./resources/imgs/shop/reward3.jpg";
-import re4 from "./resources/imgs/shop/reward4.jpg";
-import re5 from "./resources/imgs/shop/reward5.jpg";
-import re6 from "./resources/imgs/shop/reward6.jpg";
-import del1 from "./resources/imgs/shop/grab.png";
-import eng from "./resources/imgs/authen/eng.png";
-import tha from "./resources/imgs/authen/tha.png";
+import Axios from "axios";
+import $ from "jquery";
+import JSAlert from "js-alert";
+window.$ = $;
 import {
   BrowserRouter as Router,
   Route,
@@ -34,8 +13,33 @@ import {
   withRouter,
 } from "react-router-dom";
 
-class App extends React.Component {
-  render() {
+function App() {
+	const wall = window.location.origin + "/resources/imgs/wallpaper.jpg";
+const but1 = window.location.origin + "/resources/imgs/home.png";
+const but2 = window.location.origin + "/resources/imgs/delivery.png";
+const but3 = window.location.origin + "/resources/imgs/reward.png";
+const but4 = window.location.origin + "/resources/imgs/account.png";
+const but5 = window.location.origin + "/resources/imgs/report.png";
+const but6 = window.location.origin + "/resources/imgs/logout.png";
+const blank = window.location.origin + "/resources/imgs/shop/white.jpg";
+const ship = window.location.origin + "/resources/imgs/home/shipping.jpg";
+const pro1 = window.location.origin + "/resources/imgs/shop/product12.jpg";
+const pro2 = window.location.origin + "/resources/imgs/shop/product11.jpg";
+const pro3 = window.location.origin + "/resources/imgs/shop/product10.jpg";
+const pro4 = window.location.origin + "/resources/imgs/shop/product9.jpg";
+const pro5 = window.location.origin + "/resources/imgs/shop/product8.jpg";
+const pro6 = window.location.origin + "/resources/imgs/shop/product7.jpg";
+const pro7 = window.location.origin + "/resources/imgs/shop/product6.jpg";
+const adder = window.location.origin + "/resources/imgs/shop/add.png";
+const re1 = window.location.origin + "/resources/imgs/shop/reward1.jpg";
+const re2 = window.location.origin + "/resources/imgs/shop/reward2.jpg";
+const re3 = window.location.origin + "/resources/imgs/shop/reward3.jpg";
+const re4 = window.location.origin + "/resources/imgs/shop/reward4.jpg";
+const re5 = window.location.origin + "/resources/imgs/shop/reward5.jpg";
+const re6 = window.location.origin + "/resources/imgs/shop/reward6.jpg";
+const del1 = window.location.origin + "/resources/imgs/shop/grab.png";
+const eng = window.location.origin + "/resources/imgs/authen/eng.png";
+const tha = window.location.origin + "/resources/imgs/authen/tha.png";
     return (
       <div className="App">
         <div>
@@ -1176,7 +1180,7 @@ Bangkok, 10240"
               <li>
                 <div className="heading">
                   <h1>Logout</h1>
-                  <a href="/authen" className="button">
+                  <a href="/" className="button">
                     EXIT
                   </a>
                 </div>
@@ -1193,6 +1197,6 @@ Bangkok, 10240"
       </div>
     );
   }
-}
 
 export default withRouter(App);
+ReactDOM.render(<App />, document.getElementById("root"));

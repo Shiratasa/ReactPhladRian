@@ -3,9 +3,10 @@ import React, {Component, useEffect, useState} from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import {Helmet} from "react-helmet";
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch, link} from "react-router-dom";
 import Authen from "./pages/1)Authen.js";
 import D_Main from "./pages/2)Donor_Main.js";
+import D_Add from "./pages/2.0)Donor_ItemAdd.js";
 import D_Item from "./pages/2.1)Donor_ItemDetail.js";
 import D_Deli from "./pages/2.2)Donor_Delivery.js";
 import D_Rewa from "./pages/2.3)Donor_RewardDetail.js";
@@ -29,39 +30,17 @@ function App() {
 
         <Router>
           <Switch>
-            <Route exact path="/">
-              <Authen />
-            </Route>
-            <Route path="/authen">
-              <Authen />
-            </Route>
-            <Route path="/d_main">
-              <D_Main />
-            </Route>
-            <Route path="/d_item">
-              <D_Item />
-            </Route>
-            <Route path="/d_deli">
-              <D_Deli />
-            </Route>
-            <Route path="/d_rewa">
-              <D_Rewa />
-            </Route>
-            <Route path="/r_main">
-              <R_Main />
-            </Route>
-            <Route path="/r_item">
-              <R_Item />
-            </Route>
-            <Route path="/s_main">
-              <S_Main />
-            </Route>
-            <Route path="/s_rewa">
-              <S_Rewa />
-            </Route>
-            <Route path="/s_qr">
-              <S_QR />
-            </Route>
+            <Route path="/" exact component={Authen} />
+            <Route path="/d_main/:id" exact component={D_Main} />
+            <Route path="/d_add" exact component={D_Add} />
+            <Route path="/d_item" exact component={D_Item} />
+            <Route path="/d_deli" exact component={D_Deli} />
+            <Route path="/d_rewa" exact component={D_Rewa} />
+            <Route path="/r_main/:id" exact component={R_Main} />
+            <Route path="/r_item" exact component={R_Item} />
+            <Route path="/s_main/:id" exact component={S_Main} />
+            <Route path="/s_rewa" exact component={S_Rewa} />
+            <Route path="/s_qr" exact component={S_QR} />
           </Switch>
         </Router>
       </div>
