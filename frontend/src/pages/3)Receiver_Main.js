@@ -9,31 +9,34 @@ window.$ = $;
 import {
   BrowserRouter as Router,
   Route,
+  Switch,
+  link,
   useHistory,
   withRouter,
   useParams,
 } from "react-router-dom";
 
-function App() {
-	const wall = window.location.origin + "/resources/imgs/wallpaper.jpg";
-const but1 = window.location.origin + "/resources/imgs/home.png";
-const but2 = window.location.origin + "/resources/imgs/request.png";
-const but3 = window.location.origin + "/resources/imgs/wish.png";
-const but4 = window.location.origin + "/resources/imgs/account.png";
-const but5 = window.location.origin + "/resources/imgs/report.png";
-const but6 = window.location.origin + "/resources/imgs/logout.png";
-const blank = window.location.origin + "/resources/imgs/shop/white.jpg";
-const ship = window.location.origin + "/resources/imgs/home/shipping.jpg";
-const pro1 = window.location.origin + "/resources/imgs/shop/product12.jpg";
-const pro2 = window.location.origin + "/resources/imgs/shop/product11.jpg";
-const pro3 = window.location.origin + "/resources/imgs/shop/product10.jpg";
-const pro4 = window.location.origin + "/resources/imgs/shop/product9.jpg";
-const pro5 = window.location.origin + "/resources/imgs/shop/product8.jpg";
-const pro6 = window.location.origin + "/resources/imgs/shop/product7.jpg";
-const pro7 = window.location.origin + "/resources/imgs/shop/product6.jpg";
-const card = window.location.origin + "/resources/imgs/ID.png";
-const eng = window.location.origin + "/resources/imgs/authen/eng.png";
-const tha = window.location.origin + "/resources/imgs/authen/tha.png";
+function R_Main() {
+  const wall = window.location.origin + "/resources/imgs/wallpaper.jpg";
+  const but1 = window.location.origin + "/resources/imgs/home.png";
+  const but2 = window.location.origin + "/resources/imgs/request.png";
+  const but3 = window.location.origin + "/resources/imgs/wish.png";
+  const but4 = window.location.origin + "/resources/imgs/account.png";
+  const but5 = window.location.origin + "/resources/imgs/report.png";
+  const but6 = window.location.origin + "/resources/imgs/logout.png";
+  const blank = window.location.origin + "/resources/imgs/shop/white.jpg";
+  const ship = window.location.origin + "/resources/imgs/home/shipping.jpg";
+  const pro1 = window.location.origin + "/resources/imgs/shop/product12.jpg";
+  const pro2 = window.location.origin + "/resources/imgs/shop/product11.jpg";
+  const pro3 = window.location.origin + "/resources/imgs/shop/product10.jpg";
+  const pro4 = window.location.origin + "/resources/imgs/shop/product9.jpg";
+  const pro5 = window.location.origin + "/resources/imgs/shop/product8.jpg";
+  const pro6 = window.location.origin + "/resources/imgs/shop/product7.jpg";
+  const pro7 = window.location.origin + "/resources/imgs/shop/product6.jpg";
+  const card = window.location.origin + "/resources/imgs/ID.png";
+  const eng = window.location.origin + "/resources/imgs/authen/eng.png";
+  const tha = window.location.origin + "/resources/imgs/authen/tha.png";
+
   {
     /* Values */
   }
@@ -41,7 +44,7 @@ const tha = window.location.origin + "/resources/imgs/authen/tha.png";
   const [School_List, setSchool_List] = useState([]);
   const [Categ_List, setCateg_List] = useState([]);
   let history = useHistory();
-
+  let { code } = useParams();
 
   {
     /* Item Get */
@@ -73,7 +76,7 @@ const tha = window.location.origin + "/resources/imgs/authen/tha.png";
   {
     /* Load Function */
   }
-  window.onload = function() {
+  window.onload = function () {
     ItemBlock();
   };
 
@@ -219,7 +222,7 @@ const tha = window.location.origin + "/resources/imgs/authen/tha.png";
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
     `}</style>
         <div className="overlay" />
@@ -300,172 +303,176 @@ const tha = window.location.origin + "/resources/imgs/authen/tha.png";
           <ul className="cd-hero-slider">
             {/*-/Home page-*/}
             <li className="selected">
-            <form>
-              <div className="heading"></div>
-              <div className="cd-full-width first-slide">
-                <div className="container">
-                  <div className="row">
-                    <div className="col-md-13">
-                      <div className="content first-content">
-                        <div className="container">
-                          <div className="row">
-                            <div className="col-sm-3">
-                              <div className="brands_products">
-                                {/*-brands_products-*/}
-                                <h2>Categories</h2>
-                                <div className="brands-name">
-                                  <ul className="nav nav-pills nav-stacked">
-                                    <select
-                                      className="fitBox"
-                                      onClick={CategBox}
-                                    >
-                                      <option
-                                        value=""
-                                        disabled
-                                        selected="selected"
+              <form>
+                <div className="heading"></div>
+                <div className="cd-full-width first-slide">
+                  <div className="container">
+                    <div className="row">
+                      <div className="col-md-13">
+                        <div className="content first-content">
+                          <div className="container">
+                            <div className="row">
+                              <div className="col-sm-3">
+                                <div className="brands_products">
+                                  {/*-brands_products-*/}
+                                  <h2>Categories</h2>
+                                  <div className="brands-name">
+                                    <ul className="nav nav-pills nav-stacked">
+                                      <select
+                                        className="fitBox"
+                                        onClick={CategBox}
                                       >
-                                        -- Select Category --
-                                      </option>
-                                      {Categ_List.map((val, key) => (
                                         <option
-                                          key={val.Type_ID}
-                                          value={val.Type_ID}
+                                          value=""
+                                          disabled
+                                          selected="selected"
                                         >
-                                          {val.Category}
+                                          -- Select Category --
                                         </option>
-                                      ))}
-                                    </select>
-                                  </ul>
+                                        {Categ_List.map((val, key) => (
+                                          <option
+                                            key={val.Type_ID}
+                                            value={val.Type_ID}
+                                          >
+                                            {val.Category}
+                                          </option>
+                                        ))}
+                                      </select>
+                                    </ul>
+                                  </div>
                                 </div>
-                              </div>
-                              <br />
-                              <br />
-                              <br />
-                              {/*-/brands_products-*/}
-                              <div className="brands_products">
-                                {/*-brands_products-*/}
-                                <h2>Schools</h2>
-                                <div className="brands-name">
-                                  <ul className="nav nav-pills nav-stacked">
-                                    <select
-                                      className="fitBox"
-                                      onClick={SchoolBox}
-                                    >
-                                      <option
-                                        value=""
-                                        disabled
-                                        selected="selected"
+                                <br />
+                                <br />
+                                <br />
+                                {/*-/brands_products-*/}
+                                <div className="brands_products">
+                                  {/*-brands_products-*/}
+                                  <h2>Schools</h2>
+                                  <div className="brands-name">
+                                    <ul className="nav nav-pills nav-stacked">
+                                      <select
+                                        className="fitBox"
+                                        onClick={SchoolBox}
                                       >
-                                        -- Select School --
-                                      </option>
-                                      {School_List.map((val, key) => (
                                         <option
-                                          key={val.School_ID}
-                                          value={val.School_ID}
+                                          value=""
+                                          disabled
+                                          selected="selected"
                                         >
-                                          {val.Name}
+                                          -- Select School --
                                         </option>
-                                      ))}
-                                    </select>
-                                  </ul>
+                                        {School_List.map((val, key) => (
+                                          <option
+                                            key={val.School_ID}
+                                            value={val.School_ID}
+                                          >
+                                            {val.Name}
+                                          </option>
+                                        ))}
+                                      </select>
+                                    </ul>
+                                  </div>
                                 </div>
-                              </div>
-                              <br />
-                              <br />
-                              <br />
-                              {/*-/brands_products-*/}
-                              <div className="brands_products">
-                                <h2>Search</h2>
-                                <div className="brands-name">
-                                  <form action="" className="searchform">
-                                    <input
-                                      type="text"
-                                      placeholder="Item Name"
-                                      style={{
-                                        color: "black",
-                                        fontSize: "15px",
-                                      }}
-                                      required="required"
-                                    />
-                                    <button
-                                      type="submit"
-                                      className="btn btn-default"
-                                      style={{ height: "33px" }}
-                                    >
-                                      <i className="fa fa-arrow-circle-o-right" />
-                                    </button>
-                                  </form>
+                                <br />
+                                <br />
+                                <br />
+                                {/*-/brands_products-*/}
+                                <div className="brands_products">
+                                  <h2>Search</h2>
+                                  <div className="brands-name">
+                                    <form action="" className="searchform">
+                                      <input
+                                        type="text"
+                                        placeholder="Item Name"
+                                        style={{
+                                          color: "black",
+                                          fontSize: "15px",
+                                        }}
+                                        required="required"
+                                      />
+                                      <button
+                                        type="submit"
+                                        className="btn btn-default"
+                                        style={{ height: "33px" }}
+                                      >
+                                        <i className="fa fa-arrow-circle-o-right" />
+                                      </button>
+                                    </form>
+                                  </div>
                                 </div>
-                              </div>
-                              <br />
-                              <br />
-                              <br />
-                              <br />
-                              <div className="brands_products">
-                                <h2>Save to notification</h2>
-                                <div className="brands-name">
-                                  <div className="demo">
-                                    <a href>
-                                      <i className="fa fa-bell" /> Confirm
-                                    </a>
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <div className="brands_products">
+                                  <h2>Save to notification</h2>
+                                  <div className="brands-name">
+                                    <div className="demo">
+                                      <a href>
+                                        <i className="fa fa-bell" /> Confirm
+                                      </a>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                            <div className="col-sm-9 padding-right">
-                              <div className="features_items">
-                                {/*-features_items-*/}
-                                <div className="brands_products">
-                                  <h2 className="title text-center">
-                                    Recent Items
-                                  </h2>
-                                </div>
-                                <div className="col-sm-12 picList"> 
-                                  {Item_List.map((val, key) => {
-                                    return (
-                                      <div className="product-image-wrapper">
-                                        <div className="single-products">
-                                          <div className="productinfo text-center">
-                                            <img
-                                              src={val.Pic1}
-                                              alt=""
-                                              style={{height: "320px", width: "230px"}}
-                                            />
-                                            <h2 style={{ fontSize: "15px" }}>
-                                              {val.Obj}
-                                            </h2>
-                                            <br />
-                                            <a
-                                              href="/r_item"
-                                              className="btn btn-default add-to-cart"
-                                            >
-                                              <i className="fa fa-eye" />
-                                              View
-                                            </a>
+                              <div className="col-sm-9 padding-right">
+                                <div className="features_items">
+                                  {/*-features_items-*/}
+                                  <div className="brands_products">
+                                    <h2 className="title text-center">
+                                      Recent Items
+                                    </h2>
+                                  </div>
+                                  <div className="col-sm-12 picList">
+                                    {Item_List.map((val, key) => {
+                                      return (
+                                        <div className="product-image-wrapper">
+                                          <div className="single-products">
+                                            <div className="productinfo text-center">
+                                              <img
+                                                src={val.Pic1}
+                                                alt=""
+                                                style={{
+                                                  height: "320px",
+                                                  width: "230px",
+                                                }}
+                                              />
+                                              <h2 style={{ fontSize: "15px" }}>
+                                                {val.Obj}
+                                              </h2>
+                                              <br />
+                                              <a
+                                                href="/r_item"
+                                                className="btn btn-default add-to-cart"
+                                              >
+                                                <i className="fa fa-eye" />
+                                                View
+                                              </a>
+                                            </div>
+                                          </div>
+                                          <div className="choose">
+                                            <ul className="nav nav-pills nav-justified">
+                                              <li>
+                                                <a href>
+                                                  <i className="fa fa-plus-square" />
+                                                  Add to wishlist
+                                                </a>
+                                              </li>
+                                              <li>
+                                                <a href>
+                                                  <i className="fa fa-plus-square" />
+                                                  Add to wishlist
+                                                </a>
+                                              </li>
+                                            </ul>
                                           </div>
                                         </div>
-                                        <div className="choose">
-                                          <ul className="nav nav-pills nav-justified">
-                                            <li>
-                                              <a href>
-                                                <i className="fa fa-plus-square" />
-                                                Add to wishlist
-                                              </a>
-                                            </li>
-                                            <li>
-                                              <a href>
-                                                <i className="fa fa-plus-square" />
-                                                Add to wishlist
-                                              </a>
-                                            </li>
-                                          </ul>
-                                        </div>
-                                      </div>
-                                    );
-                                  })}
+                                      );
+                                    })}
+                                  </div>
                                 </div>
+                                {/*-features_items-*/}
                               </div>
-                              {/*-features_items-*/}
                             </div>
                           </div>
                         </div>
@@ -473,7 +480,6 @@ const tha = window.location.origin + "/resources/imgs/authen/tha.png";
                     </div>
                   </div>
                 </div>
-              </div>
               </form>
             </li>
             {/*-/Home page-*/}
@@ -1454,5 +1460,4 @@ Bangkok, 10240"
   );
 }
 
-export default withRouter(App);
-ReactDOM.render(<App />, document.getElementById("root"));
+export default withRouter(R_Main);
