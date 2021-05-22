@@ -48,7 +48,7 @@ function D_Add() {
   const [I_Num, setI_Num] = useState("");
   const [I_Desp, setI_Desp] = useState("");
   const [I_Frag, setI_Frag] = useState("");
-  const images = [I_Pic1, I_Pic2, I_Pic3, I_Pic4];
+  const images = [adder, adder, adder, adder];
   let history = useHistory();
 
   {

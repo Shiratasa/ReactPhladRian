@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 18, 2021 at 08:03 PM
+-- Generation Time: May 22, 2021 at 12:57 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -265,7 +265,7 @@ CREATE TABLE `UserStudent` (
   `School_ID` int(255) DEFAULT NULL,
   `Username` varchar(64) DEFAULT NULL,
   `Student_Card` varchar(32) DEFAULT NULL,
-  `Image` varbinary(8000) DEFAULT NULL,
+  `Card_Image` varbinary(8000) DEFAULT NULL,
   `Grade` varchar(10) DEFAULT NULL,
   `Email` varchar(64) DEFAULT NULL,
   `Phone` varchar(10) DEFAULT NULL,
@@ -278,7 +278,7 @@ CREATE TABLE `UserStudent` (
 -- Dumping data for table `UserStudent`
 --
 
-INSERT INTO `UserStudent` (`Student_ID`, `School_ID`, `Username`, `Student_Card`, `Image`, `Grade`, `Email`, `Phone`, `Password`, `Address`, `State`) VALUES
+INSERT INTO `UserStudent` (`Student_ID`, `School_ID`, `Username`, `Student_Card`, `Card_Image`, `Grade`, `Email`, `Phone`, `Password`, `Address`, `State`) VALUES
 (1, 1, 'Putthiwat Chalermvongsavej', '0010080243735', 0x433a5c66616b65706174685c49442e706e67, 'M6', 'putthiwat.kmutt@gmail.com', '0612562121', 'finalpro', '134/58, 30 Suk Sawat Rd, Bang Pakok, Rat Burana, Bangkok 10140', 1);
 
 -- --------------------------------------------------------

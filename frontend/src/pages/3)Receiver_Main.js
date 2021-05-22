@@ -44,7 +44,7 @@ function R_Main() {
   const [School_List, setSchool_List] = useState([]);
   const [Categ_List, setCateg_List] = useState([]);
   let history = useHistory();
-  let { code } = useParams();
+  let { Student_ID } = useParams();
 
   {
     /* Item Get */
@@ -423,6 +423,7 @@ function R_Main() {
                                       Recent Items
                                     </h2>
                                   </div>
+                                  <div>{Student_ID}</div>
                                   <div className="col-sm-12 picList">
                                     {Item_List.map((val, key) => {
                                       return (

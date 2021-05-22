@@ -9,6 +9,20 @@ var mysql = require("mysql");
 var express = require("express");
 var fileUpload = require("express-fileupload");
 var cors = require("cors");
+var formidable = require("formidable");
+var fs = require("fs");
+const path = require("path");
+const multer = require("multer");
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, window.location.origin + "/UpAlbum/")
+  },
+  filename: (req, file, cb) => {
+    console.log(file);
+    cb(null, Date.now()+path.extname(file.originalname))
+  }  
+})
+const upload = multer({storage: storage});
 const app = express();
 app.use(express.json());
 app.use(fileUpload());
@@ -82,9 +96,25 @@ app.get("/Categ", function (req, resp) {
 });
 
 {
+  /* Receiver Route */
+}
+app.get("/R_account", function (req, resp) {
+  connection.query("SELECT * FROM UserStudent", function (error, result) {
+    if (error) {
+      console.error("Query failed:\n" + error.stack);
+      connection.end();
+      throw error;
+    } else {
+      resp.send(result);
+      console.log(result);
+    }
+  });
+});
+
+{
   /* Receiver Post */
 }
-app.post("/R_regis", function (req, resp) {
+app.post("/R_regis", upload.single("ImageR"), function (req, resp) {
   const Username = req.body.Username;
   const Email = req.body.Email;
   const Phone = req.body.Phone;
@@ -92,11 +122,11 @@ app.post("/R_regis", function (req, resp) {
   const Student_Card = req.body.Student_Card;
   const School_ID = req.body.School_ID;
   const Grade = req.body.Grade;
-  const Image = req.body.Image;
+  const Card_Image = req.ImageR;
   const Password = req.body.Password;
   const State = req.body.State;
   connection.query(
-    "INSERT INTO UserStudent (Username, Email, Phone, Address, Student_Card, School_ID, Grade, Image, Password, State) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)",
+    "INSERT INTO UserStudent (Username, Email, Phone, Address, Student_Card, School_ID, Grade, Card_Image, Password, State) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)",
     [
       Username,
       Email,
@@ -105,7 +135,7 @@ app.post("/R_regis", function (req, resp) {
       Student_Card,
       School_ID,
       Grade,
-      Image,
+      Card_Image,
       Password,
       State,
     ],

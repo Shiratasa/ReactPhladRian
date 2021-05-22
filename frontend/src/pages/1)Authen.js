@@ -36,6 +36,7 @@ function Authen() {
   var invali = "1";
   const [A_emailLog, setA_emailLog] = useState("");
   const [A_passLog, setA_passLog] = useState("");
+  const [R_Account, setR_Account] = useState("");
   const [R_nameReg, setR_nameReg] = useState("");
   const [R_emailReg, setR_emailReg] = useState("");
   const [R_phoneReg, setR_phoneReg] = useState("");
@@ -54,7 +55,7 @@ function Authen() {
   let history = useHistory();
 
   {
-    /* Delay */
+    /* Form Submit */
   }
   function timeout(delay: number) {
     return new Promise((res) => setTimeout(res, delay));
@@ -72,7 +73,9 @@ function Authen() {
     if (invali == "R") {
       JSAlert.alert("", "Login Success!", JSAlert.Icons.Success);
       await timeout(1000).then($(this).unbind("submit").submit());
-      history.push("/r_main/:code");
+      R_Account.map((val, key) => {
+      	history.push("/r_main/${val.Student_ID}");
+      })
       location.reload();
     }
     if (invali == "D") {
@@ -328,6 +331,7 @@ function Authen() {
     /* EmailR Get */
   }
   const E_getR = async () => {
+    var pass2R = document.getElementById("C_passwordR");
     Axios.post("http://localhost:5000/E_get", {
       Email: R_emailReg,
     }).then((response) => {
@@ -361,6 +365,7 @@ function Authen() {
     /* EmailD Get */
   }
   const E_getD = async () => {
+    var pass2D = document.getElementById("C_passwordD");
     Axios.post("http://localhost:5000/E_get", {
       Email: D_emailReg,
     }).then((response) => {
@@ -408,12 +413,23 @@ function Authen() {
   }
 
   {
+    /* Receiver Route */
+  }
+  const R_acc = async () => {
+    Axios.get("http://localhost:5000/R_account").then((response) => {
+      setR_Account(response.data);
+    });
+  };
+
+  {
     /* Receiver Post */
   }
   const R_regis = async () => {
     checkStringR();
     checkFile();
     E_getR();
+    window.alert(R_imageReg);
+    window.alert(setR_imageReg);
     if (invali == "0") {
       E_postR();
       Axios.post("http://localhost:5000/R_regis", {
@@ -424,7 +440,7 @@ function Authen() {
         Student_Card: R_cardReg,
         School_ID: R_schoolReg,
         Grade: R_gradeReg,
-        Image: R_imageReg,
+        Card_Image: R_imageReg,
         Password: R_passReg,
       }).then((response) => {
         console.log(response);
@@ -522,6 +538,7 @@ function Authen() {
     /* Load Function */
   }
   window.onload = function () {
+  	R_acc();
     SchoolBox();
   };
 
@@ -749,7 +766,7 @@ function Authen() {
                 {/* Receiver */}
                 <h2 className="modal-title">Receiver Registration</h2>
               </div>
-              <form onSubmit={handleSubmit1}>
+              <form onSubmit={handleSubmit1} enctype="multipart/form-data">
                 <input
                   type="text"
                   className="form-control"
@@ -849,10 +866,11 @@ function Authen() {
                   type="file"
                   className="form-control"
                   id="ImageR"
+                  name="ImageR"
                   accept=".png, .jpg, .jpeg"
                   onInvalid={R_regis.exit}
                   required
-                  onChange={(x) => setR_imageReg(x.target.value)}
+                  onChange={(x) => setR_imageReg(x.target.files[0])}
                 />
                 <input
                   type="password"
