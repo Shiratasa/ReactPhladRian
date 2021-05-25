@@ -1,32 +1,48 @@
 /* eslint-disable */
 import { createRequire } from "module";
+import { fileURLToPath } from 'url';
 
 {
   /* Values */
 }
-const require = createRequire(import.meta.url);
+var require = createRequire(import.meta.url);
 var mysql = require("mysql");
 var express = require("express");
 var fileUpload = require("express-fileupload");
+var bodyParser = require("body-parser");
+var methodOverride = require('method-override');
 var cors = require("cors");
 var formidable = require("formidable");
+var Buffer = require('buffer/').Buffer;
 var fs = require("fs");
-const path = require("path");
-const multer = require("multer");
-const storage = multer.diskStorage({
+var path = require("path");
+var __filename = fileURLToPath(import.meta.url);
+var __dirname = path.dirname(__filename);
+var multer = require("multer");
+var storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, window.location.origin + "/UpAlbum/")
+    cb(null, window.location.origin + "/UpAlbum/");
   },
   filename: (req, file, cb) => {
     console.log(file);
-    cb(null, Date.now()+path.extname(file.originalname))
-  }  
-})
-const upload = multer({storage: storage});
-const app = express();
-app.use(express.json());
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
+var upload = multer({ storage: storage });
+var app = express();
 app.use(fileUpload());
 app.use(cors());
+app.use(methodOverride());
+app.use(
+    bodyParser.json({
+    keepExtension: true,
+    uploadDir: path.join(__dirname, "/files"),
+    limit: '50mb'
+  })
+);
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+app.use(express.json({limit: '50mb'}));
+app.use(express.urlencoded({limit: '50mb', extended: true}));
 
 {
   /* SQL Connect */
@@ -114,17 +130,17 @@ app.get("/R_account", function (req, resp) {
 {
   /* Receiver Post */
 }
-app.post("/R_regis", upload.single("ImageR"), function (req, resp) {
-  const Username = req.body.Username;
-  const Email = req.body.Email;
-  const Phone = req.body.Phone;
-  const Address = req.body.Address;
-  const Student_Card = req.body.Student_Card;
-  const School_ID = req.body.School_ID;
-  const Grade = req.body.Grade;
-  const Card_Image = req.ImageR;
-  const Password = req.body.Password;
-  const State = req.body.State;
+app.post("/R_regis", upload.any(), function (req, resp) {
+  var Username = req.body.Username;
+  var Email = req.body.Email;
+  var Phone = req.body.Phone;
+  var Address = req.body.Address;
+  var Student_Card = req.body.Student_Card;
+  var School_ID = req.body.School_ID;
+  var Grade = req.body.Grade;
+  var Card_Image = req.body.Card_Image;
+  var Password = req.body.Password;
+  var State = req.body.State;
   connection.query(
     "INSERT INTO UserStudent (Username, Email, Phone, Address, Student_Card, School_ID, Grade, Card_Image, Password, State) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)",
     [
@@ -153,8 +169,8 @@ app.post("/R_regis", upload.single("ImageR"), function (req, resp) {
   /* Receiver Get */
 }
 app.post("/R_login", function (req, resp) {
-  const Email = req.body.Email;
-  const Password = req.body.Password;
+  var Email = req.body.Email;
+  var Password = req.body.Password;
   connection.query(
     "SELECT * FROM UserStudent WHERE Email=? AND Password=?",
     [Email, Password],
@@ -179,13 +195,13 @@ app.post("/R_login", function (req, resp) {
   /* Donor Post */
 }
 app.post("/D_regis", function (req, resp) {
-  const Username = req.body.Username;
-  const Email = req.body.Email;
-  const Phone = req.body.Phone;
-  const Address = req.body.Address;
-  const Password = req.body.Password;
-  const Point = req.body.Point;
-  const State = req.body.State;
+  var Username = req.body.Username;
+  var Email = req.body.Email;
+  var Phone = req.body.Phone;
+  var Address = req.body.Address;
+  var Password = req.body.Password;
+  var Point = req.body.Point;
+  var State = req.body.State;
   connection.query(
     "INSERT INTO UserDonor (Username, Email, Phone, Address, Password, Point, State) VALUES (?, ?, ?, ?, ?, 0, 1)",
     [Username, Email, Phone, Address, Password, Point, State],
@@ -203,8 +219,8 @@ app.post("/D_regis", function (req, resp) {
   /* Donor Get */
 }
 app.post("/D_login", function (req, resp) {
-  const Email = req.body.Email;
-  const Password = req.body.Password;
+  var Email = req.body.Email;
+  var Password = req.body.Password;
   connection.query(
     "SELECT * FROM UserDonor WHERE Email=? AND Password=?",
     [Email, Password],
@@ -229,8 +245,8 @@ app.post("/D_login", function (req, resp) {
   /* Sponsor Get */
 }
 app.post("/S_login", function (req, resp) {
-  const Email = req.body.Email;
-  const Password = req.body.Password;
+  var Email = req.body.Email;
+  var Password = req.body.Password;
   connection.query(
     "SELECT * FROM UserSponsor WHERE Email=? AND Password=?",
     [Email, Password],
@@ -255,8 +271,8 @@ app.post("/S_login", function (req, resp) {
   /* Admin Get */
 }
 app.post("/A_login", function (req, resp) {
-  const Email = req.body.Email;
-  const Password = req.body.Password;
+  var Email = req.body.Email;
+  var Password = req.body.Password;
   connection.query(
     "SELECT * FROM UserAdmin WHERE Email=? AND Password=?",
     [Email, Password],
@@ -281,7 +297,7 @@ app.post("/A_login", function (req, resp) {
   /* Name Post */
 }
 app.post("/N_post", function (req, resp) {
-  const Username = req.body.Username;
+  var Username = req.body.Username;
   connection.query(
     "INSERT INTO AllUser (Username) VALUES (?)",
     [Username],
@@ -299,7 +315,7 @@ app.post("/N_post", function (req, resp) {
   /* Name Get */
 }
 app.post("/N_get", function (req, resp) {
-  const Username = req.body.Username;
+  var Username = req.body.Username;
   connection.query(
     "SELECT * FROM AllUser WHERE Username=?",
     [Username],
@@ -324,7 +340,7 @@ app.post("/N_get", function (req, resp) {
   /* Email Post */
 }
 app.post("/E_post", function (req, resp) {
-  const Email = req.body.Email;
+  var Email = req.body.Email;
   connection.query(
     "INSERT INTO AllEmail (Email) VALUES (?)",
     [Email],
@@ -342,7 +358,7 @@ app.post("/E_post", function (req, resp) {
   /* Email Get */
 }
 app.post("/E_get", function (req, resp) {
-  const Email = req.body.Email;
+  var Email = req.body.Email;
   connection.query(
     "SELECT * FROM AllEmail WHERE Email=?",
     [Email],
@@ -367,19 +383,19 @@ app.post("/E_get", function (req, resp) {
   /* Item Post */
 }
 app.post("/I_donate", function (req, resp) {
-  const Obj = req.body.Obj;
-  const Pic1 = req.body.Pic1;
-  const Pic2 = req.body.Pic2;
-  const Pic3 = req.body.Pic3;
-  const Pic4 = req.body.Pic4;
-  const Type_ID = req.body.Type_ID;
-  const School_ID = req.body.School_ID;
-  const Quantity = req.body.Quantity;
-  const Quality = req.body.Quality;
-  const Detail = req.body.Detail;
-  const Fragile = req.body.Fragile;
-  const Warning = req.body.Warning;
-  const State = req.body.State;
+  var Obj = req.body.Obj;
+  var Pic1 = req.body.Pic1;
+  var Pic2 = req.body.Pic2;
+  var Pic3 = req.body.Pic3;
+  var Pic4 = req.body.Pic4;
+  var Type_ID = req.body.Type_ID;
+  var School_ID = req.body.School_ID;
+  var Quantity = req.body.Quantity;
+  var Quality = req.body.Quality;
+  var Detail = req.body.Detail;
+  var Fragile = req.body.Fragile;
+  var Warning = req.body.Warning;
+  var State = req.body.State;
   connection.query(
     "INSERT INTO ItemDonate (Obj, Pic1, Pic2, Pic3, Pic4, Type_ID, School_ID, Quantity, Quality, Detail, Fragile, Warning, State) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 1)",
     [
@@ -427,7 +443,7 @@ app.get("/", function (req, resp) {
 {
   /* SQL Port */
 }
-const port = process.env.PORT || 5000;
+var port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`Serve at http://localhost:${port}`);
 });

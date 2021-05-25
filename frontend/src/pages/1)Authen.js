@@ -27,13 +27,13 @@ function Authen() {
     /* Values */
   }
   var regEx1 = /(^(?!\s))+([A-Z]{1}[a-z]{1,256})+(\s[A-Z]{1}[a-z]{1,256})+($)/;
-  var regEx2 =
-    /(^(?!\s))+([a-z0-9.]{1,256})+([@]{1}[a-z0-9]{1,256})+([.]{1}[a-z.]{1,256})+($)/;
+  var regEx2 = /(^(?!\s))+([a-z0-9.]{1,256})+([@]{1}[a-z0-9]{1,256})+([.]{1}[a-z.]{1,256})+($)/;
   var regEx3 = /^\S*$/;
   var regEx4 = /(^(?!\s))+([0]{1}[6,8,9]{1}[0-9]{1,256})+($)/;
   var regEx5 = /(^(?!\s))+([A-Z0-9]{1,256})+($)/;
-  var regEx6 = /^[^\s]+(\s+[^\s]+)*$/;
+  var regEx6 = /^[^\s]+(\s+[^\s]+)*$/; 
   var invali = "1";
+  const [file_Array, setFile_Array] = useState("");
   const [A_emailLog, setA_emailLog] = useState("");
   const [A_passLog, setA_passLog] = useState("");
   const [R_Account, setR_Account] = useState("");
@@ -100,6 +100,31 @@ function Authen() {
   };
 
   {
+    /* Convert File */
+  }
+  const fileToBinary = async (file) => {
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        resolve(event.target.result);
+        setFile_Array(event.target.result);
+      };
+      reader.readAsBinaryString(file);
+    })
+  }
+  
+  const fileConvert = async (file) => {
+    if(!file) {
+      setR_imageReg('');
+      return;
+    }
+    fileToBinary(file)
+    .then(R_imageReg => {
+      setR_imageReg(R_imageReg)
+    })
+  }
+
+  {
     /* String Check */
   }
   function checkStringR() {
@@ -119,7 +144,7 @@ function Authen() {
     ) {
       JSAlert.alert(
         "(Ex): Alan Walker",
-        "Please enter username using your real name...",
+        "Please enter english username using your real name...",
         JSAlert.Icons.Warning
       );
       pass2R.value = "";
@@ -233,7 +258,7 @@ function Authen() {
     ) {
       JSAlert.alert(
         "(Ex): Alan Walker",
-        "Please enter username using your real name...",
+        "Please enter english username using your real name...",
         JSAlert.Icons.Warning
       );
       pass2D.value = "";
@@ -424,15 +449,14 @@ function Authen() {
   {
     /* Receiver Post */
   }
-  const R_regis = async () => {
+  const R_regis = async (e) => {
     checkStringR();
     checkFile();
     E_getR();
-    window.alert(R_imageReg);
-    window.alert(setR_imageReg);
     if (invali == "0") {
       E_postR();
-      Axios.post("http://localhost:5000/R_regis", {
+      Axios.post("http://localhost:5000/R_regis",
+      {
         Username: R_nameReg,
         Email: R_emailReg,
         Phone: R_phoneReg,
@@ -440,7 +464,7 @@ function Authen() {
         Student_Card: R_cardReg,
         School_ID: R_schoolReg,
         Grade: R_gradeReg,
-        Card_Image: R_imageReg,
+        Card_Image: file_Array,
         Password: R_passReg,
       }).then((response) => {
         console.log(response);
@@ -766,7 +790,7 @@ function Authen() {
                 {/* Receiver */}
                 <h2 className="modal-title">Receiver Registration</h2>
               </div>
-              <form onSubmit={handleSubmit1} enctype="multipart/form-data">
+              <form onSubmit={handleSubmit1}>
                 <input
                   type="text"
                   className="form-control"
@@ -866,11 +890,10 @@ function Authen() {
                   type="file"
                   className="form-control"
                   id="ImageR"
-                  name="ImageR"
                   accept=".png, .jpg, .jpeg"
                   onInvalid={R_regis.exit}
                   required
-                  onChange={(x) => setR_imageReg(x.target.files[0])}
+                  onChange={(event) => fileConvert(event.target.files[0] || null)}
                 />
                 <input
                   type="password"
