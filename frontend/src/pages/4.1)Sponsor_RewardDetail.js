@@ -1,7 +1,8 @@
 /* eslint-disable */
-import React from "react";
+import React, { useEffect, useState, Component } from "react";
 import ReactDOM from "react-dom";
 import { Helmet } from "react-helmet";
+import Gallereact from "gallereact";
 import Axios from "axios";
 import $ from "jquery";
 import JSAlert from "js-alert";
@@ -25,12 +26,257 @@ function S_Rewa() {
   const but5 = window.location.origin + "/resources/imgs/report.png";
   const but6 = window.location.origin + "/resources/imgs/logout.png";
   const blank = window.location.origin + "/resources/imgs/shop/white.jpg";
-  const large = window.location.origin + "/resources/imgs/shop/reward1.jpg";
-  const small1 = window.location.origin + "/resources/imgs/shop/4.jpg";
-  const small2 = window.location.origin + "/resources/imgs/shop/5.jpg";
-  const small3 = window.location.origin + "/resources/imgs/shop/6.jpg";
   const eng = window.location.origin + "/resources/imgs/authen/eng.png";
   const tha = window.location.origin + "/resources/imgs/authen/tha.png";
+  const adder = window.location.origin + "/resources/imgs/shop/add.png";
+
+    {
+    /* Values */
+  }
+  var regEx1 = /^[^\s]+(\s+[^\s]+)*$/;
+  var regEx2 = /(^(?!\s))+([0-9]{1,256})+($)/;
+  const [Categ_List, setCateg_List] = useState([]);
+  const [I_Obj, setI_Obj] = useState("");
+  const [I_Pic1, setI_Pic1] = useState("");
+  const [I_Pic2, setI_Pic2] = useState("");
+  const [I_Pic3, setI_Pic3] = useState("");
+  const [I_Pic4, setI_Pic4] = useState("");
+  const [I_Type, setI_Type] = useState("");
+  const [I_Num, setI_Num] = useState("");
+  const [I_Desp, setI_Desp] = useState("");
+  const [I_Frag, setI_Frag] = useState("");
+  const images = [adder, adder, adder, adder];
+  let history = useHistory();
+
+  {
+    /* Delay */
+  }
+  function timeout(delay: number) {
+    return new Promise((res) => setTimeout(res, delay));
+  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    JSAlert.alert("", "Submit Success!", JSAlert.Icons.Success);
+    await timeout(1000).then($(this).unbind("submit").submit());
+    history.push("/d_main");
+    location.reload();
+  };
+
+  {
+    /* Category Get */
+  }
+  const CategBox = async () => {
+    Axios.get("http://localhost:5000/Categ_R").then((response) => {
+      setCateg_List(response.data);
+    });
+  };
+
+  {
+    /* String Check */
+  }
+  function checkString() {
+    var nameI = document.getElementById("ItemN");
+    var despI = document.getElementById("ItemD");
+    var categI = document.getElementById("ItemC");
+    var fragI = document.getElementById("ItemF");
+    var quanI = document.getElementById("ItemQ");
+    if (
+      nameI.value == "" ||
+      nameI.value.length < 5 ||
+      regEx1.test(nameI.value) == false
+    ) {
+      JSAlert.alert(
+        "(Ex): English Book 3",
+        "Please enter item name properly...",
+        JSAlert.Icons.Warning
+      );
+      quanI.value = "";
+      throw "exit";
+    }
+    if (
+      despI.value == "" ||
+      despI.value.length < 20 ||
+      regEx1.test(despI.value) == false
+    ) {
+      JSAlert.alert(
+        "(Ex): An English book for the high school year 3 education.",
+        "Please enter item information in full detail...",
+        JSAlert.Icons.Warning
+      );
+      quanI.value = "";
+      throw "exit";
+    }
+    if (categI.value == "") {
+      JSAlert.alert(
+        "",
+        "Please select category of item...",
+        JSAlert.Icons.Warning
+      );
+      quanI.value = "";
+      throw "exit";
+    }
+    if (fragI.value == "") {
+      JSAlert.alert(
+        "",
+        "Please select fragility of item...",
+        JSAlert.Icons.Warning
+      );
+      quanI.value = "";
+      throw "exit";
+    }
+    if (quanI.value == "" || regEx2.test(quanI.value) == false) {
+      JSAlert.alert(
+        "(Ex): 5",
+        "Please enter item quantity number...",
+        JSAlert.Icons.Warning
+      );
+      quanI.value = "";
+      throw "exit";
+    }
+  }
+
+  {
+    /* File Check 1 */
+  }
+  function checkFile1() {
+    var picI1 = document.getElementById("img1");
+    var quanI = document.getElementById("ItemQ");
+    var fileExtension1 = "";
+    if (picI1.value.lastIndexOf(".") > 0) {
+      fileExtension1 = picI1.value.substring(
+        picI1.value.lastIndexOf(".") + 1,
+        picI1.value.length
+      );
+    }
+    if (
+      fileExtension1.toLowerCase() != "png" &&
+      fileExtension1.toLowerCase() != "jpeg" &&
+      fileExtension1.toLowerCase() != "jpg"
+    ) {
+      JSAlert.alert(
+        "",
+        "Please select <.png, .jpg> image file 1 for upload...",
+        JSAlert.Icons.Warning
+      );
+      quanI.value = "";
+      throw "exit";
+    }
+  }
+
+  {
+    /* File Check 2 */
+  }
+  function checkFile2() {
+    var picI2 = document.getElementById("img2");
+    var quanI = document.getElementById("ItemQ");
+    var fileExtension2 = "";
+    if (picI2.value.lastIndexOf(".") > 0) {
+      fileExtension2 = picI2.value.substring(
+        picI2.value.lastIndexOf(".") + 1,
+        picI2.value.length
+      );
+    }
+    if (
+      fileExtension2.toLowerCase() != "png" &&
+      fileExtension2.toLowerCase() != "jpeg" &&
+      fileExtension2.toLowerCase() != "jpg"
+    ) {
+      JSAlert.alert(
+        "",
+        "Please select <.png, .jpg> image file 2 for upload...",
+        JSAlert.Icons.Warning
+      );
+      quanI.value = "";
+      throw "exit";
+    }
+  }
+
+  {
+    /* File Check 3 */
+  }
+  function checkFile3() {
+    var picI3 = document.getElementById("img3");
+    var quanI = document.getElementById("ItemQ");
+    var fileExtension3 = "";
+    if (picI3.value.lastIndexOf(".") > 0) {
+      fileExtension3 = picI3.value.substring(
+        picI3.value.lastIndexOf(".") + 1,
+        picI3.value.length
+      );
+    }
+    if (
+      fileExtension3.toLowerCase() != "png" &&
+      fileExtension3.toLowerCase() != "jpeg" &&
+      fileExtension3.toLowerCase() != "jpg"
+    ) {
+      JSAlert.alert(
+        "",
+        "Please select <.png, .jpg> image file 3 for upload...",
+        JSAlert.Icons.Warning
+      );
+      quanI.value = "";
+      throw "exit";
+    }
+  }
+
+  {
+    /* File Check 4 */
+  }
+  function checkFile4() {
+    var picI4 = document.getElementById("img4");
+    var quanI = document.getElementById("ItemQ");
+    var fileExtension4 = "";
+    if (picI4.value.lastIndexOf(".") > 0) {
+      fileExtension4 = picI4.value.substring(
+        picI4.value.lastIndexOf(".") + 1,
+        picI4.value.length
+      );
+    }
+    if (
+      fileExtension4.toLowerCase() != "png" &&
+      fileExtension4.toLowerCase() != "jpeg" &&
+      fileExtension4.toLowerCase() != "jpg"
+    ) {
+      JSAlert.alert(
+        "",
+        "Please select <.png, .jpg> image file 4 for upload...",
+        JSAlert.Icons.Warning
+      );
+      quanI.value = "";
+      throw "exit";
+    }
+  }
+
+  {
+    /* Item Post */
+  }
+  const I_reward = async () => {
+    checkString();
+    checkFile1();
+    checkFile2();
+    checkFile3();
+    checkFile4();
+    Axios.post("http://localhost:5000/I_reward", {
+      Obj: I_Obj,
+      Pic1: I_Pic1,
+      Pic2: I_Pic2,
+      Pic3: I_Pic3,
+      Pic4: I_Pic4,
+      Type_ID: I_Type,
+      Quantity: I_Num,
+      Detail: I_Desp,
+      Fragile: I_Frag,
+    }).then((response) => {
+      console.log(response);
+    });
+  };
+
+  {
+    /* Load Function */
+  }
+  window.onload = function () {
+    CategBox();
+  };
   
   return (
     <div className="App">
@@ -157,6 +403,27 @@ function S_Rewa() {
       {
           border: 2px solid red;
       }
+       #ItemN
+    {
+     font-size:16pt;
+     width:500px;
+     text-align:center;
+    }
+     #ItemD
+    {
+     font-size:12pt;
+     height:200px;
+     width:700px;
+     background-color:white;
+     border:solid 1px black;
+    }
+    .fitBox
+    {
+     font-size:10pt;
+     width:300px;
+     background-color:white;
+     border:solid 1px black;
+    }
     `}</style>
         <div className="overlay" />
         <section className="top-part">
@@ -229,162 +496,218 @@ function S_Rewa() {
             {/*-/Home page-*/}
             <li className="selected">
               <div className="heading"></div>
-              <div className="cd-full-width first-slide">
-                <div className="container">
-                  <div className="row">
-                    <div className="col-md-13">
-                      <div className="content first-content">
-                        <div className="container">
-                          <div id="gallery" className="col-sm-3">
-                            <a href={large}>
-                              <img src={large} width={250} height={340} />
-                            </a>
-                            <br />
-                            <br />
-                            <div
-                              id="differentview"
-                              className="moreOptopm carousel slide"
-                            >
-                              <div className="carousel-inner">
-                                <button
-                                  type
-                                  id
-                                  className="btn aswap"
-                                  style={{
-                                    width: "2px",
-                                    height: "70px",
-                                    textAlign: "center",
-                                  }}
-                                >
-                                  «
-                                </button>
-                                <a href={small1}>
-                                  {" "}
-                                  <img
-                                    style={{ width: "60px", height: "70px" }}
-                                    src={small1}
-                                    alt=""
-                                  />
-                                </a>
-                                <a href={small2}>
-                                  {" "}
-                                  <img
-                                    style={{ width: "60px", height: "70px" }}
-                                    src={small2}
-                                    alt=""
-                                  />
-                                </a>
-                                <a href={small3}>
-                                  {" "}
-                                  <img
-                                    style={{ width: "60px", height: "70px" }}
-                                    src={small3}
-                                    alt=""
-                                  />
-                                </a>
-                                <button
-                                  type
-                                  id
-                                  className="btn aswap"
-                                  style={{
-                                    width: "2px",
-                                    height: "70px",
-                                    textAlign: "center",
-                                  }}
-                                >
-                                  »
-                                </button>
-                              </div>
+              <form onSubmit={handleSubmit}>
+                <div className="cd-full-width first-slide">
+                  <div className="container">
+                    <div className="row">
+                      <div className="col-md-13">
+                        <div className="content first-content">
+                          <div className="container">
+                            <div id="gallery" className="col-sm-3">
+                              <Gallereact
+                                images={images}
+                                slideStyle={{ width: "255px", height: "340px" }}
+                              />
+                              <br />
+                              <br />
+                              <label style={{ color: "red", fontSize: "15px" }}>
+                                &nbsp; Item Photo (.png, .jpg) &nbsp;
+                              </label>
+                              <br />
+                              <br />
+                              <input
+                                type="file"
+                                id="img1"
+                                accept=".png, .jpg, .jpeg"
+                                required
+                                onInvalid={I_reward.exit}
+                                onChange={(x) => setI_Pic1(x.target.value)}
+                              />
+                              <br />
+                              <input
+                                type="file"
+                                id="img2"
+                                accept=".png, .jpg, .jpeg"
+                                required
+                                onInvalid={I_reward.exit}
+                                onChange={(x) => setI_Pic2(x.target.value)}
+                              />
+                              <br />
+                              <input
+                                type="file"
+                                id="img3"
+                                accept=".png, .jpg, .jpeg"
+                                required
+                                onInvalid={I_reward.exit}
+                                onChange={(x) => setI_Pic3(x.target.value)}
+                              />
+                              <br />
+                              <input
+                                type="file"
+                                id="img4"
+                                accept=".png, .jpg, .jpeg"
+                                required
+                                onInvalid={I_reward.exit}
+                                onChange={(x) => setI_Pic4(x.target.value)}
+                              />
                             </div>
-                          </div>
-                          <div className="col-sm-9">
-                            <table
-                              className="table-condensed"
-                              style={{ float: "right" }}
-                            >
-                              <tbody>
-                                <tr>
-                                  <td className="cart_delete">
-                                    <a
-                                      className="cart_quantity_delete"
-                                      href="/s_main"
-                                    >
-                                      <i className="fa fa-times" />
-                                    </a>
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                            <h2 className="title text-center">
-                              Nike Air Shoes
-                            </h2>
-                            <hr className="soft" />
-                            <h4 style={{ textAlign: "left" }}>Description</h4>
-                            <p align="justify">
-                              Good-quality and valuable shoes. It is very useful
-                              and versatile. A worth reward to be traded with
-                              your point.We normally sell this item at high
-                              price since it is considered as limited edition
-                              item which is rarely made.Get this thing under
-                              your possession and enjoy its potential.
-                              <br />
-                              <br />
-                              <br />
-                              <br />
-                            </p>
-                            <hr className="soft" />
-                            <h4 style={{ textAlign: "left" }}>
-                              General Information
-                            </h4>
-                            <table className="table table-bordered">
-                              <tbody>
-                                <tr className="techSpecRow">
-                                  <td className="techSpecTD1">
-                                    <b>Category:</b>
-                                  </td>
-                                  <td className="techSpecTD2">Shoes</td>
-                                </tr>
-                                <tr className="techSpecRow">
-                                  <td className="techSpecTD1">
-                                    <b>Release:</b>
-                                  </td>
-                                  <td className="techSpecTD2">13-11-2020</td>
-                                </tr>
-                                <tr className="techSpecRow">
-                                  <td className="techSpecTD1">
-                                    <b>Fragile:</b>
-                                  </td>
-                                  <td className="techSpecTD2">No</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                            <hr className="soft" />
-                            <button
-                              type="submit"
-                              className="btn btn-default swappor"
-                            >
-                              <i className="fa fa fa-edit" />
-                               Edit detail
-                            </button>
-                            <img
-                              style={{ width: "180px", height: "50px" }}
-                              src={blank}
-                              alt=""
-                            />
-                            <button
-                              type="submit"
-                              className="btn btn-default swapper"
-                            >
-                              <i className="fa fa-trash-o" />
-                               Delete item
-                            </button>
+                            <div className="col-sm-9">
+                              <table
+                                className="table-condensed"
+                                style={{ float: "right" }}
+                              >
+                                <tbody>
+                                  <tr>
+                                    <td className="cart_delete">
+                                      <a
+                                        className="cart_quantity_delete"
+                                        href="/s_main"
+                                      >
+                                        <i className="fa fa-times" />
+                                      </a>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                              <h2 className="title text-center">
+                                <input
+                                  type="text"
+                                  id="ItemN"
+                                  placeholder="Item Name"
+                                  autocomplete="off"
+                                  required
+                                  onInvalid={I_reward.exit}
+                                  onChange={(x) => setI_Obj(x.target.value)}
+                                />
+                              </h2>
+                              <hr className="soft" />
+                              <h4 style={{ textAlign: "left" }}>Description</h4>
+                              <textarea
+                                type="address"
+                                id="ItemD"
+                                placeholder="Item Description"
+                                autocomplete="off"
+                                required
+                                onInvalid={I_reward.exit}
+                                onChange={(x) => setI_Desp(x.target.value)}
+                              />
+                              <hr className="soft" />
+                              <h4 style={{ textAlign: "left" }}>
+                                General Information
+                              </h4>
+                              <table className="table table-bordered">
+                                <tbody>
+                                  <tr className="techSpecRow">
+                                    <td className="techSpecTD1">
+                                      <b>Category:</b>
+                                    </td>
+                                    <td className="techSpecTD1">
+                                      <select
+                                        id="ItemC"
+                                        className="fitBox"
+                                        required
+                                        onInvalid={I_reward.exit}
+                                        onChange={(x) =>
+                                          setI_Type(x.target.value)
+                                        }
+                                      >
+                                        <option
+                                          value=""
+                                          disabled
+                                          selected="selected"
+                                        >
+                                          -- Select Category --
+                                        </option>
+                                        {Categ_List.map((val, key) => (
+                                          <option
+                                            key={val.Type_ID}
+                                            value={val.Type_ID}
+                                          >
+                                            {val.Category}
+                                          </option>
+                                        ))}
+                                      </select>
+                                    </td>
+                                  </tr>
+                                  <tr className="techSpecRow">
+                                    <td className="techSpecTD1">
+                                      <b>Fragile:</b>
+                                    </td>
+                                    <td className="techSpecTD1">
+                                      <select
+                                        id="ItemF"
+                                        className="fitBox"
+                                        required
+                                        onInvalid={I_reward.exit}
+                                        onChange={(x) =>
+                                          setI_Frag(x.target.value)
+                                        }
+                                      >
+                                        <option
+                                          value=""
+                                          disabled
+                                          selected="selected"
+                                        >
+                                          -- Select Fragility --
+                                        </option>
+                                        <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                      </select>
+                                    </td>
+                                  </tr>
+                                  <tr className="techSpecRow">
+                                    <td className="techSpecTD1">
+                                      <b>Quantity:</b>
+                                    </td>
+                                    <td className="techSpecTD1">
+                                      <input
+                                        type="text"
+                                        id="ItemQ"
+                                        placeholder="Item Quantity"
+                                        autocomplete="off"
+                                        required
+                                        onInvalid={I_reward.exit}
+                                        onChange={(x) =>
+                                          setI_Num(x.target.value)
+                                        }
+                                      />
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                              <hr className="soft" />
+                              <button
+                                type="submit"
+                                className="btn btn-default swappor"
+                                onClick={I_reward}
+                              >
+                                <i className="fa fa fa-edit" />
+                                 Save detail
+                              </button>
+                              <img
+                                style={{ width: "180px", height: "50px" }}
+                                src={blank}
+                                alt=""
+                              />
+                              <button
+                                type="submit"
+                                className="btn btn-default swapper"
+                              >
+                                <i className="fa fa-trash-o" />
+                                 Delete item
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </form>
+            </li>
+            {/*-/Home page-*/}
+            <li>
+              <div className="heading"></div>
             </li>
             <li>
               <div className="heading"></div>

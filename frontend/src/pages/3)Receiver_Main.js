@@ -68,7 +68,7 @@ function R_Main() {
     /* Category Get */
   }
   const CategBox = async () => {
-    Axios.get("http://localhost:5000/Categ").then((response) => {
+    Axios.get("http://localhost:5000/Categ_I").then((response) => {
       setCateg_List(response.data);
     });
   };

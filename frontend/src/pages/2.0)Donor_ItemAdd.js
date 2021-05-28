@@ -35,6 +35,14 @@ function D_Add() {
   }
   var regEx1 = /^[^\s]+(\s+[^\s]+)*$/;
   var regEx2 = /(^(?!\s))+([0-9]{1,256})+($)/;
+  var p1 = adder;
+  var p2 = adder;
+  var p3 = adder;
+  var p4 = adder;
+  const [file_Array1, setFile_Array1] = useState("");
+  const [file_Array2, setFile_Array2] = useState("");
+  const [file_Array3, setFile_Array3] = useState("");
+  const [file_Array4, setFile_Array4] = useState("");
   const [School_List, setSchool_List] = useState([]);
   const [Categ_List, setCateg_List] = useState([]);
   const [I_Obj, setI_Obj] = useState("");
@@ -48,7 +56,7 @@ function D_Add() {
   const [I_Num, setI_Num] = useState("");
   const [I_Desp, setI_Desp] = useState("");
   const [I_Frag, setI_Frag] = useState("");
-  const images = [adder, adder, adder, adder];
+  const images = [p1, p2, p3, p4];
   let history = useHistory();
 
   {
@@ -78,10 +86,96 @@ function D_Add() {
     /* Category Get */
   }
   const CategBox = async () => {
-    Axios.get("http://localhost:5000/Categ").then((response) => {
+    Axios.get("http://localhost:5000/Categ_I").then((response) => {
       setCateg_List(response.data);
     });
   };
+
+  {
+    /* Convert File */
+  }
+  const fileToBinary1 = async (file) => {
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        resolve(event.target.result);
+        setFile_Array1(event.target.result);
+      };
+      reader.readAsDataURL(file);
+    })
+  }
+  const fileToBinary2 = async (file) => {
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        resolve(event.target.result);
+        setFile_Array2(event.target.result);
+      };
+      reader.readAsDataURL(file);
+    })
+  }
+  const fileToBinary3 = async (file) => {
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        resolve(event.target.result);
+        setFile_Array3(event.target.result);
+      };
+      reader.readAsDataURL(file);
+    })
+  }
+  const fileToBinary4 = async (file) => {
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        resolve(event.target.result);
+        setFile_Array4(event.target.result);
+      };
+      reader.readAsDataURL(file);
+    })
+  }
+  
+  const fileConvert1 = async (file) => {
+    if(!file) {
+      setI_Pic1('');
+      return;
+    }
+    preImg.src = URL.createObjectURL(file);
+    fileToBinary1(file)
+    .then(I_Pic1 => {
+      setI_Pic1(I_Pic1)
+    });
+  }
+  const fileConvert2 = async (file) => {
+    if(!file) {
+      setI_Pic2('');
+      return;
+    }
+    fileToBinary2(file)
+    .then(I_Pic2 => {
+      setI_Pic2(I_Pic2)
+    });
+  }
+  const fileConvert3 = async (file) => {
+    if(!file) {
+      setI_Pic3('');
+      return;
+    }
+    fileToBinary3(file)
+    .then(I_Pic3 => {
+      setI_Pic3(I_Pic3)
+    });
+  }
+  const fileConvert4 = async (file) => {
+    if(!file) {
+      setI_Pic4('');
+      return;
+    }
+    fileToBinary4(file)
+    .then(I_Pic4 => {
+      setI_Pic4(I_Pic4)
+    });
+  }
 
   {
     /* String Check */
@@ -290,10 +384,10 @@ function D_Add() {
     checkFile4();
     Axios.post("http://localhost:5000/I_donate", {
       Obj: I_Obj,
-      Pic1: I_Pic1,
-      Pic2: I_Pic2,
-      Pic3: I_Pic3,
-      Pic4: I_Pic4,
+      Pic1: file_Array1,
+      Pic2: file_Array2,
+      Pic3: file_Array3,
+      Pic4: file_Array4,
       Type_ID: I_Type,
       School_ID: I_School,
       Quantity: I_Num,
@@ -547,16 +641,14 @@ function D_Add() {
                         <div className="content first-content">
                           <div className="container">
                             <div id="gallery" className="col-sm-3">
+                            <img id="preImg" src="#" style={{ width: "255px", height: "340px" }} />
                               <Gallereact
                                 images={images}
                                 slideStyle={{ width: "255px", height: "340px" }}
                               />
                               <br />
                               <br />
-                              <label
-                                for="Student Card"
-                                style={{ color: "red", fontSize: "15px" }}
-                              >
+                              <label style={{ color: "red", fontSize: "15px" }}>
                                 &nbsp; Item Photo (.png, .jpg) &nbsp;
                               </label>
                               <br />
@@ -567,7 +659,7 @@ function D_Add() {
                                 accept=".png, .jpg, .jpeg"
                                 required
                                 onInvalid={I_donate.exit}
-                                onChange={(x) => setI_Pic1(x.target.value)}
+                                onChange={(event) => fileConvert1(event.target.files[0] || null)}
                               />
                               <br />
                               <input
@@ -576,7 +668,7 @@ function D_Add() {
                                 accept=".png, .jpg, .jpeg"
                                 required
                                 onInvalid={I_donate.exit}
-                                onChange={(x) => setI_Pic2(x.target.value)}
+                                onChange={(event) => fileConvert2(event.target.files[0] || null)}
                               />
                               <br />
                               <input
@@ -585,7 +677,7 @@ function D_Add() {
                                 accept=".png, .jpg, .jpeg"
                                 required
                                 onInvalid={I_donate.exit}
-                                onChange={(x) => setI_Pic3(x.target.value)}
+                                onChange={(event) => fileConvert3(event.target.files[0] || null)}
                               />
                               <br />
                               <input
@@ -594,7 +686,7 @@ function D_Add() {
                                 accept=".png, .jpg, .jpeg"
                                 required
                                 onInvalid={I_donate.exit}
-                                onChange={(x) => setI_Pic4(x.target.value)}
+                                onChange={(event) => fileConvert4(event.target.files[0] || null)}
                               />
                             </div>
                             <div className="col-sm-9">

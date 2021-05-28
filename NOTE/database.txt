@@ -2,3 +2,5 @@ http://localhost/phpmyadmin/
 http://localhost:5000
 node server.js
 "proxy": "http://192.168.1.38:5000"
+
+4,294,967,295 LONGTEXT for FileReader.readAsDataURL(image_file)

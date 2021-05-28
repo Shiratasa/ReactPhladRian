@@ -64,7 +64,7 @@ connection.connect(function (error) {
 });
 
 {
-  /* Item Get */
+  /* Item List Get */
 }
 app.get("/Item", function (req, resp) {
   connection.query("SELECT * FROM ItemDonate", function (error, result) {
@@ -80,7 +80,7 @@ app.get("/Item", function (req, resp) {
 });
 
 {
-  /* School Get */
+  /* School List Get */
 }
 app.get("/School", function (req, resp) {
   connection.query("SELECT * FROM ListSchool", function (error, result) {
@@ -96,9 +96,9 @@ app.get("/School", function (req, resp) {
 });
 
 {
-  /* Category Get */
+  /* Item Type Get */
 }
-app.get("/Categ", function (req, resp) {
+app.get("/Categ_I", function (req, resp) {
   connection.query("SELECT * FROM ListItem", function (error, result) {
     if (error) {
       console.error("Query failed:\n" + error.stack);
@@ -112,7 +112,23 @@ app.get("/Categ", function (req, resp) {
 });
 
 {
-  /* Receiver Route */
+  /* Reward Type Get */
+}
+app.get("/Categ_R", function (req, resp) {
+  connection.query("SELECT * FROM ListReward", function (error, result) {
+    if (error) {
+      console.error("Query failed:\n" + error.stack);
+      connection.end();
+      throw error;
+    } else {
+      resp.send(result);
+      console.log(result);
+    }
+  });
+});
+
+{
+  /* Receiver Account Route */
 }
 app.get("/R_account", function (req, resp) {
   connection.query("SELECT * FROM UserStudent", function (error, result) {
@@ -128,7 +144,7 @@ app.get("/R_account", function (req, resp) {
 });
 
 {
-  /* Receiver Post */
+  /* Receiver Registration Post */
 }
 app.post("/R_regis", upload.any(), function (req, resp) {
   var Username = req.body.Username;
@@ -140,9 +156,10 @@ app.post("/R_regis", upload.any(), function (req, resp) {
   var Grade = req.body.Grade;
   var Card_Image = req.body.Card_Image;
   var Password = req.body.Password;
+  var Chance = req.body.Chance;
   var State = req.body.State;
   connection.query(
-    "INSERT INTO UserStudent (Username, Email, Phone, Address, Student_Card, School_ID, Grade, Card_Image, Password, State) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)",
+    "INSERT INTO UserStudent (Username, Email, Phone, Address, Student_Card, School_ID, Grade, Card_Image, Password, Chance, State) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 5, 1)",
     [
       Username,
       Email,
@@ -153,6 +170,7 @@ app.post("/R_regis", upload.any(), function (req, resp) {
       Grade,
       Card_Image,
       Password,
+      Chance,
       State,
     ],
     function (error, result) {
@@ -166,7 +184,7 @@ app.post("/R_regis", upload.any(), function (req, resp) {
 });
 
 {
-  /* Receiver Get */
+  /* Receiver Account Get */
 }
 app.post("/R_login", function (req, resp) {
   var Email = req.body.Email;
@@ -192,7 +210,7 @@ app.post("/R_login", function (req, resp) {
 });
 
 {
-  /* Donor Post */
+  /* Donor Registration Post */
 }
 app.post("/D_regis", function (req, resp) {
   var Username = req.body.Username;
@@ -216,7 +234,7 @@ app.post("/D_regis", function (req, resp) {
 });
 
 {
-  /* Donor Get */
+  /* Donor Account Get */
 }
 app.post("/D_login", function (req, resp) {
   var Email = req.body.Email;
@@ -242,7 +260,7 @@ app.post("/D_login", function (req, resp) {
 });
 
 {
-  /* Sponsor Get */
+  /* Sponsor Account Get */
 }
 app.post("/S_login", function (req, resp) {
   var Email = req.body.Email;
@@ -268,7 +286,7 @@ app.post("/S_login", function (req, resp) {
 });
 
 {
-  /* Admin Get */
+  /* Admin Account Get */
 }
 app.post("/A_login", function (req, resp) {
   var Email = req.body.Email;
@@ -294,7 +312,7 @@ app.post("/A_login", function (req, resp) {
 });
 
 {
-  /* Name Post */
+  /* Account Scan Post */
 }
 app.post("/N_post", function (req, resp) {
   var Username = req.body.Username;
@@ -312,7 +330,7 @@ app.post("/N_post", function (req, resp) {
 });
 
 {
-  /* Name Get */
+  /* Account Scan Get */
 }
 app.post("/N_get", function (req, resp) {
   var Username = req.body.Username;
@@ -337,7 +355,7 @@ app.post("/N_get", function (req, resp) {
 });
 
 {
-  /* Email Post */
+  /* Email Scan Post */
 }
 app.post("/E_post", function (req, resp) {
   var Email = req.body.Email;
@@ -355,7 +373,7 @@ app.post("/E_post", function (req, resp) {
 });
 
 {
-  /* Email Get */
+  /* Email Scan Get */
 }
 app.post("/E_get", function (req, resp) {
   var Email = req.body.Email;
@@ -380,7 +398,7 @@ app.post("/E_get", function (req, resp) {
 });
 
 {
-  /* Item Post */
+  /* Item Data Post */
 }
 app.post("/I_donate", function (req, resp) {
   var Obj = req.body.Obj;
@@ -424,7 +442,47 @@ app.post("/I_donate", function (req, resp) {
 });
 
 {
-  /* Admin Example */
+  /* Reward Data Post */
+}
+app.post("/I_reward", function (req, resp) {
+  var Obj = req.body.Obj;
+  var Pic1 = req.body.Pic1;
+  var Pic2 = req.body.Pic2;
+  var Pic3 = req.body.Pic3;
+  var Pic4 = req.body.Pic4;
+  var Type_ID = req.body.Type_ID;
+  var Quantity = req.body.Quantity;
+  var Detail = req.body.Detail;
+  var Fragile = req.body.Fragile;
+  var Warning = req.body.Warning;
+  var State = req.body.State;
+  connection.query(
+    "INSERT INTO ItemReward (Obj, Pic1, Pic2, Pic3, Pic4, Type_ID, Quantity, Detail, Fragile, Warning, State) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 1)",
+    [
+      Obj,
+      Pic1,
+      Pic2,
+      Pic3,
+      Pic4,
+      Type_ID,
+      Quantity,
+      Detail,
+      Fragile,
+      Warning,
+      State,
+    ],
+    function (error, result) {
+      if (error) {
+        console.error("Insert failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      }
+    }
+  );
+});
+
+{
+  /* Admin Account Example */
 }
 app.get("/", function (req, resp) {
   connection.query("SELECT * FROM UserAdmin", function (error, rows, fields) {

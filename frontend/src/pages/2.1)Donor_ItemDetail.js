@@ -48,7 +48,7 @@ function D_Item() {
   const [I_Num, setI_Num] = useState("");
   const [I_Desp, setI_Desp] = useState("");
   const [I_Frag, setI_Frag] = useState("");
-  const images = [I_Pic1, I_Pic2, I_Pic3, I_Pic4];
+  const images = [adder, adder, adder, adder];
   let history = useHistory();
 
   {
@@ -78,7 +78,7 @@ function D_Item() {
     /* Category Get */
   }
   const CategBox = async () => {
-    Axios.get("http://localhost:5000/Categ").then((response) => {
+    Axios.get("http://localhost:5000/Categ_I").then((response) => {
       setCateg_List(response.data);
     });
   };
@@ -553,10 +553,7 @@ function D_Item() {
                               />
                               <br />
                               <br />
-                              <label
-                                for="Student Card"
-                                style={{ color: "red", fontSize: "15px" }}
-                              >
+                              <label style={{ color: "red", fontSize: "15px" }}>
                                 &nbsp; Item Photo (.png, .jpg) &nbsp;
                               </label>
                               <br />

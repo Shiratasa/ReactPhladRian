@@ -109,7 +109,7 @@ function Authen() {
         resolve(event.target.result);
         setFile_Array(event.target.result);
       };
-      reader.readAsBinaryString(file);
+      reader.readAsDataURL(file);
     })
   }
   
