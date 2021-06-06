@@ -2,7 +2,7 @@
 import React, { useEffect, useState, Component } from "react";
 import ReactDOM from "react-dom";
 import { Helmet } from "react-helmet";
-import Gallereact from "gallereact";
+import InnerHTML from 'dangerously-set-html-content'
 import Axios from "axios";
 import $ from "jquery";
 import JSAlert from "js-alert";
@@ -102,8 +102,8 @@ function D_Add() {
         setFile_Array1(event.target.result);
       };
       reader.readAsDataURL(file);
-    })
-  }
+    });
+  };
   const fileToBinary2 = async (file) => {
     new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -112,8 +112,8 @@ function D_Add() {
         setFile_Array2(event.target.result);
       };
       reader.readAsDataURL(file);
-    })
-  }
+    });
+  };
   const fileToBinary3 = async (file) => {
     new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -122,8 +122,8 @@ function D_Add() {
         setFile_Array3(event.target.result);
       };
       reader.readAsDataURL(file);
-    })
-  }
+    });
+  };
   const fileToBinary4 = async (file) => {
     new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -132,50 +132,49 @@ function D_Add() {
         setFile_Array4(event.target.result);
       };
       reader.readAsDataURL(file);
-    })
-  }
-  
+    });
+  };
+
   const fileConvert1 = async (file) => {
-    if(!file) {
-      setI_Pic1('');
+    if (!file) {
+      setI_Pic1("");
       return;
     }
-    preImg.src = URL.createObjectURL(file);
-    fileToBinary1(file)
-    .then(I_Pic1 => {
-      setI_Pic1(I_Pic1)
+    preImg1.src = URL.createObjectURL(file);
+    fileToBinary1(file).then((I_Pic1) => {
+      setI_Pic1(I_Pic1);
     });
-  }
+  };
   const fileConvert2 = async (file) => {
-    if(!file) {
-      setI_Pic2('');
+    if (!file) {
+      setI_Pic2("");
       return;
     }
-    fileToBinary2(file)
-    .then(I_Pic2 => {
-      setI_Pic2(I_Pic2)
+    preImg2.src = URL.createObjectURL(file);
+    fileToBinary2(file).then((I_Pic2) => {
+      setI_Pic2(I_Pic2);
     });
-  }
+  };
   const fileConvert3 = async (file) => {
-    if(!file) {
-      setI_Pic3('');
+    if (!file) {
+      setI_Pic3("");
       return;
     }
-    fileToBinary3(file)
-    .then(I_Pic3 => {
-      setI_Pic3(I_Pic3)
+    preImg3.src = URL.createObjectURL(file);
+    fileToBinary3(file).then((I_Pic3) => {
+      setI_Pic3(I_Pic3);
     });
-  }
+  };
   const fileConvert4 = async (file) => {
-    if(!file) {
-      setI_Pic4('');
+    if (!file) {
+      setI_Pic4("");
       return;
     }
-    fileToBinary4(file)
-    .then(I_Pic4 => {
-      setI_Pic4(I_Pic4)
+    preImg4.src = URL.createObjectURL(file);
+    fileToBinary4(file).then((I_Pic4) => {
+      setI_Pic4(I_Pic4);
     });
-  }
+  };
 
   {
     /* String Check */
@@ -400,6 +399,35 @@ function D_Add() {
   };
 
   {
+    /* Album Function */
+  }
+  const Album = `
+    <a class="prev" onClick="plusSlides(-1)">&#10094;</a>
+  	<a class="next" onClick="plusSlides(1)">&#10095;</a>
+    <script>
+    	var slideIndex = 1;
+			showSlides(slideIndex);
+			function plusSlides(n) {
+  			showSlides(slideIndex += n);
+			};
+			function currentSlide(n) {
+  			showSlides(slideIndex = n);
+			};
+			function showSlides(n) {
+  			var i;
+  			var slides = document.getElementsByClassName("mySlides");
+  			if (n > slides.length) {slideIndex = 1}    
+  			if (n < 1) {slideIndex = slides.length}
+  			for (i = 0; i < slides.length; i++) {
+      		slides[i].style.display = "none";  
+  			}
+  			slides[slideIndex-1].style.display = "block";  
+			};
+    </script>
+ 
+  `
+
+  {
     /* Load Function */
   }
   window.onload = function () {
@@ -553,6 +581,40 @@ function D_Add() {
      background-color:white;
      border:solid 1px black;
     }
+    #slideshow { 
+      position: relative; 
+      width: 250px; 
+      height: 340px; 
+    }
+    #slideshow > div { 
+      position: absolute; 
+    }
+    .prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 165px;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  user-select: none;
+  background-color: rgb(180,180,180);
+}
+.prev {
+  left: 15px;
+  border-radius: 0 3px 3px 0;
+}
+.next {
+  right: 15px;
+  border-radius: 3px 0 0 3px;
+}
+.prev:hover, .next:hover {
+	color: white;
+  background-color: rgb(255,165,0);
+}
     `}</style>
         <div className="overlay" />
         <section className="top-part">
@@ -641,11 +703,37 @@ function D_Add() {
                         <div className="content first-content">
                           <div className="container">
                             <div id="gallery" className="col-sm-3">
-                            <img id="preImg" src="#" style={{ width: "255px", height: "340px" }} />
-                              <Gallereact
-                                images={images}
-                                slideStyle={{ width: "255px", height: "340px" }}
-                              />
+                              <div id="slideshow">
+                                <div class="mySlides">
+                                  <img
+                                    id="preImg1"
+                                    src={wall}
+                                    style={{ width: "255px", height: "340px" }}
+                                  />
+                                </div>
+                                <div class="mySlides">
+                                  <img
+                                    id="preImg2"
+                                    src={eng}
+                                    style={{ width: "255px", height: "340px" }}
+                                  />
+                                </div>
+                                <div class="mySlides">
+                                  <img
+                                    id="preImg3"
+                                    src={tha}
+                                    style={{ width: "255px", height: "340px" }}
+                                  />
+                                </div>
+                                <div class="mySlides">
+                                  <img
+                                    id="preImg4"
+                                    src={adder}
+                                    style={{ width: "255px", height: "340px" }}
+                                  />
+                                </div>
+                              </div>
+                              <InnerHTML html={Album} />
                               <br />
                               <br />
                               <label style={{ color: "red", fontSize: "15px" }}>
@@ -659,7 +747,9 @@ function D_Add() {
                                 accept=".png, .jpg, .jpeg"
                                 required
                                 onInvalid={I_donate.exit}
-                                onChange={(event) => fileConvert1(event.target.files[0] || null)}
+                                onChange={(event) =>
+                                  fileConvert1(event.target.files[0] || null)
+                                }
                               />
                               <br />
                               <input
@@ -668,7 +758,9 @@ function D_Add() {
                                 accept=".png, .jpg, .jpeg"
                                 required
                                 onInvalid={I_donate.exit}
-                                onChange={(event) => fileConvert2(event.target.files[0] || null)}
+                                onChange={(event) =>
+                                  fileConvert2(event.target.files[0] || null)
+                                }
                               />
                               <br />
                               <input
@@ -677,7 +769,9 @@ function D_Add() {
                                 accept=".png, .jpg, .jpeg"
                                 required
                                 onInvalid={I_donate.exit}
-                                onChange={(event) => fileConvert3(event.target.files[0] || null)}
+                                onChange={(event) =>
+                                  fileConvert3(event.target.files[0] || null)
+                                }
                               />
                               <br />
                               <input
@@ -686,7 +780,9 @@ function D_Add() {
                                 accept=".png, .jpg, .jpeg"
                                 required
                                 onInvalid={I_donate.exit}
-                                onChange={(event) => fileConvert4(event.target.files[0] || null)}
+                                onChange={(event) =>
+                                  fileConvert4(event.target.files[0] || null)
+                                }
                               />
                             </div>
                             <div className="col-sm-9">

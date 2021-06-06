@@ -44,8 +44,8 @@ function App() {
             <Route path="/d_item" exact component={D_Item} />
             <Route path="/d_deli" exact component={D_Deli} />
             <Route path="/d_rewa" exact component={D_Rewa} />
-            <Route path="/r_main/:Student_ID" exact component={R_Main} />
-            <Route path="/r_item" exact component={R_Item} />
+            <Route path="/r_main" exact component={R_Main} />
+            <Route path="/r_item/:Item_ID" exact component={R_Item} />
             <Route path="/s_main" exact component={S_Main} />
             <Route path="/s_rewa" exact component={S_Rewa} />
             <Route path="/s_qr" exact component={S_QR} />

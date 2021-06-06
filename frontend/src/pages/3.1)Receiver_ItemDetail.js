@@ -31,6 +31,7 @@ function R_Item() {
   const small3 = window.location.origin + "/resources/imgs/shop/3.jpg";
   const eng = window.location.origin + "/resources/imgs/authen/eng.png";
   const tha = window.location.origin + "/resources/imgs/authen/tha.png";
+  let { Item_ID } = useParams();
 
   return (
     <div className="App">
@@ -243,6 +244,7 @@ function R_Item() {
                     <div className="col-md-13">
                       <div className="content first-content">
                         <div className="container">
+                          <div>{Item_ID}</div>
                           <div id="gallery" className="col-sm-3">
                             <a href={large}>
                               <img src={large} width={250} height={340} />

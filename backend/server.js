@@ -64,6 +64,58 @@ connection.connect(function (error) {
 });
 
 {
+  /* Account List Get */
+}
+app.get("/R_list", function (req, resp) {
+  connection.query("SELECT * FROM UserStudent", function (error, result) {
+    if (error) {
+      console.error("Query failed:\n" + error.stack);
+      connection.end();
+      throw error;
+    } else {
+      resp.send(result);
+      console.log(result);
+    }
+  });
+});
+app.get("/D_list", function (req, resp) {
+  connection.query("SELECT * FROM UserDonor", function (error, result) {
+    if (error) {
+      console.error("Query failed:\n" + error.stack);
+      connection.end();
+      throw error;
+    } else {
+      resp.send(result);
+      console.log(result);
+    }
+  });
+});
+app.get("/S_list", function (req, resp) {
+  connection.query("SELECT * FROM UserSponsor", function (error, result) {
+    if (error) {
+      console.error("Query failed:\n" + error.stack);
+      connection.end();
+      throw error;
+    } else {
+      resp.send(result);
+      console.log(result);
+    }
+  });
+});
+app.get("/A_list", function (req, resp) {
+  connection.query("SELECT * FROM UserAdmin", function (error, result) {
+    if (error) {
+      console.error("Query failed:\n" + error.stack);
+      connection.end();
+      throw error;
+    } else {
+      resp.send(result);
+      console.log(result);
+    }
+  });
+});
+
+{
   /* Item List Get */
 }
 app.get("/Item", function (req, resp) {
@@ -116,22 +168,6 @@ app.get("/Categ_I", function (req, resp) {
 }
 app.get("/Categ_R", function (req, resp) {
   connection.query("SELECT * FROM ListReward", function (error, result) {
-    if (error) {
-      console.error("Query failed:\n" + error.stack);
-      connection.end();
-      throw error;
-    } else {
-      resp.send(result);
-      console.log(result);
-    }
-  });
-});
-
-{
-  /* Receiver Account Route */
-}
-app.get("/R_account", function (req, resp) {
-  connection.query("SELECT * FROM UserStudent", function (error, result) {
     if (error) {
       console.error("Query failed:\n" + error.stack);
       connection.end();
