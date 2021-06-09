@@ -17,6 +17,13 @@ import {
   useParams,
 } from "react-router-dom";
 
+history.pushState(null, document.title, location.href);
+history.back();
+history.forward();
+window.onpopstate = function () {
+  history.go(1);
+};
+
 function S_Rewa() {
   const wall = window.location.origin + "/resources/imgs/wallpaper.jpg";
   const but1 = window.location.origin + "/resources/imgs/home.png";
@@ -561,7 +568,7 @@ function S_Rewa() {
                                     <td className="cart_delete">
                                       <a
                                         className="cart_quantity_delete"
-                                        href="/s_main"
+                                        onClick={() => {history.push("/s_main"); window.location.reload();}}
                                       >
                                         <i className="fa fa-times" />
                                       </a>
@@ -721,7 +728,7 @@ function S_Rewa() {
             <li>
               <div className="heading">
                 <h1>Logout</h1>
-                <a href="/" className="button">
+                <a className="button" onClick={() => {history.push("/"); window.location.reload();}}>
                   EXIT
                 </a>
               </div>

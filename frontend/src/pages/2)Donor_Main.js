@@ -16,6 +16,13 @@ import {
   useParams,
 } from "react-router-dom";
 
+history.pushState(null, document.title, location.href);
+history.back();
+history.forward();
+window.onpopstate = function () {
+  history.go(1);
+};
+
 function D_Main() {
   const wall = window.location.origin + "/resources/imgs/wallpaper.jpg";
   const but1 = window.location.origin + "/resources/imgs/home.png";
@@ -417,90 +424,8 @@ function D_Main() {
                                         </h2>
                                         <br />
                                         <a
-                                          href="/d_item"
                                           className="btn btn-default add-to-cart"
-                                        >
-                                          <i className="fa fa-eye" />
-                                          View
-                                        </a>
-                                      </div>
-                                    </div>
-                                    <div className="choose">
-                                      <ul className="nav nav-pills nav-justified">
-                                        <li>
-                                          <a href>
-                                            <i className="fa fa-trash-o" />
-                                            Delete item
-                                          </a>
-                                        </li>
-                                        <li>
-                                          <a href>
-                                            <i className="fa fa-trash-o" />
-                                            Delete item
-                                          </a>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="col-sm-4">
-                                  <div className="product-image-wrapper">
-                                    <div className="single-products">
-                                      <div className="productinfo text-center">
-                                        <img
-                                          src={pro2}
-                                          alt=""
-                                          width={230}
-                                          height={320}
-                                        />
-                                        <h2 style={{ fontSize: "15px" }}>
-                                          Mathematic Book 2
-                                        </h2>
-                                        <br />
-                                        <a
-                                          href="/d_item"
-                                          className="btn btn-default add-to-cart"
-                                        >
-                                          <i className="fa fa-eye" />
-                                          View
-                                        </a>
-                                      </div>
-                                    </div>
-                                    <div className="choose">
-                                      <ul className="nav nav-pills nav-justified">
-                                        <li>
-                                          <a href>
-                                            <i className="fa fa-trash-o" />
-                                            Delete item
-                                          </a>
-                                        </li>
-                                        <li>
-                                          <a href>
-                                            <i className="fa fa-trash-o" />
-                                            Delete item
-                                          </a>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="col-sm-4">
-                                  <div className="product-image-wrapper">
-                                    <div className="single-products">
-                                      <div className="productinfo text-center">
-                                        <img
-                                          src={pro7}
-                                          alt=""
-                                          width={230}
-                                          height={320}
-                                        />
-                                        <h2 style={{ fontSize: "15px" }}>
-                                          O-NET Examination Book
-                                        </h2>
-                                        <br />
-                                        <a
-                                          href="/d_item"
-                                          className="btn btn-default add-to-cart"
+                                          onClick={() => {history.push("/d_item"); window.location.reload();}}
                                         >
                                           <i className="fa fa-eye" />
                                           View
@@ -683,8 +608,8 @@ function D_Main() {
                                         <br />
                                         <br />
                                         <a
-                                          href="/d_deli"
                                           className="btn btn-default add-to-cart"
+                                          onClick={() => {history.push("/d_deli"); window.location.reload();}}
                                         >
                                           <i className="fa fa-truck" />
                                           Deliver
@@ -986,154 +911,12 @@ function D_Main() {
                                         <br />
                                         <br />
                                         <a
-                                          href="/d_rewa"
                                           className="btn btn-default add-to-cart"
+                                          onClick={() => {history.push("/d_rewa"); window.location.reload();}}
                                         >
                                           <i className="fa fa-clock-o" />
                                           Trade
                                         </a>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td
-                                        className="cart_product"
-                                        style={{ float: "left" }}
-                                      >
-                                        <a href>
-                                          <img
-                                            src={re2}
-                                            alt=""
-                                            width={127}
-                                            height={158}
-                                          />
-                                        </a>
-                                      </td>
-                                      <td
-                                        className="cart_description"
-                                        style={{ float: "left" }}
-                                      >
-                                        <br />
-                                        <h2
-                                          className="cart_total_price"
-                                          style={{
-                                            textAlign: "left",
-                                            fontSize: "18px",
-                                          }}
-                                        >
-                                                Skull Ring
-                                        </h2>
-                                        <p style={{ textAlign: "justify" }}>
-                                                   Good-quality and valuable
-                                          ring. It is very useful and versatile.
-                                          A worth reward to be traded with your
-                                          point.
-                                          <br />
-                                                   We normally sell this item at
-                                          high price since it is considered as
-                                          limited edition item which is rarely
-                                          made.
-                                          <br />
-                                                   Get this thing under your
-                                          possession and enjoy....
-                                        </p>
-                                        <a
-                                          className="btn btn-default add-to-cart"
-                                          style={{ float: "left" }}
-                                        >
-                                          <i className="fa fa-eye" />
-                                          View
-                                        </a>
-                                      </td>
-                                      <td
-                                        className="cart_delete"
-                                        style={{ float: "right" }}
-                                      >
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <a
-                                          href="/d_rewa"
-                                          className="btn btn-default add-to-cart"
-                                        >
-                                          <i className="fa fa-clock-o" />
-                                          Trade
-                                        </a>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td
-                                        className="cart_product"
-                                        style={{ float: "left" }}
-                                      >
-                                        <a href>
-                                          <img
-                                            src={re4}
-                                            alt=""
-                                            width={127}
-                                            height={158}
-                                          />
-                                        </a>
-                                      </td>
-                                      <td
-                                        className="cart_description"
-                                        style={{ float: "left" }}
-                                      >
-                                        <br />
-                                        <h2
-                                          className="cart_total_price"
-                                          style={{
-                                            textAlign: "left",
-                                            fontSize: "18px",
-                                          }}
-                                        >
-                                                Leather Gloves
-                                        </h2>
-                                        <p style={{ textAlign: "justify" }}>
-                                                   Good-quality and valuable
-                                          gloves. It is very useful and
-                                          versatile. A worth reward to be traded
-                                          with your point.
-                                          <br />
-                                                   We normally sell this item at
-                                          high price since it is considered as
-                                          limited edition item which is rarely
-                                          made.
-                                          <br />
-                                                   Get this thing under your
-                                          possession and enjoy....
-                                        </p>
-                                        <a
-                                          className="btn btn-default add-to-cart"
-                                          style={{ float: "left" }}
-                                        >
-                                          <i className="fa fa-eye" />
-                                          View
-                                        </a>
-                                      </td>
-                                      <td
-                                        className="cart_delete"
-                                        style={{ float: "right" }}
-                                      >
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <h2
-                                          style={{
-                                            fontSize: "18px",
-                                            color: "#90EE90",
-                                          }}
-                                        >
-                                          <i className="fa fa-check" />
-                                          Received
-                                        </h2>
                                       </td>
                                     </tr>
                                   </tbody>
@@ -1592,7 +1375,7 @@ Bangkok, 10240"
             <li>
               <div className="heading">
                 <h1>Logout</h1>
-                <a href="/" className="button">
+                <a className="button" onClick={() => {history.push("/"); window.location.reload();}}>
                   EXIT
                 </a>
               </div>

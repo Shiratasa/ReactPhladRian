@@ -18,6 +18,13 @@ import {
   useParams,
 } from "react-router-dom";
 
+history.pushState(null, document.title, location.href);
+history.back();
+history.forward();
+window.onpopstate = function () {
+  history.go(1);
+};
+
 function Authen() {
   const eng = window.location.origin + "/resources/imgs/authen/eng.png";
   const tha = window.location.origin + "/resources/imgs/authen/tha.png";
@@ -69,7 +76,7 @@ function Authen() {
     if (invali == "0") {
       JSAlert.alert("", "Submit Success!", JSAlert.Icons.Success);
       await timeout(1000).then($(this).unbind("submit").submit());
-      location.reload();
+      window.location.reload();
     }
   };
   const handleSubmit2 = async (e) => {
@@ -78,25 +85,25 @@ function Authen() {
       JSAlert.alert("", "Login Success!", JSAlert.Icons.Success);
       await timeout(1000).then($(this).unbind("submit").submit());
       history.push("/r_main");
-      location.reload();
+      window.location.reload();
     }
     if (invali == "D") {
       JSAlert.alert("", "Login Success!", JSAlert.Icons.Success);
       await timeout(1000).then($(this).unbind("submit").submit());
       history.push("/d_main");
-      location.reload();
+      window.location.reload();
     }
     if (invali == "S") {
       JSAlert.alert("", "Login Success!", JSAlert.Icons.Success);
       await timeout(1000).then($(this).unbind("submit").submit());
       history.push("/s_main");
-      location.reload();
+      window.location.reload();
     }
     if (invali == "A") {
       JSAlert.alert("", "Login Success!", JSAlert.Icons.Success);
       await timeout(1000).then($(this).unbind("submit").submit());
       history.push("/");
-      location.reload();
+      window.location.reload();
     }
   };
   const handleSubmit3 = async (e) => {

@@ -17,6 +17,13 @@ import {
   useParams,
 } from "react-router-dom";
 
+history.pushState(null, document.title, location.href);
+history.back();
+history.forward();
+window.onpopstate = function () {
+  history.go(1);
+};
+
 function D_Add() {
   const wall = window.location.origin + "/resources/imgs/wallpaper.jpg";
   const but1 = window.location.origin + "/resources/imgs/home.png";
@@ -946,7 +953,7 @@ span_4.onclick = function() {
                                     <td className="cart_delete">
                                       <a
                                         className="cart_quantity_delete"
-                                        href="/d_main"
+                                        onClick={() => {history.push("/d_main"); window.location.reload();}}
                                       >
                                         <i className="fa fa-times" />
                                       </a>
@@ -1166,7 +1173,7 @@ span_4.onclick = function() {
             <li>
               <div className="heading">
                 <h1>Logout</h1>
-                <a href="/" className="button">
+                <a className="button" onClick={() => {history.push("/"); window.location.reload();}}>
                   EXIT
                 </a>
               </div>

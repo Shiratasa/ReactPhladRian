@@ -16,6 +16,13 @@ import {
   useParams,
 } from "react-router-dom";
 
+history.pushState(null, document.title, location.href);
+history.back();
+history.forward();
+window.onpopstate = function () {
+  history.go(1);
+};
+
 function S_Main() {
   const wall = window.location.origin + "/resources/imgs/wallpaper.jpg";
   const but1 = window.location.origin + "/resources/imgs/home.png";
@@ -324,8 +331,8 @@ function S_Main() {
                                         </h2>
                                         <br />
                                         <a
-                                          href="/s_rewa"
                                           className="btn btn-default add-to-cart"
+                                          onClick={() => {history.push("/s_rewa"); window.location.reload();}}
                                         >
                                           <i className="fa fa-eye" />
                                           View
@@ -347,102 +354,6 @@ function S_Main() {
                                           </a>
                                         </li>
                                       </ul>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="col-sm-4">
-                                  <div className="product-image-wrapper">
-                                    <div className="single-products">
-                                      <div className="productinfo text-center">
-                                        <img
-                                          src={re2}
-                                          alt=""
-                                          width={230}
-                                          height={320}
-                                        />
-                                        <h2 style={{ fontSize: "15px" }}>
-                                          Skull Ring
-                                        </h2>
-                                        <br />
-                                        <a
-                                          href="/s_rewa"
-                                          className="btn btn-default add-to-cart"
-                                        >
-                                          <i className="fa fa-eye" />
-                                          View
-                                        </a>
-                                      </div>
-                                    </div>
-                                    <div className="choose">
-                                      <ul className="nav nav-pills nav-justified">
-                                        <li>
-                                          <a href>
-                                            <i className="fa fa-trash-o" />
-                                            Delete item
-                                          </a>
-                                        </li>
-                                        <li>
-                                          <a href>
-                                            <i className="fa fa-trash-o" />
-                                            Delete item
-                                          </a>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="col-sm-4">
-                                  <div className="product-image-wrapper">
-                                    <div className="single-products">
-                                      <div className="productinfo text-center">
-                                        <img
-                                          src={re3}
-                                          alt=""
-                                          width={230}
-                                          height={320}
-                                        />
-                                        <h2 style={{ fontSize: "15px" }}>
-                                          Major Cineplex Ticket
-                                        </h2>
-                                        <br />
-                                        <a
-                                          href="/s_rewa"
-                                          className="btn btn-default add-to-cart"
-                                        >
-                                          <i className="fa fa-eye" />
-                                          View
-                                        </a>
-                                      </div>
-                                    </div>
-                                    <div className="choose">
-                                      <ul className="nav nav-pills nav-justified">
-                                        <li>
-                                          <a href>
-                                            <i className="fa fa-trash-o" />
-                                            Delete item
-                                          </a>
-                                        </li>
-                                        <li>
-                                          <a href>
-                                            <i className="fa fa-trash-o" />
-                                            Delete item
-                                          </a>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="col-sm-4">
-                                  <div className="product-image-wrapper">
-                                    <div className="single-products">
-                                      <div className="productinfo text-center">
-                                        <img
-                                          src={adder}
-                                          alt=""
-                                          width={230}
-                                          height={320}
-                                        />
-                                      </div>
                                     </div>
                                   </div>
                                 </div>
@@ -604,8 +515,8 @@ function S_Main() {
                                         <br />
                                         <br />
                                         <a
-                                          href="/s_qr"
                                           className="btn btn-default add-to-cart"
+                                          onClick={() => {history.push("/s_qr"); window.location.reload();}}
                                         >
                                           <i className="fa fa-qrcode" />
                                           Info
@@ -1170,7 +1081,7 @@ Bangkok, 10240"
             <li>
               <div className="heading">
                 <h1>Logout</h1>
-                <a href="/" className="button">
+                <a className="button" onClick={() => {history.push("/"); window.location.reload();}}>
                   EXIT
                 </a>
               </div>
