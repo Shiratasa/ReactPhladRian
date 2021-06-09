@@ -402,27 +402,85 @@ function D_Add() {
     /* Album Function */
   }
   const Album = `
+    <div>
     <a class="prev" onClick="plusSlides(-1)">&#10094;</a>
   	<a class="next" onClick="plusSlides(1)">&#10095;</a>
+    </div>
+    <br>
+    <div style="text-align:center">
+      <span class="dot" onclick="currentSlide(1)"></span>&nbsp;&nbsp;&nbsp;
+      <span class="dot" onclick="currentSlide(2)"></span>&nbsp;&nbsp;&nbsp;
+      <span class="dot" onclick="currentSlide(3)"></span>&nbsp;&nbsp;&nbsp;
+      <span class="dot" onclick="currentSlide(4)"></span>
+    </div>
     <script>
     	var slideIndex = 1;
-			showSlides(slideIndex);
-			function plusSlides(n) {
-  			showSlides(slideIndex += n);
-			};
-			function currentSlide(n) {
-  			showSlides(slideIndex = n);
-			};
-			function showSlides(n) {
-  			var i;
-  			var slides = document.getElementsByClassName("mySlides");
-  			if (n > slides.length) {slideIndex = 1}    
-  			if (n < 1) {slideIndex = slides.length}
-  			for (i = 0; i < slides.length; i++) {
-      		slides[i].style.display = "none";  
-  			}
-  			slides[slideIndex-1].style.display = "block";  
-			};
+showSlides(slideIndex);
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+}
+var modal_1 = document.getElementById("myModal1");
+var image_1 = document.getElementById("preImg1");
+var modalImage_1 = document.getElementById("img01");
+image_1.onclick = function(){
+  modal_1.style.display = "block";
+  modalImage_1.src = this.src;
+}
+var modal_2 = document.getElementById("myModal2");
+var image_2 = document.getElementById("preImg2");
+var modalImage_2 = document.getElementById("img02");
+image_2.onclick = function(){
+  modal_2.style.display = "block";
+  modalImage_2.src = this.src;
+}
+var modal_3 = document.getElementById("myModal3");
+var image_3 = document.getElementById("preImg3");
+var modalImage_3 = document.getElementById("img03");
+image_3.onclick = function(){
+  modal_3.style.display = "block";
+  modalImage_3.src = this.src;
+}
+var modal_4 = document.getElementById("myModal4");
+var image_4 = document.getElementById("preImg4");
+var modalImage_4 = document.getElementById("img04");
+image_4.onclick = function(){
+  modal_4.style.display = "block";
+  modalImage_4.src = this.src;
+}
+var span_1 = document.getElementsByClassName("close one")[0];
+span_1.onclick = function() { 
+  modal_1.style.display = "none";
+}
+var span_2 = document.getElementsByClassName("close two")[0];
+span_2.onclick = function() { 
+  modal_2.style.display = "none";
+}
+var span_3 = document.getElementsByClassName("close three")[0];
+span_3.onclick = function() { 
+  modal_3.style.display = "none";
+}
+var span_4 = document.getElementsByClassName("close four")[0];
+span_4.onclick = function() { 
+  modal_4.style.display = "none";
+}
     </script>
  
   `
@@ -581,6 +639,10 @@ function D_Add() {
      background-color:white;
      border:solid 1px black;
     }
+    .mySlides
+    {
+     border:solid 1px black;
+    }
     #slideshow { 
       position: relative; 
       width: 250px; 
@@ -604,18 +666,103 @@ function D_Add() {
   background-color: rgb(180,180,180);
 }
 .prev {
-  left: 15px;
+  left: 16px;
   border-radius: 0 3px 3px 0;
 }
 .next {
-  right: 15px;
+  right: 14px;
   border-radius: 3px 0 0 3px;
 }
 .prev:hover, .next:hover {
 	color: white;
   background-color: rgb(255,165,0);
 }
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+.active, .dot:hover {
+  background-color: rgb(255,165,0);
+}
+.numbertext {
+  color: red;
+  font-size: 14px;
+  font-style: bold;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 100; 
+  padding-top: 100px; 
+  padding-bottom: 100px; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.9); 
+}
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+}
+.modal-content, #caption {
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+@keyframes zoom {
+  from {transform:scale(0)}
+  to {transform:scale(1)}
+}
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+@media only screen and (max-width: 700px){
+  .modal-content {
+    width: 100%;
+  }
+}
     `}</style>
+          <div id="myModal1" class="modal">
+      <span class="close one">&times;</span>
+      <img class="modal-content" id="img01" />
+    </div>
+              <div id="myModal2" class="modal">
+      <span class="close two">&times;</span>
+      <img class="modal-content" id="img02" />
+    </div>
+              <div id="myModal3" class="modal">
+      <span class="close three">&times;</span>
+      <img class="modal-content" id="img03" />
+    </div>
+              <div id="myModal4" class="modal">
+      <span class="close four">&times;</span>
+      <img class="modal-content" id="img04" />
+    </div>
         <div className="overlay" />
         <section className="top-part">
           <img src={wall} />
@@ -705,27 +852,31 @@ function D_Add() {
                             <div id="gallery" className="col-sm-3">
                               <div id="slideshow">
                                 <div class="mySlides">
+                                <div class="numbertext">1 / 4</div>
                                   <img
                                     id="preImg1"
-                                    src={wall}
+                                    src={adder}
                                     style={{ width: "255px", height: "340px" }}
                                   />
                                 </div>
                                 <div class="mySlides">
+                                <div class="numbertext">2 / 4</div>
                                   <img
                                     id="preImg2"
-                                    src={eng}
+                                    src={adder}
                                     style={{ width: "255px", height: "340px" }}
                                   />
                                 </div>
                                 <div class="mySlides">
+                                <div class="numbertext">3 / 4</div>
                                   <img
                                     id="preImg3"
-                                    src={tha}
+                                    src={adder}
                                     style={{ width: "255px", height: "340px" }}
                                   />
                                 </div>
                                 <div class="mySlides">
+                                <div class="numbertext">4 / 4</div>
                                   <img
                                     id="preImg4"
                                     src={adder}

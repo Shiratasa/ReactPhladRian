@@ -43,7 +43,7 @@ function R_Item() {
     /* Item Get */
   }
   const ItemBlock = async () => {
-    Axios.get(`http://localhost:5000/Item/${Item_ID}`).then(
+    Axios.get(`http://localhost:5000/Item/I_detail/${Item_ID}`).then(
       (response) => {
         setItem_Detail(response.data);
       }
@@ -376,31 +376,6 @@ span_4.onclick = function() {
         width: 100%;
       }
     }
-         #ItemD
-    {
-     font-size:11pt;
-     height:200px;
-     width:700px;
-     background-color:white;
-    }
-    ::-webkit-input-placeholder {
-    color: black;
-    text-align: justify;
-}
-:-moz-placeholder {
-    /* Firefox 18- */
-    color: black;
-    text-align: justify;
-}
-::-moz-placeholder {
-    /* Firefox 19+ */
-    color: black;
-    text-align: justify;
-}
-:-ms-input-placeholder {
-    color: black;
-    text-align: justify;
-}
         `}</style>
         <div id="myModal1" class="modal">
           <span class="close one">&times;</span>
@@ -495,8 +470,6 @@ span_4.onclick = function() {
           </div>
           <ul className="cd-hero-slider">
             {/*-/Home page-*/}
-            {Item_Detail.map((val, key) => {
-              return (
             <li className="selected">
               <div className="heading"></div>
               <div className="cd-full-width first-slide">
@@ -511,7 +484,7 @@ span_4.onclick = function() {
                                 <div class="numbertext">1 / 4</div>
                                 <img
                                   id="preImg1"
-                                  src={val.Pic1}
+                                  src={eng}
                                   style={{ width: "255px", height: "340px" }}
                                 />
                               </div>
@@ -519,7 +492,7 @@ span_4.onclick = function() {
                                 <div class="numbertext">2 / 4</div>
                                 <img
                                   id="preImg2"
-                                  src={val.Pic2}
+                                  src={eng}
                                   style={{ width: "255px", height: "340px" }}
                                 />
                               </div>
@@ -527,7 +500,7 @@ span_4.onclick = function() {
                                 <div class="numbertext">3 / 4</div>
                                 <img
                                   id="preImg3"
-                                  src={val.Pic3}
+                                  src={eng}
                                   style={{ width: "255px", height: "340px" }}
                                 />
                               </div>
@@ -535,7 +508,7 @@ span_4.onclick = function() {
                                 <div class="numbertext">4 / 4</div>
                                 <img
                                   id="preImg4"
-                                  src={val.Pic4}
+                                  src={eng}
                                   style={{ width: "255px", height: "340px" }}
                                 />
                               </div>
@@ -570,18 +543,24 @@ span_4.onclick = function() {
                                 </tr>
                               </tbody>
                             </table>
-                            <h2 className="title text-center" style={{ fontSize: "14pt" }}>
-                              {val.Obj}
+                            <h2 className="title text-center">
+                              O-NET Examination Book
                             </h2>
                             <hr className="soft" />
                             <h4 style={{ textAlign: "left" }}>Description</h4>
-                              <textarea
-                                type="address"
-                                id="ItemD"
-                                placeholder={val.Detail}
-                                autocomplete="off"
-                                disabled
-                              />
+                            <p align="justify">
+                              5 in 1 O-NET exam preparation, P.6 complete. This
+                              is a book that I read before the exam. I must say
+                              that this book is very good as it summarizes 5
+                              main subjects into one book. And it also has the
+                              exercises at the end of each chapter and the pass
+                              O-net exam of the previous years for you to try.
+                              If you still don't understand why each of these
+                              questions answered, it has complete detailed
+                              solutions for children to understand as well. In
+                              addition to the many exams for children to do, it
+                              also has content to study as well.
+                            </p>
                             <hr className="soft" />
                             <h4 style={{ textAlign: "left" }}>
                               General Information
@@ -592,31 +571,37 @@ span_4.onclick = function() {
                                   <td className="techSpecTD1">
                                     <b>Category:</b>
                                   </td>
-                                  <td className="techSpecTD2">{val.Category}</td>
+                                  <td className="techSpecTD2">Book</td>
                                 </tr>
                                 <tr className="techSpecRow">
                                   <td className="techSpecTD1">
                                     <b>School:</b>
                                   </td>
-                                  <td className="techSpecTD2">{val.Name}</td>
+                                  <td className="techSpecTD2">Assumption</td>
+                                </tr>
+                                <tr className="techSpecRow">
+                                  <td className="techSpecTD1">
+                                    <b>Release:</b>
+                                  </td>
+                                  <td className="techSpecTD2">13-11-2020</td>
                                 </tr>
                                 <tr className="techSpecRow">
                                   <td className="techSpecTD1">
                                     <b>Condition:</b>
                                   </td>
-                                  <td className="techSpecTD2">{val.I_Con}</td>
+                                  <td className="techSpecTD2">80%</td>
                                 </tr>
                                 <tr className="techSpecRow">
                                   <td className="techSpecTD1">
                                     <b>Fragile:</b>
                                   </td>
-                                  <td className="techSpecTD2">{val.YesNo}</td>
+                                  <td className="techSpecTD2">No</td>
                                 </tr>
                                 <tr className="techSpecRow">
                                   <td className="techSpecTD1">
-                                    <b>Quantity:</b>
+                                    <b>Payment:</b>
                                   </td>
-                                  <td className="techSpecTD2">{val.Quantity}</td>
+                                  <td className="techSpecTD2">Shipping Cost</td>
                                 </tr>
                               </tbody>
                             </table>
@@ -661,8 +646,6 @@ span_4.onclick = function() {
                 </div>
               </div>
             </li>
-              );
-            })}
             {/*-/Home page-*/}
             <li>
               <div className="heading"></div>

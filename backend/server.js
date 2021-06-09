@@ -131,6 +131,26 @@ app.get("/Item", function (req, resp) {
   });
 });
 
+app.get("/Item/:Item_ID", function (req, resp) {
+  connection.query(
+  `SELECT * FROM ItemDonate 
+   JOIN ListItem ON ItemDonate.Type_ID = ListItem.Type_ID 
+   JOIN ListSchool ON ItemDonate.School_ID = ListSchool.School_ID 
+   JOIN AllCondition ON ItemDonate.Quality = AllCondition.Quality 
+   JOIN AllFragility ON ItemDonate.Fragile = AllFragility.Fragile 
+   WHERE Item_ID = ${req.params.Item_ID}`
+  , function (error, result) {
+    if (error) {
+      console.error("Query failed:\n" + error.stack);
+      connection.end();
+      throw error;
+    } else {
+      resp.send(result);
+      console.log(result);
+    }
+  });
+});
+
 {
   /* School List Get */
 }

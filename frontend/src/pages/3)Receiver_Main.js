@@ -446,6 +446,7 @@ function R_Main() {
                                                   history.push(
                                                     `/r_item/${val.Item_ID}`
                                                   );
+                                                  window.location.reload();
                                                 }}
                                               >
                                                 <i className="fa fa-eye" />

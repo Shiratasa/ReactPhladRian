@@ -2,7 +2,7 @@
 import React, { useEffect, useState, Component } from "react";
 import ReactDOM from "react-dom";
 import { Helmet } from "react-helmet";
-import Gallereact from "gallereact";
+import InnerHTML from 'dangerously-set-html-content'
 import Axios from "axios";
 import $ from "jquery";
 import JSAlert from "js-alert";
@@ -17,7 +17,7 @@ import {
   useParams,
 } from "react-router-dom";
 
-function D_Item() {
+function D_Add() {
   const wall = window.location.origin + "/resources/imgs/wallpaper.jpg";
   const but1 = window.location.origin + "/resources/imgs/home.png";
   const but2 = window.location.origin + "/resources/imgs/request.png";
@@ -35,6 +35,14 @@ function D_Item() {
   }
   var regEx1 = /^[^\s]+(\s+[^\s]+)*$/;
   var regEx2 = /(^(?!\s))+([0-9]{1,256})+($)/;
+  var p1 = adder;
+  var p2 = adder;
+  var p3 = adder;
+  var p4 = adder;
+  const [file_Array1, setFile_Array1] = useState("");
+  const [file_Array2, setFile_Array2] = useState("");
+  const [file_Array3, setFile_Array3] = useState("");
+  const [file_Array4, setFile_Array4] = useState("");
   const [School_List, setSchool_List] = useState([]);
   const [Categ_List, setCateg_List] = useState([]);
   const [I_Obj, setI_Obj] = useState("");
@@ -48,7 +56,7 @@ function D_Item() {
   const [I_Num, setI_Num] = useState("");
   const [I_Desp, setI_Desp] = useState("");
   const [I_Frag, setI_Frag] = useState("");
-  const images = [adder, adder, adder, adder];
+  const images = [p1, p2, p3, p4];
   let history = useHistory();
 
   {
@@ -80,6 +88,91 @@ function D_Item() {
   const CategBox = async () => {
     Axios.get("http://localhost:5000/Categ_I").then((response) => {
       setCateg_List(response.data);
+    });
+  };
+
+  {
+    /* Convert File */
+  }
+  const fileToBinary1 = async (file) => {
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        resolve(event.target.result);
+        setFile_Array1(event.target.result);
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+  const fileToBinary2 = async (file) => {
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        resolve(event.target.result);
+        setFile_Array2(event.target.result);
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+  const fileToBinary3 = async (file) => {
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        resolve(event.target.result);
+        setFile_Array3(event.target.result);
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+  const fileToBinary4 = async (file) => {
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        resolve(event.target.result);
+        setFile_Array4(event.target.result);
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const fileConvert1 = async (file) => {
+    if (!file) {
+      setI_Pic1("");
+      return;
+    }
+    preImg1.src = URL.createObjectURL(file);
+    fileToBinary1(file).then((I_Pic1) => {
+      setI_Pic1(I_Pic1);
+    });
+  };
+  const fileConvert2 = async (file) => {
+    if (!file) {
+      setI_Pic2("");
+      return;
+    }
+    preImg2.src = URL.createObjectURL(file);
+    fileToBinary2(file).then((I_Pic2) => {
+      setI_Pic2(I_Pic2);
+    });
+  };
+  const fileConvert3 = async (file) => {
+    if (!file) {
+      setI_Pic3("");
+      return;
+    }
+    preImg3.src = URL.createObjectURL(file);
+    fileToBinary3(file).then((I_Pic3) => {
+      setI_Pic3(I_Pic3);
+    });
+  };
+  const fileConvert4 = async (file) => {
+    if (!file) {
+      setI_Pic4("");
+      return;
+    }
+    preImg4.src = URL.createObjectURL(file);
+    fileToBinary4(file).then((I_Pic4) => {
+      setI_Pic4(I_Pic4);
     });
   };
 
@@ -290,10 +383,10 @@ function D_Item() {
     checkFile4();
     Axios.post("http://localhost:5000/I_donate", {
       Obj: I_Obj,
-      Pic1: I_Pic1,
-      Pic2: I_Pic2,
-      Pic3: I_Pic3,
-      Pic4: I_Pic4,
+      Pic1: file_Array1,
+      Pic2: file_Array2,
+      Pic3: file_Array3,
+      Pic4: file_Array4,
       Type_ID: I_Type,
       School_ID: I_School,
       Quantity: I_Num,
@@ -304,6 +397,93 @@ function D_Item() {
       console.log(response);
     });
   };
+
+  {
+    /* Album Function */
+  }
+  const Album = `
+    <div>
+    <a class="prev" onClick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onClick="plusSlides(1)">&#10095;</a>
+    </div>
+    <br>
+    <div style="text-align:center">
+      <span class="dot" onclick="currentSlide(1)"></span>&nbsp;&nbsp;&nbsp;
+      <span class="dot" onclick="currentSlide(2)"></span>&nbsp;&nbsp;&nbsp;
+      <span class="dot" onclick="currentSlide(3)"></span>&nbsp;&nbsp;&nbsp;
+      <span class="dot" onclick="currentSlide(4)"></span>
+    </div>
+    <script>
+      var slideIndex = 1;
+showSlides(slideIndex);
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+}
+var modal_1 = document.getElementById("myModal1");
+var image_1 = document.getElementById("preImg1");
+var modalImage_1 = document.getElementById("img01");
+image_1.onclick = function(){
+  modal_1.style.display = "block";
+  modalImage_1.src = this.src;
+}
+var modal_2 = document.getElementById("myModal2");
+var image_2 = document.getElementById("preImg2");
+var modalImage_2 = document.getElementById("img02");
+image_2.onclick = function(){
+  modal_2.style.display = "block";
+  modalImage_2.src = this.src;
+}
+var modal_3 = document.getElementById("myModal3");
+var image_3 = document.getElementById("preImg3");
+var modalImage_3 = document.getElementById("img03");
+image_3.onclick = function(){
+  modal_3.style.display = "block";
+  modalImage_3.src = this.src;
+}
+var modal_4 = document.getElementById("myModal4");
+var image_4 = document.getElementById("preImg4");
+var modalImage_4 = document.getElementById("img04");
+image_4.onclick = function(){
+  modal_4.style.display = "block";
+  modalImage_4.src = this.src;
+}
+var span_1 = document.getElementsByClassName("close one")[0];
+span_1.onclick = function() { 
+  modal_1.style.display = "none";
+}
+var span_2 = document.getElementsByClassName("close two")[0];
+span_2.onclick = function() { 
+  modal_2.style.display = "none";
+}
+var span_3 = document.getElementsByClassName("close three")[0];
+span_3.onclick = function() { 
+  modal_3.style.display = "none";
+}
+var span_4 = document.getElementsByClassName("close four")[0];
+span_4.onclick = function() { 
+  modal_4.style.display = "none";
+}
+    </script>
+ 
+  `
 
   {
     /* Load Function */
@@ -459,7 +639,130 @@ function D_Item() {
      background-color:white;
      border:solid 1px black;
     }
+    .mySlides
+    {
+     border:solid 1px black;
+    }
+    #slideshow { 
+      position: relative; 
+      width: 250px; 
+      height: 340px; 
+    }
+    #slideshow > div { 
+      position: absolute; 
+    }
+    .prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 165px;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  user-select: none;
+  background-color: rgb(180,180,180);
+}
+.prev {
+  left: 16px;
+  border-radius: 0 3px 3px 0;
+}
+.next {
+  right: 14px;
+  border-radius: 3px 0 0 3px;
+}
+.prev:hover, .next:hover {
+  color: white;
+  background-color: rgb(255,165,0);
+}
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+.active, .dot:hover {
+  background-color: rgb(255,165,0);
+}
+.numbertext {
+  color: red;
+  font-size: 14px;
+  font-style: bold;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 100; 
+  padding-top: 100px; 
+  padding-bottom: 100px; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.9); 
+}
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+}
+.modal-content, #caption {
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+@keyframes zoom {
+  from {transform:scale(0)}
+  to {transform:scale(1)}
+}
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+@media only screen and (max-width: 700px){
+  .modal-content {
+    width: 100%;
+  }
+}
     `}</style>
+          <div id="myModal1" class="modal">
+      <span class="close one">&times;</span>
+      <img class="modal-content" id="img01" />
+    </div>
+              <div id="myModal2" class="modal">
+      <span class="close two">&times;</span>
+      <img class="modal-content" id="img02" />
+    </div>
+              <div id="myModal3" class="modal">
+      <span class="close three">&times;</span>
+      <img class="modal-content" id="img03" />
+    </div>
+              <div id="myModal4" class="modal">
+      <span class="close four">&times;</span>
+      <img class="modal-content" id="img04" />
+    </div>
         <div className="overlay" />
         <section className="top-part">
           <img src={wall} />
@@ -547,10 +850,41 @@ function D_Item() {
                         <div className="content first-content">
                           <div className="container">
                             <div id="gallery" className="col-sm-3">
-                              <Gallereact
-                                images={images}
-                                slideStyle={{ width: "255px", height: "340px" }}
-                              />
+                              <div id="slideshow">
+                                <div class="mySlides">
+                                <div class="numbertext">1 / 4</div>
+                                  <img
+                                    id="preImg1"
+                                    src={adder}
+                                    style={{ width: "255px", height: "340px" }}
+                                  />
+                                </div>
+                                <div class="mySlides">
+                                <div class="numbertext">2 / 4</div>
+                                  <img
+                                    id="preImg2"
+                                    src={adder}
+                                    style={{ width: "255px", height: "340px" }}
+                                  />
+                                </div>
+                                <div class="mySlides">
+                                <div class="numbertext">3 / 4</div>
+                                  <img
+                                    id="preImg3"
+                                    src={adder}
+                                    style={{ width: "255px", height: "340px" }}
+                                  />
+                                </div>
+                                <div class="mySlides">
+                                <div class="numbertext">4 / 4</div>
+                                  <img
+                                    id="preImg4"
+                                    src={adder}
+                                    style={{ width: "255px", height: "340px" }}
+                                  />
+                                </div>
+                              </div>
+                              <InnerHTML html={Album} />
                               <br />
                               <br />
                               <label style={{ color: "red", fontSize: "15px" }}>
@@ -564,7 +898,9 @@ function D_Item() {
                                 accept=".png, .jpg, .jpeg"
                                 required
                                 onInvalid={I_donate.exit}
-                                onChange={(x) => setI_Pic1(x.target.value)}
+                                onChange={(event) =>
+                                  fileConvert1(event.target.files[0] || null)
+                                }
                               />
                               <br />
                               <input
@@ -573,7 +909,9 @@ function D_Item() {
                                 accept=".png, .jpg, .jpeg"
                                 required
                                 onInvalid={I_donate.exit}
-                                onChange={(x) => setI_Pic2(x.target.value)}
+                                onChange={(event) =>
+                                  fileConvert2(event.target.files[0] || null)
+                                }
                               />
                               <br />
                               <input
@@ -582,7 +920,9 @@ function D_Item() {
                                 accept=".png, .jpg, .jpeg"
                                 required
                                 onInvalid={I_donate.exit}
-                                onChange={(x) => setI_Pic3(x.target.value)}
+                                onChange={(event) =>
+                                  fileConvert3(event.target.files[0] || null)
+                                }
                               />
                               <br />
                               <input
@@ -591,7 +931,9 @@ function D_Item() {
                                 accept=".png, .jpg, .jpeg"
                                 required
                                 onInvalid={I_donate.exit}
-                                onChange={(x) => setI_Pic4(x.target.value)}
+                                onChange={(event) =>
+                                  fileConvert4(event.target.files[0] || null)
+                                }
                               />
                             </div>
                             <div className="col-sm-9">
@@ -779,7 +1121,7 @@ function D_Item() {
                                 </tbody>
                               </table>
                               <hr className="soft" />
-                              <button
+                                                            <button
                                 type="submit"
                                 className="btn btn-default swappor"
                                 onClick={I_donate}
@@ -841,4 +1183,4 @@ function D_Item() {
   );
 }
 
-export default withRouter(D_Item);
+export default withRouter(D_Add);
