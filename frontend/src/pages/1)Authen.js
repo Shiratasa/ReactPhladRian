@@ -1,5 +1,6 @@
 /* eslint-disable */
 import React, { Component, useEffect, useState } from "react";
+import useStateRef from "react-usestateref";
 import ReactDOM from "react-dom";
 import { Helmet } from "react-helmet";
 import ScriptTag from "react-script-tag";
@@ -59,11 +60,39 @@ function Authen() {
   const [D_localReg, setD_localReg] = useState("");
   const [D_passReg, setD_passReg] = useState("");
   const [School_List, setSchool_List] = useState([]);
-  const [UserR_List, setUserR_List] = useState([]);
-  const [UserD_List, setUserD_List] = useState([]);
-  const [UserS_List, setUserS_List] = useState([]);
-  const [UserA_List, setUserA_List] = useState([]);
+  const [UserR_List, setUserR_List, UserR_Ref] = useStateRef([]);
+  const [UserD_List, setUserD_List, UserD_Ref] = useStateRef([]);
+  const [UserS_List, setUserS_List, UserS_Ref] = useStateRef([]);
+  const [UserA_List, setUserA_List, UserA_Ref] = useStateRef([]);
   let history = useHistory();
+
+  {
+    /* Account Get */
+  }
+  const ReceiverList = async () => {
+    Axios.get("http://localhost:5000/R_list").then((response) => {
+      setUserR_List(response.data);
+      console.log(UserR_Ref.current);
+    });
+  };
+  const DonorList = async () => {
+    Axios.get("http://localhost:5000/D_list").then((response) => {
+      setUserD_List(response.data);
+      console.log(UserD_Ref.current);
+    });
+  };
+  const SponsorList = async () => {
+    Axios.get("http://localhost:5000/S_list").then((response) => {
+      setUserS_List(response.data);
+      console.log(UserS_Ref.current);
+    });
+  };
+  const AdminList = async () => {
+    Axios.get("http://localhost:5000/A_list").then((response) => {
+      setUserA_List(response.data);
+      console.log(UserA_Ref.current);
+    });
+  };
 
   {
     /* Form Submit */
@@ -82,24 +111,40 @@ function Authen() {
   const handleSubmit2 = async (e) => {
     e.preventDefault();
     if (invali == "R") {
+      ReceiverList();
       JSAlert.alert("", "Login Success!", JSAlert.Icons.Success);
       await timeout(1000).then($(this).unbind("submit").submit());
-      history.push("/r_main");
+      UserR_Ref.current.map((val, key) => {
+        return (
+          history.push(`/r_main/${val.Student_ID}`)
+      	);
+      })
       window.location.reload();
     }
     if (invali == "D") {
+    	DonorList();
       JSAlert.alert("", "Login Success!", JSAlert.Icons.Success);
       await timeout(1000).then($(this).unbind("submit").submit());
-      history.push("/d_main");
+      UserD_Ref.current.map((val, key) => {
+        return (
+      		history.push(`/d_main/${val.Donor_ID}`)
+      	);
+      })
       window.location.reload();
     }
     if (invali == "S") {
+    	SponsorList();
       JSAlert.alert("", "Login Success!", JSAlert.Icons.Success);
       await timeout(1000).then($(this).unbind("submit").submit());
-      history.push("/s_main");
+      UserS_Ref.current.map((val, key) => {
+        return (
+      		history.push(`/s_main/${val.Sponsor_ID}`)
+      	);
+      })
       window.location.reload();
     }
     if (invali == "A") {
+    	AdminList();
       JSAlert.alert("", "Login Success!", JSAlert.Icons.Success);
       await timeout(1000).then($(this).unbind("submit").submit());
       history.push("/");
@@ -112,30 +157,6 @@ function Authen() {
       "Password has been sent to your email...",
       JSAlert.Icons.Information
     );
-  };
-
-  {
-    /* Account Get */
-  }
-  const ReceiverList = async () => {
-    Axios.get("http://localhost:5000/R_list").then((response) => {
-      setUserR_List(response.data);
-    });
-  };
-  const DonorList = async () => {
-    Axios.get("http://localhost:5000/D_list").then((response) => {
-      setUserD_List(response.data);
-    });
-  };
-  const SponsorList = async () => {
-    Axios.get("http://localhost:5000/S_list").then((response) => {
-      setUserS_List(response.data);
-    });
-  };
-  const AdminList = async () => {
-    Axios.get("http://localhost:5000/A_list").then((response) => {
-      setUserA_List(response.data);
-    });
   };
 
   {
@@ -590,11 +611,11 @@ function Authen() {
     /* Load Function */
   }
   window.onload = function () {
+    SchoolBox();
     ReceiverList();
     DonorList();
     SponsorList();
     AdminList();
-    SchoolBox();
   };
 
   return (
@@ -639,8 +660,6 @@ function Authen() {
             rel="stylesheet"
             type="text/css"
           />
-          <script async="true" src="./resources/js/smoothscroll.js" />
-          <script async="true" src="javascript/smoothscroll.js" />
         </Helmet>
 
         <style>{`

@@ -43,6 +43,10 @@ app.use(
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb', extended: true}));
+var mailValueR = "x";
+var mailValueD = "x";
+var mailValueS = "x";
+var mailValueA = "x";
 
 {
   /* SQL Connect */
@@ -67,7 +71,7 @@ connection.connect(function (error) {
   /* Account List Get */
 }
 app.get("/R_list", function (req, resp) {
-  connection.query("SELECT * FROM UserStudent", function (error, result) {
+  connection.query("SELECT * FROM UserStudent WHERE Email = ?", [mailValueR], function (error, result) {
     if (error) {
       console.error("Query failed:\n" + error.stack);
       connection.end();
@@ -79,7 +83,7 @@ app.get("/R_list", function (req, resp) {
   });
 });
 app.get("/D_list", function (req, resp) {
-  connection.query("SELECT * FROM UserDonor", function (error, result) {
+  connection.query("SELECT * FROM UserDonor WHERE Email = ?", [mailValueD], function (error, result) {
     if (error) {
       console.error("Query failed:\n" + error.stack);
       connection.end();
@@ -91,7 +95,7 @@ app.get("/D_list", function (req, resp) {
   });
 });
 app.get("/S_list", function (req, resp) {
-  connection.query("SELECT * FROM UserSponsor", function (error, result) {
+  connection.query("SELECT * FROM UserSponsor WHERE Email = ?", [mailValueS], function (error, result) {
     if (error) {
       console.error("Query failed:\n" + error.stack);
       connection.end();
@@ -103,7 +107,7 @@ app.get("/S_list", function (req, resp) {
   });
 });
 app.get("/A_list", function (req, resp) {
-  connection.query("SELECT * FROM UserAdmin", function (error, result) {
+  connection.query("SELECT * FROM UserAdmin WHERE Email = ?", [mailValueA], function (error, result) {
     if (error) {
       console.error("Query failed:\n" + error.stack);
       connection.end();
@@ -257,6 +261,7 @@ app.post("/R_login", function (req, resp) {
       if (result.length > 0) {
         resp.send(result);
         console.log(result);
+        mailValueR = Email;
       } else {
         resp.send({ message: "Not a Receiver..." });
         console.log("Not a Receiver...");
@@ -307,6 +312,7 @@ app.post("/D_login", function (req, resp) {
       if (result.length > 0) {
         resp.send(result);
         console.log(result);
+        mailValueD = Email;
       } else {
         resp.send({ message: "Not a Donor..." });
         console.log("Not a Donor...");
@@ -333,6 +339,7 @@ app.post("/S_login", function (req, resp) {
       if (result.length > 0) {
         resp.send(result);
         console.log(result);
+        mailValueS = Email;
       } else {
         resp.send({ message: "Not a Sponsor..." });
         console.log("Not a Sponsor...");
@@ -359,6 +366,7 @@ app.post("/A_login", function (req, resp) {
       if (result.length > 0) {
         resp.send(result);
         console.log(result);
+        mailValueA = Email;
       } else {
         resp.send({ message: "Not an Admin..." });
         console.log("Not an Admin...");

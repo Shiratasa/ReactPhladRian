@@ -33,20 +33,19 @@ function App() {
             async="true"
             src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"
           />
-          <script async="true" src="java/smoothscroll.js" />
         </Helmet>
 
         <Router>
           <Switch>
             <Route path="/" exact component={Authen} />
-            <Route path="/d_main" exact component={D_Main} />
+            <Route path="/d_main/:Donor_ID" exact component={D_Main} />
             <Route path="/d_add" exact component={D_Add} />
             <Route path="/d_item" exact component={D_Item} />
             <Route path="/d_deli" exact component={D_Deli} />
             <Route path="/d_rewa" exact component={D_Rewa} />
-            <Route path="/r_main" exact component={R_Main} />
+            <Route path="/r_main/:Student_ID" exact component={R_Main} />
             <Route path="/r_item/:Item_ID" exact component={R_Item} />
-            <Route path="/s_main" exact component={S_Main} />
+            <Route path="/s_main/:Sponsor_ID" exact component={S_Main} />
             <Route path="/s_rewa" exact component={S_Rewa} />
             <Route path="/s_qr" exact component={S_QR} />
           </Switch>

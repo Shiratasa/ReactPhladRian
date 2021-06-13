@@ -39,7 +39,9 @@ function R_Item() {
   const small3 = window.location.origin + "/resources/imgs/shop/3.jpg";
   const eng = window.location.origin + "/resources/imgs/authen/eng.png";
   const tha = window.location.origin + "/resources/imgs/authen/tha.png";
+  
   let { Item_ID } = useParams();
+  let history = useHistory();
 
   {
     /* Values */

@@ -41,6 +41,8 @@ function D_Deli() {
   const eng = window.location.origin + "/resources/imgs/authen/eng.png";
   const tha = window.location.origin + "/resources/imgs/authen/tha.png";
 
+  let history = useHistory();
+
   return (
     <div className="App">
       <div>
