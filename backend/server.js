@@ -71,7 +71,7 @@ connection.connect(function (error) {
   /* Account List Get */
 }
 app.get("/R_list", function (req, resp) {
-  connection.query("SELECT * FROM UserStudent WHERE Email = ?", [mailValueR], function (error, result) {
+  connection.query("SELECT * FROM UserStudent WHERE Email = ? AND State=1", [mailValueR], function (error, result) {
     if (error) {
       console.error("Query failed:\n" + error.stack);
       connection.end();
@@ -83,7 +83,7 @@ app.get("/R_list", function (req, resp) {
   });
 });
 app.get("/D_list", function (req, resp) {
-  connection.query("SELECT * FROM UserDonor WHERE Email = ?", [mailValueD], function (error, result) {
+  connection.query("SELECT * FROM UserDonor WHERE Email = ? AND State=1", [mailValueD], function (error, result) {
     if (error) {
       console.error("Query failed:\n" + error.stack);
       connection.end();
@@ -95,7 +95,7 @@ app.get("/D_list", function (req, resp) {
   });
 });
 app.get("/S_list", function (req, resp) {
-  connection.query("SELECT * FROM UserSponsor WHERE Email = ?", [mailValueS], function (error, result) {
+  connection.query("SELECT * FROM UserSponsor WHERE Email = ? AND State=1", [mailValueS], function (error, result) {
     if (error) {
       console.error("Query failed:\n" + error.stack);
       connection.end();
@@ -107,7 +107,7 @@ app.get("/S_list", function (req, resp) {
   });
 });
 app.get("/A_list", function (req, resp) {
-  connection.query("SELECT * FROM UserAdmin WHERE Email = ?", [mailValueA], function (error, result) {
+  connection.query("SELECT * FROM UserAdmin WHERE Email = ? AND State=1", [mailValueA], function (error, result) {
     if (error) {
       console.error("Query failed:\n" + error.stack);
       connection.end();
@@ -123,7 +123,23 @@ app.get("/A_list", function (req, resp) {
   /* Item List Get */
 }
 app.get("/Item", function (req, resp) {
-  connection.query("SELECT * FROM ItemDonate", function (error, result) {
+  connection.query("SELECT * FROM ItemDonate WHERE State=1", function (error, result) {
+    if (error) {
+      console.error("Query failed:\n" + error.stack);
+      connection.end();
+      throw error;
+    } else {
+      resp.send(result);
+      console.log(result);
+    }
+  });
+});
+
+{
+  /* DonorItem List Get */
+}
+app.get("/DonorItem/:Donor_ID", function (req, resp) {
+  connection.query(`SELECT * FROM ItemDonate WHERE Donor_ID = ${req.params.Donor_ID} AND State=1`, function (error, result) {
     if (error) {
       console.error("Query failed:\n" + error.stack);
       connection.end();
@@ -142,7 +158,47 @@ app.get("/Item/:Item_ID", function (req, resp) {
    JOIN ListSchool ON ItemDonate.School_ID = ListSchool.School_ID 
    JOIN AllCondition ON ItemDonate.Quality = AllCondition.Quality 
    JOIN AllFragility ON ItemDonate.Fragile = AllFragility.Fragile 
-   WHERE Item_ID = ${req.params.Item_ID}`
+   WHERE ItemDonate.Item_ID = ${req.params.Item_ID} AND ItemDonate.State=1`
+  , function (error, result) {
+    if (error) {
+      console.error("Query failed:\n" + error.stack);
+      connection.end();
+      throw error;
+    } else {
+      resp.send(result);
+      console.log(result);
+    }
+  });
+});
+
+{
+  /* Receiver Profile Get */
+}
+app.get("/R_Account/:Student_ID", function (req, resp) {
+  connection.query(
+  `SELECT * FROM UserStudent 
+   JOIN ListSchool ON UserStudent.School_ID = ListSchool.School_ID
+   JOIN AllGrade ON UserStudent.Grade = AllGrade.Grade 
+   WHERE UserStudent.Student_ID = ${req.params.Student_ID} AND UserStudent.State=1`
+  , function (error, result) {
+    if (error) {
+      console.error("Query failed:\n" + error.stack);
+      connection.end();
+      throw error;
+    } else {
+      resp.send(result);
+      console.log(result);
+    }
+  });
+});
+
+{
+  /* Receiver Profile Get */
+}
+app.get("/D_Account/:Donor_ID", function (req, resp) {
+  connection.query(
+  `SELECT * FROM UserDonor
+   WHERE Donor_ID = ${req.params.Donor_ID} AND State=1`
   , function (error, result) {
     if (error) {
       console.error("Query failed:\n" + error.stack);
@@ -159,7 +215,23 @@ app.get("/Item/:Item_ID", function (req, resp) {
   /* School List Get */
 }
 app.get("/School", function (req, resp) {
-  connection.query("SELECT * FROM ListSchool", function (error, result) {
+  connection.query("SELECT * FROM ListSchool WHERE State=1", function (error, result) {
+    if (error) {
+      console.error("Query failed:\n" + error.stack);
+      connection.end();
+      throw error;
+    } else {
+      resp.send(result);
+      console.log(result);
+    }
+  });
+});
+
+{
+  /* Grade List Get */
+}
+app.get("/Grade", function (req, resp) {
+  connection.query("SELECT * FROM AllGrade", function (error, result) {
     if (error) {
       console.error("Query failed:\n" + error.stack);
       connection.end();
@@ -244,13 +316,37 @@ app.post("/R_regis", upload.any(), function (req, resp) {
 });
 
 {
+  /* Receiver Registration Post */
+}
+app.post("/R_update/:Student_ID", upload.any(), function (req, resp) {
+  var Username = req.body.Username;
+  var Phone = req.body.Phone;
+  var Address = req.body.Address;
+  var Student_Card = req.body.Student_Card;
+  var School_ID = req.body.School_ID;
+  var Grade = req.body.Grade;
+  connection.query(
+    `UPDATE UserStudent SET Username = '${Username}', Phone = '${Phone}', Address = '${Address}',
+     Student_Card = '${Student_Card}', School_ID = '${School_ID}', Grade = '${Grade}' 
+     WHERE Student_ID = ${req.params.Student_ID}`,
+    function (error, result) {
+      if (error) {
+        console.error("Insert failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      }
+    }
+  );
+});
+
+{
   /* Receiver Account Get */
 }
 app.post("/R_login", function (req, resp) {
   var Email = req.body.Email;
   var Password = req.body.Password;
   connection.query(
-    "SELECT * FROM UserStudent WHERE Email=? AND Password=?",
+    "SELECT * FROM UserStudent WHERE Email=? AND Password=? AND State=1",
     [Email, Password],
     function (error, result) {
       if (error) {
@@ -301,7 +397,7 @@ app.post("/D_login", function (req, resp) {
   var Email = req.body.Email;
   var Password = req.body.Password;
   connection.query(
-    "SELECT * FROM UserDonor WHERE Email=? AND Password=?",
+    "SELECT * FROM UserDonor WHERE Email=? AND Password=? AND State=1",
     [Email, Password],
     function (error, result) {
       if (error) {
@@ -328,7 +424,7 @@ app.post("/S_login", function (req, resp) {
   var Email = req.body.Email;
   var Password = req.body.Password;
   connection.query(
-    "SELECT * FROM UserSponsor WHERE Email=? AND Password=?",
+    "SELECT * FROM UserSponsor WHERE Email=? AND Password=? AND State=1",
     [Email, Password],
     function (error, result) {
       if (error) {
@@ -355,7 +451,7 @@ app.post("/A_login", function (req, resp) {
   var Email = req.body.Email;
   var Password = req.body.Password;
   connection.query(
-    "SELECT * FROM UserAdmin WHERE Email=? AND Password=?",
+    "SELECT * FROM UserAdmin WHERE Email=? AND Password=? AND State=1",
     [Email, Password],
     function (error, result) {
       if (error) {
@@ -370,49 +466,6 @@ app.post("/A_login", function (req, resp) {
       } else {
         resp.send({ message: "Not an Admin..." });
         console.log("Not an Admin...");
-      }
-    }
-  );
-});
-
-{
-  /* Account Scan Post */
-}
-app.post("/N_post", function (req, resp) {
-  var Username = req.body.Username;
-  connection.query(
-    "INSERT INTO AllUser (Username) VALUES (?)",
-    [Username],
-    function (error, result) {
-      if (error) {
-        console.error("Insert failed:\n" + error.stack);
-        connection.end();
-        throw error;
-      }
-    }
-  );
-});
-
-{
-  /* Account Scan Get */
-}
-app.post("/N_get", function (req, resp) {
-  var Username = req.body.Username;
-  connection.query(
-    "SELECT * FROM AllUser WHERE Username=?",
-    [Username],
-    function (error, result) {
-      if (error) {
-        console.error("Query failed:\n" + error.stack);
-        connection.end();
-        throw error;
-      }
-      if (result.length > 0) {
-        resp.send(result);
-        console.log(result);
-      } else {
-        resp.send({ message: "New username..." });
-        console.log("New username...");
       }
     }
   );
@@ -465,6 +518,7 @@ app.post("/E_get", function (req, resp) {
   /* Item Data Post */
 }
 app.post("/I_donate", function (req, resp) {
+  var Donor_ID = req.body.Donor_ID;
   var Obj = req.body.Obj;
   var Pic1 = req.body.Pic1;
   var Pic2 = req.body.Pic2;
@@ -479,8 +533,9 @@ app.post("/I_donate", function (req, resp) {
   var Warning = req.body.Warning;
   var State = req.body.State;
   connection.query(
-    "INSERT INTO ItemDonate (Obj, Pic1, Pic2, Pic3, Pic4, Type_ID, School_ID, Quantity, Quality, Detail, Fragile, Warning, State) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 1)",
+    "INSERT INTO ItemDonate (Donor_ID, Obj, Pic1, Pic2, Pic3, Pic4, Type_ID, School_ID, Quantity, Quality, Detail, Fragile, Warning, State) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 1)",
     [
+      Donor_ID,
       Obj,
       Pic1,
       Pic2,
@@ -549,7 +604,7 @@ app.post("/I_reward", function (req, resp) {
   /* Admin Account Example */
 }
 app.get("/", function (req, resp) {
-  connection.query("SELECT * FROM UserAdmin", function (error, rows, fields) {
+  connection.query("SELECT * FROM UserAdmin WHERE State=1", function (error, rows, fields) {
     if (error) {
       console.error("Query failed:\n" + error.stack);
       connection.end();

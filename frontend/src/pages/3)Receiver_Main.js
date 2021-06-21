@@ -2,6 +2,7 @@
 import React, { useEffect, useState, Component } from "react";
 import ReactDOM from "react-dom";
 import { Helmet } from "react-helmet";
+import InnerHTML from "dangerously-set-html-content";
 import Axios from "axios";
 import $ from "jquery";
 import JSAlert from "js-alert";
@@ -47,10 +48,66 @@ function R_Main() {
   {
     /* Values */
   }
+    var regEx1 = /(^(?!\s))+([A-Z]{1}[a-z]{1,256})+(\s[A-Z]{1}[a-z]{1,256})+($)/;
+  var regEx4 = /(^(?!\s))+([0]{1}[6,8,9]{1}[0-9]{1,256})+($)/;
+  var regEx5 = /(^(?!\s))+([A-Z0-9]{1,256})+($)/;
+  var regEx6 = /^[^\s]+(\s+[^\s]+)*$/;
+  const [R_nameReg, setR_nameReg] = useState("");
+  const [R_emailReg, setR_emailReg] = useState("");
+  const [R_phoneReg, setR_phoneReg] = useState("");
+  const [R_localReg, setR_localReg] = useState("");
+  const [R_schoolReg, setR_schoolReg] = useState("");
+  const [R_gradeReg, setR_gradeReg] = useState("");
+  const [R_cardReg, setR_cardReg] = useState("");
+  const [R_imageReg, setR_imageReg] = useState("");
+  const [R_passReg, setR_passReg] = useState("");
   const [Item_List, setItem_List] = useState([]);
   const [School_List, setSchool_List] = useState([]);
+  const [Grade_List, setGrade_List] = useState([]);
   const [Categ_List, setCateg_List] = useState([]);
+  const [User_Account, setUser_Account] = useState([]);
+  const [file_Array1, setFile_Array1] = useState("");
+  const [I_Pic1, setI_Pic1] = useState("");
+  let { Student_ID } = useParams();
   let history = useHistory();
+
+    {
+    /* Delay */
+  }
+  function timeout(delay: number) {
+    return new Promise((res) => setTimeout(res, delay));
+  }
+  const handleSubmit1 = async (e) => {
+    e.preventDefault();
+    JSAlert.alert("", "Submit Success!", JSAlert.Icons.Success);
+    await timeout(1000).then($(this).unbind("submit").submit());
+    window.location.reload();
+  };
+
+    {
+    /* Convert File */
+  }
+  const fileToBinary1 = async (file) => {
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        resolve(event.target.result);
+        setFile_Array1(event.target.result);
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+    const fileConvert1 = async (file) => {
+    if (!file) {
+      setI_Pic1("");
+      return;
+    }
+    preImg1.src = URL.createObjectURL(file);
+    fileToBinary1(file).then((I_Pic1) => {
+      setI_Pic1(I_Pic1);
+    });
+  };
 
   {
     /* Item Get */
@@ -70,6 +127,15 @@ function R_Main() {
     });
   };
 
+      {
+    /* Grade Get */
+  }
+  const GradeBox = async () => {
+    Axios.get("http://localhost:5000/Grade").then((response) => {
+      setGrade_List(response.data);
+    });
+  };
+
   {
     /* Category Get */
   }
@@ -80,11 +146,178 @@ function R_Main() {
   };
 
   {
+    /* Profile Get */
+  }
+  const ProfileInfo = async () => {
+    Axios.get(`http://localhost:5000/R_Account/${Student_ID}`).then(
+      (response) => {
+        setUser_Account(response.data);
+      }
+    );
+  };
+
+  {
+    /* File Check */
+  }
+  function checkFile() {
+    var fileElement = document.getElementById("img1");
+    var gate = document.getElementById("ConEdit");
+    var fileExtension = "";
+    if (fileElement.value.lastIndexOf(".") > 0) {
+      fileExtension = fileElement.value.substring(
+        fileElement.value.lastIndexOf(".") + 1,
+        fileElement.value.length
+      );
+    }
+    if (
+      fileExtension.toLowerCase() != "png" &&
+      fileExtension.toLowerCase() != "jpeg" &&
+      fileExtension.toLowerCase() != "jpg"
+    ) {
+      JSAlert.alert(
+        "",
+        "Please select <.png, .jpg> image file for upload...",
+        JSAlert.Icons.Warning
+      );
+      gate.value = "";
+      throw "exit";
+    }
+  }
+
+   {
+    /* String Check */
+  }
+  function checkStringR() {
+    var userR = document.getElementById("UsernameR");
+    var telR = document.getElementById("PhoneR");
+    var localR = document.getElementById("AddressR");
+    var cardR = document.getElementById("CardR");
+    var schoolR = document.getElementById("SchoolR");
+    var gradeR = document.getElementById("GradeR");
+    var gate = document.getElementById("ConEdit");
+    if (
+      userR.value == "" ||
+      userR.value.length < 6 ||
+      regEx1.test(userR.value) == false
+    ) {
+      JSAlert.alert(
+        "(Ex): Alan Walker",
+        "Please enter english username using your real name...",
+        JSAlert.Icons.Warning
+      );
+      gate.value = "";
+      throw "exit";
+    }
+    if (
+      telR.value == "" ||
+      telR.value.length != 10 ||
+      regEx4.test(telR.value) == false
+    ) {
+      JSAlert.alert(
+        "(Ex): 0891608019",
+        "Please enter your phone number without <-> or space...",
+        JSAlert.Icons.Warning
+      );
+      gate.value = "";
+      throw "exit";
+    }
+    if (
+      localR.value == "" ||
+      localR.value.length < 25 ||
+      regEx6.test(localR.value) == false
+    ) {
+      JSAlert.alert(
+        "(Ex): 37/2, San Chaomae Thapthim Alley, Tha Kham, Bang Khun Thian, Bangkok 10150",
+        "Please enter your location information in full detail...",
+        JSAlert.Icons.Warning
+      );
+      gate.value = "";
+      throw "exit";
+    }
+    if (
+      cardR.value == "" ||
+      cardR.value.length < 5 ||
+      regEx5.test(cardR.value) == false
+    ) {
+      JSAlert.alert(
+        "(Ex): 1022060240",
+        "Please enter your true ID number without <-> or space......",
+        JSAlert.Icons.Warning
+      );
+      gate.value = "";
+      throw "exit";
+    }
+    if (schoolR.value == "") {
+      JSAlert.alert("", "Please select your school...", JSAlert.Icons.Warning);
+      gate.value = "";
+      throw "exit";
+    }
+    if (gradeR.value == "") {
+      JSAlert.alert(
+        "",
+        "Please select your education level...",
+        JSAlert.Icons.Warning
+      );
+      gate.value = "";
+      throw "exit";
+    }
+    if (gate.value != "EditProfile") {
+      JSAlert.alert(
+        "",
+        "Please type EditProfile to confirm the process...",
+        JSAlert.Icons.Warning
+      );
+      gate.value = "";
+      throw "exit";
+    }
+  }
+
+    {
+    /* Receiver Post */
+  }
+  const R_update = async (e) => {
+    checkStringR();
+      Axios.post(`http://localhost:5000/R_update/${Student_ID}`, {
+        Username: R_nameReg,
+        Phone: R_phoneReg,
+        Address: R_localReg,
+        Student_Card: R_cardReg,
+        School_ID: R_schoolReg,
+        Grade: R_gradeReg,
+      }).then((response) => {
+        console.log(response);
+      });
+  };
+
+  {
     /* Load Function */
   }
   window.onload = function () {
     ItemBlock();
+    SchoolBox();
+    GradeBox();
+    CategBox();
+    ProfileInfo();
   };
+
+        {
+    /* Album Function */
+  }
+  const Album = `
+  <script>
+  var modal_1 = document.getElementById("myModal1");
+var image_1 = document.getElementById("preImg1");
+var modalImage_1 = document.getElementById("img01");
+image_1.onclick = function(){
+  modal_1.style.display = "block";
+  modalImage_1.src = this.src;
+}
+var span_1 = document.getElementsByClassName("close one")[0];
+span_1.onclick = function() { 
+  modal_1.style.display = "none";
+}
+</script>
+  `;
 
   return (
     <div className="App">
@@ -152,10 +385,6 @@ function R_Main() {
       { /* Firefox 18- */
           color: lightgrey;
       }
-      #SchoolR
-      {
-        width:225px;   
-      }
       .swapper:hover 
       {
           color: #F39C12;
@@ -199,15 +428,13 @@ function R_Main() {
       } 
       .demo a.active
       {
-        background-color: orange; 
         border: 1px solid orange; 
-        color: white;
+        color: orange;
       }
             .demo a:hover
       {
-        background-color: orange; 
         border: 1px solid orange; 
-        color: white;
+        color: orange;
       }
         .reddit 
       {
@@ -221,8 +448,17 @@ function R_Main() {
     {
      font-size:10pt;
      width:230px;
-     background-color:white;
-     border:solid 1px black;
+    }
+                .formBox
+    {
+     font-size:15px;
+     color:black;
+     width:100%;
+     height:40px;
+    }
+    .inputField
+    {
+    	background-color:#F2F4F4;
     }
     .picList {
   display: flex;
@@ -230,7 +466,59 @@ function R_Main() {
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
+    .modal {
+      display: none; 
+      position: fixed; 
+      z-index: 100; 
+      padding-top: 100px; 
+      padding-bottom: 100px; 
+      left: 0;
+      top: 0;
+      width: 100%; 
+      height: 100%; 
+      overflow: auto; 
+      background-color: rgb(0,0,0); 
+      background-color: rgba(0,0,0,0.9); 
+    }
+    .modal-content {
+      margin: auto;
+      display: block;
+      width: 80%;
+      max-width: 700px;
+    }
+    .modal-content, #caption {
+      animation-name: zoom;
+      animation-duration: 0.6s;
+    }
+    @keyframes zoom {
+      from {transform:scale(0)}
+      to {transform:scale(1)}
+    }
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 35px;
+      color: #f1f1f1;
+      font-size: 40px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .close:hover,
+    .close:focus {
+      color: #bbb;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    @media only screen and (max-width: 700px){
+      .modal-content {
+        width: 100%;
+      }
+    }
     `}</style>
+            <div id="myModal1" class="modal">
+          <span class="close one">&times;</span>
+          <img class="modal-content" id="img01" />
+        </div>
         <div className="overlay" />
         <section className="top-part">
           <img src={wall} />
@@ -256,7 +544,7 @@ function R_Main() {
               <span className="cd-marker item-1" />
               <ul>
                 <li className="selected">
-                  <a href="#0">
+                  <a>
                     <div className="image-icon">
                       <img src={but1} width={40} height={35} />
                     </div>
@@ -264,7 +552,7 @@ function R_Main() {
                   </a>
                 </li>
                 <li>
-                  <a href="#0">
+                  <a>
                     <div className="image-icon">
                       <img src={but2} width={43} height={35} />
                     </div>
@@ -272,7 +560,7 @@ function R_Main() {
                   </a>
                 </li>
                 <li>
-                  <a href="#0">
+                  <a>
                     <div className="image-icon">
                       <img src={but3} width={40} height={35} />
                     </div>
@@ -280,7 +568,7 @@ function R_Main() {
                   </a>
                 </li>
                 <li>
-                  <a href="#0">
+                  <a>
                     <div className="image-icon">
                       <img src={but4} width={40} height={38} />
                     </div>
@@ -288,7 +576,7 @@ function R_Main() {
                   </a>
                 </li>
                 <li>
-                  <a href="#0">
+                  <a>
                     <div className="image-icon">
                       <img src={but5} width={38} height={33} />
                     </div>
@@ -296,7 +584,12 @@ function R_Main() {
                   </a>
                 </li>
                 <li>
-                  <a href="#0">
+                  <a
+                    onClick={() => {
+                      history.push("/");
+                      window.location.reload();
+                    }}
+                  >
                     <div className="image-icon">
                       <img src={but6} width={39} height={35} />
                     </div>
@@ -307,7 +600,6 @@ function R_Main() {
             </nav>
           </div>
           <ul className="cd-hero-slider">
-            {/*-/Home page-*/}
             <li className="selected">
               <form>
                 <div className="heading"></div>
@@ -320,14 +612,10 @@ function R_Main() {
                             <div className="row">
                               <div className="col-sm-3">
                                 <div className="brands_products">
-                                  {/*-brands_products-*/}
                                   <h2>Categories</h2>
                                   <div className="brands-name">
                                     <ul className="nav nav-pills nav-stacked">
-                                      <select
-                                        className="fitBox"
-                                        onClick={CategBox}
-                                      >
+                                      <select className="fitBox inputField">
                                         <option
                                           value=""
                                           disabled
@@ -350,16 +638,11 @@ function R_Main() {
                                 <br />
                                 <br />
                                 <br />
-                                {/*-/brands_products-*/}
                                 <div className="brands_products">
-                                  {/*-brands_products-*/}
                                   <h2>Schools</h2>
                                   <div className="brands-name">
                                     <ul className="nav nav-pills nav-stacked">
-                                      <select
-                                        className="fitBox"
-                                        onClick={SchoolBox}
-                                      >
+                                      <select className="fitBox inputField">
                                         <option
                                           value=""
                                           disabled
@@ -382,13 +665,13 @@ function R_Main() {
                                 <br />
                                 <br />
                                 <br />
-                                {/*-/brands_products-*/}
                                 <div className="brands_products">
                                   <h2>Search</h2>
                                   <div className="brands-name">
                                     <form action="" className="searchform">
                                       <input
                                         type="text"
+                                        className="inputField"
                                         placeholder="Item Name"
                                         style={{
                                           color: "black",
@@ -411,11 +694,11 @@ function R_Main() {
                                 <br />
                                 <br />
                                 <div className="brands_products">
-                                  <h2>Save to notification</h2>
+                                  <h2>Wishlist Notification</h2>
                                   <div className="brands-name">
                                     <div className="demo">
                                       <a href>
-                                        <i className="fa fa-bell" /> Confirm
+                                        <i className="fa fa-bell" /> Setting
                                       </a>
                                     </div>
                                   </div>
@@ -423,7 +706,6 @@ function R_Main() {
                               </div>
                               <div className="col-sm-9 padding-right">
                                 <div className="features_items">
-                                  {/*-features_items-*/}
                                   <div className="brands_products">
                                     <h2 className="title text-center">
                                       Recent Items
@@ -451,7 +733,7 @@ function R_Main() {
                                                 className="btn btn-default add-to-cart"
                                                 onClick={() => {
                                                   history.push(
-                                                    `/r_item/${val.Item_ID}`
+                                                    `/r_main/${Student_ID}/r_item/${val.Item_ID}`
                                                   );
                                                   window.location.reload();
                                                 }}
@@ -482,7 +764,6 @@ function R_Main() {
                                     })}
                                   </div>
                                 </div>
-                                {/*-features_items-*/}
                               </div>
                             </div>
                           </div>
@@ -493,7 +774,6 @@ function R_Main() {
                 </div>
               </form>
             </li>
-            {/*-/Home page-*/}
             <li>
               <div className="heading"></div>
               <div className="cd-full-width third-slide">
@@ -779,7 +1059,6 @@ function R_Main() {
                               <br />
                             </div>
                           </section>{" "}
-                          {/*-/#cart_items-*/}
                         </div>
                       </div>
                     </div>
@@ -798,17 +1077,6 @@ function R_Main() {
                           <section id="cart_items">
                             <div className="container">
                               <br />
-                              <div className="demo">
-                                <a href className="active">
-                                  <i className="fa fa-star" /> Favorite
-                                </a>
-                                <a href>
-                                  <i className="fa fa-bell" />
-                                  ‎‎ Notification
-                                </a>
-                              </div>
-                              <br />
-                              <br />
                               <div className="table-responsive cart_info">
                                 <table className="table table-condensed">
                                   <thead>
@@ -817,7 +1085,7 @@ function R_Main() {
                                         className="image"
                                         style={{ textAlign: "left" }}
                                       >
-                                        Favorite Items (2/100)
+                                        Wishlist Items (2/100)
                                       </td>
                                       <td className="description" />
                                       <td />
@@ -1022,7 +1290,6 @@ function R_Main() {
                               <br />
                             </div>
                           </section>{" "}
-                          {/*-/#cart_items-*/}
                         </div>
                       </div>
                     </div>
@@ -1030,305 +1297,351 @@ function R_Main() {
                 </div>
               </div>
             </li>
-            <li>
-              <div className="heading"></div>
-              <div className="cd-full-width fivth-slide">
-                <div className="container">
-                  <div className="row">
-                    <div className="col-md-13">
-                      <div className="content fivth-content">
-                        <div className="row">
-                          <form id="contact" action method="post">
-                            <br />
-                            <div className="col-md-4">
-                              <fieldset>
-                                <img
-                                  style={{ width: "350px", height: "40px" }}
-                                  src={blank}
-                                  alt=""
-                                />
-                                <div
-                                  className="col-sm-4"
-                                  style={{ float: "left" }}
-                                >
-                                  {/*-brands_products-*/}
-                                  <div className>
-                                    <ul className="nav nav-pills nav-stacked">
-                                      <a href>
-                                        <span className="pull-center" />
-                                      </a>
-                                    </ul>
-                                  </div>
+            {User_Account.map((val, key) => {
+              return (
+                <li>
+                  <div className="heading"></div>
+                  <form id="contact" onSubmit={handleSubmit1}>
+                  <div className="cd-full-width fivth-slide">
+                    <div className="container">
+                      <div className="row">
+                        <div className="col-md-13">
+                          <div className="content fivth-content">
+                            <div className="row">
+                                <br />
+                                <div className="col-md-4">
+                                  <fieldset>
+                                    <img
+                                      style={{ width: "350px", height: "20px" }}
+                                      src={blank}
+                                      alt=""
+                                    />
+                                    <div
+                                      className="col-sm-4"
+                                      style={{ float: "left" }}
+                                    >
+                                      <div className>
+                                        <ul className="nav nav-pills nav-stacked">
+                                          <a href>
+                                            <span className="pull-center" />
+                                          </a>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                    <div
+                                      className="col-sm-5"
+                                      style={{ float: "left" }}
+                                    >
+                                      <h2
+                                        style={{
+                                          fontSize: "18px",
+                                          color: "#F39C12",
+                                          textAlign: "center",
+                                        }}
+                                      >
+                                        FAQ
+                                      </h2>
+                                      <div className="brands-name">
+                                        <ul className="nav nav-pills nav-stacked">
+                                          <a href>
+                                            <span className="pull-center">
+                                               -Read Policy-
+                                            </span>
+                                          </a>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                                                        <img
+                                      style={{ width: "350px", height: "40px" }}
+                                      src={blank}
+                                      alt=""
+                                    />
+                                    <fieldset>
+                                    <span
+                                      className="cart-total-price text-center"
+                                      style={{
+                                        fontSize: "18px",
+                                        color: "#F39C12",
+                                      }}
+                                    >
+                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Weekly request chance:&nbsp;
+                                    </span>
+                                    <span
+                                      className="cart-total-price text-center"
+                                      style={{ fontSize: "16px" }}
+                                    >
+                                      ({val.Chance}/5)
+                                    </span>
+                                    </fieldset>
+                                    <fieldset>
+                                    <br/>
+                                    </fieldset>
+                                    <fieldset>
+                                     <span
+                                      className="cart-total-price text-center"
+                                      style={{
+                                        fontSize: "18px",
+                                        color: "#F39C12",
+                                      }}
+                                    >
+                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total successful request:&nbsp;
+                                    </span>
+                                    <span
+                                      className="cart-total-price text-center"
+                                      style={{ fontSize: "16px" }}
+                                    >
+                                      7
+                                    </span>
+                                    </fieldset>
+                                  </fieldset>
                                 </div>
-                                <div
-                                  className="col-sm-5"
-                                  style={{ float: "left" }}
-                                >
-                                  {/*-brands_products-*/}
-                                  <h2
-                                    style={{
-                                      fontSize: "18px",
-                                      color: "#F39C12",
-                                      textAlign: "center",
-                                    }}
-                                  >
-                                    FAQ
-                                  </h2>
-                                  <div className="brands-name">
-                                    <ul className="nav nav-pills nav-stacked">
-                                      <a href>
-                                        <span className="pull-center">
-                                           -Read Policy-
-                                        </span>
-                                      </a>
-                                    </ul>
-                                  </div>
+                                <div className="col-md-4">
+                                  <fieldset>
+                                    <img
+                                      id="preImg1"
+                                      src={val.Card_Image}
+                                      width={250}
+                                      height={250}
+                                      className="midimg"
+                                    />
+                                    <br />
+                                                                      <input
+                                type="file"
+                                id="img1"
+                                style={{background: "white", margin: "auto", border: "1px solid black"}}
+                                accept=".png, .jpg, .jpeg"
+                                onChange={(event) =>
+                                  fileConvert1(event.target.files[0] || null)
+                                }
+                              />
+                                  </fieldset>
                                 </div>
-                              </fieldset>
-                            </div>
-                            <div className="col-md-4">
-                              <fieldset>
-                                <img
-                                  src={card}
-                                  width={300}
-                                  height={200}
-                                  className="midimg"
-                                />
-                              </fieldset>
-                            </div>
-                            <div className="col-md-4">
-                              <fieldset>
-                                <img
-                                  style={{ width: "350px", height: "95px" }}
-                                  src={blank}
-                                  alt=""
-                                />
-                                <a
-                                  className="btn swappor"
-                                  style={{ float: "left" }}
-                                >
-                                  <i className="fa fa-user" />
-                                   Edit Profile
-                                </a>
-                                <p style={{ float: "left" }}>      </p>
-                                <a
-                                  className="btn swappor"
-                                  style={{ float: "left" }}
-                                >
-                                  <i className="fa fa-lock" />
-                                   Change Pass
-                                </a>
-                              </fieldset>
-                            </div>
-                            <div className="col-md-12">
-                              <fieldset>
+                                <InnerHTML html={Album} />
+                                <div className="col-md-4">
+                                  <fieldset>
+                                    <img
+                                      style={{ width: "350px", height: "65px" }}
+                                      src={blank}
+                                      alt=""
+                                    />
+                                    <button
+                                      className="btn swappor"
+                                      type="submit"
+                  onClick={R_update}
+                                      style={{ float: "left" }}
+                                    >
+                                      <i className="fa fa-user" />
+                                       Edit Profile
+                                    </button>
+                                    <p style={{ float: "left" }}>      </p>
+                                    <a
+                                      className="btn swappor"
+                                      style={{ float: "left" }}
+                                    >
+                                      <i className="fa fa-lock" />
+                                       Change Pass
+                                    </a>
+                                  </fieldset>
+                                </div>
+                                <div className="col-md-4">
+                                <fieldset>
+                                <br/><br/>
+                                </fieldset>
+                                <fieldset>
+                                    <label htmlFor="ConEdit">Type code word to confirm the process:</label>
+                                    <input
+                                      type="text"
+                                      id="ConEdit"
+                                      placeholder="EditProfile / ChangePass"
+                                      required="required"
+                                      autocomplete="off"
+                                      style={{
+                                        width: "100%",
+                                        color: "black",
+                                        fontSize: "15px",
+                                      }}
+                                    />
+                                  </fieldset>
+                                </div>
+                                <div className="col-md-12">
+                                  <fieldset>
+                                    <hr className="soft" />
+                                  </fieldset>
+                                </div>
+                                <div className="col-md-4">
+                                  <fieldset>
+                                    <label htmlFor="UsernameR">Name:</label>
+                                    <input
+                                      type="text"
+                                      id="UsernameR"
+                                      defaultValue={val.Username}
+                                      placeholder="Username"
+                                      autocomplete="off"
+                                      style={{
+                                        width: "100%",
+                                        color: "black",
+                                        fontSize: "15px",
+                                      }}
+                                                        onInvalid={R_update.exit}
+                  required
+                  onChange={(x) => setR_nameReg(x.target.value)}
+                                    />
+                                  </fieldset>
+                                </div>
+                                <div className="col-md-8">
+                                  <fieldset>
+                                    <img
+                                      style={{ width: "500px", height: "85px" }}
+                                      src={blank}
+                                      alt=""
+                                    />
+                                  </fieldset>
+                                </div>
                                 <br />
+                                <div className="col-md-4">
+                                  <fieldset>
+                                    <label htmlFor="GradeR">Grade:</label>
+                                    <select 
+                                    className="formBox inputField"
+                                    id="GradeR"
+                  onInvalid={R_update.exit}
+                  required
+                  onChange={(x) => setR_gradeReg(x.target.value)}>
+                                        <option
+                                          key={val.Grade}
+                                            value={val.Grade}
+                                          disabled
+                                          selected="selected"
+                                        >
+                                          {val.Level}
+                                        </option>
+                                        {Grade_List.map((val, key) => (
+                                          <option
+                                            key={val.Grade}
+                                            value={val.Grade}
+                                          >
+                                            {val.Level}
+                                          </option>
+                                        ))}
+                                      </select>
+                                  </fieldset>
+                                </div>
+                                <div className="col-md-4">
+                                  <fieldset>
+                                    <label htmlFor="SchoolR">School:</label>
+                                    <select 
+                                    className="formBox inputField"
+                                                      id="SchoolR"
+                  onInvalid={R_update.exit}
+                  required
+                  onChange={(x) => setR_schoolReg(x.target.value)}>
+                                        <option
+                                                                                      key={val.School_ID}
+                                            value={val.School_ID}
+                                            disabled
+                                          selected="selected"
+                                        >
+                                          {val.Name}
+                                        </option>
+                                        {School_List.map((val, key) => (
+                                          <option
+                                            key={val.School_ID}
+                                            value={val.School_ID}
+                                          >
+                                            {val.Name}
+                                          </option>
+                                        ))}
+                                      </select>
+                                  </fieldset>
+                                </div>
+                                <div className="col-md-4">
+                                  <fieldset>
+                                    <label htmlFor="CardR">Student-ID:</label>
+                                    <input
+                                      type="text"
+                                      id="CardR"
+                                      defaultValue={val.Student_Card}
+                                      placeholder="Student ID"
+                                      autocomplete="off"
+                                      style={{
+                                        width: "100%",
+                                        color: "black",
+                                        fontSize: "15px",
+                                      }}
+                                                        onInvalid={R_update.exit}
+                  required
+                  onChange={(x) => setR_cardReg(x.target.value)}
+                                    />
+                                  </fieldset>
+                                </div>
                                 <br />
-                                <hr className="soft" />
-                              </fieldset>
-                            </div>
-                            <div className="col-md-4">
-                              <fieldset>
-                                <label htmlFor="Aname">Name:</label>
-                                <input
-                                  name="Aname"
-                                  type="text"
-                                  id="Aname"
-                                  placeholder="Mr.Putthiwat Chalermvongsavej"
-                                  required="required"
-                                  style={{
-                                    width: "100%",
-                                    color: "black",
-                                    fontSize: "15px",
-                                  }}
-                                />
-                              </fieldset>
-                            </div>
-                            <div className="col-md-8">
-                              <fieldset>
-                                <img
-                                  style={{ width: "500px", height: "85px" }}
-                                  src={blank}
-                                  alt=""
-                                />
-                              </fieldset>
-                            </div>
-                            <br />
-                            <div className="col-md-4">
-                              <fieldset>
-                                <label htmlFor="Agrade">Grade:</label>
-                                <input
-                                  name="Agrade"
-                                  type="text"
-                                  id="Agrade"
-                                  placeholder="High School Year 5"
-                                  required="required"
-                                  style={{
-                                    width: "100%",
-                                    color: "black",
-                                    fontSize: "15px",
-                                  }}
-                                />
-                              </fieldset>
-                            </div>
-                            <div className="col-md-4">
-                              <fieldset>
-                                <label htmlFor="Aschool">School:</label>
-                                <input
-                                  name="Aschool"
-                                  type="text"
-                                  id="Aschool"
-                                  placeholder="Debsirin School"
-                                  required="required"
-                                  style={{
-                                    width: "100%",
-                                    color: "black",
-                                    fontSize: "15px",
-                                  }}
-                                />
-                              </fieldset>
-                            </div>
-                            <div className="col-md-4">
-                              <fieldset>
-                                <label htmlFor="Aid">Student-ID:</label>
-                                <input
-                                  name="Aid"
-                                  type="text"
-                                  id="Aid"
-                                  placeholder="0010080243735"
-                                  required="required"
-                                  style={{
-                                    width: "100%",
-                                    color: "black",
-                                    fontSize: "15px",
-                                  }}
-                                />
-                              </fieldset>
-                            </div>
-                            <br />
-                            <div className="col-md-4">
-                              <fieldset>
-                                <label htmlFor="Amail">Email:</label>
-                                <input
-                                  name="Amail"
-                                  type="text"
-                                  id="Amail"
-                                  placeholder="puth.deboi@ymail.com"
-                                  required="required"
-                                  style={{
-                                    width: "100%",
-                                    color: "black",
-                                    fontSize: "15px",
-                                  }}
-                                />
-                              </fieldset>
-                            </div>
-                            <div className="col-md-4">
-                              <fieldset>
-                                <label htmlFor="Aphone">Tel:</label>
-                                <input
-                                  name="Aphone"
-                                  type="text"
-                                  id="Aphone"
-                                  placeholder="083-190-5406"
-                                  required="required"
-                                  style={{
-                                    width: "100%",
-                                    color: "black",
-                                    fontSize: "15px",
-                                  }}
-                                />
-                              </fieldset>
-                            </div>
-                            <br />
-                            <div className="col-md-12">
-                              <fieldset>
-                                <label htmlFor="Alocate">Location:</label>
-                                <textarea
-                                  name="Alocate"
-                                  rows={6}
-                                  id="Alocate"
-                                  placeholder="666, Ladprao 01 Alley,
-Ladprao Road, Wang Thonglang District,
-Bangkok, 10240"
-                                  required="required"
-                                  style={{
-                                    width: "100%",
-                                    color: "black",
-                                    fontSize: "15px",
-                                  }}
-                                  defaultValue={""}
-                                />
-                              </fieldset>
-                            </div>
-                            <div className="col-md-12">
-                              <fieldset>
+                                <div className="col-md-4">
+                                  <fieldset>
+                                    <label htmlFor="Amail" style={{color: "red"}}>Fixed email:</label>
+                                    <input
+                                      type="text"
+                                      id="Amail"
+                                      value={val.Email}
+                                      autocomplete="off"
+                                      style={{
+                                        width: "100%",
+                                        color: "black",
+                                        fontSize: "15px",
+                                      }}
+                                      disabled
+                                    />
+                                  </fieldset>
+                                </div>
+                                <div className="col-md-4">
+                                  <fieldset>
+                                    <label htmlFor="PhoneR">Tel:</label>
+                                    <input
+                                      type="text"
+                                      id="PhoneR"
+                                      defaultValue={val.Phone}
+                                      placeholder="Tel Number"
+                                      autocomplete="off"
+                                      style={{
+                                        width: "100%",
+                                        color: "black",
+                                        fontSize: "15px",
+                                      }}
+                                                        onInvalid={R_update.exit}
+                  required
+                  onChange={(x) => setR_phoneReg(x.target.value)}
+                                    />
+                                  </fieldset>
+                                </div>
                                 <br />
-                                <hr className="soft" />
-                              </fieldset>
+                                <div className="col-md-12">
+                                  <fieldset>
+                                    <label htmlFor="AddressR">Location:</label>
+                                    <textarea
+                                      rows={6}
+                                      id="AddressR"
+                                      defaultValue={val.Address}
+                                      placeholder="House Location"
+                                      style={{
+                                        width: "100%",
+                                        color: "black",
+                                        fontSize: "15px",
+                                      }}
+                                                        onInvalid={R_update.exit}
+                  required
+                  onChange={(x) => setR_localReg(x.target.value)}
+                                    />
+                                  </fieldset>
+                                </div>
                             </div>
-                            <div className="col-md-4">
-                              <fieldset></fieldset>
-                            </div>
-                            <div className="col-md-8">
-                              <fieldset>
-                                <span
-                                  className="cart-total-price text-center"
-                                  style={{
-                                    fontSize: "18px",
-                                    color: "#F39C12",
-                                  }}
-                                >
-                                     Weekly request chance:
-                                </span>
-                                <span
-                                  className="cart-total-price text-center"
-                                  style={{ fontSize: "16px" }}
-                                >
-                                  (1/5)
-                                </span>
-                              </fieldset>
-                            </div>
-                            <div className="col-md-12">
-                              <fieldset>
-                                <br />
-                              </fieldset>
-                            </div>
-                            <div className="col-md-4">
-                              <fieldset></fieldset>
-                            </div>
-                            <div className="col-md-8">
-                              <fieldset>
-                                <span
-                                  className="cart-total-price text-center"
-                                  style={{
-                                    fontSize: "18px",
-                                    color: "#F39C12",
-                                  }}
-                                >
-                                     Total successful request:
-                                </span>
-                                <span
-                                  className="cart-total-price text-center"
-                                  style={{ fontSize: "16px" }}
-                                >
-                                  7
-                                </span>
-                              </fieldset>
-                            </div>
-                            <div className="col-md-12">
-                              <fieldset>
-                                <br />
-                              </fieldset>
-                            </div>
-                          </form>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            </li>
+                  </form>
+                </li>
+              );
+            })}
             <li>
               <div className="heading"></div>
               <div className="cd-full-width fivth-slide">
@@ -1382,11 +1695,11 @@ Bangkok, 10240"
                                 <div className="col-md-6">
                                   <fieldset>
                                     <input
-                                      name="name"
                                       type="text"
                                       id="name"
                                       placeholder="Topic"
                                       required="required"
+                                      autocomplete="off"
                                       style={{
                                         width: "100%",
                                         color: "black",
@@ -1398,11 +1711,11 @@ Bangkok, 10240"
                                 <div className="col-md-6">
                                   <fieldset>
                                     <input
-                                      name="email"
                                       type="email"
                                       id="email"
                                       placeholder="Your Email"
                                       required="required"
+                                      autocomplete="off"
                                       style={{
                                         width: "100%",
                                         color: "black",
@@ -1414,7 +1727,6 @@ Bangkok, 10240"
                                 <div className="col-md-12">
                                   <fieldset>
                                     <textarea
-                                      name="message"
                                       rows={6}
                                       id="message"
                                       placeholder="Message"
@@ -1424,7 +1736,6 @@ Bangkok, 10240"
                                         color: "black",
                                         fontSize: "15px",
                                       }}
-                                      defaultValue={""}
                                     />
                                   </fieldset>
                                 </div>
@@ -1449,14 +1760,6 @@ Bangkok, 10240"
                     </div>
                   </div>
                 </div>
-              </div>
-            </li>
-            <li>
-              <div className="heading">
-                <h1>Logout</h1>
-                <a className="button" onClick={() => {history.push("/"); window.location.reload();}}>
-                  EXIT
-                </a>
               </div>
             </li>
           </ul>

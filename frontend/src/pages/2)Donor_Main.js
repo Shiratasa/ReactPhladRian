@@ -53,16 +53,28 @@ function D_Main() {
   {
     /* Values */
   }
+  const [Item_List, setItem_List] = useState([]);
   const [School_List, setSchool_List] = useState([]);
   const [Categ_List, setCateg_List] = useState([]);
+  const [User_Account, setUser_Account] = useState([]);
+  let { Donor_ID } = useParams();
   let history = useHistory();
 
   {
     /* Delay */
   }
   const handleSubmit1 = async (e) => {
-    history.push("/d_add");
+    history.push(`/d_main/${Donor_ID}/d_add`);
     location.reload();
+  };
+
+  {
+    /* Item Get */
+  }
+  const ItemBlock = async () => {
+    Axios.get(`http://localhost:5000/DonorItem/${Donor_ID}`).then((response) => {
+      setItem_List(response.data);
+    });
   };
 
   {
@@ -81,6 +93,27 @@ function D_Main() {
     Axios.get("http://localhost:5000/Categ_I").then((response) => {
       setCateg_List(response.data);
     });
+  };
+
+  {
+    /* Profile Get */
+  }
+  const ProfileInfo = async () => {
+    Axios.get(`http://localhost:5000/D_Account/${Donor_ID}`).then(
+      (response) => {
+        setUser_Account(response.data);
+      }
+    );
+  };
+
+    {
+    /* Load Function */
+  }
+  window.onload = function () {
+    ItemBlock();
+    SchoolBox();
+    CategBox();
+    ProfileInfo();
   };
 
   return (
@@ -219,6 +252,12 @@ function D_Main() {
      background-color:white;
      border:solid 1px black;
     }
+        .picList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
     `}</style>
         <div className="overlay" />
         <section className="top-part">
@@ -245,7 +284,7 @@ function D_Main() {
               <span className="cd-marker item-1" />
               <ul>
                 <li className="selected">
-                  <a href="#0">
+                  <a>
                     <div className="image-icon">
                       <img src={but1} width={40} height={35} />
                     </div>
@@ -253,7 +292,7 @@ function D_Main() {
                   </a>
                 </li>
                 <li>
-                  <a href="#0">
+                  <a>
                     <div className="image-icon">
                       <img src={but2} width={43} height={35} />
                     </div>
@@ -261,7 +300,7 @@ function D_Main() {
                   </a>
                 </li>
                 <li>
-                  <a href="#0">
+                  <a>
                     <div className="image-icon">
                       <img src={but3} width={45} height={40} />
                     </div>
@@ -269,7 +308,7 @@ function D_Main() {
                   </a>
                 </li>
                 <li>
-                  <a href="#0">
+                  <a>
                     <div className="image-icon">
                       <img src={but4} width={40} height={38} />
                     </div>
@@ -277,7 +316,7 @@ function D_Main() {
                   </a>
                 </li>
                 <li>
-                  <a href="#0">
+                  <a>
                     <div className="image-icon">
                       <img src={but5} width={38} height={33} />
                     </div>
@@ -285,7 +324,12 @@ function D_Main() {
                   </a>
                 </li>
                 <li>
-                  <a href="#0">
+                  <a
+                    onClick={() => {
+                      history.push("/");
+                      window.location.reload();
+                    }}
+                  >
                     <div className="image-icon">
                       <img src={but6} width={39} height={35} />
                     </div>
@@ -296,7 +340,6 @@ function D_Main() {
             </nav>
           </div>
           <ul className="cd-hero-slider">
-            {/*-/Home page-*/}
             <li className="selected">
               <div className="heading"></div>
               <div className="cd-full-width first-slide">
@@ -308,7 +351,6 @@ function D_Main() {
                           <div className="row">
                             <div className="col-sm-3">
                               <div className="brands_products">
-                                {/*-brands_products-*/}
                                 <h2>Categories</h2>
                                 <div className="brands-name">
                                   <ul className="nav nav-pills nav-stacked">
@@ -338,9 +380,7 @@ function D_Main() {
                               <br />
                               <br />
                               <br />
-                              {/*-/brands_products-*/}
                               <div className="brands_products">
-                                {/*-brands_products-*/}
                                 <h2>Schools</h2>
                                 <div className="brands-name">
                                   <ul className="nav nav-pills nav-stacked">
@@ -370,7 +410,6 @@ function D_Main() {
                               <br />
                               <br />
                               <br />
-                              {/*-/brands_products-*/}
                               <div className="brands_products">
                                 <h2>Search</h2>
                                 <div className="brands-name">
@@ -397,7 +436,6 @@ function D_Main() {
                             </div>
                             <div className="col-sm-9 padding-right">
                               <div className="features_items">
-                                {/*-features_items-*/}
                                 <div className="brands_products">
                                   <h2 className="title text-center">
                                     Recent Items&nbsp;&nbsp;&nbsp;
@@ -409,114 +447,59 @@ function D_Main() {
                                     </button>
                                   </h2>
                                 </div>
-                                <div className="col-sm-4">
-                                  <div className="product-image-wrapper">
-                                    <div className="single-products">
-                                      <div className="productinfo text-center">
-                                        <img
-                                          src={pro1}
-                                          alt=""
-                                          width={230}
-                                          height={320}
-                                        />
-                                        <h2 style={{ fontSize: "15px" }}>
-                                          Thai Literature Book 1
-                                        </h2>
-                                        <br />
-                                        <a
-                                          className="btn btn-default add-to-cart"
-                                          onClick={() => {history.push("/d_item"); window.location.reload();}}
-                                        >
-                                          <i className="fa fa-eye" />
-                                          View
-                                        </a>
-                                      </div>
-                                    </div>
-                                    <div className="choose">
-                                      <ul className="nav nav-pills nav-justified">
-                                        <li>
-                                          <a href>
-                                            <i className="fa fa-trash-o" />
-                                            Delete item
-                                          </a>
-                                        </li>
-                                        <li>
-                                          <a href>
-                                            <i className="fa fa-trash-o" />
-                                            Delete item
-                                          </a>
-                                        </li>
-                                      </ul>
-                                    </div>
+                                  <div className="col-sm-12 picList">
+                                    {Item_List.map((val, key) => {
+                                      return (
+                                        <div className="product-image-wrapper">
+                                          <div className="single-products">
+                                            <div className="productinfo text-center">
+                                              <img
+                                                src={val.Pic1}
+                                                alt=""
+                                                style={{
+                                                  height: "320px",
+                                                  width: "230px",
+                                                }}
+                                              />
+                                              <h2 style={{ fontSize: "15px" }}>
+                                                {val.Obj}
+                                              </h2>
+                                              <br />
+                                              <a
+                                                className="btn btn-default add-to-cart"
+                                                onClick={() => {
+                                                  history.push(
+                                                    `/d_main/${Donor_ID}/d_item/${val.Item_ID}`
+                                                  );
+                                                  window.location.reload();
+                                                }}
+                                              >
+                                                <i className="fa fa-eye" />
+                                                View
+                                              </a>
+                                            </div>
+                                          </div>
+                                          <div className="choose">
+                                            <ul className="nav nav-pills nav-justified">
+                                              <li>
+                                                <a href>
+                                                  <i className="fa fa-plus-square" />
+                                                  Add to wishlist
+                                                </a>
+                                              </li>
+                                              <li>
+                                                <a href>
+                                                  <i className="fa fa-plus-square" />
+                                                  Add to wishlist
+                                                </a>
+                                              </li>
+                                            </ul>
+                                          </div>
+                                        </div>
+                                      );
+                                    })}
                                   </div>
-                                </div>
-                                <div className="col-sm-11">
-                                  <br />
-                                  <ul className="pagination">
-                                    <div className="col-sm-1">
-                                      <li>
-                                        <a href>«</a>
-                                      </li>
-                                    </div>
-                                    <div className="col-sm-1">
-                                      <li className="active">
-                                        <a href>1</a>
-                                      </li>
-                                    </div>
-                                    <div className="col-sm-1">
-                                      <li>
-                                        <a href>2</a>
-                                      </li>
-                                    </div>
-                                    <div className="col-sm-1">
-                                      <li>
-                                        <a href>3</a>
-                                      </li>
-                                    </div>
-                                    <div className="col-sm-1">
-                                      <li>
-                                        <a href>4</a>
-                                      </li>
-                                    </div>
-                                    <div className="col-sm-1">
-                                      <li>
-                                        <a href>5</a>
-                                      </li>
-                                    </div>
-                                    <div className="col-sm-1">
-                                      <li>
-                                        <a href>6</a>
-                                      </li>
-                                    </div>
-                                    <div className="col-sm-1">
-                                      <li>
-                                        <a href>7</a>
-                                      </li>
-                                    </div>
-                                    <div className="col-sm-1">
-                                      <li>
-                                        <a href>8</a>
-                                      </li>
-                                    </div>
-                                    <div className="col-sm-1">
-                                      <li>
-                                        <a href>9</a>
-                                      </li>
-                                    </div>
-                                    <div className="col-sm-1">
-                                      <li>
-                                        <a href>10 </a>
-                                      </li>
-                                    </div>
-                                    <div className="col-sm-1">
-                                      <li>
-                                        <a href>»</a>
-                                      </li>
-                                    </div>
-                                  </ul>
-                                </div>
                               </div>
-                              {/*-features_items-*/}
                             </div>
                           </div>
                         </div>
@@ -526,7 +509,6 @@ function D_Main() {
                 </div>
               </div>
             </li>
-            {/*-/Home page-*/}
             <li>
               <div className="heading"></div>
               <div className="cd-full-width third-slide">
@@ -609,7 +591,10 @@ function D_Main() {
                                         <br />
                                         <a
                                           className="btn btn-default add-to-cart"
-                                          onClick={() => {history.push("/d_deli"); window.location.reload();}}
+                                          onClick={() => {
+                                            history.push("/d_deli");
+                                            window.location.reload();
+                                          }}
                                         >
                                           <i className="fa fa-truck" />
                                           Deliver
@@ -815,7 +800,6 @@ function D_Main() {
                               <br />
                             </div>
                           </section>{" "}
-                          {/*-/#cart_items-*/}
                         </div>
                       </div>
                     </div>
@@ -912,7 +896,10 @@ function D_Main() {
                                         <br />
                                         <a
                                           className="btn btn-default add-to-cart"
-                                          onClick={() => {history.push("/d_rewa"); window.location.reload();}}
+                                          onClick={() => {
+                                            history.push("/d_rewa");
+                                            window.location.reload();
+                                          }}
                                         >
                                           <i className="fa fa-clock-o" />
                                           Trade
@@ -993,7 +980,6 @@ function D_Main() {
                               <br />
                             </div>
                           </section>{" "}
-                          {/*-/#cart_items-*/}
                         </div>
                       </div>
                     </div>
@@ -1001,6 +987,8 @@ function D_Main() {
                 </div>
               </div>
             </li>
+             {User_Account.map((val, key) => {
+              return (
             <li>
               <div className="heading"></div>
               <div className="cd-full-width fivth-slide">
@@ -1016,7 +1004,6 @@ function D_Main() {
                                   className="col-sm-4"
                                   style={{ float: "left" }}
                                 >
-                                  {/*-brands_products-*/}
                                   <div className>
                                     <ul className="nav nav-pills nav-stacked">
                                       <a href>
@@ -1029,7 +1016,6 @@ function D_Main() {
                                   className="col-sm-5"
                                   style={{ float: "left" }}
                                 >
-                                  {/*-brands_products-*/}
                                   <h2
                                     style={{
                                       fontSize: "18px",
@@ -1088,10 +1074,9 @@ function D_Main() {
                               <fieldset>
                                 <label htmlFor="Aname">Name:</label>
                                 <input
-                                  name="Aname"
                                   type="text"
                                   id="Aname"
-                                  placeholder="Mr.Putthiwat Chalermvongsavej"
+                                  placeholder={val.Username}
                                   required="required"
                                   style={{
                                     width: "100%",
@@ -1105,10 +1090,9 @@ function D_Main() {
                               <fieldset>
                                 <label htmlFor="Amail">Email:</label>
                                 <input
-                                  name="Amail"
                                   type="text"
                                   id="Amail"
-                                  placeholder="puth.deboi@ymail.com"
+                                  placeholder={val.Email}
                                   required="required"
                                   style={{
                                     width: "100%",
@@ -1122,7 +1106,6 @@ function D_Main() {
                               <fieldset>
                                 <label htmlFor="Aphone">Tel:</label>
                                 <input
-                                  name="Aphone"
                                   type="text"
                                   id="Aphone"
                                   placeholder="083-190-5406"
@@ -1140,7 +1123,6 @@ function D_Main() {
                               <fieldset>
                                 <label htmlFor="Alocate">Location:</label>
                                 <textarea
-                                  name="Alocate"
                                   rows={6}
                                   id="Alocate"
                                   placeholder="666, Ladprao 01 Alley,
@@ -1174,7 +1156,7 @@ Bangkok, 10240"
                                     color: "#F39C12",
                                   }}
                                 >
-                                     Total special point:
+                                     Total special point:&nbsp;
                                 </span>
                                 <span
                                   className="cart-total-price text-center"
@@ -1201,7 +1183,7 @@ Bangkok, 10240"
                                     color: "#F39C12",
                                   }}
                                 >
-                                     Total successful request:
+                                     Total successful request:&nbsp;
                                 </span>
                                 <span
                                   className="cart-total-price text-center"
@@ -1228,7 +1210,7 @@ Bangkok, 10240"
                                     color: "#F39C12",
                                   }}
                                 >
-                                     Total donated equipment:
+                                     Total donated equipment:&nbsp;
                                 </span>
                                 <span
                                   className="cart-total-price text-center"
@@ -1251,6 +1233,8 @@ Bangkok, 10240"
                 </div>
               </div>
             </li>
+                          );
+            })}
             <li>
               <div className="heading"></div>
               <div className="cd-full-width fivth-slide">
@@ -1304,7 +1288,6 @@ Bangkok, 10240"
                                 <div className="col-md-6">
                                   <fieldset>
                                     <input
-                                      name="name"
                                       type="text"
                                       id="name"
                                       placeholder="Topic"
@@ -1320,7 +1303,6 @@ Bangkok, 10240"
                                 <div className="col-md-6">
                                   <fieldset>
                                     <input
-                                      name="email"
                                       type="email"
                                       id="email"
                                       placeholder="Your Email"
@@ -1336,7 +1318,6 @@ Bangkok, 10240"
                                 <div className="col-md-12">
                                   <fieldset>
                                     <textarea
-                                      name="message"
                                       rows={6}
                                       id="message"
                                       placeholder="Message"
@@ -1370,14 +1351,6 @@ Bangkok, 10240"
                     </div>
                   </div>
                 </div>
-              </div>
-            </li>
-            <li>
-              <div className="heading">
-                <h1>Logout</h1>
-                <a className="button" onClick={() => {history.push("/"); window.location.reload();}}>
-                  EXIT
-                </a>
               </div>
             </li>
           </ul>

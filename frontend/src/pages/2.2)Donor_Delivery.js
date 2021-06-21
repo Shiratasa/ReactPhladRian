@@ -25,12 +25,7 @@ window.onpopstate = function () {
 
 function D_Deli() {
   const wall = window.location.origin + "/resources/imgs/wallpaper.jpg";
-  const but1 = window.location.origin + "/resources/imgs/home.png";
-  const but2 = window.location.origin + "/resources/imgs/request.png";
-  const but3 = window.location.origin + "/resources/imgs/reward.png";
-  const but4 = window.location.origin + "/resources/imgs/account.png";
-  const but5 = window.location.origin + "/resources/imgs/report.png";
-  const but6 = window.location.origin + "/resources/imgs/logout.png";
+  const but1 = window.location.origin + "/resources/imgs/detail.png";
   const blank = window.location.origin + "/resources/imgs/shop/white.jpg";
   const del1 = window.location.origin + "/resources/imgs/shop/grab.png";
   const del2 = window.location.origin + "/resources/imgs/shop/gojek.png";
@@ -194,62 +189,17 @@ function D_Deli() {
               <span className="cd-marker item-1" />
               <ul>
                 <li>
-                  <a href="#0">
+                                   <a>
                     <div className="image-icon">
-                      <img src={but1} width={40} height={35} />
+                      <img src={but1} width={42} height={42} />
                     </div>
-                    <h6>Home</h6>
-                  </a>
-                </li>
-                <li className="selected">
-                  <a href="#0">
-                    <div className="image-icon">
-                      <img src={but2} width={43} height={35} />
-                    </div>
-                    <h6>Request</h6>
-                  </a>
-                </li>
-                <li>
-                  <a href="#0">
-                    <div className="image-icon">
-                      <img src={but3} width={45} height={40} />
-                    </div>
-                    <h6>Trade</h6>
-                  </a>
-                </li>
-                <li>
-                  <a href="#0">
-                    <div className="image-icon">
-                      <img src={but4} width={40} height={38} />
-                    </div>
-                    <h6>Account</h6>
-                  </a>
-                </li>
-                <li>
-                  <a href="#0">
-                    <div className="image-icon">
-                      <img src={but5} width={38} height={33} />
-                    </div>
-                    <h6>Contact</h6>
-                  </a>
-                </li>
-                <li>
-                  <a href="#0">
-                    <div className="image-icon">
-                      <img src={but6} width={39} height={35} />
-                    </div>
-                    <h6>Logout</h6>
+                    <h6>Detail</h6>
                   </a>
                 </li>
               </ul>
             </nav>
           </div>
           <ul className="cd-hero-slider">
-            {/*-/Home page-*/}
-            <li>
-              <div className="heading"></div>
-            </li>
-            {/*-/Home page-*/}
             <li className="selected">
               <div className="heading"></div>
               <div className="cd-full-width fivth-slide">
@@ -303,7 +253,6 @@ function D_Deli() {
                                     <input
                                       type="radio"
                                       id="grab"
-                                      name="delivery"
                                       defaultValue="grab"
                                       style={{ marginLeft: "48%" }}
                                     />
@@ -322,7 +271,6 @@ function D_Deli() {
                                     <input
                                       type="radio"
                                       id="get"
-                                      name="delivery"
                                       defaultValue="get"
                                       style={{ marginLeft: "48%" }}
                                     />
@@ -341,7 +289,6 @@ function D_Deli() {
                                     <input
                                       type="radio"
                                       id="line"
-                                      name="delivery"
                                       defaultValue="line"
                                       style={{ marginLeft: "48%" }}
                                     />
@@ -375,7 +322,6 @@ function D_Deli() {
                                     <input
                                       type="radio"
                                       id="grab"
-                                      name="delivery"
                                       defaultValue="grab"
                                       style={{ marginLeft: "48%" }}
                                     />
@@ -394,7 +340,6 @@ function D_Deli() {
                                     <input
                                       type="radio"
                                       id="get"
-                                      name="delivery"
                                       defaultValue="get"
                                       style={{ marginLeft: "48%" }}
                                     />
@@ -413,7 +358,6 @@ function D_Deli() {
                                     <input
                                       type="radio"
                                       id="line"
-                                      name="delivery"
                                       defaultValue="line"
                                       style={{ marginLeft: "48%" }}
                                     />
@@ -449,23 +393,6 @@ function D_Deli() {
                     </div>
                   </div>
                 </div>
-              </div>
-            </li>
-            <li>
-              <div className="heading"></div>
-            </li>
-            <li>
-              <div className="heading"></div>
-            </li>
-            <li>
-              <div className="heading"></div>
-            </li>
-            <li>
-              <div className="heading">
-                <h1>Logout</h1>
-                <a className="button" onClick={() => {history.push("/"); window.location.reload();}}>
-                  EXIT
-                </a>
               </div>
             </li>
           </ul>

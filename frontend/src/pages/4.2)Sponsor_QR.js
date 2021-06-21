@@ -25,12 +25,7 @@ window.onpopstate = function () {
 
 function S_QR() {
   const wall = window.location.origin + "/resources/imgs/wallpaper.jpg";
-  const but1 = window.location.origin + "/resources/imgs/home.png";
-  const but2 = window.location.origin + "/resources/imgs/delivery.png";
-  const but3 = window.location.origin + "/resources/imgs/reward.png";
-  const but4 = window.location.origin + "/resources/imgs/account.png";
-  const but5 = window.location.origin + "/resources/imgs/report.png";
-  const but6 = window.location.origin + "/resources/imgs/logout.png";
+  const but1 = window.location.origin + "/resources/imgs/detail.png";
   const blank = window.location.origin + "/resources/imgs/shop/white.jpg";
   const large = window.location.origin + "/resources/imgs/shop/product6.jpg";
   const small1 = window.location.origin + "/resources/imgs/shop/1.jpg";
@@ -192,54 +187,17 @@ function S_QR() {
               <span className="cd-marker item-1" />
               <ul>
                 <li>
-                  <a href="#0">
+                  <a>
                     <div className="image-icon">
-                      <img src={but1} width={40} height={35} />
+                      <img src={but1} width={42} height={42} />
                     </div>
-                    <h6>Home</h6>
-                  </a>
-                </li>
-                <li className="selected">
-                  <a href="#0">
-                    <div className="image-icon">
-                      <img src={but2} width={45} height={33} />
-                    </div>
-                    <h6>Delivery</h6>
-                  </a>
-                </li>
-                <li>
-                  <a href="#0">
-                    <div className="image-icon">
-                      <img src={but4} width={40} height={38} />
-                    </div>
-                    <h6>Account</h6>
-                  </a>
-                </li>
-                <li>
-                  <a href="#0">
-                    <div className="image-icon">
-                      <img src={but5} width={38} height={33} />
-                    </div>
-                    <h6>Contact</h6>
-                  </a>
-                </li>
-                <li>
-                  <a href="#0">
-                    <div className="image-icon">
-                      <img src={but6} width={39} height={35} />
-                    </div>
-                    <h6>Logout</h6>
+                    <h6>Detail</h6>
                   </a>
                 </li>
               </ul>
             </nav>
           </div>
           <ul className="cd-hero-slider">
-            {/*-/Home page-*/}
-            <li>
-              <div className="heading"></div>
-            </li>
-            {/*-/Home page-*/}
             <li className="selected">
               <div className="heading"></div>
               <div className="cd-full-width fivth-slide">
@@ -344,7 +302,6 @@ function S_QR() {
                               <fieldset>
                                 <label htmlFor="Aname">Donor name:</label>
                                 <input
-                                  name="Aname"
                                   type="text"
                                   id="Aname"
                                   placeholder="Mr.Putthiwat Chalermvongsavej"
@@ -361,7 +318,6 @@ function S_QR() {
                               <fieldset>
                                 <label htmlFor="Amail">Donor email:</label>
                                 <input
-                                  name="Amail"
                                   type="text"
                                   id="Amail"
                                   placeholder="puth.deboi@ymail.com"
@@ -378,7 +334,6 @@ function S_QR() {
                               <fieldset>
                                 <label htmlFor="Aphone">Donor tel:</label>
                                 <input
-                                  name="Aphone"
                                   type="text"
                                   id="Aphone"
                                   placeholder="083-190-5406"
@@ -396,7 +351,6 @@ function S_QR() {
                               <fieldset>
                                 <label htmlFor="Alocate">Donor location:</label>
                                 <textarea
-                                  name="Alocate"
                                   rows={6}
                                   id="Alocate"
                                   placeholder="666, Ladprao 01 Alley,
@@ -422,7 +376,6 @@ Bangkok, 10240"
                               <fieldset>
                                 <label htmlFor="Aname">Receiver name:</label>
                                 <input
-                                  name="Aname"
                                   type="text"
                                   id="Aname"
                                   placeholder="Mr.Krittapas Sukkhasame"
@@ -439,7 +392,6 @@ Bangkok, 10240"
                               <fieldset>
                                 <label htmlFor="Amail">Receiver email:</label>
                                 <input
-                                  name="Amail"
                                   type="text"
                                   id="Amail"
                                   placeholder="supersun@hotmail.com"
@@ -456,7 +408,6 @@ Bangkok, 10240"
                               <fieldset>
                                 <label htmlFor="Aphone">Receiver tel:</label>
                                 <input
-                                  name="Aphone"
                                   type="text"
                                   id="Aphone"
                                   placeholder="084-203-1178"
@@ -476,7 +427,6 @@ Bangkok, 10240"
                                   Receiver location:
                                 </label>
                                 <textarea
-                                  name="Alocate"
                                   rows={6}
                                   id="Alocate"
                                   placeholder="240/97, Ekkamai 10 Alley, Chaeng Watthana Road, Khlong Tan District, Bangkok, 10110"
@@ -518,20 +468,6 @@ Bangkok, 10240"
                     </div>
                   </div>
                 </div>
-              </div>
-            </li>
-            <li>
-              <div className="heading"></div>
-            </li>
-            <li>
-              <div className="heading"></div>
-            </li>
-            <li>
-              <div className="heading">
-                <h1>Logout</h1>
-                <a className="button" onClick={() => {history.push("/"); window.location.reload();}}>
-                  EXIT
-                </a>
               </div>
             </li>
           </ul>

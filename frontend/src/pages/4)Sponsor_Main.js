@@ -251,7 +251,6 @@ function S_Main() {
             </nav>
           </div>
           <ul className="cd-hero-slider">
-            {/*-/Home page-*/}
             <li className="selected">
               <div className="heading"></div>
               <div className="cd-full-width first-slide">
@@ -263,7 +262,6 @@ function S_Main() {
                           <div className="row">
                             <div className="col-sm-3">
                               <div className="brands_products">
-                                {/*-brands_products-*/}
                                 <h2>Categories</h2>
                                 <div className="brands-name">
                                   <ul className="nav nav-pills nav-stacked">
@@ -285,7 +283,6 @@ function S_Main() {
                               <br />
                               <br />
                               <br />
-                              {/*-/brands_products-*/}
                               <div className="brands_products">
                                 <h2>Search</h2>
                                 <div className="brands-name">
@@ -312,7 +309,6 @@ function S_Main() {
                             </div>
                             <div className="col-sm-9 padding-right">
                               <div className="features_items">
-                                {/*-features_items-*/}
                                 <div className="brands_products">
                                   <h2 className="title text-center">
                                     Recent Items
@@ -425,7 +421,6 @@ function S_Main() {
                                   </ul>
                                 </div>
                               </div>
-                              {/*-features_items-*/}
                             </div>
                           </div>
                         </div>
@@ -435,7 +430,6 @@ function S_Main() {
                 </div>
               </div>
             </li>
-            {/*-/Home page-*/}
             <li>
               <div className="heading"></div>
               <div className="cd-full-width third-slide">
@@ -724,7 +718,6 @@ function S_Main() {
                               <br />
                             </div>
                           </section>{" "}
-                          {/*-/#cart_items-*/}
                         </div>
                       </div>
                     </div>
@@ -747,7 +740,6 @@ function S_Main() {
                                   className="col-sm-4"
                                   style={{ float: "left" }}
                                 >
-                                  {/*-brands_products-*/}
                                   <div className>
                                     <ul className="nav nav-pills nav-stacked">
                                       <a href>
@@ -760,7 +752,6 @@ function S_Main() {
                                   className="col-sm-5"
                                   style={{ float: "left" }}
                                 >
-                                  {/*-brands_products-*/}
                                   <h2
                                     style={{
                                       fontSize: "18px",
@@ -819,7 +810,6 @@ function S_Main() {
                               <fieldset>
                                 <label htmlFor="Aname">Name:</label>
                                 <input
-                                  name="Aname"
                                   type="text"
                                   id="Aname"
                                   placeholder="Mr.Putthiwat Chalermvongsavej"
@@ -836,7 +826,6 @@ function S_Main() {
                               <fieldset>
                                 <label htmlFor="Amail">Email:</label>
                                 <input
-                                  name="Amail"
                                   type="text"
                                   id="Amail"
                                   placeholder="puth.deboi@ymail.com"
@@ -853,7 +842,6 @@ function S_Main() {
                               <fieldset>
                                 <label htmlFor="Aphone">Tel:</label>
                                 <input
-                                  name="Aphone"
                                   type="text"
                                   id="Aphone"
                                   placeholder="083-190-5406"
@@ -871,7 +859,6 @@ function S_Main() {
                               <fieldset>
                                 <label htmlFor="Alocate">Location:</label>
                                 <textarea
-                                  name="Alocate"
                                   rows={6}
                                   id="Alocate"
                                   placeholder="666, Ladprao 01 Alley,
@@ -1012,7 +999,6 @@ Bangkok, 10240"
                                 <div className="col-md-6">
                                   <fieldset>
                                     <input
-                                      name="name"
                                       type="text"
                                       id="name"
                                       placeholder="Topic"
@@ -1028,7 +1014,6 @@ Bangkok, 10240"
                                 <div className="col-md-6">
                                   <fieldset>
                                     <input
-                                      name="email"
                                       type="email"
                                       id="email"
                                       placeholder="Your Email"
@@ -1044,7 +1029,6 @@ Bangkok, 10240"
                                 <div className="col-md-12">
                                   <fieldset>
                                     <textarea
-                                      name="message"
                                       rows={6}
                                       id="message"
                                       placeholder="Message"

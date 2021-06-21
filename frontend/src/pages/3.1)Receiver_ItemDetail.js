@@ -26,12 +26,7 @@ window.onpopstate = function () {
 
 function R_Item() {
   const wall = window.location.origin + "/resources/imgs/wallpaper.jpg";
-  const but1 = window.location.origin + "/resources/imgs/home.png";
-  const but2 = window.location.origin + "/resources/imgs/request.png";
-  const but3 = window.location.origin + "/resources/imgs/wish.png";
-  const but4 = window.location.origin + "/resources/imgs/account.png";
-  const but5 = window.location.origin + "/resources/imgs/report.png";
-  const but6 = window.location.origin + "/resources/imgs/logout.png";
+  const but1 = window.location.origin + "/resources/imgs/detail.png";
   const blank = window.location.origin + "/resources/imgs/shop/white.jpg";
   const large = window.location.origin + "/resources/imgs/shop/product6.jpg";
   const small1 = window.location.origin + "/resources/imgs/shop/1.jpg";
@@ -39,7 +34,8 @@ function R_Item() {
   const small3 = window.location.origin + "/resources/imgs/shop/3.jpg";
   const eng = window.location.origin + "/resources/imgs/authen/eng.png";
   const tha = window.location.origin + "/resources/imgs/authen/tha.png";
-  
+
+  let { Student_ID } = useParams();
   let { Item_ID } = useParams();
   let history = useHistory();
 
@@ -394,7 +390,7 @@ span_4.onclick = function() {
     }
     ::-webkit-input-placeholder {
     color: black;
-    text-align: justify;
+    text-align: left;
 }
 :-moz-placeholder {
     /* Firefox 18- */
@@ -452,58 +448,17 @@ span_4.onclick = function() {
               <span className="cd-marker item-1" />
               <ul>
                 <li className="selected">
-                  <a href="#0">
+                  <a>
                     <div className="image-icon">
-                      <img src={but1} width={40} height={35} />
+                      <img src={but1} width={42} height={42} />
                     </div>
-                    <h6>Home</h6>
-                  </a>
-                </li>
-                <li>
-                  <a href="#0">
-                    <div className="image-icon">
-                      <img src={but2} width={43} height={35} />
-                    </div>
-                    <h6>Request</h6>
-                  </a>
-                </li>
-                <li>
-                  <a href="#0">
-                    <div className="image-icon">
-                      <img src={but3} width={40} height={35} />
-                    </div>
-                    <h6>Wishlist</h6>
-                  </a>
-                </li>
-                <li>
-                  <a href="#0">
-                    <div className="image-icon">
-                      <img src={but4} width={40} height={38} />
-                    </div>
-                    <h6>Account</h6>
-                  </a>
-                </li>
-                <li>
-                  <a href="#0">
-                    <div className="image-icon">
-                      <img src={but5} width={38} height={33} />
-                    </div>
-                    <h6>Contact</h6>
-                  </a>
-                </li>
-                <li>
-                  <a href="#0">
-                    <div className="image-icon">
-                      <img src={but6} width={39} height={35} />
-                    </div>
-                    <h6>Logout</h6>
+                    <h6>Detail</h6>
                   </a>
                 </li>
               </ul>
             </nav>
           </div>
           <ul className="cd-hero-slider">
-            {/*-/Home page-*/}
             {Item_Detail.map((val, key) => {
               return (
             <li className="selected">
@@ -571,7 +526,7 @@ span_4.onclick = function() {
                                   <td className="cart_delete">
                                     <a
                                       className="cart_quantity_delete"
-                                      onClick={() => {history.push("/r_main"); window.location.reload();}}
+                                      onClick={() => {history.push(`/r_main/${Student_ID}`); window.location.reload();}}
                                     >
                                       <i className="fa fa-times" />
                                     </a>
@@ -634,7 +589,7 @@ span_4.onclick = function() {
                               className="cart-total-price text-center"
                               style={{ fontSize: "18px", color: "#F39C12" }}
                             >
-                              Weekly request chance:
+                              Weekly request chance:&nbsp;
                             </span>
                             <span
                               className="cart-total-price text-center"
@@ -672,27 +627,6 @@ span_4.onclick = function() {
             </li>
               );
             })}
-            {/*-/Home page-*/}
-            <li>
-              <div className="heading"></div>
-            </li>
-            <li>
-              <div className="heading"></div>
-            </li>
-            <li>
-              <div className="heading"></div>
-            </li>
-            <li>
-              <div className="heading"></div>
-            </li>
-            <li>
-              <div className="heading">
-                <h1>Logout</h1>
-                <a className="button" onClick={() => {history.push("/"); window.location.reload();}}>
-                  EXIT
-                </a>
-              </div>
-            </li>
           </ul>
         </section>
         <footer>

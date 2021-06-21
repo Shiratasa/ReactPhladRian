@@ -21,6 +21,7 @@ import D_Rewa from "./pages/2.3)Donor_RewardDetail.js";
 import R_Main from "./pages/3)Receiver_Main.js";
 import R_Item from "./pages/3.1)Receiver_ItemDetail.js";
 import S_Main from "./pages/4)Sponsor_Main.js";
+import S_Add from "./pages/4.0)Sponsor_RewardAdd.js";
 import S_Rewa from "./pages/4.1)Sponsor_RewardDetail.js";
 import S_QR from "./pages/4.2)Sponsor_QR.js";
 
@@ -39,15 +40,16 @@ function App() {
           <Switch>
             <Route path="/" exact component={Authen} />
             <Route path="/d_main/:Donor_ID" exact component={D_Main} />
-            <Route path="/d_add" exact component={D_Add} />
-            <Route path="/d_item" exact component={D_Item} />
-            <Route path="/d_deli" exact component={D_Deli} />
-            <Route path="/d_rewa" exact component={D_Rewa} />
+            <Route path="/d_main/:Donor_ID/d_add" exact component={D_Add} />
+            <Route path="/d_main/:Donor_ID/d_item/:Item_ID" exact component={D_Item} />
+            <Route path="/d_main/:Donor_ID/d_deli" exact component={D_Deli} />
+            <Route path="/d_main/:Donor_ID/d_rewa/:Reward_ID" exact component={D_Rewa} />
             <Route path="/r_main/:Student_ID" exact component={R_Main} />
-            <Route path="/r_item/:Item_ID" exact component={R_Item} />
+            <Route path="/r_main/:Student_ID/r_item/:Item_ID" exact component={R_Item} />
             <Route path="/s_main/:Sponsor_ID" exact component={S_Main} />
-            <Route path="/s_rewa" exact component={S_Rewa} />
-            <Route path="/s_qr" exact component={S_QR} />
+            <Route path="/s_main/:Sponsor_ID/s_add" exact component={S_Add} />
+            <Route path="/s_main/:Sponsor_ID/s_rewa/:Reward_ID" exact component={S_Rewa} />
+            <Route path="/s_main/:Sponsor_ID/s_qr" exact component={S_QR} />
           </Switch>
         </Router>
       </div>

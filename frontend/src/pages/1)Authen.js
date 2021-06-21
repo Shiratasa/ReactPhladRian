@@ -60,6 +60,7 @@ function Authen() {
   const [D_localReg, setD_localReg] = useState("");
   const [D_passReg, setD_passReg] = useState("");
   const [School_List, setSchool_List] = useState([]);
+  const [Grade_List, setGrade_List] = useState([]);
   const [UserR_List, setUserR_List, UserR_Ref] = useStateRef([]);
   const [UserD_List, setUserD_List, UserD_Ref] = useStateRef([]);
   const [UserS_List, setUserS_List, UserS_Ref] = useStateRef([]);
@@ -400,6 +401,15 @@ function Authen() {
     });
   };
 
+    {
+    /* Grade Get */
+  }
+  const GradeBox = async () => {
+    Axios.get("http://localhost:5000/Grade").then((response) => {
+      setGrade_List(response.data);
+    });
+  };
+
   {
     /* EmailR Post */
   }
@@ -612,6 +622,7 @@ function Authen() {
   }
   window.onload = function () {
     SchoolBox();
+    GradeBox();
     ReceiverList();
     DonorList();
     SponsorList();
@@ -923,18 +934,11 @@ function Authen() {
                   <option value="" disabled selected="selected">
                     -- Select Grade --
                   </option>
-                  <option value="P1">Prathom 1</option>
-                  <option value="P2">Prathom 2</option>
-                  <option value="P3">Prathom 3</option>
-                  <option value="P4">Prathom 4</option>
-                  <option value="P5">Prathom 5</option>
-                  <option value="P6">Prathom 6</option>
-                  <option value="M1">Matthayom 1</option>
-                  <option value="M2">Matthayom 2</option>
-                  <option value="M3">Matthayom 3</option>
-                  <option value="M4">Matthayom 4</option>
-                  <option value="M5">Matthayom 5</option>
-                  <option value="M6">Matthayom 6</option>
+                  {Grade_List.map((val, key) => (
+                    <option key={val.Grade} value={val.Grade}>
+                      {val.Level}
+                    </option>
+                  ))}
                 </select>
                 <input
                   type="file"
