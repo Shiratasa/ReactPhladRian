@@ -136,6 +136,25 @@ app.get("/Item", function (req, resp) {
 });
 
 {
+  /* Item List Get */
+}
+app.get("/Wish/:Student_ID", function (req, resp) {
+  connection.query(
+    `SELECT * FROM WebWishlist
+     JOIN ItemDonate ON WebWishlist.Item_ID = ItemDonate.Item_ID 
+     WHERE WebWishlist.Student_ID=${req.params.Student_ID} AND WebWishlist.State=1`, function (error, result) {
+    if (error) {
+      console.error("Query failed:\n" + error.stack);
+      connection.end();
+      throw error;
+    } else {
+      resp.send(result);
+      console.log(result);
+    }
+  });
+});
+
+{
   /* DonorItem List Get */
 }
 app.get("/DonorItem/:Donor_ID", function (req, resp) {
@@ -316,7 +335,7 @@ app.post("/R_regis", upload.any(), function (req, resp) {
 });
 
 {
-  /* Receiver Registration Post */
+  /* Receiver Update Post */
 }
 app.post("/R_update/:Student_ID", upload.any(), function (req, resp) {
   var Username = req.body.Username;
@@ -324,16 +343,85 @@ app.post("/R_update/:Student_ID", upload.any(), function (req, resp) {
   var Address = req.body.Address;
   var Student_Card = req.body.Student_Card;
   var School_ID = req.body.School_ID;
-  var Grade = req.body.Grade;
+  var Card_Image = req.body.Card_Image;
   connection.query(
-    `UPDATE UserStudent SET Username = '${Username}', Phone = '${Phone}', Address = '${Address}',
-     Student_Card = '${Student_Card}', School_ID = '${School_ID}', Grade = '${Grade}' 
+    `UPDATE UserStudent SET
+     Username = CASE
+     WHEN '${Username}' != '' THEN '${Username}'
+     ELSE Username
+     END,
+     Phone = CASE
+     WHEN '${Phone}' != '' THEN '${Phone}'
+     ELSE Phone
+     END,
+     Address = CASE
+     WHEN '${Address}' != '' THEN '${Address}'
+     ELSE Address
+     END,
+     Student_Card = CASE
+     WHEN '${Student_Card}' != '' THEN '${Student_Card}'
+     ELSE Student_Card
+     END,
+     School_ID = CASE
+     WHEN '${School_ID}' != '' THEN '${School_ID}'
+     ELSE School_ID 
+     END,
+     Card_Image = CASE
+     WHEN '${Card_Image}' != '' THEN '${Card_Image}'
+     ELSE Card_Image
+     END
      WHERE Student_ID = ${req.params.Student_ID}`,
     function (error, result) {
       if (error) {
         console.error("Insert failed:\n" + error.stack);
         connection.end();
         throw error;
+      }
+    }
+  );
+});
+
+{
+  /* PassR Update Post */
+}
+app.post("/P_updateR/:Student_ID", upload.any(), function (req, resp) {
+  var Password = req.body.Password;
+  connection.query(
+    `UPDATE UserStudent SET
+     Password = CASE
+     WHEN '${Password}' != '' THEN '${Password}'
+     ELSE Password
+     END
+     WHERE Student_ID = ${req.params.Student_ID}`,
+    function (error, result) {
+      if (error) {
+        console.error("Insert failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      }
+    }
+  );
+});
+
+{
+  /* PassR Check Get */
+}
+app.post("/P_checkR/:Student_ID", function (req, resp) {
+  var Password = req.body.Password;
+  connection.query(
+    `SELECT * FROM UserStudent WHERE Student_ID = ${req.params.Student_ID} AND Password='${Password}' AND State=1`,
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      }
+      if (result.length > 0) {
+        resp.send(result);
+        console.log(result);
+      } else {
+        resp.send({ message: "Fake password..." });
+        console.log("Fake password...");
       }
     }
   );

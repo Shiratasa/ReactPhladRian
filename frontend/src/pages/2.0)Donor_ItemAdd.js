@@ -2,7 +2,7 @@
 import React, { useEffect, useState, Component } from "react";
 import ReactDOM from "react-dom";
 import { Helmet } from "react-helmet";
-import InnerHTML from 'dangerously-set-html-content'
+import InnerHTML from "dangerously-set-html-content";
 import Axios from "axios";
 import $ from "jquery";
 import JSAlert from "js-alert";
@@ -41,6 +41,7 @@ function D_Add() {
   var p2 = adder;
   var p3 = adder;
   var p4 = adder;
+  var invali = "1";
   const [file_Array1, setFile_Array1] = useState("");
   const [file_Array2, setFile_Array2] = useState("");
   const [file_Array3, setFile_Array3] = useState("");
@@ -71,10 +72,12 @@ function D_Add() {
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
-    JSAlert.alert("", "Submit Success!", JSAlert.Icons.Success);
-    await timeout(1000).then($(this).unbind("submit").submit());
-    history.push(`/d_main/${Donor_ID}`);
-    location.reload();
+    if (invali = "0") {
+      JSAlert.alert("", "Submit Success!", JSAlert.Icons.Success);
+      await timeout(1000).then($(this).unbind("submit").submit());
+      history.push(`/d_main/${Donor_ID}`);
+      location.reload();
+    }
   };
 
   {
@@ -380,11 +383,13 @@ function D_Add() {
     /* Item Post */
   }
   const I_donate = async () => {
+    invali = "1";
     checkString();
     checkFile1();
     checkFile2();
     checkFile3();
     checkFile4();
+    invali = "0";
     Axios.post("http://localhost:5000/I_donate", {
       Donor_ID: I_Param,
       Obj: I_Obj,
@@ -488,7 +493,7 @@ span_4.onclick = function() {
 }
     </script>
  
-  `
+  `;
 
   {
     /* Load Function */
@@ -761,22 +766,22 @@ span_4.onclick = function() {
   }
 }
     `}</style>
-          <div id="myModal1" class="modal">
-      <span class="close one">&times;</span>
-      <img class="modal-content" id="img01" />
-    </div>
-              <div id="myModal2" class="modal">
-      <span class="close two">&times;</span>
-      <img class="modal-content" id="img02" />
-    </div>
-              <div id="myModal3" class="modal">
-      <span class="close three">&times;</span>
-      <img class="modal-content" id="img03" />
-    </div>
-              <div id="myModal4" class="modal">
-      <span class="close four">&times;</span>
-      <img class="modal-content" id="img04" />
-    </div>
+        <div id="myModal1" class="modal">
+          <span class="close one">&times;</span>
+          <img class="modal-content" id="img01" />
+        </div>
+        <div id="myModal2" class="modal">
+          <span class="close two">&times;</span>
+          <img class="modal-content" id="img02" />
+        </div>
+        <div id="myModal3" class="modal">
+          <span class="close three">&times;</span>
+          <img class="modal-content" id="img03" />
+        </div>
+        <div id="myModal4" class="modal">
+          <span class="close four">&times;</span>
+          <img class="modal-content" id="img04" />
+        </div>
         <div className="overlay" />
         <section className="top-part">
           <img src={wall} />
@@ -802,7 +807,7 @@ span_4.onclick = function() {
               <span className="cd-marker item-1" />
               <ul>
                 <li className="selected">
-                                    <a>
+                  <a>
                     <div className="image-icon">
                       <img src={but1} width={42} height={42} />
                     </div>
@@ -825,7 +830,7 @@ span_4.onclick = function() {
                             <div id="gallery" className="col-sm-3">
                               <div id="slideshow">
                                 <div class="mySlides">
-                                <div class="numbertext">1 / 4</div>
+                                  <div class="numbertext">1 / 4</div>
                                   <img
                                     id="preImg1"
                                     src={adder}
@@ -833,7 +838,7 @@ span_4.onclick = function() {
                                   />
                                 </div>
                                 <div class="mySlides">
-                                <div class="numbertext">2 / 4</div>
+                                  <div class="numbertext">2 / 4</div>
                                   <img
                                     id="preImg2"
                                     src={adder}
@@ -841,7 +846,7 @@ span_4.onclick = function() {
                                   />
                                 </div>
                                 <div class="mySlides">
-                                <div class="numbertext">3 / 4</div>
+                                  <div class="numbertext">3 / 4</div>
                                   <img
                                     id="preImg3"
                                     src={adder}
@@ -849,7 +854,7 @@ span_4.onclick = function() {
                                   />
                                 </div>
                                 <div class="mySlides">
-                                <div class="numbertext">4 / 4</div>
+                                  <div class="numbertext">4 / 4</div>
                                   <img
                                     id="preImg4"
                                     src={adder}
@@ -919,7 +924,10 @@ span_4.onclick = function() {
                                     <td className="cart_delete">
                                       <a
                                         className="cart_quantity_delete"
-                                        onClick={() => {history.push(`/d_main/${Donor_ID}`); window.location.reload();}}
+                                        onClick={() => {
+                                          history.push(`/d_main/${Donor_ID}`);
+                                          window.location.reload();
+                                        }}
                                       >
                                         <i className="fa fa-times" />
                                       </a>

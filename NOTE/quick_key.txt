@@ -1,3 +1,4 @@
 VS Format => Shift + Alt + F
+VS Code Form => rafc + Enter
 Chrome Console => Shift + Ctrl + J
 Chrome Code => Ctrl + U

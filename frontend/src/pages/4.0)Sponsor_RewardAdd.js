@@ -37,6 +37,7 @@ function S_Rewa() {
   }
   var regEx1 = /^[^\s]+(\s+[^\s]+)*$/;
   var regEx2 = /(^(?!\s))+([0-9]{1,256})+($)/;
+  var invali = "1";
   const [Categ_List, setCateg_List] = useState([]);
   const [I_Obj, setI_Obj] = useState("");
   const [I_Pic1, setI_Pic1] = useState("");
@@ -58,10 +59,12 @@ function S_Rewa() {
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
-    JSAlert.alert("", "Submit Success!", JSAlert.Icons.Success);
-    await timeout(1000).then($(this).unbind("submit").submit());
-    history.push("/d_main");
-    location.reload();
+    if (invali == "0") {
+      JSAlert.alert("", "Submit Success!", JSAlert.Icons.Success);
+      await timeout(1000).then($(this).unbind("submit").submit());
+      history.push("/d_main");
+      location.reload();
+    }
   };
 
   {
@@ -253,11 +256,13 @@ function S_Rewa() {
     /* Item Post */
   }
   const I_reward = async () => {
+    invali = "1";
     checkString();
     checkFile1();
     checkFile2();
     checkFile3();
     checkFile4();
+    invali = "0";
     Axios.post("http://localhost:5000/I_reward", {
       Obj: I_Obj,
       Pic1: I_Pic1,
@@ -452,7 +457,7 @@ function S_Rewa() {
               <span className="cd-marker item-1" />
               <ul>
                 <li className="selected">
-                                    <a>
+                  <a>
                     <div className="image-icon">
                       <img src={but1} width={42} height={42} />
                     </div>
@@ -530,7 +535,10 @@ function S_Rewa() {
                                     <td className="cart_delete">
                                       <a
                                         className="cart_quantity_delete"
-                                        onClick={() => {history.push("/s_main"); window.location.reload();}}
+                                        onClick={() => {
+                                          history.push("/s_main");
+                                          window.location.reload();
+                                        }}
                                       >
                                         <i className="fa fa-times" />
                                       </a>

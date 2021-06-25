@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import { Helmet } from "react-helmet";
 import InnerHTML from "dangerously-set-html-content";
 import Axios from "axios";
+import Pagination from "./Pagination.js";
 import $ from "jquery";
 import JSAlert from "js-alert";
 window.$ = $;
@@ -48,10 +49,15 @@ function R_Main() {
   {
     /* Values */
   }
-    var regEx1 = /(^(?!\s))+([A-Z]{1}[a-z]{1,256})+(\s[A-Z]{1}[a-z]{1,256})+($)/;
+  var regEx1 = /(^(?!\s))+([A-Z]{1}[a-z]{1,256})+(\s[A-Z]{1}[a-z]{1,256})+($)/;
+  var regEx2 =
+    /(^(?!\s))+([a-z0-9.]{1,256})+([@]{1}[a-z0-9]{1,256})+([.]{1}[a-z.]{1,256})+($)/;
+  var regEx3 = /^\S*$/;
   var regEx4 = /(^(?!\s))+([0]{1}[6,8,9]{1}[0-9]{1,256})+($)/;
   var regEx5 = /(^(?!\s))+([A-Z0-9]{1,256})+($)/;
   var regEx6 = /^[^\s]+(\s+[^\s]+)*$/;
+  var invaliA = "1";
+  var invaliP = "1";
   const [R_nameReg, setR_nameReg] = useState("");
   const [R_emailReg, setR_emailReg] = useState("");
   const [R_phoneReg, setR_phoneReg] = useState("");
@@ -61,17 +67,31 @@ function R_Main() {
   const [R_cardReg, setR_cardReg] = useState("");
   const [R_imageReg, setR_imageReg] = useState("");
   const [R_passReg, setR_passReg] = useState("");
+  const [Current_Page, setCurrent_Page] = useState(1);
+  const [Page_AllPost, setPage_AllPost] = useState(5);
+  const LastQuery = Current_Page * Page_AllPost;
+  const FirstQuery = LastQuery - Page_AllPost;
+	{/*Item Num-tab*/}
   const [Item_List, setItem_List] = useState([]);
+  const ItemSlice = Item_List.slice(FirstQuery, LastQuery);
+  const ItemCount = Math.ceil(Item_List.length / Page_AllPost);
+	{/*Wish Num-tab*/}
+	const [Wish_List, setWish_List] = useState([]);
+  const WishSlice = Wish_List.slice(FirstQuery, LastQuery);
+  const WishCount = Math.ceil(Wish_List.length / Page_AllPost);
+	{/*----------*/}
+  const paginate = (pageNum) => setCurrent_Page(pageNum);
   const [School_List, setSchool_List] = useState([]);
   const [Grade_List, setGrade_List] = useState([]);
   const [Categ_List, setCateg_List] = useState([]);
   const [User_Account, setUser_Account] = useState([]);
+  const [Pass_Code, setPass_Code] = useState([]);
   const [file_Array1, setFile_Array1] = useState("");
   const [I_Pic1, setI_Pic1] = useState("");
   let { Student_ID } = useParams();
   let history = useHistory();
 
-    {
+  {
     /* Delay */
   }
   function timeout(delay: number) {
@@ -79,12 +99,19 @@ function R_Main() {
   }
   const handleSubmit1 = async (e) => {
     e.preventDefault();
-    JSAlert.alert("", "Submit Success!", JSAlert.Icons.Success);
-    await timeout(1000).then($(this).unbind("submit").submit());
-    window.location.reload();
+    if (invaliA == "0" && invaliP == "1") {
+      JSAlert.alert("", "Submit Success!", JSAlert.Icons.Success);
+      await timeout(1000).then($(this).unbind("submit").submit());
+      window.location.reload();
+    }
+    if (invaliA == "1" && invaliP == "0") {
+      JSAlert.alert("", "Submit Success!", JSAlert.Icons.Success);
+      await timeout(1000).then($(this).unbind("submit").submit());
+      window.location.reload();
+    }
   };
 
-    {
+  {
     /* Convert File */
   }
   const fileToBinary1 = async (file) => {
@@ -98,7 +125,7 @@ function R_Main() {
     });
   };
 
-    const fileConvert1 = async (file) => {
+  const fileConvert1 = async (file) => {
     if (!file) {
       setI_Pic1("");
       return;
@@ -107,6 +134,13 @@ function R_Main() {
     fileToBinary1(file).then((I_Pic1) => {
       setI_Pic1(I_Pic1);
     });
+  };
+
+  {
+    /* Change Item-page */
+  }
+  const ItemPage = async ({ selected }) => {
+    setCurrent_Page(selected);
   };
 
   {
@@ -119,6 +153,15 @@ function R_Main() {
   };
 
   {
+    /* Wish Get */
+  }
+  const WishBlock = async () => {
+    Axios.get(`http://localhost:5000/Wish/${Student_ID}`).then((response) => {
+      setWish_List(response.data);
+    });
+  };
+
+  {
     /* School Get */
   }
   const SchoolBox = async () => {
@@ -127,7 +170,7 @@ function R_Main() {
     });
   };
 
-      {
+  {
     /* Grade Get */
   }
   const GradeBox = async () => {
@@ -172,7 +215,8 @@ function R_Main() {
     if (
       fileExtension.toLowerCase() != "png" &&
       fileExtension.toLowerCase() != "jpeg" &&
-      fileExtension.toLowerCase() != "jpg"
+      fileExtension.toLowerCase() != "jpg" &&
+      fileExtension.toLowerCase() != ""
     ) {
       JSAlert.alert(
         "",
@@ -184,7 +228,7 @@ function R_Main() {
     }
   }
 
-   {
+  {
     /* String Check */
   }
   function checkStringR() {
@@ -193,7 +237,6 @@ function R_Main() {
     var localR = document.getElementById("AddressR");
     var cardR = document.getElementById("CardR");
     var schoolR = document.getElementById("SchoolR");
-    var gradeR = document.getElementById("GradeR");
     var gate = document.getElementById("ConEdit");
     if (
       userR.value == "" ||
@@ -252,15 +295,6 @@ function R_Main() {
       gate.value = "";
       throw "exit";
     }
-    if (gradeR.value == "") {
-      JSAlert.alert(
-        "",
-        "Please select your education level...",
-        JSAlert.Icons.Warning
-      );
-      gate.value = "";
-      throw "exit";
-    }
     if (gate.value != "EditProfile") {
       JSAlert.alert(
         "",
@@ -268,25 +302,114 @@ function R_Main() {
         JSAlert.Icons.Warning
       );
       gate.value = "";
+      invaliA = "1";
+      throw "exit";
+    }
+  }
+  function checkStringP() {
+    var pass1R = document.getElementById("PasswordR");
+    var pass2R = document.getElementById("C_passwordR");
+    var gate = document.getElementById("ConEdit");
+    if (
+      pass1R.value == "" ||
+      pass1R.value.length < 8 ||
+      regEx3.test(pass1R.value) == false
+    ) {
+      JSAlert.alert(
+        "(Ex): Pass1234",
+        "Please enter password with at least 8 characters and without space...",
+        JSAlert.Icons.Warning
+      );
+      pass2R.value = "";
+      gate.value = "";
+      throw "exit";
+    }
+    if (pass2R.value == "") {
+      JSAlert.alert(
+        "",
+        "Please enter confirm password correctly...",
+        JSAlert.Icons.Warning
+      );
+      pass2R.value = "";
+      gate.value = "";
+      throw "exit";
+    }
+    if (pass1R.value != pass2R.value) {
+      JSAlert.alert(
+        "",
+        "Passwords did not match, please try again...",
+        JSAlert.Icons.Warning
+      );
+      pass2R.value = "";
+      gate.value = "";
+      throw "exit";
+    }
+    if (gate.value != "ChangePass") {
+      JSAlert.alert(
+        "",
+        "Please type ChangePass to confirm the process...",
+        JSAlert.Icons.Warning
+      );
+      gate.value = "";
       throw "exit";
     }
   }
 
-    {
+  {
     /* Receiver Post */
   }
   const R_update = async (e) => {
     checkStringR();
-      Axios.post(`http://localhost:5000/R_update/${Student_ID}`, {
-        Username: R_nameReg,
-        Phone: R_phoneReg,
-        Address: R_localReg,
-        Student_Card: R_cardReg,
-        School_ID: R_schoolReg,
-        Grade: R_gradeReg,
+    checkFile();
+    invaliA = "0";
+    Axios.post(`http://localhost:5000/R_update/${Student_ID}`, {
+      Username: R_nameReg,
+      Phone: R_phoneReg,
+      Address: R_localReg,
+      Student_Card: R_cardReg,
+      School_ID: R_schoolReg,
+      Card_Image: file_Array1,
+    }).then((response) => {
+      console.log(response);
+    });
+  };
+
+  {
+    /* Password Post */
+  }
+  const P_updateR = async (e) => {
+    checkStringP();
+    if (invaliP == "0") {
+      Axios.post(`http://localhost:5000/P_updateR/${Student_ID}`, {
+        Password: R_passReg,
       }).then((response) => {
         console.log(response);
       });
+    }
+  };
+
+  {
+    /* Check Get */
+  }
+  const P_checkR = async () => {
+    var pass1R = document.getElementById("PasswordR");
+    var pass2R = document.getElementById("C_passwordR");
+    var gate = document.getElementById("ConEdit");
+    Axios.post(`http://localhost:5000/P_checkR/${Student_ID}`, {
+      Password: Pass_Code,
+    }).then((response) => {
+      if (response.data.message) {
+        JSAlert.alert("", "Invalid old password...", JSAlert.Icons.Failed);
+        pass1R.value = "";
+        pass2R.value = "";
+        gate.value = "";
+        invaliP = "1";
+        throw "exit";
+      } else {
+        invaliP = "0";
+        P_updateR();
+      }
+    });
   };
 
   {
@@ -294,13 +417,14 @@ function R_Main() {
   }
   window.onload = function () {
     ItemBlock();
+    WishBlock();
     SchoolBox();
     GradeBox();
     CategBox();
     ProfileInfo();
   };
 
-        {
+  {
     /* Album Function */
   }
   const Album = `
@@ -514,8 +638,23 @@ span_1.onclick = function() {
         width: 100%;
       }
     }
+    .wishbox
+    {
+      margin-left: 74px;
+      textAlign: left;
+      overflow: hidden;
+      text-overflow: ellipsis; 
+      width: 800px;
+      height: 104px;  
+      background: white;
+    }
+    .w_margin
+    {
+    	margin-left: -16px;
+    	margin-top: 71px;
+    }
     `}</style>
-            <div id="myModal1" class="modal">
+        <div id="myModal1" class="modal">
           <span class="close one">&times;</span>
           <img class="modal-content" id="img01" />
         </div>
@@ -618,10 +757,9 @@ span_1.onclick = function() {
                                       <select className="fitBox inputField">
                                         <option
                                           value=""
-                                          disabled
                                           selected="selected"
                                         >
-                                          -- Select Category --
+                                          All Categories
                                         </option>
                                         {Categ_List.map((val, key) => (
                                           <option
@@ -645,10 +783,9 @@ span_1.onclick = function() {
                                       <select className="fitBox inputField">
                                         <option
                                           value=""
-                                          disabled
                                           selected="selected"
                                         >
-                                          -- Select School --
+                                          All Schools
                                         </option>
                                         {School_List.map((val, key) => (
                                           <option
@@ -677,7 +814,7 @@ span_1.onclick = function() {
                                           color: "black",
                                           fontSize: "15px",
                                         }}
-                                        required="required"
+                                        required
                                       />
                                       <button
                                         type="submit"
@@ -712,7 +849,7 @@ span_1.onclick = function() {
                                     </h2>
                                   </div>
                                   <div className="col-sm-12 picList">
-                                    {Item_List.map((val, key) => {
+                                    {ItemSlice.map((val, key) => {
                                       return (
                                         <div className="product-image-wrapper">
                                           <div className="single-products">
@@ -764,6 +901,19 @@ span_1.onclick = function() {
                                     })}
                                   </div>
                                 </div>
+                                <div className="col-sm-11">
+                                  <br />
+                                  <Pagination
+                                    Page_AllPost={Page_AllPost}
+                                    TotalPost={Item_List.length}
+                                    Current_Page={Current_Page}
+                                    paginate={paginate}
+                                    PostCount={ItemCount}
+                                  />
+                                </div>
+                                <br />
+                                <br />
+                                <br />
                               </div>
                             </div>
                           </div>
@@ -996,8 +1146,8 @@ span_1.onclick = function() {
                                       <a href>«</a>
                                     </li>
                                   </div>
-                                  <div className="col-sm-1">
-                                    <li className="active">
+                                  <div className="col-sm-1 active">
+                                    <li>
                                       <a href>1</a>
                                     </li>
                                   </div>
@@ -1085,205 +1235,94 @@ span_1.onclick = function() {
                                         className="image"
                                         style={{ textAlign: "left" }}
                                       >
-                                        Wishlist Items (2/100)
+                                        Wishlist Items
                                       </td>
                                       <td className="description" />
                                       <td />
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    <tr>
-                                      <td
-                                        className="cart_product"
-                                        style={{ float: "left" }}
-                                      >
-                                        <a href>
-                                          <img
-                                            src={pro1}
-                                            alt=""
-                                            width={127}
-                                            height={158}
-                                          />
-                                        </a>
-                                      </td>
-                                      <td
-                                        className="cart_description"
-                                        style={{ float: "left" }}
-                                      >
-                                        <br />
-                                        <h2
-                                          className="cart_total_price"
-                                          style={{
-                                            textAlign: "left",
-                                            fontSize: "18px",
-                                          }}
-                                        >
-                                                Thai Literature Book 1
-                                        </h2>
-                                        <p style={{ textAlign: "justify" }}>
-                                                   Thai book with a summary of
-                                          the content example of doing the
-                                          problem Both a basic form and a
-                                          shortcut way with
-                                          <br />
-                                                   exercises and solutions by
-                                          explaining in simple language,
-                                          according to the latest curriculum by
-                                          explaining to be
-                                          <br />
-                                                   easy to understand, not
-                                          boring, to create a good attitude...
-                                        </p>
-                                        <a
-                                          className="btn btn-default add-to-cart"
-                                          style={{ float: "left" }}
-                                        >
-                                          <i className="fa fa-eye" />
-                                          View
-                                        </a>
-                                      </td>
-                                      <td
-                                        className="cart_delete"
-                                        style={{ float: "right" }}
-                                      >
-                                        <a
-                                          className="cart_quantity_delete"
-                                          href
-                                        >
-                                          <i className="fa fa-times" />
-                                        </a>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td
-                                        className="cart_product"
-                                        style={{ float: "left" }}
-                                      >
-                                        <a href>
-                                          <img
-                                            src={pro2}
-                                            alt=""
-                                            width={127}
-                                            height={158}
-                                          />
-                                        </a>
-                                      </td>
-                                      <td
-                                        className="cart_description"
-                                        style={{ float: "left" }}
-                                      >
-                                        <br />
-                                        <h2
-                                          className="cart_total_price"
-                                          style={{
-                                            textAlign: "left",
-                                            fontSize: "18px",
-                                          }}
-                                        >
-                                                Mathematic Book 2
-                                        </h2>
-                                        <p style={{ textAlign: "justify" }}>
-                                                   Math book with a summary of
-                                          the content example of doing the
-                                          problem Both a basic form and a
-                                          shortcut way with
-                                          <br />
-                                                   exercises and solutions by
-                                          explaining in simple language,
-                                          according to the latest curriculum by
-                                          explaining to be
-                                          <br />
-                                                   easy to understand, not
-                                          boring, to create a good attitude...
-                                        </p>
-                                        <a
-                                          className="btn btn-default add-to-cart"
-                                          style={{ float: "left" }}
-                                        >
-                                          <i className="fa fa-eye" />
-                                          View
-                                        </a>
-                                      </td>
-                                      <td
-                                        className="cart_delete"
-                                        style={{ float: "right" }}
-                                      >
-                                        <a
-                                          className="cart_quantity_delete"
-                                          href
-                                        >
-                                          <i className="fa fa-times" />
-                                        </a>
-                                      </td>
-                                    </tr>
+                                    {WishSlice.map((val, key) => {
+                                      return (
+                                        <tr>
+                                          <td
+                                            className="cart_product"
+                                            style={{ float: "left" }}
+                                          >
+                                            <a href>
+                                              <img
+                                                src={val.Pic1}
+                                                alt=""
+                                                width={127}
+                                                height={158}
+                                              />
+                                            </a>
+                                          </td>
+                                          <td
+                                            className="cart_description"
+                                            style={{ float: "left" }}
+                                          >
+                                            <br />
+                                            <h2
+                                              className="cart_total_price"
+                                              style={{
+                                                textAlign: "left",
+                                                fontSize: "18px",
+                                              }}
+                                            >
+                                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                              &nbsp;&nbsp;&nbsp;&nbsp;
+                                              {val.Obj}
+                                            </h2>
+                                            <textarea
+                                              className="wishbox"
+                                              autocomplete="off"
+                                              disabled
+                                            >
+                                              {val.Detail}
+                                            </textarea>
+                                            <a
+                                              className="btn btn-default add-to-cart w_margin"
+                                              style={{ float: "left" }}
+                                              onClick={() => {
+                                                history.push(
+                                                  `/r_main/${Student_ID}/r_item/${val.Item_ID}`
+                                                );
+                                                window.location.reload();
+                                              }}
+                                            >
+                                              <i className="fa fa-eye" />
+                                              View
+                                            </a>
+                                          </td>
+                                          <td
+                                            className="cart_delete"
+                                            style={{ float: "right" }}
+                                          >
+                                            <a
+                                              className="cart_quantity_delete"
+                                              href
+                                            >
+                                              <i className="fa fa-times" />
+                                            </a>
+                                          </td>
+                                        </tr>
+                                      );
+                                    })}
                                   </tbody>
                                 </table>
                               </div>
-                              <div className="col-sm-11">
-                                <br />
-                                <ul className="pagination">
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>«</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li className="active">
-                                      <a href>1</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>2</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>3</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>4</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>5</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>6</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>7</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>8</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>9</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>10 </a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>»</a>
-                                    </li>
-                                  </div>
-                                </ul>
-                              </div>
+                                                             <div className="col-sm-11">
+                                  <br />
+                                  <Pagination
+                                    Page_AllPost={Page_AllPost}
+                                    TotalPost={Wish_List.length}
+                                    Current_Page={Current_Page}
+                                    paginate={paginate}
+                                    PostCount={WishCount}
+                                  />
+                                </div>
                               <br />
                               <br />
                               <br />
@@ -1297,17 +1336,17 @@ span_1.onclick = function() {
                 </div>
               </div>
             </li>
-            {User_Account.map((val, key) => {
-              return (
-                <li>
-                  <div className="heading"></div>
-                  <form id="contact" onSubmit={handleSubmit1}>
-                  <div className="cd-full-width fivth-slide">
-                    <div className="container">
-                      <div className="row">
-                        <div className="col-md-13">
-                          <div className="content fivth-content">
-                            <div className="row">
+            <li>
+              <div className="heading"></div>
+              <form id="contact" onSubmit={handleSubmit1}>
+                <div className="cd-full-width fivth-slide">
+                  {User_Account.map((val, key) => {
+                    return (
+                      <div className="container">
+                        <div className="row">
+                          <div className="col-md-13">
+                            <div className="content fivth-content">
+                              <div className="row">
                                 <br />
                                 <div className="col-md-4">
                                   <fieldset>
@@ -1351,47 +1390,49 @@ span_1.onclick = function() {
                                         </ul>
                                       </div>
                                     </div>
-                                                                        <img
+                                    <img
                                       style={{ width: "350px", height: "40px" }}
                                       src={blank}
                                       alt=""
                                     />
                                     <fieldset>
-                                    <span
-                                      className="cart-total-price text-center"
-                                      style={{
-                                        fontSize: "18px",
-                                        color: "#F39C12",
-                                      }}
-                                    >
-                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Weekly request chance:&nbsp;
-                                    </span>
-                                    <span
-                                      className="cart-total-price text-center"
-                                      style={{ fontSize: "16px" }}
-                                    >
-                                      ({val.Chance}/5)
-                                    </span>
+                                      <span
+                                        className="cart-total-price text-center"
+                                        style={{
+                                          fontSize: "18px",
+                                          color: "#F39C12",
+                                        }}
+                                      >
+                                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Weekly
+                                        request chance:&nbsp;
+                                      </span>
+                                      <span
+                                        className="cart-total-price text-center"
+                                        style={{ fontSize: "16px" }}
+                                      >
+                                        ({val.Chance}/5)
+                                      </span>
                                     </fieldset>
                                     <fieldset>
-                                    <br/>
+                                      <br />
                                     </fieldset>
                                     <fieldset>
-                                     <span
-                                      className="cart-total-price text-center"
-                                      style={{
-                                        fontSize: "18px",
-                                        color: "#F39C12",
-                                      }}
-                                    >
-                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total successful request:&nbsp;
-                                    </span>
-                                    <span
-                                      className="cart-total-price text-center"
-                                      style={{ fontSize: "16px" }}
-                                    >
-                                      7
-                                    </span>
+                                      <span
+                                        className="cart-total-price text-center"
+                                        style={{
+                                          fontSize: "18px",
+                                          color: "#F39C12",
+                                        }}
+                                      >
+                                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total
+                                        successful request:&nbsp;
+                                      </span>
+                                      <span
+                                        className="cart-total-price text-center"
+                                        style={{ fontSize: "16px" }}
+                                      >
+                                        7
+                                      </span>
                                     </fieldset>
                                   </fieldset>
                                 </div>
@@ -1404,16 +1445,6 @@ span_1.onclick = function() {
                                       height={250}
                                       className="midimg"
                                     />
-                                    <br />
-                                                                      <input
-                                type="file"
-                                id="img1"
-                                style={{background: "white", margin: "auto", border: "1px solid black"}}
-                                accept=".png, .jpg, .jpeg"
-                                onChange={(event) =>
-                                  fileConvert1(event.target.files[0] || null)
-                                }
-                              />
                                   </fieldset>
                                 </div>
                                 <InnerHTML html={Album} />
@@ -1427,33 +1458,38 @@ span_1.onclick = function() {
                                     <button
                                       className="btn swappor"
                                       type="submit"
-                  onClick={R_update}
+                                      onClick={R_update}
                                       style={{ float: "left" }}
                                     >
                                       <i className="fa fa-user" />
                                        Edit Profile
                                     </button>
                                     <p style={{ float: "left" }}>      </p>
-                                    <a
+                                    <button
                                       className="btn swappor"
+                                      type="submit"
+                                      onClick={P_checkR}
                                       style={{ float: "left" }}
                                     >
                                       <i className="fa fa-lock" />
                                        Change Pass
-                                    </a>
+                                    </button>
                                   </fieldset>
                                 </div>
                                 <div className="col-md-4">
-                                <fieldset>
-                                <br/><br/>
-                                </fieldset>
-                                <fieldset>
-                                    <label htmlFor="ConEdit">Type code word to confirm the process:</label>
+                                  <fieldset>
+                                    <br />
+                                    <br />
+                                  </fieldset>
+                                  <fieldset>
+                                    <label htmlFor="ConEdit">
+                                      Type code word to confirm the process:
+                                    </label>
                                     <input
                                       type="text"
                                       id="ConEdit"
                                       placeholder="EditProfile / ChangePass"
-                                      required="required"
+                                      required
                                       autocomplete="off"
                                       style={{
                                         width: "100%",
@@ -1465,7 +1501,11 @@ span_1.onclick = function() {
                                 </div>
                                 <div className="col-md-12">
                                   <fieldset>
+                                    <br />
                                     <hr className="soft" />
+                                    <h2 className="title text-center">
+                                      Edit Profile
+                                    </h2>
                                   </fieldset>
                                 </div>
                                 <div className="col-md-4">
@@ -1482,16 +1522,39 @@ span_1.onclick = function() {
                                         color: "black",
                                         fontSize: "15px",
                                       }}
-                                                        onInvalid={R_update.exit}
-                  required
-                  onChange={(x) => setR_nameReg(x.target.value)}
+                                      onInvalid={R_update.exit}
+                                      onChange={(x) =>
+                                        setR_nameReg(x.target.value)
+                                      }
                                     />
                                   </fieldset>
                                 </div>
-                                <div className="col-md-8">
+                                <div className="col-md-4">
+                                  <fieldset>
+                                    <label htmlFor="img1">Image:</label>
+                                    <input
+                                      type="file"
+                                      id="img1"
+                                      style={{
+                                        background: "white",
+                                        margin: "auto",
+                                        border: "1px solid black",
+                                        width: "360px",
+                                        height: "40px",
+                                      }}
+                                      accept=".png, .jpg, .jpeg"
+                                      onChange={(event) =>
+                                        fileConvert1(
+                                          event.target.files[0] || null
+                                        )
+                                      }
+                                    />
+                                  </fieldset>
+                                </div>
+                                <div className="col-md-4">
                                   <fieldset>
                                     <img
-                                      style={{ width: "500px", height: "85px" }}
+                                      style={{ width: "360px", height: "85px" }}
                                       src={blank}
                                       alt=""
                                     />
@@ -1500,58 +1563,54 @@ span_1.onclick = function() {
                                 <br />
                                 <div className="col-md-4">
                                   <fieldset>
-                                    <label htmlFor="GradeR">Grade:</label>
-                                    <select 
-                                    className="formBox inputField"
-                                    id="GradeR"
-                  onInvalid={R_update.exit}
-                  required
-                  onChange={(x) => setR_gradeReg(x.target.value)}>
-                                        <option
-                                          key={val.Grade}
-                                            value={val.Grade}
-                                          disabled
-                                          selected="selected"
-                                        >
-                                          {val.Level}
-                                        </option>
-                                        {Grade_List.map((val, key) => (
-                                          <option
-                                            key={val.Grade}
-                                            value={val.Grade}
-                                          >
-                                            {val.Level}
-                                          </option>
-                                        ))}
-                                      </select>
+                                    <label
+                                      htmlFor="Agrade"
+                                      style={{ color: "red" }}
+                                    >
+                                      Fixed Grade:
+                                    </label>
+                                    <input
+                                      type="text"
+                                      id="Agrade"
+                                      value={val.Level}
+                                      autocomplete="off"
+                                      style={{
+                                        width: "100%",
+                                        color: "black",
+                                        fontSize: "15px",
+                                      }}
+                                      disabled
+                                    />
                                   </fieldset>
                                 </div>
                                 <div className="col-md-4">
                                   <fieldset>
                                     <label htmlFor="SchoolR">School:</label>
-                                    <select 
-                                    className="formBox inputField"
-                                                      id="SchoolR"
-                  onInvalid={R_update.exit}
-                  required
-                  onChange={(x) => setR_schoolReg(x.target.value)}>
+                                    <select
+                                      className="formBox inputField"
+                                      id="SchoolR"
+                                      onInvalid={R_update.exit}
+                                      onChange={(x) =>
+                                        setR_schoolReg(x.target.value)
+                                      }
+                                    >
+                                      <option
+                                        key={val.School_ID}
+                                        value={val.School_ID}
+                                        disabled
+                                        selected="selected"
+                                      >
+                                        {val.Name}
+                                      </option>
+                                      {School_List.map((val, key) => (
                                         <option
-                                                                                      key={val.School_ID}
-                                            value={val.School_ID}
-                                            disabled
-                                          selected="selected"
+                                          key={val.School_ID}
+                                          value={val.School_ID}
                                         >
                                           {val.Name}
                                         </option>
-                                        {School_List.map((val, key) => (
-                                          <option
-                                            key={val.School_ID}
-                                            value={val.School_ID}
-                                          >
-                                            {val.Name}
-                                          </option>
-                                        ))}
-                                      </select>
+                                      ))}
+                                    </select>
                                   </fieldset>
                                 </div>
                                 <div className="col-md-4">
@@ -1568,16 +1627,22 @@ span_1.onclick = function() {
                                         color: "black",
                                         fontSize: "15px",
                                       }}
-                                                        onInvalid={R_update.exit}
-                  required
-                  onChange={(x) => setR_cardReg(x.target.value)}
+                                      onInvalid={R_update.exit}
+                                      onChange={(x) =>
+                                        setR_cardReg(x.target.value)
+                                      }
                                     />
                                   </fieldset>
                                 </div>
                                 <br />
                                 <div className="col-md-4">
                                   <fieldset>
-                                    <label htmlFor="Amail" style={{color: "red"}}>Fixed email:</label>
+                                    <label
+                                      htmlFor="Amail"
+                                      style={{ color: "red" }}
+                                    >
+                                      Fixed Email:
+                                    </label>
                                     <input
                                       type="text"
                                       id="Amail"
@@ -1606,9 +1671,10 @@ span_1.onclick = function() {
                                         color: "black",
                                         fontSize: "15px",
                                       }}
-                                                        onInvalid={R_update.exit}
-                  required
-                  onChange={(x) => setR_phoneReg(x.target.value)}
+                                      onInvalid={R_update.exit}
+                                      onChange={(x) =>
+                                        setR_phoneReg(x.target.value)
+                                      }
                                     />
                                   </fieldset>
                                 </div>
@@ -1626,22 +1692,104 @@ span_1.onclick = function() {
                                         color: "black",
                                         fontSize: "15px",
                                       }}
-                                                        onInvalid={R_update.exit}
-                  required
-                  onChange={(x) => setR_localReg(x.target.value)}
+                                      onInvalid={R_update.exit}
+                                      onChange={(x) =>
+                                        setR_localReg(x.target.value)
+                                      }
                                     />
                                   </fieldset>
                                 </div>
+                                <div className="col-md-12">
+                                  <fieldset>
+                                    <hr className="soft" />
+                                    <h2 className="title text-center">
+                                      Change Password
+                                    </h2>
+                                  </fieldset>
+                                </div>
+                                <div className="col-md-4">
+                                  <fieldset>
+                                    <label htmlFor="PasswordL">
+                                      Old Password:
+                                    </label>
+                                    <input
+                                      type="password"
+                                      id="PasswordL"
+                                      placeholder="Old Password"
+                                      autocomplete="off"
+                                      style={{
+                                        width: "100%",
+                                        color: "black",
+                                        fontSize: "15px",
+                                      }}
+                                      onInvalid={P_checkR.exit}
+                                      onChange={(y) =>
+                                        setPass_Code(y.target.value)
+                                      }
+                                    />
+                                  </fieldset>
+                                </div>
+                                <div className="col-md-8">
+                                  <fieldset>
+                                    <img
+                                      style={{ width: "720px", height: "85px" }}
+                                      src={blank}
+                                      alt=""
+                                    />
+                                  </fieldset>
+                                </div>
+                                <br />
+                                <div className="col-md-4">
+                                  <fieldset>
+                                    <label htmlFor="PasswordR">
+                                      New Password:
+                                    </label>
+                                    <input
+                                      type="password"
+                                      id="PasswordR"
+                                      placeholder="New Password"
+                                      autocomplete="off"
+                                      style={{
+                                        width: "100%",
+                                        color: "black",
+                                        fontSize: "15px",
+                                      }}
+                                      onInvalid={P_checkR.exit}
+                                      onChange={(y) =>
+                                        setR_passReg(y.target.value)
+                                      }
+                                    />
+                                  </fieldset>
+                                </div>
+                                <div className="col-md-4">
+                                  <fieldset>
+                                    <label htmlFor="C_passwordR">
+                                      Confirm New Password:
+                                    </label>
+                                    <input
+                                      type="password"
+                                      id="C_passwordR"
+                                      placeholder="Confirm New Password"
+                                      autocomplete="off"
+                                      style={{
+                                        width: "100%",
+                                        color: "black",
+                                        fontSize: "15px",
+                                      }}
+                                      onInvalid={P_checkR.exit}
+                                    />
+                                  </fieldset>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                  </form>
-                </li>
-              );
-            })}
+                    );
+                  })}
+                </div>
+              </form>
+            </li>
             <li>
               <div className="heading"></div>
               <div className="cd-full-width fivth-slide">
@@ -1672,17 +1820,17 @@ span_1.onclick = function() {
                               <br />
                               <ul>
                                 <i>
-                                  <a>
+                                  <a href="https://www.facebook.com/shiratasa.kusharane/" target="_blank">
                                     <i className="fa fa-facebook" />
                                   </a>
                                 </i>
                                 <i>
-                                  <a>
+                                  <a href="https://www.youtube.com/channel/UC6wZl8R7vM1gs-bTJWhBf1g" target="_blank">
                                     <i className="fa fa-youtube" />
                                   </a>
                                 </i>
                                 <i>
-                                  <a>
+                                  <a href="https://github.com/Shiratasa" target="_blank">
                                     <i className="fa fa-github" />
                                   </a>
                                 </i>
@@ -1698,7 +1846,7 @@ span_1.onclick = function() {
                                       type="text"
                                       id="name"
                                       placeholder="Topic"
-                                      required="required"
+                                      required
                                       autocomplete="off"
                                       style={{
                                         width: "100%",
@@ -1714,7 +1862,7 @@ span_1.onclick = function() {
                                       type="email"
                                       id="email"
                                       placeholder="Your Email"
-                                      required="required"
+                                      required
                                       autocomplete="off"
                                       style={{
                                         width: "100%",
@@ -1730,7 +1878,7 @@ span_1.onclick = function() {
                                       rows={6}
                                       id="message"
                                       placeholder="Message"
-                                      required="required"
+                                      required
                                       style={{
                                         width: "100%",
                                         color: "black",

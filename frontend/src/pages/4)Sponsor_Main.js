@@ -208,7 +208,7 @@ function S_Main() {
               <span className="cd-marker item-1" />
               <ul>
                 <li className="selected">
-                  <a href="#0">
+                  <a>
                     <div className="image-icon">
                       <img src={but1} width={40} height={35} />
                     </div>
@@ -216,7 +216,7 @@ function S_Main() {
                   </a>
                 </li>
                 <li>
-                  <a href="#0">
+                  <a>
                     <div className="image-icon">
                       <img src={but2} width={45} height={33} />
                     </div>
@@ -224,7 +224,7 @@ function S_Main() {
                   </a>
                 </li>
                 <li>
-                  <a href="#0">
+                  <a>
                     <div className="image-icon">
                       <img src={but4} width={40} height={38} />
                     </div>
@@ -232,7 +232,7 @@ function S_Main() {
                   </a>
                 </li>
                 <li>
-                  <a href="#0">
+                  <a>
                     <div className="image-icon">
                       <img src={but5} width={38} height={33} />
                     </div>
@@ -240,7 +240,12 @@ function S_Main() {
                   </a>
                 </li>
                 <li>
-                  <a href="#0">
+                                    <a
+                    onClick={() => {
+                      history.push("/");
+                      window.location.reload();
+                    }}
+                  >
                     <div className="image-icon">
                       <img src={but6} width={39} height={35} />
                     </div>
@@ -330,7 +335,10 @@ function S_Main() {
                                         <br />
                                         <a
                                           className="btn btn-default add-to-cart"
-                                          onClick={() => {history.push("/s_rewa"); window.location.reload();}}
+                                          onClick={() => {
+                                            history.push("/s_rewa");
+                                            window.location.reload();
+                                          }}
                                         >
                                           <i className="fa fa-eye" />
                                           View
@@ -512,7 +520,10 @@ function S_Main() {
                                         <br />
                                         <a
                                           className="btn btn-default add-to-cart"
-                                          onClick={() => {history.push("/s_qr"); window.location.reload();}}
+                                          onClick={() => {
+                                            history.push("/s_qr");
+                                            window.location.reload();
+                                          }}
                                         >
                                           <i className="fa fa-qrcode" />
                                           Info
@@ -1062,14 +1073,6 @@ Bangkok, 10240"
                     </div>
                   </div>
                 </div>
-              </div>
-            </li>
-            <li>
-              <div className="heading">
-                <h1>Logout</h1>
-                <a className="button" onClick={() => {history.push("/"); window.location.reload();}}>
-                  EXIT
-                </a>
               </div>
             </li>
           </ul>
