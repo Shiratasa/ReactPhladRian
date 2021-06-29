@@ -1,0 +1,212 @@
+.midimg {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.searchform input {
+  width: 169px;
+  height: 33px;
+}
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: lightgrey;
+}
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: lightgrey;
+}
+:-ms-input-placeholder {
+  /* IE 10+ */
+  color: lightgrey;
+}
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: lightgrey;
+}
+.swapper:hover {
+  color: #f39c12;
+  border: 1px solid #f39c12;
+}
+.aswap:hover {
+  color: white;
+  background: #f39c12;
+  border: 1px solid #f39c12;
+}
+.swappor {
+  color: white;
+  background: #f39c12;
+  border: 1px solid #f39c12;
+}
+.swappor:hover {
+  color: black;
+  background: #ebedef;
+  border: 1px solid black;
+}
+.pull-center:hover {
+  color: black;
+  font-weight: bold;
+}
+.demo {
+  display: inline-block;
+}
+.demo a {
+  color: red;
+  padding: 5px 12px;
+  text-decoration: none;
+  transition: background-color 2s;
+  border: 1px solid orange;
+  font-size: 15px;
+}
+.demo a.active {
+  background-color: orange;
+  color: white;
+}
+.demo a:hover {
+  background-color: orange;
+  color: white;
+}
+.reddit {
+  border: 2px solid red;
+}
+.reddot:hover {
+  border: 2px solid red;
+}
+#D_param {
+  color: transparent;
+  border: 0px transparent;
+}
+input#D_param:focus {
+  outline-width: 0;
+}
+#ItemN {
+  font-size: 16pt;
+  width: 500px;
+  text-align: center;
+}
+#ItemD {
+  font-size: 12pt;
+  height: 200px;
+  width: 700px;
+}
+.fitBox {
+  font-size: 10pt;
+  width: 300px;
+}
+.mySlides {
+  border: solid 1px black;
+}
+#slideshow {
+  position: relative;
+  width: 250px;
+  height: 340px;
+}
+#slideshow > div {
+  position: absolute;
+}
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 165px;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  user-select: none;
+  background-color: rgb(180, 180, 180);
+}
+.prev {
+  left: 16px;
+  border-radius: 0 3px 3px 0;
+}
+.next {
+  right: 14px;
+  border-radius: 3px 0 0 3px;
+}
+.prev:hover,
+.next:hover {
+  color: white;
+  background-color: rgb(255, 165, 0);
+}
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+.active,
+.dot:hover {
+  background-color: rgb(255, 165, 0);
+}
+.numbertext {
+  color: red;
+  font-size: 14px;
+  font-style: bold;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.9);
+}
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+}
+.modal-content,
+#caption {
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+@keyframes zoom {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+@media only screen and (max-width: 700px) {
+  .modal-content {
+    width: 100%;
+  }
+}
+.inputField {
+  background-color: #f2f4f4;
+  border: 1px solid #f2f4f4;
+}

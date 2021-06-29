@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { createRequire } from "module";
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from "url";
 
 {
   /* Values */
@@ -10,10 +10,10 @@ var mysql = require("mysql");
 var express = require("express");
 var fileUpload = require("express-fileupload");
 var bodyParser = require("body-parser");
-var methodOverride = require('method-override');
+var methodOverride = require("method-override");
 var cors = require("cors");
 var formidable = require("formidable");
-var Buffer = require('buffer/').Buffer;
+var Buffer = require("buffer/").Buffer;
 var fs = require("fs");
 var path = require("path");
 var __filename = fileURLToPath(import.meta.url);
@@ -34,15 +34,15 @@ app.use(fileUpload());
 app.use(cors());
 app.use(methodOverride());
 app.use(
-    bodyParser.json({
+  bodyParser.json({
     keepExtension: true,
     uploadDir: path.join(__dirname, "/files"),
-    limit: '50mb'
+    limit: "50mb",
   })
 );
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
-app.use(express.json({limit: '50mb'}));
-app.use(express.urlencoded({limit: '50mb', extended: true}));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
 var mailValueR = "x";
 var mailValueD = "x";
 var mailValueS = "x";
@@ -71,68 +71,87 @@ connection.connect(function (error) {
   /* Account List Get */
 }
 app.get("/R_list", function (req, resp) {
-  connection.query("SELECT * FROM UserStudent WHERE Email = ? AND State=1", [mailValueR], function (error, result) {
-    if (error) {
-      console.error("Query failed:\n" + error.stack);
-      connection.end();
-      throw error;
-    } else {
-      resp.send(result);
-      console.log(result);
+  connection.query(
+    "SELECT * FROM UserStudent WHERE Email = ? AND State=1",
+    [mailValueR],
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      } else {
+        resp.send(result);
+        console.log(result);
+      }
     }
-  });
+  );
 });
 app.get("/D_list", function (req, resp) {
-  connection.query("SELECT * FROM UserDonor WHERE Email = ? AND State=1", [mailValueD], function (error, result) {
-    if (error) {
-      console.error("Query failed:\n" + error.stack);
-      connection.end();
-      throw error;
-    } else {
-      resp.send(result);
-      console.log(result);
+  connection.query(
+    "SELECT * FROM UserDonor WHERE Email = ? AND State=1",
+    [mailValueD],
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      } else {
+        resp.send(result);
+        console.log(result);
+      }
     }
-  });
+  );
 });
 app.get("/S_list", function (req, resp) {
-  connection.query("SELECT * FROM UserSponsor WHERE Email = ? AND State=1", [mailValueS], function (error, result) {
-    if (error) {
-      console.error("Query failed:\n" + error.stack);
-      connection.end();
-      throw error;
-    } else {
-      resp.send(result);
-      console.log(result);
+  connection.query(
+    "SELECT * FROM UserSponsor WHERE Email = ? AND State=1",
+    [mailValueS],
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      } else {
+        resp.send(result);
+        console.log(result);
+      }
     }
-  });
+  );
 });
 app.get("/A_list", function (req, resp) {
-  connection.query("SELECT * FROM UserAdmin WHERE Email = ? AND State=1", [mailValueA], function (error, result) {
-    if (error) {
-      console.error("Query failed:\n" + error.stack);
-      connection.end();
-      throw error;
-    } else {
-      resp.send(result);
-      console.log(result);
+  connection.query(
+    "SELECT * FROM UserAdmin WHERE Email = ? AND State=1",
+    [mailValueA],
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      } else {
+        resp.send(result);
+        console.log(result);
+      }
     }
-  });
+  );
 });
 
 {
   /* Item List Get */
 }
 app.get("/Item", function (req, resp) {
-  connection.query("SELECT * FROM ItemDonate WHERE State=1", function (error, result) {
-    if (error) {
-      console.error("Query failed:\n" + error.stack);
-      connection.end();
-      throw error;
-    } else {
-      resp.send(result);
-      console.log(result);
+  connection.query(
+    "SELECT * FROM ItemDonate WHERE State=1 ORDER BY Item_ID DESC",
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      } else {
+        resp.send(result);
+        console.log(result);
+      }
     }
-  });
+  );
 });
 
 {
@@ -142,52 +161,58 @@ app.get("/Wish/:Student_ID", function (req, resp) {
   connection.query(
     `SELECT * FROM WebWishlist
      JOIN ItemDonate ON WebWishlist.Item_ID = ItemDonate.Item_ID 
-     WHERE WebWishlist.Student_ID=${req.params.Student_ID} AND WebWishlist.State=1`, function (error, result) {
-    if (error) {
-      console.error("Query failed:\n" + error.stack);
-      connection.end();
-      throw error;
-    } else {
-      resp.send(result);
-      console.log(result);
+     WHERE WebWishlist.Student_ID=${req.params.Student_ID} AND WebWishlist.State=1`,
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      } else {
+        resp.send(result);
+        console.log(result);
+      }
     }
-  });
+  );
 });
 
 {
   /* DonorItem List Get */
 }
 app.get("/DonorItem/:Donor_ID", function (req, resp) {
-  connection.query(`SELECT * FROM ItemDonate WHERE Donor_ID = ${req.params.Donor_ID} AND State=1`, function (error, result) {
-    if (error) {
-      console.error("Query failed:\n" + error.stack);
-      connection.end();
-      throw error;
-    } else {
-      resp.send(result);
-      console.log(result);
+  connection.query(
+    `SELECT * FROM ItemDonate WHERE Donor_ID = ${req.params.Donor_ID} AND State=1 ORDER BY Item_ID DESC`,
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      } else {
+        resp.send(result);
+        console.log(result);
+      }
     }
-  });
+  );
 });
 
 app.get("/Item/:Item_ID", function (req, resp) {
   connection.query(
-  `SELECT * FROM ItemDonate 
+    `SELECT * FROM ItemDonate 
    JOIN ListItem ON ItemDonate.Type_ID = ListItem.Type_ID 
    JOIN ListSchool ON ItemDonate.School_ID = ListSchool.School_ID 
    JOIN AllCondition ON ItemDonate.Quality = AllCondition.Quality 
    JOIN AllFragility ON ItemDonate.Fragile = AllFragility.Fragile 
-   WHERE ItemDonate.Item_ID = ${req.params.Item_ID} AND ItemDonate.State=1`
-  , function (error, result) {
-    if (error) {
-      console.error("Query failed:\n" + error.stack);
-      connection.end();
-      throw error;
-    } else {
-      resp.send(result);
-      console.log(result);
+   WHERE ItemDonate.Item_ID = ${req.params.Item_ID} AND ItemDonate.State=1`,
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      } else {
+        resp.send(result);
+        console.log(result);
+      }
     }
-  });
+  );
 });
 
 {
@@ -195,20 +220,21 @@ app.get("/Item/:Item_ID", function (req, resp) {
 }
 app.get("/R_Account/:Student_ID", function (req, resp) {
   connection.query(
-  `SELECT * FROM UserStudent 
+    `SELECT * FROM UserStudent 
    JOIN ListSchool ON UserStudent.School_ID = ListSchool.School_ID
    JOIN AllGrade ON UserStudent.Grade = AllGrade.Grade 
-   WHERE UserStudent.Student_ID = ${req.params.Student_ID} AND UserStudent.State=1`
-  , function (error, result) {
-    if (error) {
-      console.error("Query failed:\n" + error.stack);
-      connection.end();
-      throw error;
-    } else {
-      resp.send(result);
-      console.log(result);
+   WHERE UserStudent.Student_ID = ${req.params.Student_ID} AND UserStudent.State=1`,
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      } else {
+        resp.send(result);
+        console.log(result);
+      }
     }
-  });
+  );
 });
 
 {
@@ -216,34 +242,76 @@ app.get("/R_Account/:Student_ID", function (req, resp) {
 }
 app.get("/D_Account/:Donor_ID", function (req, resp) {
   connection.query(
-  `SELECT * FROM UserDonor
-   WHERE Donor_ID = ${req.params.Donor_ID} AND State=1`
-  , function (error, result) {
-    if (error) {
-      console.error("Query failed:\n" + error.stack);
-      connection.end();
-      throw error;
-    } else {
-      resp.send(result);
-      console.log(result);
+    `SELECT * FROM UserDonor
+   WHERE Donor_ID = ${req.params.Donor_ID} AND State=1`,
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      } else {
+        resp.send(result);
+        console.log(result);
+      }
     }
-  });
+  );
 });
 
 {
   /* School List Get */
 }
 app.get("/School", function (req, resp) {
-  connection.query("SELECT * FROM ListSchool WHERE State=1", function (error, result) {
-    if (error) {
-      console.error("Query failed:\n" + error.stack);
-      connection.end();
-      throw error;
-    } else {
-      resp.send(result);
-      console.log(result);
+  connection.query(
+    "SELECT * FROM ListSchool WHERE State=1",
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      } else {
+        resp.send(result);
+        console.log(result);
+      }
     }
-  });
+  );
+});
+
+{
+  /* Fragile List Get */
+}
+app.get("/Frag", function (req, resp) {
+  connection.query(
+    "SELECT * FROM AllFragility",
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      } else {
+        resp.send(result);
+        console.log(result);
+      }
+    }
+  );
+});
+
+{
+  /* Quality List Get */
+}
+app.get("/Qual", function (req, resp) {
+  connection.query(
+    "SELECT * FROM AllCondition",
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      } else {
+        resp.send(result);
+        console.log(result);
+      }
+    }
+  );
 });
 
 {
@@ -301,6 +369,7 @@ app.post("/R_regis", upload.any(), function (req, resp) {
   var Username = req.body.Username;
   var Email = req.body.Email;
   var Phone = req.body.Phone;
+  var ZIP = req.body.ZIP;
   var Address = req.body.Address;
   var Student_Card = req.body.Student_Card;
   var School_ID = req.body.School_ID;
@@ -310,7 +379,7 @@ app.post("/R_regis", upload.any(), function (req, resp) {
   var Chance = req.body.Chance;
   var State = req.body.State;
   connection.query(
-    "INSERT INTO UserStudent (Username, Email, Phone, Address, Student_Card, School_ID, Grade, Card_Image, Password, Chance, State) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 5, 1)",
+    "INSERT INTO UserStudent (Username, Email, Phone, Address, Student_Card, School_ID, Grade, Card_Image, Password, ZIP, Chance, State) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 5, 1)",
     [
       Username,
       Email,
@@ -321,6 +390,7 @@ app.post("/R_regis", upload.any(), function (req, resp) {
       Grade,
       Card_Image,
       Password,
+      ZIP,
       Chance,
       State,
     ],
@@ -341,6 +411,7 @@ app.post("/R_update/:Student_ID", upload.any(), function (req, resp) {
   var Username = req.body.Username;
   var Phone = req.body.Phone;
   var Address = req.body.Address;
+  var ZIP = req.body.ZIP;
   var Student_Card = req.body.Student_Card;
   var School_ID = req.body.School_ID;
   var Card_Image = req.body.Card_Image;
@@ -358,6 +429,10 @@ app.post("/R_update/:Student_ID", upload.any(), function (req, resp) {
      WHEN '${Address}' != '' THEN '${Address}'
      ELSE Address
      END,
+     ZIP = CASE
+     WHEN '${ZIP}' != '' THEN '${ZIP}'
+     ELSE ZIP
+     END,
      Student_Card = CASE
      WHEN '${Student_Card}' != '' THEN '${Student_Card}'
      ELSE Student_Card
@@ -371,6 +446,43 @@ app.post("/R_update/:Student_ID", upload.any(), function (req, resp) {
      ELSE Card_Image
      END
      WHERE Student_ID = ${req.params.Student_ID}`,
+    function (error, result) {
+      if (error) {
+        console.error("Insert failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      }
+    }
+  );
+});
+
+{
+  /* Donor Update Post */
+}
+app.post("/D_update/:Donor_ID", upload.any(), function (req, resp) {
+  var Username = req.body.Username;
+  var Phone = req.body.Phone;
+  var Address = req.body.Address;
+  var ZIP = req.body.ZIP;
+  connection.query(
+    `UPDATE UserDonor SET
+     Username = CASE
+     WHEN '${Username}' != '' THEN '${Username}'
+     ELSE Username
+     END,
+     Phone = CASE
+     WHEN '${Phone}' != '' THEN '${Phone}'
+     ELSE Phone
+     END,
+     Address = CASE
+     WHEN '${Address}' != '' THEN '${Address}'
+     ELSE Address
+     END,
+     ZIP = CASE
+     WHEN '${ZIP}' != '' THEN '${ZIP}'
+     ELSE ZIP
+     END
+     WHERE Donor_ID = ${req.params.Donor_ID}`,
     function (error, result) {
       if (error) {
         console.error("Insert failed:\n" + error.stack);
@@ -428,6 +540,52 @@ app.post("/P_checkR/:Student_ID", function (req, resp) {
 });
 
 {
+  /* PassD Update Post */
+}
+app.post("/P_updateD/:Donor_ID", upload.any(), function (req, resp) {
+  var Password = req.body.Password;
+  connection.query(
+    `UPDATE UserDonor SET
+     Password = CASE
+     WHEN '${Password}' != '' THEN '${Password}'
+     ELSE Password
+     END
+     WHERE Donor_ID = ${req.params.Donor_ID}`,
+    function (error, result) {
+      if (error) {
+        console.error("Insert failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      }
+    }
+  );
+});
+
+{
+  /* PassD Check Get */
+}
+app.post("/P_checkD/:Donor_ID", function (req, resp) {
+  var Password = req.body.Password;
+  connection.query(
+    `SELECT * FROM UserDonor WHERE Donor_ID = ${req.params.Donor_ID} AND Password='${Password}' AND State=1`,
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      }
+      if (result.length > 0) {
+        resp.send(result);
+        console.log(result);
+      } else {
+        resp.send({ message: "Fake password..." });
+        console.log("Fake password...");
+      }
+    }
+  );
+});
+
+{
   /* Receiver Account Get */
 }
 app.post("/R_login", function (req, resp) {
@@ -461,13 +619,14 @@ app.post("/D_regis", function (req, resp) {
   var Username = req.body.Username;
   var Email = req.body.Email;
   var Phone = req.body.Phone;
+  var ZIP = req.body.ZIP;
   var Address = req.body.Address;
   var Password = req.body.Password;
   var Point = req.body.Point;
   var State = req.body.State;
   connection.query(
-    "INSERT INTO UserDonor (Username, Email, Phone, Address, Password, Point, State) VALUES (?, ?, ?, ?, ?, 0, 1)",
-    [Username, Email, Phone, Address, Password, Point, State],
+    "INSERT INTO UserDonor (Username, Email, Phone, Address, Password, ZIP, Point, State) VALUES (?, ?, ?, ?, ?, ?, 0, 1)",
+    [Username, Email, Phone, Address, Password, ZIP, Point, State],
     function (error, result) {
       if (error) {
         console.error("Insert failed:\n" + error.stack);
@@ -649,6 +808,96 @@ app.post("/I_donate", function (req, resp) {
 });
 
 {
+  /* Item Update Post */
+}
+app.post("/I_update/:Item_ID", function (req, resp) {
+  var Obj = req.body.Obj;
+  var Pic1 = req.body.Pic1;
+  var Pic2 = req.body.Pic2;
+  var Pic3 = req.body.Pic3;
+  var Pic4 = req.body.Pic4;
+  var Type_ID = req.body.Type_ID;
+  var School_ID = req.body.School_ID;
+  var Quantity = req.body.Quantity;
+  var Quality = req.body.Quality;
+  var Detail = req.body.Detail;
+  var Fragile = req.body.Fragile;
+  connection.query(
+    `UPDATE ItemDonate SET
+     Obj = CASE
+     WHEN '${Obj}' != '' THEN '${Obj}'
+     ELSE Obj
+     END,
+     Pic1 = CASE
+     WHEN '${Pic1}' != '' THEN '${Pic1}'
+     ELSE Pic1
+     END,
+     Pic2 = CASE
+     WHEN '${Pic2}' != '' THEN '${Pic2}'
+     ELSE Pic2
+     END,
+     Pic3 = CASE
+     WHEN '${Pic3}' != '' THEN '${Pic3}'
+     ELSE Pic3
+     END,
+     Pic4 = CASE
+     WHEN '${Pic4}' != '' THEN '${Pic4}'
+     ELSE Pic4
+     END,
+     Type_ID = CASE
+     WHEN '${Type_ID}' != '' THEN '${Type_ID}'
+     ELSE Type_ID
+     END,
+     School_ID = CASE
+     WHEN '${School_ID}' != '' THEN '${School_ID}'
+     ELSE School_ID
+     END,
+     Quantity = CASE
+     WHEN '${Quantity}' != '' THEN '${Quantity}'
+     ELSE Quantity
+     END,
+     Quality = CASE
+     WHEN '${Quality}' != '' THEN '${Quality}'
+     ELSE Quality
+     END,
+     Detail = CASE
+     WHEN '${Detail}' != '' THEN '${Detail}'
+     ELSE Detail
+     END,
+     Fragile = CASE
+     WHEN '${Fragile}' != '' THEN '${Fragile}'
+     ELSE Fragile
+     END
+     WHERE Item_ID = ${req.params.Item_ID}`,
+    function (error, result) {
+      if (error) {
+        console.error("Insert failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      }
+    }
+  );
+});
+
+{
+  /* Item Update Post */
+}
+app.post("/I_delete/:Item_ID", function (req, resp) {
+  connection.query(
+    `UPDATE ItemDonate 
+     SET State=0
+     WHERE Item_ID = ${req.params.Item_ID}`,
+    function (error, result) {
+      if (error) {
+        console.error("Insert failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      }
+    }
+  );
+});
+
+{
   /* Reward Data Post */
 }
 app.post("/I_reward", function (req, resp) {
@@ -692,17 +941,20 @@ app.post("/I_reward", function (req, resp) {
   /* Admin Account Example */
 }
 app.get("/", function (req, resp) {
-  connection.query("SELECT * FROM UserAdmin WHERE State=1", function (error, rows, fields) {
-    if (error) {
-      console.error("Query failed:\n" + error.stack);
-      connection.end();
-      throw error;
-    } else {
-      rows.forEach((result) => {
-        resp.json(result);
-      });
+  connection.query(
+    "SELECT * FROM UserAdmin WHERE State=1",
+    function (error, rows, fields) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      } else {
+        rows.forEach((result) => {
+          resp.json(result);
+        });
+      }
     }
-  });
+  );
 });
 
 {

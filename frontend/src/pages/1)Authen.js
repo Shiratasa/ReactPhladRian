@@ -34,31 +34,49 @@ function Authen() {
   {
     /* Values */
   }
+  {
+    /*String Standard*/
+  }
   var regEx1 = /(^(?!\s))+([A-Z]{1}[a-z]{1,256})+(\s[A-Z]{1}[a-z]{1,256})+($)/;
   var regEx2 =
-    /(^(?!\s))+([a-z0-9.]{1,256})+([@]{1}[a-z0-9]{1,256})+([.]{1}[a-z.]{1,256})+($)/;
+    /(^(?!\s))+([A-Za-z0-9.]{1,256})+([@]{1}[a-z0-9]{1,256})+([.]{1}[a-z.]{1,256})+($)/;
   var regEx3 = /^\S*$/;
   var regEx4 = /(^(?!\s))+([0]{1}[6,8,9]{1}[0-9]{1,256})+($)/;
   var regEx5 = /(^(?!\s))+([A-Z0-9]{1,256})+($)/;
   var regEx6 = /^[^\s]+(\s+[^\s]+)*$/;
+  var regEx7 = /(^(?!\s))+([0-9]{1,256})+($)/;
   var invali = "1";
-  const [file_Array, setFile_Array] = useState("");
+  {
+    /*User Holder*/
+  }
   const [A_emailLog, setA_emailLog] = useState("");
   const [A_passLog, setA_passLog] = useState("");
+  {
+    /*Receiver Holder*/
+  }
+  const [file_Array, setFile_Array] = useState("");
   const [R_nameReg, setR_nameReg] = useState("");
   const [R_emailReg, setR_emailReg] = useState("");
   const [R_phoneReg, setR_phoneReg] = useState("");
+  const [R_zipReg, setR_zipReg] = useState("");
   const [R_localReg, setR_localReg] = useState("");
   const [R_schoolReg, setR_schoolReg] = useState("");
   const [R_gradeReg, setR_gradeReg] = useState("");
   const [R_cardReg, setR_cardReg] = useState("");
   const [R_imageReg, setR_imageReg] = useState("");
   const [R_passReg, setR_passReg] = useState("");
+  {
+    /*Donor Holder*/
+  }
   const [D_nameReg, setD_nameReg] = useState("");
   const [D_emailReg, setD_emailReg] = useState("");
   const [D_phoneReg, setD_phoneReg] = useState("");
+  const [D_zipReg, setD_zipReg] = useState("");
   const [D_localReg, setD_localReg] = useState("");
   const [D_passReg, setD_passReg] = useState("");
+  {
+    /*Query Constant*/
+  }
   const [School_List, setSchool_List] = useState([]);
   const [Grade_List, setGrade_List] = useState([]);
   const [UserR_List, setUserR_List, UserR_Ref] = useStateRef([]);
@@ -167,7 +185,6 @@ function Authen() {
       reader.readAsDataURL(file);
     });
   };
-
   const fileConvert = async (file) => {
     if (!file) {
       setR_imageReg("");
@@ -185,6 +202,7 @@ function Authen() {
     var userR = document.getElementById("UsernameR");
     var mailR = document.getElementById("EmailR");
     var telR = document.getElementById("PhoneR");
+    var postR = document.getElementById("ZipR");
     var localR = document.getElementById("AddressR");
     var cardR = document.getElementById("CardR");
     var schoolR = document.getElementById("SchoolR");
@@ -221,6 +239,19 @@ function Authen() {
       JSAlert.alert(
         "(Ex): 0891608019",
         "Please enter your phone number without <-> or space...",
+        JSAlert.Icons.Warning
+      );
+      pass2R.value = "";
+      throw "exit";
+    }
+    if (
+      postR.value == "" ||
+      postR.value.length != 5 ||
+      regEx7.test(postR.value) == false
+    ) {
+      JSAlert.alert(
+        "(Ex): 10600",
+        "Please enter your valid ZIP code...",
         JSAlert.Icons.Warning
       );
       pass2R.value = "";
@@ -302,6 +333,7 @@ function Authen() {
     var userD = document.getElementById("UsernameD");
     var mailD = document.getElementById("EmailD");
     var telD = document.getElementById("PhoneD");
+    var postD = document.getElementById("ZipD");
     var localD = document.getElementById("AddressD");
     var pass1D = document.getElementById("PasswordD");
     var pass2D = document.getElementById("C_passwordD");
@@ -335,6 +367,19 @@ function Authen() {
       JSAlert.alert(
         "(Ex): 0891608019",
         "Please enter your phone number without <-> or space...",
+        JSAlert.Icons.Warning
+      );
+      pass2D.value = "";
+      throw "exit";
+    }
+    if (
+      postD.value == "" ||
+      postD.value.length != 5 ||
+      regEx7.test(postD.value) == false
+    ) {
+      JSAlert.alert(
+        "(Ex): 10600",
+        "Please enter your valid ZIP code...",
         JSAlert.Icons.Warning
       );
       pass2D.value = "";
@@ -519,6 +564,7 @@ function Authen() {
         Grade: R_gradeReg,
         Card_Image: file_Array,
         Password: R_passReg,
+        ZIP: R_zipReg,
       }).then((response) => {
         console.log(response);
       });
@@ -557,6 +603,7 @@ function Authen() {
         Phone: D_phoneReg,
         Address: D_localReg,
         Password: D_passReg,
+        ZIP: D_zipReg,
       }).then((response) => {
         console.log(response);
       });
@@ -678,6 +725,7 @@ function Authen() {
       		}
   				`}</style>
 
+        {/*- DIV MENU PAGE -*/}
         <section
           id="home"
           style={{
@@ -876,6 +924,16 @@ function Authen() {
                   required
                   onChange={(x) => setR_phoneReg(x.target.value)}
                 />
+                <input
+                  type="text"
+                  className="form-control"
+                  id="ZipR"
+                  placeholder="ZIP Code"
+                  autocomplete="off"
+                  onInvalid={R_regis.exit}
+                  required
+                  onChange={(x) => setR_zipReg(x.target.value)}
+                />
                 <textarea
                   type="text"
                   className="form-control"
@@ -1029,6 +1087,16 @@ function Authen() {
                   onInvalid={D_regis.exit}
                   required
                   onChange={(y) => setD_phoneReg(y.target.value)}
+                />
+                <input
+                  type="text"
+                  className="form-control"
+                  id="ZipD"
+                  placeholder="ZIP Code"
+                  autocomplete="off"
+                  onInvalid={D_regis.exit}
+                  required
+                  onChange={(y) => setD_zipReg(y.target.value)}
                 />
                 <textarea
                   type="text"

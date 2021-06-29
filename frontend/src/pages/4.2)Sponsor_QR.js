@@ -206,7 +206,7 @@ function S_QR() {
                     <div className="col-md-13">
                       <div className="content fivth-content">
                         <div className="row">
-                          <form id="contact" action method="post">
+                          <form id="contact">
                             <br />
                             <div className="col-md-12">
                               <table

@@ -3,6 +3,7 @@ import React, { useEffect, useState, Component } from "react";
 import ReactDOM from "react-dom";
 import { Helmet } from "react-helmet";
 import Axios from "axios";
+import Pagination from "./Pagination.js";
 import $ from "jquery";
 import JSAlert from "js-alert";
 window.$ = $;
@@ -32,40 +33,75 @@ function D_Main() {
   const but5 = window.location.origin + "/resources/imgs/report.png";
   const but6 = window.location.origin + "/resources/imgs/logout.png";
   const blank = window.location.origin + "/resources/imgs/shop/white.jpg";
-  const ship = window.location.origin + "/resources/imgs/home/shipping.jpg";
-  const pro1 = window.location.origin + "/resources/imgs/shop/product12.jpg";
-  const pro2 = window.location.origin + "/resources/imgs/shop/product11.jpg";
-  const pro3 = window.location.origin + "/resources/imgs/shop/product10.jpg";
-  const pro4 = window.location.origin + "/resources/imgs/shop/product9.jpg";
-  const pro5 = window.location.origin + "/resources/imgs/shop/product8.jpg";
-  const pro6 = window.location.origin + "/resources/imgs/shop/product7.jpg";
-  const pro7 = window.location.origin + "/resources/imgs/shop/product6.jpg";
-  const adder = window.location.origin + "/resources/imgs/shop/add.png";
-  const re1 = window.location.origin + "/resources/imgs/shop/reward1.jpg";
-  const re2 = window.location.origin + "/resources/imgs/shop/reward2.jpg";
-  const re3 = window.location.origin + "/resources/imgs/shop/reward3.jpg";
-  const re4 = window.location.origin + "/resources/imgs/shop/reward4.jpg";
-  const re5 = window.location.origin + "/resources/imgs/shop/reward5.jpg";
-  const re6 = window.location.origin + "/resources/imgs/shop/reward6.jpg";
   const eng = window.location.origin + "/resources/imgs/authen/eng.png";
   const tha = window.location.origin + "/resources/imgs/authen/tha.png";
 
   {
     /* Values */
   }
+
+  {
+    /*String Standard*/
+  }
+  var regEx1 = /(^(?!\s))+([A-Z]{1}[a-z]{1,256})+(\s[A-Z]{1}[a-z]{1,256})+($)/;
+  var regEx2 =
+    /(^(?!\s))+([a-z0-9.]{1,256})+([@]{1}[a-z0-9]{1,256})+([.]{1}[a-z.]{1,256})+($)/;
+  var regEx3 = /^\S*$/;
+  var regEx4 = /(^(?!\s))+([0]{1}[6,8,9]{1}[0-9]{1,256})+($)/;
+  var regEx5 = /(^(?!\s))+([A-Z0-9]{1,256})+($)/;
+  var regEx6 = /^[^\s]+(\s+[^\s]+)*$/;
+  var regEx7 = /(^(?!\s))+([0-9]{1,256})+($)/;
+  var invaliA = "1";
+  var invaliP = "1";
+  {
+    /*Profile Info*/
+  }
+  const [D_nameReg, setD_nameReg] = useState("");
+  const [D_emailReg, setD_emailReg] = useState("");
+  const [D_phoneReg, setD_phoneReg] = useState("");
+  const [D_localReg, setD_localReg] = useState("");
+  const [D_zipReg, setD_zipReg] = useState("");
+  const [D_passReg, setD_passReg] = useState("");
+  {
+    /*Item Num-tab*/
+  }
+  const [Current_Page1, setCurrent_Page1] = useState(1);
+  const [Page_AllPost1, setPage_AllPost1] = useState(6);
+  const LastQuery1 = Current_Page1 * Page_AllPost1;
+  const FirstQuery1 = LastQuery1 - Page_AllPost1;
   const [Item_List, setItem_List] = useState([]);
+  const ItemSlice = Item_List.slice(FirstQuery1, LastQuery1);
+  const ItemCount = Math.ceil(Item_List.length / Page_AllPost1);
+  const paginate1 = (pageNum) => setCurrent_Page1(pageNum);
+  {
+    /*Query Constant*/
+  }
   const [School_List, setSchool_List] = useState([]);
   const [Categ_List, setCateg_List] = useState([]);
   const [User_Account, setUser_Account] = useState([]);
+  const [Pass_Code, setPass_Code] = useState([]);
   let { Donor_ID } = useParams();
   let history = useHistory();
 
   {
     /* Delay */
   }
+  function timeout(delay: number) {
+    return new Promise((res) => setTimeout(res, delay));
+  }
   const handleSubmit1 = async (e) => {
-    history.push(`/d_main/${Donor_ID}/d_add`);
-    location.reload();
+    e.preventDefault();
+    var gate = document.getElementById("ConEdit");
+    if (invaliA == "0" && invaliP == "1" && gate.value == "EditProfile") {
+      JSAlert.alert("", "Submit Success!", JSAlert.Icons.Success);
+      await timeout(1000).then($(this).unbind("submit").submit());
+      window.location.reload();
+    }
+    if (invaliA == "1" && invaliP == "0" && gate.value == "ChangePass") {
+      JSAlert.alert("", "Submit Success!", JSAlert.Icons.Success);
+      await timeout(1000).then($(this).unbind("submit").submit());
+      window.location.reload();
+    }
   };
 
   {
@@ -109,6 +145,181 @@ function D_Main() {
   };
 
   {
+    /* String Check */
+  }
+  function checkStringD() {
+    var userD = document.getElementById("UsernameD");
+    var telD = document.getElementById("PhoneD");
+    var localD = document.getElementById("AddressD");
+    var gate = document.getElementById("ConEdit");
+    if (
+      userD.value == "" ||
+      userD.value.length < 6 ||
+      regEx1.test(userD.value) == false
+    ) {
+      JSAlert.alert(
+        "(Ex): Alan Walker",
+        "Please enter english username using your real name...",
+        JSAlert.Icons.Warning
+      );
+      gate.value = "";
+      throw "exit";
+    }
+    if (
+      telD.value == "" ||
+      telD.value.length != 10 ||
+      regEx4.test(telD.value) == false
+    ) {
+      JSAlert.alert(
+        "(Ex): 0891608019",
+        "Please enter your phone number without <-> or space...",
+        JSAlert.Icons.Warning
+      );
+      gate.value = "";
+      throw "exit";
+    }
+    if (
+      postD.value == "" ||
+      postD.value.length != 5 ||
+      regEx7.test(postD.value) == false
+    ) {
+      JSAlert.alert(
+        "(Ex): 10600",
+        "Please enter your valid ZIP code...",
+        JSAlert.Icons.Warning
+      );
+      gate.value = "";
+      throw "exit";
+    }
+    if (
+      localD.value == "" ||
+      localD.value.length < 25 ||
+      regEx6.test(localD.value) == false
+    ) {
+      JSAlert.alert(
+        "(Ex): 37/2, San Chaomae Thapthim Alley, Tha Kham, Bang Khun Thian, Bangkok 10150",
+        "Please enter your location information in full detail...",
+        JSAlert.Icons.Warning
+      );
+      gate.value = "";
+      throw "exit";
+    }
+    if (gate.value != "EditProfile") {
+      JSAlert.alert(
+        "",
+        "Please type EditProfile to confirm the process...",
+        JSAlert.Icons.Warning
+      );
+      gate.value = "";
+      invaliA = "1";
+      throw "exit";
+    }
+  }
+  function checkStringP() {
+    var pass1D = document.getElementById("PasswordD");
+    var pass2D = document.getElementById("C_passwordD");
+    var gate = document.getElementById("ConEdit");
+    if (
+      pass1D.value == "" ||
+      pass1D.value.length < 8 ||
+      regEx3.test(pass1D.value) == false
+    ) {
+      JSAlert.alert(
+        "(Ex): Pass1234",
+        "Please enter password with at least 8 characters and without space...",
+        JSAlert.Icons.Warning
+      );
+      pass2D.value = "";
+      gate.value = "";
+      throw "exit";
+    }
+    if (pass2D.value == "") {
+      JSAlert.alert(
+        "",
+        "Please enter confirm password correctly...",
+        JSAlert.Icons.Warning
+      );
+      pass2D.value = "";
+      gate.value = "";
+      throw "exit";
+    }
+    if (pass1D.value != pass2D.value) {
+      JSAlert.alert(
+        "",
+        "Passwords did not match, please try again...",
+        JSAlert.Icons.Warning
+      );
+      pass2D.value = "";
+      gate.value = "";
+      throw "exit";
+    }
+    if (gate.value != "ChangePass") {
+      JSAlert.alert(
+        "",
+        "Please type ChangePass to confirm the process...",
+        JSAlert.Icons.Warning
+      );
+      gate.value = "";
+      throw "exit";
+    }
+  }
+
+  {
+    /* Donor Post */
+  }
+  const D_update = async (e) => {
+    invaliA = "1";
+    checkStringD();
+    invaliA = "0";
+    Axios.post(`http://localhost:5000/D_update/${Donor_ID}`, {
+      Username: D_nameReg,
+      Phone: D_phoneReg,
+      Address: D_localReg,
+      ZIP: D_zipReg,
+    }).then((response) => {
+      console.log(response);
+    });
+  };
+
+  {
+    /* Password Post */
+  }
+  const P_updateD = async (e) => {
+    checkStringP();
+    if (invaliP == "0") {
+      Axios.post(`http://localhost:5000/P_updateD/${Donor_ID}`, {
+        Password: D_passReg,
+      }).then((response) => {
+        console.log(response);
+      });
+    }
+  };
+
+  {
+    /* Check Get */
+  }
+  const P_checkD = async () => {
+    var pass1D = document.getElementById("PasswordD");
+    var pass2D = document.getElementById("C_passwordD");
+    var gate = document.getElementById("ConEdit");
+    Axios.post(`http://localhost:5000/P_checkD/${Donor_ID}`, {
+      Password: Pass_Code,
+    }).then((response) => {
+      if (response.data.message) {
+        JSAlert.alert("", "Invalid old password...", JSAlert.Icons.Failed);
+        pass1D.value = "";
+        pass2D.value = "";
+        gate.value = "";
+        invaliP = "1";
+        throw "exit";
+      } else {
+        invaliP = "0";
+        P_updateD();
+      }
+    });
+  };
+
+  {
     /* Load Function */
   }
   window.onload = function () {
@@ -140,6 +351,7 @@ function D_Main() {
           <link rel="stylesheet" href="resources/css/bootstrap-theme.min.css" />
           <link rel="stylesheet" href="resources/css/fontAwesome.css" />
           <link rel="stylesheet" href="resources/css/templatemo-style.css" />
+          <link rel="stylesheet" href="resources/css/Page_Main.css" />
           <link
             href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900"
             rel="stylesheet"
@@ -156,111 +368,26 @@ function D_Main() {
             rel="stylesheet"
           />
         </Helmet>
+
         <style>{`
-      .midimg
-      {
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-      }
-      .searchform input 
-      {
+        .searchform input 
+        {
           width: 169px;
-          height: 33px
-      }
-      ::-webkit-input-placeholder 
-      { /* Chrome/Opera/Safari */
-          color: lightgrey;
-      }
-      ::-moz-placeholder 
-      { /* Firefox 19+ */
-          color: lightgrey;
-      }
-      :-ms-input-placeholder 
-      { /* IE 10+ */
-          color: lightgrey;
-      }
-      :-moz-placeholder 
-      { /* Firefox 18- */
-          color: lightgrey;
-      }
-      #SchoolR
-      {
-        width:225px;   
-      }
-      .swapper:hover 
-      {
-          color: #F39C12;
-          border: 1px solid #F39C12;
-      }
-      .aswap:hover
-      {
+          height: 33px;
+        }
+        .swappor {
           color: white;
-          background: #F39C12;
-          border: 1px solid #F39C12;
-      }
-      .swappor  
-      {
-          color: white;
-          background: #F39C12;
-          border: 1px solid #F39C12;
-      }
-      .swappor:hover 
-      {
-          color: black;
-          background: #EBEDEF;
-          border: 1px solid black;
-      }
-      .pull-center:hover 
-      {
-          color: black;
-          font-weight: bold;
-      }
-      .demo
-      {
-        display: inline-block;
-      }
-      .demo a
-      {
-        color: red; 
-        padding: 5px 12px; 
-        text-decoration: none; 
-        transition: background-color 2s; 
-        border: 1px solid orange; 
-        font-size: 15px;
-      } 
-      .demo a.active
-      {
-        background-color: orange; 
-        color: white;
-      }
-            .demo a:hover
-      {
-        background-color: orange; 
-        color: white;
-      }
-        .reddit 
-      {
-          border: 2px solid red;
-      }
-    .reddot:hover 
-      {
-          border: 2px solid red;
-      }
-      .fitBox
-    {
-     font-size:10pt;
-     width:230px;
-     background-color:white;
-     border:solid 1px black;
-    }
-        .picList {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-}
-    `}</style>
+          background: #f39c12;
+          border: 1px solid #f39c12;
+        }
+        .swappor:hover {
+          color: green;
+          background: #ebedef;
+          border: 1px solid green;
+        }
+        `}</style>
+
+        {/*Menu Tab*/}
         <div className="overlay" />
         <section className="top-part">
           <img src={wall} />
@@ -341,6 +468,8 @@ function D_Main() {
               </ul>
             </nav>
           </div>
+
+          {/*Home Page*/}
           <ul className="cd-hero-slider">
             <li className="selected">
               <div className="heading"></div>
@@ -357,15 +486,11 @@ function D_Main() {
                                 <div className="brands-name">
                                   <ul className="nav nav-pills nav-stacked">
                                     <select
-                                      className="fitBox"
+                                      className="fitBox inputField"
                                       onClick={CategBox}
                                     >
-                                      <option
-                                        value=""
-                                        disabled
-                                        selected="selected"
-                                      >
-                                        -- Select Category --
+                                      <option value="" selected="selected">
+                                        All Categories
                                       </option>
                                       {Categ_List.map((val, key) => (
                                         <option
@@ -387,7 +512,7 @@ function D_Main() {
                                 <div className="brands-name">
                                   <ul className="nav nav-pills nav-stacked">
                                     <select
-                                      className="fitBox"
+                                      className="fitBox inputField"
                                       onClick={SchoolBox}
                                     >
                                       <option
@@ -395,7 +520,7 @@ function D_Main() {
                                         disabled
                                         selected="selected"
                                       >
-                                        -- Select School --
+                                        All Schools
                                       </option>
                                       {School_List.map((val, key) => (
                                         <option
@@ -415,9 +540,10 @@ function D_Main() {
                               <div className="brands_products">
                                 <h2>Search</h2>
                                 <div className="brands-name">
-                                  <form action="" className="searchform">
+                                  <form className="searchform">
                                     <input
                                       type="text"
+                                      className="inputField"
                                       placeholder="Item Name"
                                       style={{
                                         color: "black",
@@ -443,14 +569,19 @@ function D_Main() {
                                     Recent Items&nbsp;&nbsp;&nbsp;
                                     <button
                                       class="swappor"
-                                      onClick={handleSubmit1}
+                                      onClick={() => {
+                                        history.push(
+                                          `/d_main/${Donor_ID}/d_add`
+                                        );
+                                        window.location.reload();
+                                      }}
                                     >
                                       Add item
                                     </button>
                                   </h2>
                                 </div>
                                 <div className="col-sm-12 picList">
-                                  {Item_List.map((val, key) => {
+                                  {ItemSlice.map((val, key) => {
                                     return (
                                       <div className="product-image-wrapper">
                                         <div className="single-products">
@@ -485,14 +616,14 @@ function D_Main() {
                                           <ul className="nav nav-pills nav-justified">
                                             <li>
                                               <a href>
-                                                <i className="fa fa-plus-square" />
-                                                Add to wishlist
+                                                <i className="fa fa-trash-o" />
+                                                Delete item
                                               </a>
                                             </li>
                                             <li>
                                               <a href>
-                                                <i className="fa fa-plus-square" />
-                                                Add to wishlist
+                                                <i className="fa fa-trash-o" />
+                                                Delete item
                                               </a>
                                             </li>
                                           </ul>
@@ -502,6 +633,19 @@ function D_Main() {
                                   })}
                                 </div>
                               </div>
+                              <div className="col-sm-11">
+                                <br />
+                                <Pagination
+                                  Page_AllPost={Page_AllPost1}
+                                  TotalPost={Item_List.length}
+                                  Current_Page={Current_Page1}
+                                  paginate={paginate1}
+                                  PostCount={ItemCount}
+                                />
+                              </div>
+                              <br />
+                              <br />
+                              <br />
                             </div>
                           </div>
                         </div>
@@ -511,6 +655,8 @@ function D_Main() {
                 </div>
               </div>
             </li>
+
+            {/*Request Page*/}
             <li>
               <div className="heading"></div>
               <div className="cd-full-width third-slide">
@@ -544,7 +690,7 @@ function D_Main() {
                                       >
                                         <a href>
                                           <img
-                                            src={pro1}
+                                            src="white"
                                             alt=""
                                             width={127}
                                             height={158}
@@ -594,9 +740,11 @@ function D_Main() {
                                         <a
                                           className="btn btn-default add-to-cart"
                                           onClick={() => {
-                                            history.push("/d_deli");
-                                            window.location.reload();
-                                          }}
+                                        history.push(
+                                          `/d_main/${Donor_ID}/d_deli`
+                                        );
+                                        window.location.reload();
+                                      }}
                                         >
                                           <i className="fa fa-truck" />
                                           Deliver
@@ -610,7 +758,7 @@ function D_Main() {
                                       >
                                         <a href>
                                           <img
-                                            src={pro2}
+                                            src="black"
                                             alt=""
                                             width={127}
                                             height={158}
@@ -670,7 +818,7 @@ function D_Main() {
                                       >
                                         <a href>
                                           <img
-                                            src={pro3}
+                                            src="red"
                                             alt=""
                                             width={127}
                                             height={158}
@@ -733,68 +881,7 @@ function D_Main() {
                               </div>
                               <div className="col-sm-11">
                                 <br />
-                                <ul className="pagination">
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>«</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li className="active">
-                                      <a href>1</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>2</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>3</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>4</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>5</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>6</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>7</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>8</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>9</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>10 </a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>»</a>
-                                    </li>
-                                  </div>
-                                </ul>
+                                <ul className="pagination"></ul>
                               </div>
                               <br />
                               <br />
@@ -809,6 +896,8 @@ function D_Main() {
                 </div>
               </div>
             </li>
+
+            {/*Trade Page*/}
             <li>
               <div className="heading"></div>
               <div className="cd-full-width third-slide">
@@ -842,7 +931,7 @@ function D_Main() {
                                       >
                                         <a href>
                                           <img
-                                            src={re1}
+                                            src="white"
                                             alt=""
                                             width={127}
                                             height={158}
@@ -913,68 +1002,7 @@ function D_Main() {
                               </div>
                               <div className="col-sm-11">
                                 <br />
-                                <ul className="pagination">
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>«</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li className="active">
-                                      <a href>1</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>2</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>3</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>4</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>5</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>6</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>7</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>8</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>9</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>10 </a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>»</a>
-                                    </li>
-                                  </div>
-                                </ul>
+                                <ul className="pagination"></ul>
                               </div>
                               <br />
                               <br />
@@ -989,254 +1017,360 @@ function D_Main() {
                 </div>
               </div>
             </li>
-            {User_Account.map((val, key) => {
-              return (
-                <li>
-                  <div className="heading"></div>
-                  <div className="cd-full-width fivth-slide">
-                    <div className="container">
-                      <div className="row">
-                        <div className="col-md-13">
-                          <div className="content fivth-content">
-                            <div className="row">
-                              <form id="contact" action method="post">
+
+            {/*Account Page*/}
+            <li>
+              <div className="heading"></div>
+              <form onSubmit={handleSubmit1}>
+                <div className="cd-full-width fivth-slide">
+                  {User_Account.map((val, key) => {
+                    return (
+                      <div className="container">
+                        <div className="row">
+                          <div className="col-md-13">
+                            <div className="content fivth-content">
+                              <div className="row">
                                 <div className="col-md-4">
                                   <fieldset>
-                                    <div
-                                      className="col-sm-4"
-                                      style={{ float: "left" }}
+                                    <img
+                                      style={{ width: "360px", height: "1px" }}
+                                      src={blank}
+                                      alt=""
+                                    />
+                                    <h2
+                                      style={{
+                                        fontSize: "18px",
+                                        color: "#F39C12",
+                                        textAlign: "center",
+                                      }}
                                     >
-                                      <div className>
-                                        <ul className="nav nav-pills nav-stacked">
-                                          <a href>
-                                            <span className="pull-center" />
-                                          </a>
-                                        </ul>
+                                      FAQ
+                                    </h2>
+                                    <fieldset>
+                                      <div>
+                                        <p
+                                          className="greatCenter"
+                                          style={{
+                                            textAlign: "center",
+                                            color: "#3498DB",
+                                          }}
+                                        >
+                                          <span className="pull-center">
+                                            -Read Policy-
+                                          </span>
+                                        </p>
                                       </div>
-                                    </div>
-                                    <div
-                                      className="col-sm-5"
-                                      style={{ float: "left" }}
-                                    >
-                                      <h2
-                                        style={{
-                                          fontSize: "18px",
-                                          color: "#F39C12",
-                                          textAlign: "center",
-                                        }}
-                                      >
-                                        FAQ
-                                      </h2>
-                                      <div className="brands-name">
-                                        <ul className="nav nav-pills nav-stacked">
-                                          <a href>
-                                            <span className="pull-center">
-                                               -Read Policy-
-                                            </span>
-                                          </a>
-                                        </ul>
-                                      </div>
-                                    </div>
+                                    </fieldset>
                                   </fieldset>
-                                </div>
-                                <div className="col-md-4">
-                                  <fieldset></fieldset>
                                 </div>
                                 <div className="col-md-4">
                                   <fieldset>
                                     <img
-                                      style={{ width: "350px", height: "1px" }}
+                                      style={{ width: "360px", height: "60px" }}
                                       src={blank}
                                       alt=""
                                     />
-                                    <a
-                                      className="btn swappor"
-                                      style={{ float: "left" }}
-                                    >
-                                      <i className="fa fa-user" />
-                                       Edit Profile
-                                    </a>
-                                    <p style={{ float: "left" }}>      </p>
-                                    <a
-                                      className="btn swappor"
-                                      style={{ float: "left" }}
-                                    >
-                                      <i className="fa fa-lock" />
-                                       Change Pass
-                                    </a>
+                                    <fieldset>
+                                      <p style={{ textAlign: "left" }}>
+                                        <span
+                                          className="cart-total-price text-center"
+                                          style={{
+                                            fontSize: "18px",
+                                            color: "#F39C12",
+                                          }}
+                                        >
+                                          Amount of points:&nbsp;
+                                        </span>
+                                        <span
+                                          className="cart-total-price text-center"
+                                          style={{ fontSize: "16px" }}
+                                        >
+                                          {val.Point}
+                                        </span>
+                                      </p>
+                                    </fieldset>
+                                    <fieldset>
+                                      <p style={{ textAlign: "left" }}>
+                                        <span
+                                          className="cart-total-price text-center"
+                                          style={{
+                                            fontSize: "18px",
+                                            color: "#F39C12",
+                                          }}
+                                        >
+                                          Total donated items:&nbsp;
+                                        </span>
+                                        <span
+                                          className="cart-total-price text-center"
+                                          style={{ fontSize: "16px" }}
+                                        >
+                                          7
+                                        </span>
+                                      </p>
+                                    </fieldset>
+                                  </fieldset>
+                                </div>
+                                <div className="col-md-4">
+                                  <fieldset>
+                                    <img
+                                      style={{ width: "360px", height: "1px" }}
+                                      src={blank}
+                                      alt=""
+                                    />
+                                    <div className="midbut1">
+                                      <button
+                                        className="btn swappor"
+                                        type="submit"
+                                        onClick={D_update}
+                                        style={{ float: "left" }}
+                                      >
+                                        <i className="fa fa-user" />
+                                         Edit Profile
+                                      </button>
+                                    </div>
+                                    <div className="midbut2">
+                                      <button
+                                        className="btn swappor"
+                                        type="submit"
+                                        onClick={P_checkD}
+                                        style={{ float: "right" }}
+                                      >
+                                        <i className="fa fa-lock" />
+                                         Change Pass
+                                      </button>
+                                    </div>
+                                  </fieldset>
+                                </div>
+                                <div className="col-md-4">
+                                  <fieldset>
+                                    <br />
+                                    <br />
+                                  </fieldset>
+                                  <fieldset>
+                                    <label htmlFor="ConEdit">
+                                      Type code word to confirm the process:
+                                    </label>
+                                    <input
+                                      type="text"
+                                      id="ConEdit"
+                                      placeholder="EditProfile / ChangePass"
+                                      required
+                                      autocomplete="off"
+                                      style={{
+                                        width: "100%",
+                                        color: "black",
+                                        fontSize: "15px",
+                                      }}
+                                    />
                                   </fieldset>
                                 </div>
                                 <div className="col-md-12">
                                   <fieldset>
-                                    <br />
                                     <hr className="soft" />
+                                    <h2 className="title text-center">
+                                      Edit Profile
+                                    </h2>
                                   </fieldset>
                                 </div>
                                 <div className="col-md-4">
                                   <fieldset>
-                                    <label htmlFor="Aname">Name:</label>
+                                    <label htmlFor="UsernameD">Name:</label>
                                     <input
                                       type="text"
-                                      id="Aname"
-                                      placeholder={val.Username}
-                                      required="required"
+                                      id="UsernameD"
+                                      defaultValue={val.Username}
+                                      placeholder="Username"
+                                      autocomplete="off"
                                       style={{
                                         width: "100%",
                                         color: "black",
                                         fontSize: "15px",
                                       }}
+                                      onInvalid={D_update.exit}
+                                      onChange={(x) =>
+                                        setD_nameReg(x.target.value)
+                                      }
                                     />
                                   </fieldset>
                                 </div>
                                 <div className="col-md-4">
                                   <fieldset>
-                                    <label htmlFor="Amail">Email:</label>
+                                    <label
+                                      htmlFor="Amail"
+                                      style={{ color: "red" }}
+                                    >
+                                      Fixed Email:
+                                    </label>
                                     <input
                                       type="text"
                                       id="Amail"
-                                      placeholder={val.Email}
-                                      required="required"
+                                      value={val.Email}
+                                      autocomplete="off"
                                       style={{
                                         width: "100%",
                                         color: "black",
                                         fontSize: "15px",
                                       }}
+                                      disabled
                                     />
                                   </fieldset>
                                 </div>
                                 <div className="col-md-4">
                                   <fieldset>
-                                    <label htmlFor="Aphone">Tel:</label>
+                                    <label htmlFor="PhoneD">Tel:</label>
                                     <input
                                       type="text"
-                                      id="Aphone"
-                                      placeholder="083-190-5406"
-                                      required="required"
+                                      id="PhoneD"
+                                      defaultValue={val.Phone}
+                                      placeholder="Tel Number"
+                                      autocomplete="off"
                                       style={{
                                         width: "100%",
                                         color: "black",
                                         fontSize: "15px",
                                       }}
+                                      onInvalid={D_update.exit}
+                                      onChange={(x) =>
+                                        setD_phoneReg(x.target.value)
+                                      }
+                                    />
+                                  </fieldset>
+                                </div>
+                                <br />
+                                <div className="col-md-4">
+                                  <fieldset>
+                                    <label htmlFor="postD">ZIP:</label>
+                                    <input
+                                      type="text"
+                                      id="postD"
+                                      defaultValue={val.ZIP}
+                                      placeholder="ZIP Code"
+                                      autocomplete="off"
+                                      style={{
+                                        width: "100%",
+                                        color: "black",
+                                        fontSize: "15px",
+                                      }}
+                                      onInvalid={D_update.exit}
+                                      onChange={(x) =>
+                                        setD_zipReg(x.target.value)
+                                      }
                                     />
                                   </fieldset>
                                 </div>
                                 <br />
                                 <div className="col-md-12">
                                   <fieldset>
-                                    <label htmlFor="Alocate">Location:</label>
+                                    <label htmlFor="AddressD">Location:</label>
                                     <textarea
                                       rows={6}
-                                      id="Alocate"
-                                      placeholder="666, Ladprao 01 Alley,
-Ladprao Road, Wang Thonglang District,
-Bangkok, 10240"
-                                      required="required"
+                                      id="AddressD"
+                                      defaultValue={val.Address}
+                                      placeholder="House Location"
                                       style={{
                                         width: "100%",
                                         color: "black",
                                         fontSize: "15px",
                                       }}
-                                      defaultValue={""}
+                                      onInvalid={D_update.exit}
+                                      onChange={(x) =>
+                                        setD_localReg(x.target.value)
+                                      }
                                     />
                                   </fieldset>
                                 </div>
                                 <div className="col-md-12">
                                   <fieldset>
-                                    <br />
                                     <hr className="soft" />
+                                    <h2 className="title text-center">
+                                      Change Password
+                                    </h2>
                                   </fieldset>
                                 </div>
                                 <div className="col-md-4">
-                                  <fieldset></fieldset>
+                                  <fieldset>
+                                    <label htmlFor="PasswordL">
+                                      Old Password:
+                                    </label>
+                                    <input
+                                      type="password"
+                                      id="PasswordL"
+                                      placeholder="Old Password"
+                                      autocomplete="off"
+                                      style={{
+                                        width: "100%",
+                                        color: "black",
+                                        fontSize: "15px",
+                                      }}
+                                      onInvalid={P_checkD.exit}
+                                      onChange={(y) =>
+                                        setPass_Code(y.target.value)
+                                      }
+                                    />
+                                  </fieldset>
                                 </div>
                                 <div className="col-md-8">
                                   <fieldset>
-                                    <span
-                                      className="cart-total-price text-center"
-                                      style={{
-                                        fontSize: "18px",
-                                        color: "#F39C12",
-                                      }}
-                                    >
-                                         Total special point:&nbsp;
-                                    </span>
-                                    <span
-                                      className="cart-total-price text-center"
-                                      style={{ fontSize: "16px" }}
-                                    >
-                                      520
-                                    </span>
+                                    <img
+                                      style={{ width: "750px", height: "85px" }}
+                                      src={blank}
+                                      alt=""
+                                    />
                                   </fieldset>
                                 </div>
-                                <div className="col-md-12">
+                                <br />
+                                <div className="col-md-4">
                                   <fieldset>
-                                    <br />
+                                    <label htmlFor="PasswordD">
+                                      New Password:
+                                    </label>
+                                    <input
+                                      type="password"
+                                      id="PasswordD"
+                                      placeholder="New Password"
+                                      autocomplete="off"
+                                      style={{
+                                        width: "100%",
+                                        color: "black",
+                                        fontSize: "15px",
+                                      }}
+                                      onInvalid={P_checkD.exit}
+                                      onChange={(y) =>
+                                        setD_passReg(y.target.value)
+                                      }
+                                    />
                                   </fieldset>
                                 </div>
                                 <div className="col-md-4">
-                                  <fieldset></fieldset>
-                                </div>
-                                <div className="col-md-8">
                                   <fieldset>
-                                    <span
-                                      className="cart-total-price text-center"
+                                    <label htmlFor="C_passwordD">
+                                      Confirm New Password:
+                                    </label>
+                                    <input
+                                      type="password"
+                                      id="C_passwordD"
+                                      placeholder="Confirm New Password"
+                                      autocomplete="off"
                                       style={{
-                                        fontSize: "18px",
-                                        color: "#F39C12",
+                                        width: "100%",
+                                        color: "black",
+                                        fontSize: "15px",
                                       }}
-                                    >
-                                         Total successful request:&nbsp;
-                                    </span>
-                                    <span
-                                      className="cart-total-price text-center"
-                                      style={{ fontSize: "16px" }}
-                                    >
-                                      3
-                                    </span>
+                                      onInvalid={P_checkD.exit}
+                                    />
                                   </fieldset>
                                 </div>
-                                <div className="col-md-12">
-                                  <fieldset>
-                                    <br />
-                                  </fieldset>
-                                </div>
-                                <div className="col-md-4">
-                                  <fieldset></fieldset>
-                                </div>
-                                <div className="col-md-8">
-                                  <fieldset>
-                                    <span
-                                      className="cart-total-price text-center"
-                                      style={{
-                                        fontSize: "18px",
-                                        color: "#F39C12",
-                                      }}
-                                    >
-                                         Total donated equipment:&nbsp;
-                                    </span>
-                                    <span
-                                      className="cart-total-price text-center"
-                                      style={{ fontSize: "16px" }}
-                                    >
-                                      12
-                                    </span>
-                                  </fieldset>
-                                </div>
-                                <div className="col-md-12">
-                                  <fieldset>
-                                    <br />
-                                  </fieldset>
-                                </div>
-                              </form>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </li>
-              );
-            })}
+                    );
+                  })}
+                </div>
+              </form>
+            </li>
+            {/*Report Page*/}
             <li>
               <div className="heading"></div>
               <div className="cd-full-width fivth-slide">
@@ -1286,7 +1420,7 @@ Bangkok, 10240"
                           </div>
                           <div className="col-md-8">
                             <div className="row">
-                              <form id="contact" action method="post">
+                              <form id="contact">
                                 <div className="col-md-6">
                                   <fieldset>
                                     <input
@@ -1340,7 +1474,8 @@ Bangkok, 10240"
                                       className="btn swappor"
                                       style={{ float: "right" }}
                                     >
-                                      Send Report
+                                      <i className="fa fa-paperclip" />
+                                       Send Report
                                     </a>
                                   </fieldset>
                                 </div>

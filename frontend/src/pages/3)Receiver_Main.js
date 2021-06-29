@@ -34,20 +34,14 @@ function R_Main() {
   const but5 = window.location.origin + "/resources/imgs/report.png";
   const but6 = window.location.origin + "/resources/imgs/logout.png";
   const blank = window.location.origin + "/resources/imgs/shop/white.jpg";
-  const ship = window.location.origin + "/resources/imgs/home/shipping.jpg";
-  const pro1 = window.location.origin + "/resources/imgs/shop/product12.jpg";
-  const pro2 = window.location.origin + "/resources/imgs/shop/product11.jpg";
-  const pro3 = window.location.origin + "/resources/imgs/shop/product10.jpg";
-  const pro4 = window.location.origin + "/resources/imgs/shop/product9.jpg";
-  const pro5 = window.location.origin + "/resources/imgs/shop/product8.jpg";
-  const pro6 = window.location.origin + "/resources/imgs/shop/product7.jpg";
-  const pro7 = window.location.origin + "/resources/imgs/shop/product6.jpg";
-  const card = window.location.origin + "/resources/imgs/ID.png";
   const eng = window.location.origin + "/resources/imgs/authen/eng.png";
   const tha = window.location.origin + "/resources/imgs/authen/tha.png";
 
   {
     /* Values */
+  }
+  {
+    /*String Standard*/
   }
   var regEx1 = /(^(?!\s))+([A-Z]{1}[a-z]{1,256})+(\s[A-Z]{1}[a-z]{1,256})+($)/;
   var regEx2 =
@@ -56,31 +50,47 @@ function R_Main() {
   var regEx4 = /(^(?!\s))+([0]{1}[6,8,9]{1}[0-9]{1,256})+($)/;
   var regEx5 = /(^(?!\s))+([A-Z0-9]{1,256})+($)/;
   var regEx6 = /^[^\s]+(\s+[^\s]+)*$/;
+  var regEx7 = /(^(?!\s))+([0-9]{1,256})+($)/;
   var invaliA = "1";
   var invaliP = "1";
+  {
+    /*Profile Info*/
+  }
   const [R_nameReg, setR_nameReg] = useState("");
   const [R_emailReg, setR_emailReg] = useState("");
   const [R_phoneReg, setR_phoneReg] = useState("");
   const [R_localReg, setR_localReg] = useState("");
+  const [R_zipReg, setR_zipReg] = useState("");
   const [R_schoolReg, setR_schoolReg] = useState("");
   const [R_gradeReg, setR_gradeReg] = useState("");
   const [R_cardReg, setR_cardReg] = useState("");
   const [R_imageReg, setR_imageReg] = useState("");
   const [R_passReg, setR_passReg] = useState("");
-  const [Current_Page, setCurrent_Page] = useState(1);
-  const [Page_AllPost, setPage_AllPost] = useState(5);
-  const LastQuery = Current_Page * Page_AllPost;
-  const FirstQuery = LastQuery - Page_AllPost;
-	{/*Item Num-tab*/}
+  {
+    /*Item Num-tab*/
+  }
+  const [Current_Page1, setCurrent_Page1] = useState(1);
+  const [Page_AllPost1, setPage_AllPost1] = useState(6);
+  const LastQuery1 = Current_Page1 * Page_AllPost1;
+  const FirstQuery1 = LastQuery1 - Page_AllPost1;
   const [Item_List, setItem_List] = useState([]);
-  const ItemSlice = Item_List.slice(FirstQuery, LastQuery);
-  const ItemCount = Math.ceil(Item_List.length / Page_AllPost);
-	{/*Wish Num-tab*/}
-	const [Wish_List, setWish_List] = useState([]);
-  const WishSlice = Wish_List.slice(FirstQuery, LastQuery);
-  const WishCount = Math.ceil(Wish_List.length / Page_AllPost);
-	{/*----------*/}
-  const paginate = (pageNum) => setCurrent_Page(pageNum);
+  const ItemSlice = Item_List.slice(FirstQuery1, LastQuery1);
+  const ItemCount = Math.ceil(Item_List.length / Page_AllPost1);
+  const paginate1 = (pageNum) => setCurrent_Page1(pageNum);
+  {
+    /*Wish Num-tab*/
+  }
+  const [Current_Page2, setCurrent_Page2] = useState(1);
+  const [Page_AllPost2, setPage_AllPost2] = useState(4);
+  const LastQuery2 = Current_Page2 * Page_AllPost2;
+  const FirstQuery2 = LastQuery2 - Page_AllPost2;
+  const [Wish_List, setWish_List] = useState([]);
+  const WishSlice = Wish_List.slice(FirstQuery2, LastQuery2);
+  const WishCount = Math.ceil(Wish_List.length / Page_AllPost2);
+  const paginate2 = (pageNum) => setCurrent_Page2(pageNum);
+  {
+    /*Query Constant*/
+  }
   const [School_List, setSchool_List] = useState([]);
   const [Grade_List, setGrade_List] = useState([]);
   const [Categ_List, setCateg_List] = useState([]);
@@ -99,12 +109,13 @@ function R_Main() {
   }
   const handleSubmit1 = async (e) => {
     e.preventDefault();
-    if (invaliA == "0" && invaliP == "1") {
+    var gate = document.getElementById("ConEdit");
+    if (invaliA == "0" && invaliP == "1" && gate.value == "EditProfile") {
       JSAlert.alert("", "Submit Success!", JSAlert.Icons.Success);
       await timeout(1000).then($(this).unbind("submit").submit());
       window.location.reload();
     }
-    if (invaliA == "1" && invaliP == "0") {
+    if (invaliA == "1" && invaliP == "0" && gate.value == "ChangePass") {
       JSAlert.alert("", "Submit Success!", JSAlert.Icons.Success);
       await timeout(1000).then($(this).unbind("submit").submit());
       window.location.reload();
@@ -124,7 +135,6 @@ function R_Main() {
       reader.readAsDataURL(file);
     });
   };
-
   const fileConvert1 = async (file) => {
     if (!file) {
       setI_Pic1("");
@@ -265,6 +275,19 @@ function R_Main() {
       throw "exit";
     }
     if (
+      postR.value == "" ||
+      postR.value.length != 5 ||
+      regEx7.test(postR.value) == false
+    ) {
+      JSAlert.alert(
+        "(Ex): 10600",
+        "Please enter your valid ZIP code...",
+        JSAlert.Icons.Warning
+      );
+      gate.value = "";
+      throw "exit";
+    }
+    if (
       localR.value == "" ||
       localR.value.length < 25 ||
       regEx6.test(localR.value) == false
@@ -359,6 +382,7 @@ function R_Main() {
     /* Receiver Post */
   }
   const R_update = async (e) => {
+    invaliA = "1";
     checkStringR();
     checkFile();
     invaliA = "0";
@@ -366,6 +390,7 @@ function R_Main() {
       Username: R_nameReg,
       Phone: R_phoneReg,
       Address: R_localReg,
+      ZIP: R_zipReg,
       Student_Card: R_cardReg,
       School_ID: R_schoolReg,
       Card_Image: file_Array1,
@@ -429,18 +454,103 @@ function R_Main() {
   }
   const Album = `
   <script>
-  var modal_1 = document.getElementById("myModal1");
-var image_1 = document.getElementById("preImg1");
-var modalImage_1 = document.getElementById("img01");
-image_1.onclick = function(){
-  modal_1.style.display = "block";
-  modalImage_1.src = this.src;
-}
-var span_1 = document.getElementsByClassName("close one")[0];
-span_1.onclick = function() { 
-  modal_1.style.display = "none";
-}
-</script>
+    var modal_1 = document.getElementById("myModal1");
+    var image_1 = document.getElementById("preImg1");
+    var modalImage_1 = document.getElementById("img01");
+    image_1.onclick = function(){
+      modal_1.style.display = "block";
+      modalImage_1.src = this.src;
+    }
+    var span_1 = document.getElementsByClassName("close one")[0];
+    span_1.onclick = function() { 
+      modal_1.style.display = "none";
+    }
+  </script>
+  `;
+
+  {
+    /* Tab Function */
+  }
+  const Tabs = `
+  <div class="tab">
+    <button
+      id="tabF"
+      class="tablinks active"
+      onclick="openTab(event, 'Deli1')"
+    >
+      1 - Wait for Donor response
+    </button>
+    <button
+      class="tablinks"
+      onclick="openTab(event, 'Deli2')"
+    >
+      2 - Donor delivers the item
+    </button>
+    <button
+      class="tablinks"
+      onclick="openTab(event, 'Deli3')"
+    >
+      3 - Item is transporting
+    </button>
+    <button
+      class="tablinks"
+      onclick="openTab(event, 'Deli4')"
+    >
+      4 - Confirm for item arrival
+    </button>
+    <button
+      class="tablinks"
+      onclick="openTab(event, 'Deli5')"
+    >
+      5 - Successful request
+    </button>
+  </div>
+  <div id="Deli1" class="tabcontent">
+    <h3>Process1</h3>
+    <p>
+      Wait for Donor response
+    </p>
+  </div>
+  <div id="Deli2" class="tabcontent">
+    <h3>Process2</h3>
+    <p>
+      Donor delivers the item
+    </p>
+  </div>
+  <div id="Deli3" class="tabcontent">
+    <h3>Process3</h3>
+    <p>
+      Item is transporting
+    </p>
+  </div>
+  <div id="Deli4" class="tabcontent">
+    <h3>Process4</h3>
+    <p>
+      Confirm for item arrival
+    </p>
+  </div>
+  <div id="Deli5" class="tabcontent">
+    <h3>Process5</h3>
+    <p>
+      Successful request
+    </p>
+  </div>
+  <script>
+    function openTab(evt, cityName) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(cityName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+    document.getElementById('tabF').click();
+  </script>
   `;
 
   return (
@@ -465,6 +575,7 @@ span_1.onclick = function() {
           <link rel="stylesheet" href="resources/css/bootstrap-theme.min.css" />
           <link rel="stylesheet" href="resources/css/fontAwesome.css" />
           <link rel="stylesheet" href="resources/css/templatemo-style.css" />
+          <link rel="stylesheet" href="resources/css/Page_Main.css" />
           <link
             href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900"
             rel="stylesheet"
@@ -481,183 +592,31 @@ span_1.onclick = function() {
             rel="stylesheet"
           />
         </Helmet>
+
         <style>{`
-      .midimg
-      {
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-      }
-      .searchform input 
-      {
-          width: 169px;
-          height: 33px
-      }
-      ::-webkit-input-placeholder 
-      { /* Chrome/Opera/Safari */
-          color: lightgrey;
-      }
-      ::-moz-placeholder 
-      { /* Firefox 19+ */
-          color: lightgrey;
-      }
-      :-ms-input-placeholder 
-      { /* IE 10+ */
-          color: lightgrey;
-      }
-      :-moz-placeholder 
-      { /* Firefox 18- */
-          color: lightgrey;
-      }
-      .swapper:hover 
-      {
-          color: #F39C12;
-          border: 1px solid #F39C12;
-      }
-      .aswap:hover
-      {
+        .searchform input 
+        {
+  				width: 169px;
+  				height: 33px;
+				}
+				.swappor {
           color: white;
-          background: #F39C12;
-          border: 1px solid #F39C12;
-      }
-      .swappor  
-      {
-          color: white;
-          background: #F39C12;
-          border: 1px solid #F39C12;
-      }
-      .swappor:hover 
-      {
-          color: black;
-          background: #EBEDEF;
-          border: 1px solid black;
-      }
-      .pull-center:hover 
-      {
-          color: black;
-          font-weight: bold;
-      }
-      .demo
-      {
-        display: inline-block;
-      }
-      .demo a
-      {
-        color: grey; 
-        padding: 5px 12px; 
-        text-decoration: none; 
-        transition: background-color 2s; 
-        border: 1px solid grey; 
-        font-size: 15px;
-      } 
-      .demo a.active
-      {
-        border: 1px solid orange; 
-        color: orange;
-      }
-            .demo a:hover
-      {
-        border: 1px solid orange; 
-        color: orange;
-      }
-        .reddit 
-      {
-          border: 2px solid red;
-      }
-    .reddot:hover 
-      {
-          border: 2px solid red;
-      }
-            .fitBox
-    {
-     font-size:10pt;
-     width:230px;
-    }
-                .formBox
-    {
-     font-size:15px;
-     color:black;
-     width:100%;
-     height:40px;
-    }
-    .inputField
-    {
-    	background-color:#F2F4F4;
-    }
-    .picList {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-}
-    .modal {
-      display: none; 
-      position: fixed; 
-      z-index: 100; 
-      padding-top: 100px; 
-      padding-bottom: 100px; 
-      left: 0;
-      top: 0;
-      width: 100%; 
-      height: 100%; 
-      overflow: auto; 
-      background-color: rgb(0,0,0); 
-      background-color: rgba(0,0,0,0.9); 
-    }
-    .modal-content {
-      margin: auto;
-      display: block;
-      width: 80%;
-      max-width: 700px;
-    }
-    .modal-content, #caption {
-      animation-name: zoom;
-      animation-duration: 0.6s;
-    }
-    @keyframes zoom {
-      from {transform:scale(0)}
-      to {transform:scale(1)}
-    }
-    .close {
-      position: absolute;
-      top: 15px;
-      right: 35px;
-      color: #f1f1f1;
-      font-size: 40px;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-    .close:hover,
-    .close:focus {
-      color: #bbb;
-      text-decoration: none;
-      cursor: pointer;
-    }
-    @media only screen and (max-width: 700px){
-      .modal-content {
-        width: 100%;
-      }
-    }
-    .wishbox
-    {
-      margin-left: 74px;
-      textAlign: left;
-      overflow: hidden;
-      text-overflow: ellipsis; 
-      width: 800px;
-      height: 104px;  
-      background: white;
-    }
-    .w_margin
-    {
-    	margin-left: -16px;
-    	margin-top: 71px;
-    }
-    `}</style>
+          background: #f39c12;
+          border: 1px solid #f39c12;
+        }
+        .swappor:hover {
+          color: green;
+          background: #ebedef;
+          border: 1px solid green;
+        }
+        `}</style>
+
         <div id="myModal1" class="modal">
           <span class="close one">&times;</span>
           <img class="modal-content" id="img01" />
         </div>
+
+        {/*Menu Tab*/}
         <div className="overlay" />
         <section className="top-part">
           <img src={wall} />
@@ -738,6 +697,8 @@ span_1.onclick = function() {
               </ul>
             </nav>
           </div>
+
+          {/*Home Page*/}
           <ul className="cd-hero-slider">
             <li className="selected">
               <form>
@@ -755,10 +716,7 @@ span_1.onclick = function() {
                                   <div className="brands-name">
                                     <ul className="nav nav-pills nav-stacked">
                                       <select className="fitBox inputField">
-                                        <option
-                                          value=""
-                                          selected="selected"
-                                        >
+                                        <option value="" selected="selected">
                                           All Categories
                                         </option>
                                         {Categ_List.map((val, key) => (
@@ -781,10 +739,7 @@ span_1.onclick = function() {
                                   <div className="brands-name">
                                     <ul className="nav nav-pills nav-stacked">
                                       <select className="fitBox inputField">
-                                        <option
-                                          value=""
-                                          selected="selected"
-                                        >
+                                        <option value="" selected="selected">
                                           All Schools
                                         </option>
                                         {School_List.map((val, key) => (
@@ -805,7 +760,7 @@ span_1.onclick = function() {
                                 <div className="brands_products">
                                   <h2>Search</h2>
                                   <div className="brands-name">
-                                    <form action="" className="searchform">
+                                    <form className="searchform">
                                       <input
                                         type="text"
                                         className="inputField"
@@ -904,10 +859,10 @@ span_1.onclick = function() {
                                 <div className="col-sm-11">
                                   <br />
                                   <Pagination
-                                    Page_AllPost={Page_AllPost}
+                                    Page_AllPost={Page_AllPost1}
                                     TotalPost={Item_List.length}
-                                    Current_Page={Current_Page}
-                                    paginate={paginate}
+                                    Current_Page={Current_Page1}
+                                    paginate={paginate1}
                                     PostCount={ItemCount}
                                   />
                                 </div>
@@ -924,6 +879,8 @@ span_1.onclick = function() {
                 </div>
               </form>
             </li>
+
+            {/*Request Page*/}
             <li>
               <div className="heading"></div>
               <div className="cd-full-width third-slide">
@@ -935,7 +892,7 @@ span_1.onclick = function() {
                           <section id="cart_items">
                             <div className="container">
                               <br />
-                              <div className="table-responsive cart_info">
+                              <div className="table-responsive cart_info" style={{overflow: "hidden"}}>
                                 <table className="table table-condensed">
                                   <thead>
                                     <tr className="cart_menu">
@@ -943,267 +900,21 @@ span_1.onclick = function() {
                                         className="image"
                                         style={{ textAlign: "left" }}
                                       >
-                                        Request Items (3/100)
+                                        Request Items
                                       </td>
                                       <td className="description" />
                                       <td />
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    <tr>
-                                      <td
-                                        className="cart_product"
-                                        style={{ float: "left" }}
-                                      >
-                                        <a href>
-                                          <img
-                                            src={pro1}
-                                            alt=""
-                                            width={127}
-                                            height={158}
-                                          />
-                                        </a>
-                                      </td>
-                                      <td
-                                        className="cart_description"
-                                        style={{ float: "left" }}
-                                      >
-                                        <br />
-                                        <h2
-                                          className="cart_total_price"
-                                          style={{
-                                            textAlign: "left",
-                                            fontSize: "18px",
-                                          }}
-                                        >
-                                                Thai Literature Book 1
-                                        </h2>
-                                        <p style={{ textAlign: "justify" }}>
-                                                   Thai book with a summary of
-                                          the content example of doing the
-                                          problem Both a basic form and a
-                                          shortcut way with
-                                          <br />
-                                                   exercises and solutions by
-                                          explaining in simple language,
-                                          according to the latest curriculum by
-                                          explaining to be
-                                          <br />
-                                                   easy to understand, not
-                                          boring, to create a good attitude...
-                                        </p>
-                                      </td>
-                                      <td
-                                        className="cart_delete"
-                                        style={{ float: "right" }}
-                                      >
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <a className="btn btn-default add-to-cart">
-                                          <i className="fa fa-clock-o" />
-                                          Confirm
-                                        </a>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td
-                                        className="cart_product"
-                                        style={{ float: "left" }}
-                                      >
-                                        <a href>
-                                          <img
-                                            src={pro2}
-                                            alt=""
-                                            width={127}
-                                            height={158}
-                                          />
-                                        </a>
-                                      </td>
-                                      <td
-                                        className="cart_description"
-                                        style={{ float: "left" }}
-                                      >
-                                        <br />
-                                        <h2
-                                          className="cart_total_price"
-                                          style={{
-                                            textAlign: "left",
-                                            fontSize: "18px",
-                                          }}
-                                        >
-                                                Mathematic Book 2
-                                        </h2>
-                                        <p style={{ textAlign: "justify" }}>
-                                                   Math book with a summary of
-                                          the content example of doing the
-                                          problem Both a basic form and a
-                                          shortcut way with
-                                          <br />
-                                                   exercises and solutions by
-                                          explaining in simple language,
-                                          according to the latest curriculum by
-                                          explaining to be
-                                          <br />
-                                                   easy to understand, not
-                                          boring, to create a good attitude...
-                                        </p>
-                                      </td>
-                                      <td
-                                        className="cart_delete"
-                                        style={{ float: "right" }}
-                                      >
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <h2 style={{ fontSize: "18px" }}>
-                                          <i className="fa fa-clock-o" />
-                                          Pending...
-                                        </h2>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td
-                                        className="cart_product"
-                                        style={{ float: "left" }}
-                                      >
-                                        <a href>
-                                          <img
-                                            src={pro3}
-                                            alt=""
-                                            width={127}
-                                            height={158}
-                                          />
-                                        </a>
-                                      </td>
-                                      <td
-                                        className="cart_description"
-                                        style={{ float: "left" }}
-                                      >
-                                        <br />
-                                        <h2
-                                          className="cart_total_price"
-                                          style={{
-                                            textAlign: "left",
-                                            fontSize: "18px",
-                                          }}
-                                        >
-                                                English Activity Book 3
-                                        </h2>
-                                        <p style={{ textAlign: "justify" }}>
-                                                   English book with a summary
-                                          of the content example of doing the
-                                          problem Both a basic form and a
-                                          shortcut way with
-                                          <br />
-                                                   exercises and solutions by
-                                          explaining in simple language,
-                                          according to the latest curriculum by
-                                          explaining to be
-                                          <br />
-                                                   easy to understand, not
-                                          boring, to create a good attitude...
-                                        </p>
-                                      </td>
-                                      <td
-                                        className="cart_delete"
-                                        style={{ float: "right" }}
-                                      >
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <h2
-                                          style={{
-                                            fontSize: "18px",
-                                            color: "#90EE90",
-                                          }}
-                                        >
-                                          <i className="fa fa-check" />
-                                          Received
-                                        </h2>
-                                      </td>
-                                    </tr>
+                                    <InnerHTML html={Tabs} />
                                   </tbody>
                                 </table>
                               </div>
                               <div className="col-sm-11">
                                 <br />
-                                <ul className="pagination">
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>«</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1 active">
-                                    <li>
-                                      <a href>1</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>2</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>3</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>4</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>5</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>6</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>7</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>8</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>9</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>10 </a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>»</a>
-                                    </li>
-                                  </div>
-                                </ul>
+                                <ul className="pagination"></ul>
                               </div>
-                              <br />
                               <br />
                               <br />
                               <br />
@@ -1216,6 +927,8 @@ span_1.onclick = function() {
                 </div>
               </div>
             </li>
+
+            {/*Wish Page*/}
             <li>
               <div className="heading"></div>
               <div className="cd-full-width third-slide">
@@ -1235,7 +948,7 @@ span_1.onclick = function() {
                                         className="image"
                                         style={{ textAlign: "left" }}
                                       >
-                                        Wishlist Items
+                                        Wishlist Items ({Wish_List.length})
                                       </td>
                                       <td className="description" />
                                       <td />
@@ -1313,17 +1026,15 @@ span_1.onclick = function() {
                                   </tbody>
                                 </table>
                               </div>
-                                                             <div className="col-sm-11">
-                                  <br />
-                                  <Pagination
-                                    Page_AllPost={Page_AllPost}
-                                    TotalPost={Wish_List.length}
-                                    Current_Page={Current_Page}
-                                    paginate={paginate}
-                                    PostCount={WishCount}
-                                  />
-                                </div>
-                              <br />
+                              <div className="col-sm-11">
+                                <Pagination
+                                  Page_AllPost={Page_AllPost2}
+                                  TotalPost={Wish_List.length}
+                                  Current_Page={Current_Page2}
+                                  paginate={paginate2}
+                                  PostCount={WishCount}
+                                />
+                              </div>
                               <br />
                               <br />
                               <br />
@@ -1336,9 +1047,11 @@ span_1.onclick = function() {
                 </div>
               </div>
             </li>
+
+            {/*Account Page*/}
             <li>
               <div className="heading"></div>
-              <form id="contact" onSubmit={handleSubmit1}>
+              <form onSubmit={handleSubmit1}>
                 <div className="cd-full-width fivth-slide">
                   {User_Account.map((val, key) => {
                     return (
@@ -1351,26 +1064,11 @@ span_1.onclick = function() {
                                 <div className="col-md-4">
                                   <fieldset>
                                     <img
-                                      style={{ width: "350px", height: "20px" }}
+                                      style={{ width: "350px", height: "1px" }}
                                       src={blank}
                                       alt=""
                                     />
-                                    <div
-                                      className="col-sm-4"
-                                      style={{ float: "left" }}
-                                    >
-                                      <div className>
-                                        <ul className="nav nav-pills nav-stacked">
-                                          <a href>
-                                            <span className="pull-center" />
-                                          </a>
-                                        </ul>
-                                      </div>
-                                    </div>
-                                    <div
-                                      className="col-sm-5"
-                                      style={{ float: "left" }}
-                                    >
+                                    <fieldset>
                                       <h2
                                         style={{
                                           fontSize: "18px",
@@ -1380,59 +1078,64 @@ span_1.onclick = function() {
                                       >
                                         FAQ
                                       </h2>
-                                      <div className="brands-name">
-                                        <ul className="nav nav-pills nav-stacked">
-                                          <a href>
-                                            <span className="pull-center">
-                                               -Read Policy-
-                                            </span>
-                                          </a>
-                                        </ul>
+                                    </fieldset>
+                                    <fieldset>
+                                      <div>
+                                        <p
+                                          className="greatCenter"
+                                          style={{
+                                            textAlign: "center",
+                                            color: "#3498DB",
+                                          }}
+                                        >
+                                          <span className="pull-center">
+                                            -Read Policy-
+                                          </span>
+                                        </p>
                                       </div>
-                                    </div>
+                                    </fieldset>
                                     <img
-                                      style={{ width: "350px", height: "40px" }}
+                                      style={{ width: "350px", height: "35px" }}
                                       src={blank}
                                       alt=""
                                     />
                                     <fieldset>
-                                      <span
-                                        className="cart-total-price text-center"
-                                        style={{
-                                          fontSize: "18px",
-                                          color: "#F39C12",
-                                        }}
-                                      >
-                                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Weekly
-                                        request chance:&nbsp;
-                                      </span>
-                                      <span
-                                        className="cart-total-price text-center"
-                                        style={{ fontSize: "16px" }}
-                                      >
-                                        ({val.Chance}/5)
-                                      </span>
+                                      <p style={{ textAlign: "center" }}>
+                                        <span
+                                          className="cart-total-price text-center"
+                                          style={{
+                                            fontSize: "18px",
+                                            color: "#F39C12",
+                                          }}
+                                        >
+                                          Weekly request chances:&nbsp;
+                                        </span>
+                                        <span
+                                          className="cart-total-price text-center"
+                                          style={{ fontSize: "16px" }}
+                                        >
+                                          ({val.Chance}/5)
+                                        </span>
+                                      </p>
                                     </fieldset>
                                     <fieldset>
-                                      <br />
-                                    </fieldset>
-                                    <fieldset>
-                                      <span
-                                        className="cart-total-price text-center"
-                                        style={{
-                                          fontSize: "18px",
-                                          color: "#F39C12",
-                                        }}
-                                      >
-                                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total
-                                        successful request:&nbsp;
-                                      </span>
-                                      <span
-                                        className="cart-total-price text-center"
-                                        style={{ fontSize: "16px" }}
-                                      >
-                                        7
-                                      </span>
+                                      <p style={{ textAlign: "center" }}>
+                                        <span
+                                          className="cart-total-price text-center"
+                                          style={{
+                                            fontSize: "18px",
+                                            color: "#F39C12",
+                                          }}
+                                        >
+                                          Total successful requests:&nbsp;
+                                        </span>
+                                        <span
+                                          className="cart-total-price text-center"
+                                          style={{ fontSize: "16px" }}
+                                        >
+                                          7
+                                        </span>
+                                      </p>
                                     </fieldset>
                                   </fieldset>
                                 </div>
@@ -1451,29 +1154,32 @@ span_1.onclick = function() {
                                 <div className="col-md-4">
                                   <fieldset>
                                     <img
-                                      style={{ width: "350px", height: "65px" }}
+                                      style={{ width: "360px", height: "65px" }}
                                       src={blank}
                                       alt=""
                                     />
-                                    <button
-                                      className="btn swappor"
-                                      type="submit"
-                                      onClick={R_update}
-                                      style={{ float: "left" }}
-                                    >
-                                      <i className="fa fa-user" />
-                                       Edit Profile
-                                    </button>
-                                    <p style={{ float: "left" }}>      </p>
-                                    <button
-                                      className="btn swappor"
-                                      type="submit"
-                                      onClick={P_checkR}
-                                      style={{ float: "left" }}
-                                    >
-                                      <i className="fa fa-lock" />
-                                       Change Pass
-                                    </button>
+                                    <div className="midbut1">
+                                      <button
+                                        className="btn swappor"
+                                        type="submit"
+                                        onClick={R_update}
+                                        style={{ float: "left" }}
+                                      >
+                                        <i className="fa fa-user" />
+                                         Edit Profile
+                                      </button>
+                                    </div>
+                                    <div className="midbut2">
+                                      <button
+                                        className="btn swappor"
+                                        type="submit"
+                                        onClick={P_checkR}
+                                        style={{ float: "right" }}
+                                      >
+                                        <i className="fa fa-lock" />
+                                         Change Pass
+                                      </button>
+                                    </div>
                                   </fieldset>
                                 </div>
                                 <div className="col-md-4">
@@ -1678,6 +1384,27 @@ span_1.onclick = function() {
                                     />
                                   </fieldset>
                                 </div>
+                                <div className="col-md-4">
+                                  <fieldset>
+                                    <label htmlFor="postR">ZIP:</label>
+                                    <input
+                                      type="text"
+                                      id="postR"
+                                      defaultValue={val.ZIP}
+                                      placeholder="ZIP Code"
+                                      autocomplete="off"
+                                      style={{
+                                        width: "100%",
+                                        color: "black",
+                                        fontSize: "15px",
+                                      }}
+                                      onInvalid={R_update.exit}
+                                      onChange={(x) =>
+                                        setR_zipReg(x.target.value)
+                                      }
+                                    />
+                                  </fieldset>
+                                </div>
                                 <br />
                                 <div className="col-md-12">
                                   <fieldset>
@@ -1732,7 +1459,7 @@ span_1.onclick = function() {
                                 <div className="col-md-8">
                                   <fieldset>
                                     <img
-                                      style={{ width: "720px", height: "85px" }}
+                                      style={{ width: "750px", height: "85px" }}
                                       src={blank}
                                       alt=""
                                     />
@@ -1790,6 +1517,8 @@ span_1.onclick = function() {
                 </div>
               </form>
             </li>
+
+            {/*Report Page*/}
             <li>
               <div className="heading"></div>
               <div className="cd-full-width fivth-slide">
@@ -1820,17 +1549,26 @@ span_1.onclick = function() {
                               <br />
                               <ul>
                                 <i>
-                                  <a href="https://www.facebook.com/shiratasa.kusharane/" target="_blank">
+                                  <a
+                                    href="https://www.facebook.com/shiratasa.kusharane/"
+                                    target="_blank"
+                                  >
                                     <i className="fa fa-facebook" />
                                   </a>
                                 </i>
                                 <i>
-                                  <a href="https://www.youtube.com/channel/UC6wZl8R7vM1gs-bTJWhBf1g" target="_blank">
+                                  <a
+                                    href="https://www.youtube.com/channel/UC6wZl8R7vM1gs-bTJWhBf1g"
+                                    target="_blank"
+                                  >
                                     <i className="fa fa-youtube" />
                                   </a>
                                 </i>
                                 <i>
-                                  <a href="https://github.com/Shiratasa" target="_blank">
+                                  <a
+                                    href="https://github.com/Shiratasa"
+                                    target="_blank"
+                                  >
                                     <i className="fa fa-github" />
                                   </a>
                                 </i>
@@ -1839,7 +1577,7 @@ span_1.onclick = function() {
                           </div>
                           <div className="col-md-8">
                             <div className="row">
-                              <form id="contact" action method="post">
+                              <form id="contact">
                                 <div className="col-md-6">
                                   <fieldset>
                                     <input

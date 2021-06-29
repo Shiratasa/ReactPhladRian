@@ -48,6 +48,8 @@ function D_Add() {
   const [file_Array4, setFile_Array4] = useState("");
   const [School_List, setSchool_List] = useState([]);
   const [Categ_List, setCateg_List] = useState([]);
+  const [Frag_List, setFrag_List] = useState([]);
+  const [Qual_List, setQual_List] = useState([]);
   const [I_Param, setI_Param] = useState("");
   const [I_Obj, setI_Obj] = useState("");
   const [I_Pic1, setI_Pic1] = useState("");
@@ -72,7 +74,7 @@ function D_Add() {
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (invali = "0") {
+    if (invali == "0") {
       JSAlert.alert("", "Submit Success!", JSAlert.Icons.Success);
       await timeout(1000).then($(this).unbind("submit").submit());
       history.push(`/d_main/${Donor_ID}`);
@@ -95,6 +97,24 @@ function D_Add() {
   const CategBox = async () => {
     Axios.get("http://localhost:5000/Categ_I").then((response) => {
       setCateg_List(response.data);
+    });
+  };
+
+  {
+    /* Fragile Get */
+  }
+  const FragBox = async () => {
+    Axios.get("http://localhost:5000/Frag").then((response) => {
+      setFrag_List(response.data);
+    });
+  };
+
+  {
+    /* Quality Get */
+  }
+  const QualBox = async () => {
+    Axios.get("http://localhost:5000/Qual").then((response) => {
+      setQual_List(response.data);
     });
   };
 
@@ -501,6 +521,8 @@ span_4.onclick = function() {
   window.onload = function () {
     CategBox();
     SchoolBox();
+    FragBox();
+    QualBox();
     setI_Param(Donor_ID);
   };
 
@@ -526,6 +548,7 @@ span_4.onclick = function() {
           <link rel="stylesheet" href="resources/css/bootstrap-theme.min.css" />
           <link rel="stylesheet" href="resources/css/fontAwesome.css" />
           <link rel="stylesheet" href="resources/css/templatemo-style.css" />
+          <link rel="stylesheet" href="resources/css/Page_Detail.css" />
           <link
             href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900"
             rel="stylesheet"
@@ -535,6 +558,7 @@ span_4.onclick = function() {
           <link href="resources/css/prettyPhoto.css" rel="stylesheet" />
           <link href="resources/css/price-range.css" rel="stylesheet" />
           <link href="resources/css/animate.css" rel="stylesheet" />
+          DetailDetail
           <link href="resources/css/main.css" rel="stylesheet" />
           <link href="resources/css/responsive.css" rel="stylesheet" />
           <link
@@ -542,230 +566,20 @@ span_4.onclick = function() {
             rel="stylesheet"
           />
         </Helmet>
+
         <style>{`
-      .midimg
-      {
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-      }
-      .searchform input 
-      {
-          width: 169px;
-          height: 33px
-      }
-      ::-webkit-input-placeholder 
-      { /* Chrome/Opera/Safari */
-          color: lightgrey;
-      }
-      ::-moz-placeholder 
-      { /* Firefox 19+ */
-          color: lightgrey;
-      }
-      :-ms-input-placeholder 
-      { /* IE 10+ */
-          color: lightgrey;
-      }
-      :-moz-placeholder 
-      { /* Firefox 18- */
-          color: lightgrey;
-      }
-      .swapper:hover 
-      {
-          color: #F39C12;
-          border: 1px solid #F39C12;
-      }
-      .aswap:hover
-      {
+        .swappor {
           color: white;
-          background: #F39C12;
-          border: 1px solid #F39C12;
-      }
-      .swappor  
-      {
-          color: white;
-          background: #F39C12;
-          border: 1px solid #F39C12;
-      }
-      .swappor:hover 
-      {
-          color: black;
-          background: #EBEDEF;
-          border: 1px solid black;
-      }
-      .pull-center:hover 
-      {
-          color: black;
-          font-weight: bold;
-      }
-      .demo
-      {
-        display: inline-block;
-      }
-      .demo a
-      {
-        color: red; 
-        padding: 5px 12px; 
-        text-decoration: none; 
-        transition: background-color 2s; 
-        border: 1px solid orange; 
-        font-size: 15px;
-      } 
-      .demo a.active
-      {
-        background-color: orange; 
-        color: white;
-      }
-            .demo a:hover
-      {
-        background-color: orange; 
-        color: white;
-      }
-        .reddit 
-      {
-          border: 2px solid red;
-      }
-    .reddot:hover 
-      {
-          border: 2px solid red;
-      }
-      #D_param
-      {
-        color:transparent;
-        border: 0px transparent;
-      }
-      input#D_param:focus {
-    outline-width: 0;
-}
-    #ItemN
-    {
-     font-size:16pt;
-     width:500px;
-     text-align:center;
-    }
-     #ItemD
-    {
-     font-size:12pt;
-     height:200px;
-     width:700px;
-     background-color:white;
-     border:solid 1px black;
-    }
-    .fitBox
-    {
-     font-size:10pt;
-     width:300px;
-     background-color:white;
-     border:solid 1px black;
-    }
-    .mySlides
-    {
-     border:solid 1px black;
-    }
-    #slideshow { 
-      position: relative; 
-      width: 250px; 
-      height: 340px; 
-    }
-    #slideshow > div { 
-      position: absolute; 
-    }
-    .prev, .next {
-  cursor: pointer;
-  position: absolute;
-  top: 165px;
-  width: auto;
-  margin-top: -22px;
-  padding: 16px;
-  color: white;
-  font-weight: bold;
-  font-size: 18px;
-  transition: 0.6s ease;
-  user-select: none;
-  background-color: rgb(180,180,180);
-}
-.prev {
-  left: 16px;
-  border-radius: 0 3px 3px 0;
-}
-.next {
-  right: 14px;
-  border-radius: 3px 0 0 3px;
-}
-.prev:hover, .next:hover {
-	color: white;
-  background-color: rgb(255,165,0);
-}
-.dot {
-  cursor: pointer;
-  height: 15px;
-  width: 15px;
-  margin: 0 2px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-  transition: background-color 0.6s ease;
-}
-.active, .dot:hover {
-  background-color: rgb(255,165,0);
-}
-.numbertext {
-  color: red;
-  font-size: 14px;
-  font-style: bold;
-  padding: 8px 12px;
-  position: absolute;
-  top: 0;
-}
-.modal {
-  display: none; 
-  position: fixed; 
-  z-index: 100; 
-  padding-top: 100px; 
-  padding-bottom: 100px; 
-  left: 0;
-  top: 0;
-  width: 100%; 
-  height: 100%; 
-  overflow: auto; 
-  background-color: rgb(0,0,0); 
-  background-color: rgba(0,0,0,0.9); 
-}
-.modal-content {
-  margin: auto;
-  display: block;
-  width: 80%;
-  max-width: 700px;
-}
-.modal-content, #caption {
-  animation-name: zoom;
-  animation-duration: 0.6s;
-}
-@keyframes zoom {
-  from {transform:scale(0)}
-  to {transform:scale(1)}
-}
-.close {
-  position: absolute;
-  top: 15px;
-  right: 35px;
-  color: #f1f1f1;
-  font-size: 40px;
-  font-weight: bold;
-  transition: 0.3s;
-}
-.close:hover,
-.close:focus {
-  color: #bbb;
-  text-decoration: none;
-  cursor: pointer;
-}
-@media only screen and (max-width: 700px){
-  .modal-content {
-    width: 100%;
-  }
-}
-    `}</style>
+          background: #f39c12;
+          border: 1px solid #f39c12;
+        }
+        .swappor:hover {
+          color: green;
+          background: #ebedef;
+          border: 1px solid green;
+        }
+        `}</style>
+
         <div id="myModal1" class="modal">
           <span class="close one">&times;</span>
           <img class="modal-content" id="img01" />
@@ -938,6 +752,7 @@ span_4.onclick = function() {
                               <h2 className="title text-center">
                                 <input
                                   type="text"
+                                  className="inputField"
                                   id="ItemN"
                                   placeholder="Item Name"
                                   autocomplete="off"
@@ -950,6 +765,7 @@ span_4.onclick = function() {
                               <h4 style={{ textAlign: "left" }}>Description</h4>
                               <textarea
                                 type="address"
+                                className="inputField"
                                 id="ItemD"
                                 placeholder="Item Description"
                                 autocomplete="off"
@@ -970,7 +786,7 @@ span_4.onclick = function() {
                                     <td className="techSpecTD1">
                                       <select
                                         id="ItemC"
-                                        className="fitBox"
+                                        className="fitBox inputField"
                                         required
                                         onInvalid={I_donate.exit}
                                         onChange={(x) =>
@@ -1002,7 +818,7 @@ span_4.onclick = function() {
                                     <td className="techSpecTD1">
                                       <select
                                         id="ItemS"
-                                        className="fitBox"
+                                        className="fitBox inputField"
                                         required
                                         onInvalid={I_donate.exit}
                                         onChange={(x) =>
@@ -1034,7 +850,7 @@ span_4.onclick = function() {
                                     <td className="techSpecTD1">
                                       <select
                                         id="ItemA"
-                                        className="fitBox"
+                                        className="fitBox inputField"
                                         required
                                         onInvalid={I_donate.exit}
                                         onChange={(x) =>
@@ -1048,10 +864,14 @@ span_4.onclick = function() {
                                         >
                                           -- Select Conditon --
                                         </option>
-                                        <option value="4">New</option>
-                                        <option value="3">Excellent</option>
-                                        <option value="2">Good</option>
-                                        <option value="1">Fair</option>
+                                        {Qual_List.map((val, key) => (
+                                          <option
+                                            key={val.Quality}
+                                            value={val.Quality}
+                                          >
+                                            {val.I_Con}
+                                          </option>
+                                        ))}
                                       </select>
                                     </td>
                                   </tr>
@@ -1062,7 +882,7 @@ span_4.onclick = function() {
                                     <td className="techSpecTD1">
                                       <select
                                         id="ItemF"
-                                        className="fitBox"
+                                        className="fitBox inputField"
                                         required
                                         onInvalid={I_donate.exit}
                                         onChange={(x) =>
@@ -1076,8 +896,14 @@ span_4.onclick = function() {
                                         >
                                           -- Select Fragility --
                                         </option>
-                                        <option value="0">No</option>
-                                        <option value="1">Yes</option>
+                                        {Frag_List.map((val, key) => (
+                                          <option
+                                            key={val.Fragile}
+                                            value={val.Fragile}
+                                          >
+                                            {val.YesNo}
+                                          </option>
+                                        ))}
                                       </select>
                                     </td>
                                   </tr>
@@ -1086,17 +912,20 @@ span_4.onclick = function() {
                                       <b>Quantity:</b>
                                     </td>
                                     <td className="techSpecTD1">
-                                      <input
-                                        type="text"
-                                        id="ItemQ"
-                                        placeholder="Item Quantity"
-                                        autocomplete="off"
-                                        required
-                                        onInvalid={I_donate.exit}
-                                        onChange={(x) =>
-                                          setI_Num(x.target.value)
-                                        }
-                                      />
+                                      <div style={{ height: "29px" }}>
+                                        <input
+                                          type="text"
+                                          className="inputField"
+                                          id="ItemQ"
+                                          placeholder="Item Quantity"
+                                          autocomplete="off"
+                                          required
+                                          onInvalid={I_donate.exit}
+                                          onChange={(x) =>
+                                            setI_Num(x.target.value)
+                                          }
+                                        />
+                                      </div>
                                     </td>
                                   </tr>
                                 </tbody>
@@ -1104,7 +933,7 @@ span_4.onclick = function() {
                               <hr className="soft" />
                               <button
                                 type="submit"
-                                className="btn btn-default swappor"
+                                className="btn swappor"
                                 onClick={I_donate}
                               >
                                 <i className="fa fa fa-edit" />

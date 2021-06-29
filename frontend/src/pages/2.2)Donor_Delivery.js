@@ -35,7 +35,7 @@ function D_Deli() {
   const del6 = window.location.origin + "/resources/imgs/shop/lala.png";
   const eng = window.location.origin + "/resources/imgs/authen/eng.png";
   const tha = window.location.origin + "/resources/imgs/authen/tha.png";
-
+  let { Donor_ID } = useParams();
   let history = useHistory();
 
   return (
@@ -188,7 +188,7 @@ function D_Deli() {
             <nav>
               <span className="cd-marker item-1" />
               <ul>
-                <li>
+                <li className="selected">
                   <a>
                     <div className="image-icon">
                       <img src={but1} width={42} height={42} />
@@ -208,7 +208,7 @@ function D_Deli() {
                     <div className="col-md-13">
                       <div className="content fivth-content">
                         <div className="row">
-                          <form id="contact" action method="post">
+                          <form id="contact">
                             <div className="col-md-12">
                               <table
                                 className="table-condensed"

@@ -291,7 +291,7 @@ function S_Main() {
                               <div className="brands_products">
                                 <h2>Search</h2>
                                 <div className="brands-name">
-                                  <form action="" className="searchform">
+                                  <form className="searchform">
                                     <input
                                       type="text"
                                       placeholder="Item Name"
@@ -366,66 +366,7 @@ function S_Main() {
                                 <div className="col-sm-11">
                                   <br />
                                   <ul className="pagination">
-                                    <div className="col-sm-1">
-                                      <li>
-                                        <a href>«</a>
-                                      </li>
-                                    </div>
-                                    <div className="col-sm-1">
-                                      <li className="active">
-                                        <a href>1</a>
-                                      </li>
-                                    </div>
-                                    <div className="col-sm-1">
-                                      <li>
-                                        <a href>2</a>
-                                      </li>
-                                    </div>
-                                    <div className="col-sm-1">
-                                      <li>
-                                        <a href>3</a>
-                                      </li>
-                                    </div>
-                                    <div className="col-sm-1">
-                                      <li>
-                                        <a href>4</a>
-                                      </li>
-                                    </div>
-                                    <div className="col-sm-1">
-                                      <li>
-                                        <a href>5</a>
-                                      </li>
-                                    </div>
-                                    <div className="col-sm-1">
-                                      <li>
-                                        <a href>6</a>
-                                      </li>
-                                    </div>
-                                    <div className="col-sm-1">
-                                      <li>
-                                        <a href>7</a>
-                                      </li>
-                                    </div>
-                                    <div className="col-sm-1">
-                                      <li>
-                                        <a href>8</a>
-                                      </li>
-                                    </div>
-                                    <div className="col-sm-1">
-                                      <li>
-                                        <a href>9</a>
-                                      </li>
-                                    </div>
-                                    <div className="col-sm-1">
-                                      <li>
-                                        <a href>10 </a>
-                                      </li>
-                                    </div>
-                                    <div className="col-sm-1">
-                                      <li>
-                                        <a href>»</a>
-                                      </li>
-                                    </div>
+                                    
                                   </ul>
                                 </div>
                               </div>
@@ -661,66 +602,7 @@ function S_Main() {
                               <div className="col-sm-11">
                                 <br />
                                 <ul className="pagination">
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>«</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li className="active">
-                                      <a href>1</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>2</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>3</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>4</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>5</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>6</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>7</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>8</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>9</a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>10 </a>
-                                    </li>
-                                  </div>
-                                  <div className="col-sm-1">
-                                    <li>
-                                      <a href>»</a>
-                                    </li>
-                                  </div>
+                                  
                                 </ul>
                               </div>
                               <br />
@@ -744,7 +626,7 @@ function S_Main() {
                     <div className="col-md-13">
                       <div className="content fivth-content">
                         <div className="row">
-                          <form id="contact" action method="post">
+                          <form id="contact">
                             <div className="col-md-4">
                               <fieldset>
                                 <div
@@ -1006,7 +888,7 @@ Bangkok, 10240"
                           </div>
                           <div className="col-md-8">
                             <div className="row">
-                              <form id="contact" action method="post">
+                              <form id="contact">
                                 <div className="col-md-6">
                                   <fieldset>
                                     <input
