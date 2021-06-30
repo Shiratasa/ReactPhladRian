@@ -48,7 +48,7 @@ function R_Main() {
     /(^(?!\s))+([a-z0-9.]{1,256})+([@]{1}[a-z0-9]{1,256})+([.]{1}[a-z.]{1,256})+($)/;
   var regEx3 = /^\S*$/;
   var regEx4 = /(^(?!\s))+([0]{1}[6,8,9]{1}[0-9]{1,256})+($)/;
-  var regEx5 = /(^(?!\s))+([A-Z0-9]{1,256})+($)/;
+  var regEx5 = /(^(?!\s))+([A-Za-z0-9]{1,256})+($)/;
   var regEx6 = /^[^\s]+(\s+[^\s]+)*$/;
   var regEx7 = /(^(?!\s))+([0-9]{1,256})+($)/;
   var invaliA = "1";
@@ -594,21 +594,21 @@ function R_Main() {
         </Helmet>
 
         <style>{`
-        .searchform input 
-        {
-  				width: 169px;
-  				height: 33px;
-				}
-				.swappor {
-          color: white;
-          background: #f39c12;
-          border: 1px solid #f39c12;
-        }
-        .swappor:hover {
-          color: green;
-          background: #ebedef;
-          border: 1px solid green;
-        }
+          .searchform input 
+          {
+  				  width: 169px;
+  				  height: 33px;
+				  }
+				  .swappor {
+            color: white;
+            background: #f39c12;
+            border: 1px solid #f39c12;
+          }
+          .swappor:hover {
+            color: green;
+            background: #ebedef;
+            border: 1px solid green;
+          }
         `}</style>
 
         <div id="myModal1" class="modal">
@@ -1076,7 +1076,7 @@ function R_Main() {
                                           textAlign: "center",
                                         }}
                                       >
-                                        FAQ
+                                        Forgot password?
                                       </h2>
                                     </fieldset>
                                     <fieldset>
@@ -1089,7 +1089,7 @@ function R_Main() {
                                           }}
                                         >
                                           <span className="pull-center">
-                                            -Read Policy-
+                                            -Click here-
                                           </span>
                                         </p>
                                       </div>

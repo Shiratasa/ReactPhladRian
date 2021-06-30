@@ -155,6 +155,25 @@ app.get("/Item", function (req, resp) {
 });
 
 {
+  /* Reward List Get */
+}
+app.get("/Reward", function (req, resp) {
+  connection.query(
+    "SELECT * FROM ItemReward WHERE State=1 ORDER BY Reward_ID DESC",
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      } else {
+        resp.send(result);
+        console.log(result);
+      }
+    }
+  );
+});
+
+{
   /* Item List Get */
 }
 app.get("/Wish/:Student_ID", function (req, resp) {
@@ -194,6 +213,28 @@ app.get("/DonorItem/:Donor_ID", function (req, resp) {
   );
 });
 
+{
+  /* SponsorItem List Get */
+}
+app.get("/SponsorItem/:Sponsor_ID", function (req, resp) {
+  connection.query(
+    `SELECT * FROM ItemReward WHERE Sponsor_ID = ${req.params.Sponsor_ID} AND State=1 ORDER BY Reward_ID DESC`,
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      } else {
+        resp.send(result);
+        console.log(result);
+      }
+    }
+  );
+});
+
+{
+  /* Item Detail Get */
+}
 app.get("/Item/:Item_ID", function (req, resp) {
   connection.query(
     `SELECT * FROM ItemDonate 
@@ -202,6 +243,28 @@ app.get("/Item/:Item_ID", function (req, resp) {
    JOIN AllCondition ON ItemDonate.Quality = AllCondition.Quality 
    JOIN AllFragility ON ItemDonate.Fragile = AllFragility.Fragile 
    WHERE ItemDonate.Item_ID = ${req.params.Item_ID} AND ItemDonate.State=1`,
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      } else {
+        resp.send(result);
+        console.log(result);
+      }
+    }
+  );
+});
+
+{
+  /* Reward Detail Get */
+}
+app.get("/Reward/:Reward_ID", function (req, resp) {
+  connection.query(
+    `SELECT * FROM ItemReward
+   JOIN ListReward ON ItemReward.Type_ID = ListReward.Type_ID  
+   JOIN AllFragility ON ItemReward.Fragile = AllFragility.Fragile 
+   WHERE ItemReward.Reward_ID = ${req.params.Reward_ID} AND ItemReward.State=1`,
     function (error, result) {
       if (error) {
         console.error("Query failed:\n" + error.stack);
@@ -243,7 +306,28 @@ app.get("/R_Account/:Student_ID", function (req, resp) {
 app.get("/D_Account/:Donor_ID", function (req, resp) {
   connection.query(
     `SELECT * FROM UserDonor
-   WHERE Donor_ID = ${req.params.Donor_ID} AND State=1`,
+    WHERE Donor_ID = ${req.params.Donor_ID} AND State=1`,
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      } else {
+        resp.send(result);
+        console.log(result);
+      }
+    }
+  );
+});
+
+{
+  /* Sponsor Profile Get */
+}
+app.get("/S_Account/:Sponsor_ID", function (req, resp) {
+  connection.query(
+    `SELECT * FROM UserSponsor
+    JOIN ListCompany ON UserSponsor.Company_ID = ListCompany.Company_ID
+    WHERE UserSponsor.Sponsor_ID = ${req.params.Sponsor_ID} AND UserSponsor.State=1`,
     function (error, result) {
       if (error) {
         console.error("Query failed:\n" + error.stack);
@@ -263,6 +347,25 @@ app.get("/D_Account/:Donor_ID", function (req, resp) {
 app.get("/School", function (req, resp) {
   connection.query(
     "SELECT * FROM ListSchool WHERE State=1",
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      } else {
+        resp.send(result);
+        console.log(result);
+      }
+    }
+  );
+});
+
+{
+  /* Company List Get */
+}
+app.get("/Company", function (req, resp) {
+  connection.query(
+    "SELECT * FROM ListCompany WHERE State=1",
     function (error, result) {
       if (error) {
         console.error("Query failed:\n" + error.stack);
@@ -335,6 +438,22 @@ app.get("/Grade", function (req, resp) {
 }
 app.get("/Categ_I", function (req, resp) {
   connection.query("SELECT * FROM ListItem", function (error, result) {
+    if (error) {
+      console.error("Query failed:\n" + error.stack);
+      connection.end();
+      throw error;
+    } else {
+      resp.send(result);
+      console.log(result);
+    }
+  });
+});
+
+{
+  /* Reward Type Get */
+}
+app.get("/Categ_G", function (req, resp) {
+  connection.query("SELECT * FROM ListReward", function (error, result) {
     if (error) {
       console.error("Query failed:\n" + error.stack);
       connection.end();
@@ -494,6 +613,43 @@ app.post("/D_update/:Donor_ID", upload.any(), function (req, resp) {
 });
 
 {
+  /* Sponsor Update Post */
+}
+app.post("/S_update/:Sponsor_ID", upload.any(), function (req, resp) {
+  var Username = req.body.Username;
+  var Staff_Card = req.body.Staff_Card;
+  var Company_ID = req.body.Company_ID;
+  var Phone = req.body.Phone;
+  connection.query(
+    `UPDATE UserSponsor SET
+     Username = CASE
+     WHEN '${Username}' != '' THEN '${Username}'
+     ELSE Username
+     END,
+     Staff_Card = CASE
+     WHEN '${Staff_Card}' != '' THEN '${Staff_Card}'
+     ELSE Staff_Card
+     END,
+     Company_ID = CASE
+     WHEN '${Company_ID}' != '' THEN '${Company_ID}'
+     ELSE Company_ID
+     END,
+     Phone = CASE
+     WHEN '${Phone}' != '' THEN '${Phone}'
+     ELSE Phone
+     END
+     WHERE Sponsor_ID = ${req.params.Sponsor_ID}`,
+    function (error, result) {
+      if (error) {
+        console.error("Insert failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      }
+    }
+  );
+});
+
+{
   /* PassR Update Post */
 }
 app.post("/P_updateR/:Student_ID", upload.any(), function (req, resp) {
@@ -521,7 +677,7 @@ app.post("/P_updateR/:Student_ID", upload.any(), function (req, resp) {
 app.post("/P_checkR/:Student_ID", function (req, resp) {
   var Password = req.body.Password;
   connection.query(
-    `SELECT * FROM UserStudent WHERE Student_ID = ${req.params.Student_ID} AND Password='${Password}' AND State=1`,
+    `SELECT * FROM UserStudent WHERE Student_ID = ${req.params.Student_ID} AND BINARY Password='${Password}' AND State=1`,
     function (error, result) {
       if (error) {
         console.error("Query failed:\n" + error.stack);
@@ -567,7 +723,53 @@ app.post("/P_updateD/:Donor_ID", upload.any(), function (req, resp) {
 app.post("/P_checkD/:Donor_ID", function (req, resp) {
   var Password = req.body.Password;
   connection.query(
-    `SELECT * FROM UserDonor WHERE Donor_ID = ${req.params.Donor_ID} AND Password='${Password}' AND State=1`,
+    `SELECT * FROM UserDonor WHERE Donor_ID = ${req.params.Donor_ID} AND BINARY Password='${Password}' AND State=1`,
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      }
+      if (result.length > 0) {
+        resp.send(result);
+        console.log(result);
+      } else {
+        resp.send({ message: "Fake password..." });
+        console.log("Fake password...");
+      }
+    }
+  );
+});
+
+{
+  /* PassS Update Post */
+}
+app.post("/P_updateS/:Sponsor_ID", upload.any(), function (req, resp) {
+  var Password = req.body.Password;
+  connection.query(
+    `UPDATE UserSponsor SET
+     Password = CASE
+     WHEN '${Password}' != '' THEN '${Password}'
+     ELSE Password
+     END
+     WHERE Sponsor_ID = ${req.params.Sponsor_ID}`,
+    function (error, result) {
+      if (error) {
+        console.error("Insert failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      }
+    }
+  );
+});
+
+{
+  /* PassS Check Get */
+}
+app.post("/P_checkS/:Sponsor_ID", function (req, resp) {
+  var Password = req.body.Password;
+  connection.query(
+    `SELECT * FROM UserSponsor WHERE Sponsor_ID = ${req.params.Sponsor_ID} AND BINARY Password='${Password}' AND State=1`,
     function (error, result) {
       if (error) {
         console.error("Query failed:\n" + error.stack);
@@ -592,7 +794,7 @@ app.post("/R_login", function (req, resp) {
   var Email = req.body.Email;
   var Password = req.body.Password;
   connection.query(
-    "SELECT * FROM UserStudent WHERE Email=? AND Password=? AND State=1",
+    "SELECT * FROM UserStudent WHERE Email=? AND BINARY Password=? AND State=1",
     [Email, Password],
     function (error, result) {
       if (error) {
@@ -644,7 +846,7 @@ app.post("/D_login", function (req, resp) {
   var Email = req.body.Email;
   var Password = req.body.Password;
   connection.query(
-    "SELECT * FROM UserDonor WHERE Email=? AND Password=? AND State=1",
+    "SELECT * FROM UserDonor WHERE Email=? AND BINARY Password=? AND State=1",
     [Email, Password],
     function (error, result) {
       if (error) {
@@ -671,7 +873,7 @@ app.post("/S_login", function (req, resp) {
   var Email = req.body.Email;
   var Password = req.body.Password;
   connection.query(
-    "SELECT * FROM UserSponsor WHERE Email=? AND Password=? AND State=1",
+    "SELECT * FROM UserSponsor WHERE Email=? AND BINARY Password=? AND State=1",
     [Email, Password],
     function (error, result) {
       if (error) {
@@ -698,7 +900,7 @@ app.post("/A_login", function (req, resp) {
   var Email = req.body.Email;
   var Password = req.body.Password;
   connection.query(
-    "SELECT * FROM UserAdmin WHERE Email=? AND Password=? AND State=1",
+    "SELECT * FROM UserAdmin WHERE Email=? AND BINARY Password=? AND State=1",
     [Email, Password],
     function (error, result) {
       if (error) {
@@ -901,6 +1103,7 @@ app.post("/I_delete/:Item_ID", function (req, resp) {
   /* Reward Data Post */
 }
 app.post("/I_reward", function (req, resp) {
+  var Sponsor_ID = req.body.Sponsor_ID;
   var Obj = req.body.Obj;
   var Pic1 = req.body.Pic1;
   var Pic2 = req.body.Pic2;
@@ -913,8 +1116,9 @@ app.post("/I_reward", function (req, resp) {
   var Warning = req.body.Warning;
   var State = req.body.State;
   connection.query(
-    "INSERT INTO ItemReward (Obj, Pic1, Pic2, Pic3, Pic4, Type_ID, Quantity, Detail, Fragile, Warning, State) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 1)",
+    "INSERT INTO ItemReward (Sponsor_ID, Obj, Pic1, Pic2, Pic3, Pic4, Type_ID, Quantity, Detail, Fragile, Warning, State) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 1)",
     [
+      Sponsor_ID,
       Obj,
       Pic1,
       Pic2,

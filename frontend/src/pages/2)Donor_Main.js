@@ -39,7 +39,6 @@ function D_Main() {
   {
     /* Values */
   }
-
   {
     /*String Standard*/
   }
@@ -48,7 +47,7 @@ function D_Main() {
     /(^(?!\s))+([a-z0-9.]{1,256})+([@]{1}[a-z0-9]{1,256})+([.]{1}[a-z.]{1,256})+($)/;
   var regEx3 = /^\S*$/;
   var regEx4 = /(^(?!\s))+([0]{1}[6,8,9]{1}[0-9]{1,256})+($)/;
-  var regEx5 = /(^(?!\s))+([A-Z0-9]{1,256})+($)/;
+  var regEx5 = /(^(?!\s))+([A-Za-z0-9]{1,256})+($)/;
   var regEx6 = /^[^\s]+(\s+[^\s]+)*$/;
   var regEx7 = /(^(?!\s))+([0-9]{1,256})+($)/;
   var invaliA = "1";
@@ -73,6 +72,17 @@ function D_Main() {
   const ItemSlice = Item_List.slice(FirstQuery1, LastQuery1);
   const ItemCount = Math.ceil(Item_List.length / Page_AllPost1);
   const paginate1 = (pageNum) => setCurrent_Page1(pageNum);
+  {
+    /*Trade Num-tab*/
+  }
+  const [Current_Page2, setCurrent_Page2] = useState(1);
+  const [Page_AllPost2, setPage_AllPost2] = useState(4);
+  const LastQuery2 = Current_Page2 * Page_AllPost2;
+  const FirstQuery2 = LastQuery2 - Page_AllPost2;
+  const [Trade_List, setTrade_List] = useState([]);
+  const TradeSlice = Trade_List.slice(FirstQuery2, LastQuery2);
+  const TradeCount = Math.ceil(Trade_List.length / Page_AllPost2);
+  const paginate2 = (pageNum) => setCurrent_Page2(pageNum);
   {
     /*Query Constant*/
   }
@@ -113,6 +123,15 @@ function D_Main() {
         setItem_List(response.data);
       }
     );
+  };
+
+  {
+    /* Trade Get */
+  }
+  const TradeBlock = async () => {
+    Axios.get("http://localhost:5000/Reward").then((response) => {
+      setTrade_List(response.data);
+    });
   };
 
   {
@@ -325,6 +344,7 @@ function D_Main() {
   window.onload = function () {
     ItemBlock();
     SchoolBox();
+    TradeBlock();
     CategBox();
     ProfileInfo();
   };
@@ -370,21 +390,21 @@ function D_Main() {
         </Helmet>
 
         <style>{`
-        .searchform input 
-        {
-          width: 169px;
-          height: 33px;
-        }
-        .swappor {
-          color: white;
-          background: #f39c12;
-          border: 1px solid #f39c12;
-        }
-        .swappor:hover {
-          color: green;
-          background: #ebedef;
-          border: 1px solid green;
-        }
+          .searchform input 
+          {
+            width: 169px;
+            height: 33px;
+          }
+          .swappor {
+            color: white;
+            background: #f39c12;
+            border: 1px solid #f39c12;
+          }
+          .swappor:hover {
+            color: green;
+            background: #ebedef;
+            border: 1px solid green;
+          }
         `}</style>
 
         {/*Menu Tab*/}
@@ -566,7 +586,7 @@ function D_Main() {
                               <div className="features_items">
                                 <div className="brands_products">
                                   <h2 className="title text-center">
-                                    Recent Items&nbsp;&nbsp;&nbsp;
+                                    Your Items&nbsp;&nbsp;&nbsp;
                                     <button
                                       class="swappor"
                                       onClick={() => {
@@ -917,94 +937,88 @@ function D_Main() {
                                         className="image"
                                         style={{ textAlign: "left" }}
                                       >
-                                        Reward Items
+                                        Tradeable Items ({Trade_List.length})
                                       </td>
                                       <td className="description" />
                                       <td />
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    <tr>
-                                      <td
-                                        className="cart_product"
-                                        style={{ float: "left" }}
-                                      >
-                                        <a href>
-                                          <img
-                                            src="white"
-                                            alt=""
-                                            width={127}
-                                            height={158}
-                                          />
-                                        </a>
-                                      </td>
-                                      <td
-                                        className="cart_description"
-                                        style={{ float: "left" }}
-                                      >
-                                        <br />
-                                        <h2
-                                          className="cart_total_price"
-                                          style={{
-                                            textAlign: "left",
-                                            fontSize: "18px",
-                                          }}
-                                        >
-                                                Nike Air Shoes
-                                        </h2>
-                                        <p style={{ textAlign: "justify" }}>
-                                                   Good-quality and valuable
-                                          shoes. It is very useful and
-                                          versatile. A worth reward to be traded
-                                          with your point.
-                                          <br />
-                                                   We normally sell this item at
-                                          high price since it is considered as
-                                          limited edition item which is rarely
-                                          made.
-                                          <br />
-                                                   Get this thing under your
-                                          possession and enjoy....
-                                        </p>
-                                        <a
-                                          className="btn btn-default add-to-cart"
-                                          style={{ float: "left" }}
-                                        >
-                                          <i className="fa fa-eye" />
-                                          View
-                                        </a>
-                                      </td>
-                                      <td
-                                        className="cart_delete"
-                                        style={{ float: "right" }}
-                                      >
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <a
-                                          className="btn btn-default add-to-cart"
-                                          onClick={() => {
-                                            history.push("/d_rewa");
-                                            window.location.reload();
-                                          }}
-                                        >
-                                          <i className="fa fa-clock-o" />
-                                          Trade
-                                        </a>
-                                      </td>
-                                    </tr>
+                                    {TradeSlice.map((val, key) => {
+                                      return (
+                                        <tr>
+                                          <td
+                                            className="cart_product"
+                                            style={{ float: "left" }}
+                                          >
+                                            <a href>
+                                              <img
+                                                src={val.Pic1}
+                                                alt=""
+                                                width={127}
+                                                height={158}
+                                              />
+                                            </a>
+                                          </td>
+                                          <td
+                                            className="cart_description"
+                                            style={{ float: "left" }}
+                                          >
+                                            <br />
+                                            <h2
+                                              className="cart_total_price"
+                                              style={{
+                                                textAlign: "left",
+                                                fontSize: "18px",
+                                              }}
+                                            >
+                                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                              &nbsp;&nbsp;&nbsp;&nbsp;
+                                              {val.Obj}
+                                            </h2>
+                                            <textarea
+                                              className="wishbox"
+                                              autocomplete="off"
+                                              disabled
+                                            >
+                                              {val.Detail}
+                                            </textarea>
+                                            <a
+                                              className="btn btn-default add-to-cart w_margin"
+                                              style={{ float: "left" }}
+                                              onClick={() => {
+                                                history.push(
+                                                  `/d_main/${Donor_ID}/d_rewa/${val.Reward_ID}`
+                                                );
+                                                window.location.reload();
+                                              }}
+                                            >
+                                              <i className="fa fa-eye" />
+                                              View
+                                            </a>
+                                          </td>
+                                          <td
+                                            className="cart_delete"
+                                            style={{ float: "right" }}
+                                          >
+                                            <a class="btn add-to-cart"><i class="fa fa-money"></i>Trade</a>
+                                          </td>
+                                        </tr>
+                                      );
+                                    })}
                                   </tbody>
                                 </table>
                               </div>
                               <div className="col-sm-11">
-                                <br />
-                                <ul className="pagination"></ul>
+                                <Pagination
+                                  Page_AllPost={Page_AllPost2}
+                                  TotalPost={Trade_List.length}
+                                  Current_Page={Current_Page2}
+                                  paginate={paginate2}
+                                  PostCount={TradeCount}
+                                />
                               </div>
-                              <br />
                               <br />
                               <br />
                               <br />
@@ -1044,7 +1058,7 @@ function D_Main() {
                                         textAlign: "center",
                                       }}
                                     >
-                                      FAQ
+                                      Forgot password?
                                     </h2>
                                     <fieldset>
                                       <div>
@@ -1056,7 +1070,7 @@ function D_Main() {
                                           }}
                                         >
                                           <span className="pull-center">
-                                            -Read Policy-
+                                            -Click here-
                                           </span>
                                         </p>
                                       </div>
@@ -1098,7 +1112,7 @@ function D_Main() {
                                             color: "#F39C12",
                                           }}
                                         >
-                                          Total donated items:&nbsp;
+                                          Total successful donations:&nbsp;
                                         </span>
                                         <span
                                           className="cart-total-price text-center"
@@ -1370,6 +1384,7 @@ function D_Main() {
                 </div>
               </form>
             </li>
+
             {/*Report Page*/}
             <li>
               <div className="heading"></div>
@@ -1401,17 +1416,26 @@ function D_Main() {
                               <br />
                               <ul>
                                 <i>
-                                  <a>
+                                  <a
+                                    href="https://www.facebook.com/shiratasa.kusharane/"
+                                    target="_blank"
+                                  >
                                     <i className="fa fa-facebook" />
                                   </a>
                                 </i>
                                 <i>
-                                  <a>
+                                  <a
+                                    href="https://www.youtube.com/channel/UC6wZl8R7vM1gs-bTJWhBf1g"
+                                    target="_blank"
+                                  >
                                     <i className="fa fa-youtube" />
                                   </a>
                                 </i>
                                 <i>
-                                  <a>
+                                  <a
+                                    href="https://github.com/Shiratasa"
+                                    target="_blank"
+                                  >
                                     <i className="fa fa-github" />
                                   </a>
                                 </i>
@@ -1427,7 +1451,8 @@ function D_Main() {
                                       type="text"
                                       id="name"
                                       placeholder="Topic"
-                                      required="required"
+                                      required
+                                      autocomplete="off"
                                       style={{
                                         width: "100%",
                                         color: "black",
@@ -1442,7 +1467,8 @@ function D_Main() {
                                       type="email"
                                       id="email"
                                       placeholder="Your Email"
-                                      required="required"
+                                      required
+                                      autocomplete="off"
                                       style={{
                                         width: "100%",
                                         color: "black",
@@ -1457,13 +1483,12 @@ function D_Main() {
                                       rows={6}
                                       id="message"
                                       placeholder="Message"
-                                      required="required"
+                                      required
                                       style={{
                                         width: "100%",
                                         color: "black",
                                         fontSize: "15px",
                                       }}
-                                      defaultValue={""}
                                     />
                                   </fieldset>
                                 </div>

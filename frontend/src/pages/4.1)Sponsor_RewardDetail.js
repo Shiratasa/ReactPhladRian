@@ -2,7 +2,7 @@
 import React, { useEffect, useState, Component } from "react";
 import ReactDOM from "react-dom";
 import { Helmet } from "react-helmet";
-import Gallereact from "gallereact";
+import InnerHTML from "dangerously-set-html-content";
 import Axios from "axios";
 import $ from "jquery";
 import JSAlert from "js-alert";
@@ -24,261 +24,139 @@ window.onpopstate = function () {
   history.go(1);
 };
 
-function S_Rewa() {
+function D_Rewa() {
   const wall = window.location.origin + "/resources/imgs/wallpaper.jpg";
   const but1 = window.location.origin + "/resources/imgs/detail.png";
   const blank = window.location.origin + "/resources/imgs/shop/white.jpg";
+  const large = window.location.origin + "/resources/imgs/shop/product6.jpg";
+  const small1 = window.location.origin + "/resources/imgs/shop/1.jpg";
+  const small2 = window.location.origin + "/resources/imgs/shop/2.jpg";
+  const small3 = window.location.origin + "/resources/imgs/shop/3.jpg";
   const eng = window.location.origin + "/resources/imgs/authen/eng.png";
   const tha = window.location.origin + "/resources/imgs/authen/tha.png";
-  const adder = window.location.origin + "/resources/imgs/shop/add.png";
 
   {
     /* Values */
   }
-  var regEx1 = /^[^\s]+(\s+[^\s]+)*$/;
-  var regEx2 = /(^(?!\s))+([0-9]{1,256})+($)/;
-  const [Categ_List, setCateg_List] = useState([]);
-  const [I_Obj, setI_Obj] = useState("");
-  const [I_Pic1, setI_Pic1] = useState("");
-  const [I_Pic2, setI_Pic2] = useState("");
-  const [I_Pic3, setI_Pic3] = useState("");
-  const [I_Pic4, setI_Pic4] = useState("");
-  const [I_Type, setI_Type] = useState("");
-  const [I_Num, setI_Num] = useState("");
-  const [I_Desp, setI_Desp] = useState("");
-  const [I_Frag, setI_Frag] = useState("");
-  const images = [adder, adder, adder, adder];
+  const [Reward_Detail, setReward_Detail] = useState([]);
+  const [User_Account, setUser_Account] = useState([]);
+  let { Donor_ID } = useParams();
+  let { Reward_ID } = useParams();
   let history = useHistory();
 
   {
-    /* Delay */
+    /* Item Get */
   }
-  function timeout(delay: number) {
-    return new Promise((res) => setTimeout(res, delay));
-  }
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    JSAlert.alert("", "Submit Success!", JSAlert.Icons.Success);
-    await timeout(1000).then($(this).unbind("submit").submit());
-    history.push("/d_main");
-    location.reload();
-  };
-
-  {
-    /* Category Get */
-  }
-  const CategBox = async () => {
-    Axios.get("http://localhost:5000/Categ_R").then((response) => {
-      setCateg_List(response.data);
+  const ItemBlock = async () => {
+    Axios.get(`http://localhost:5000/Reward/${Reward_ID}`).then((response) => {
+      setReward_Detail(response.data);
     });
   };
 
   {
-    /* String Check */
+    /* Profile Get */
   }
-  function checkString() {
-    var nameI = document.getElementById("ItemN");
-    var despI = document.getElementById("ItemD");
-    var categI = document.getElementById("ItemC");
-    var fragI = document.getElementById("ItemF");
-    var quanI = document.getElementById("ItemQ");
-    if (
-      nameI.value == "" ||
-      nameI.value.length < 5 ||
-      regEx1.test(nameI.value) == false
-    ) {
-      JSAlert.alert(
-        "(Ex): English Book 3",
-        "Please enter item name properly...",
-        JSAlert.Icons.Warning
-      );
-      quanI.value = "";
-      throw "exit";
-    }
-    if (
-      despI.value == "" ||
-      despI.value.length < 20 ||
-      regEx1.test(despI.value) == false
-    ) {
-      JSAlert.alert(
-        "(Ex): An English book for the high school year 3 education.",
-        "Please enter item information in full detail...",
-        JSAlert.Icons.Warning
-      );
-      quanI.value = "";
-      throw "exit";
-    }
-    if (categI.value == "") {
-      JSAlert.alert(
-        "",
-        "Please select category of item...",
-        JSAlert.Icons.Warning
-      );
-      quanI.value = "";
-      throw "exit";
-    }
-    if (fragI.value == "") {
-      JSAlert.alert(
-        "",
-        "Please select fragility of item...",
-        JSAlert.Icons.Warning
-      );
-      quanI.value = "";
-      throw "exit";
-    }
-    if (quanI.value == "" || regEx2.test(quanI.value) == false) {
-      JSAlert.alert(
-        "(Ex): 5",
-        "Please enter item quantity number...",
-        JSAlert.Icons.Warning
-      );
-      quanI.value = "";
-      throw "exit";
-    }
-  }
-
-  {
-    /* File Check 1 */
-  }
-  function checkFile1() {
-    var picI1 = document.getElementById("img1");
-    var quanI = document.getElementById("ItemQ");
-    var fileExtension1 = "";
-    if (picI1.value.lastIndexOf(".") > 0) {
-      fileExtension1 = picI1.value.substring(
-        picI1.value.lastIndexOf(".") + 1,
-        picI1.value.length
-      );
-    }
-    if (
-      fileExtension1.toLowerCase() != "png" &&
-      fileExtension1.toLowerCase() != "jpeg" &&
-      fileExtension1.toLowerCase() != "jpg"
-    ) {
-      JSAlert.alert(
-        "",
-        "Please select <.png, .jpg> image file 1 for upload...",
-        JSAlert.Icons.Warning
-      );
-      quanI.value = "";
-      throw "exit";
-    }
-  }
-
-  {
-    /* File Check 2 */
-  }
-  function checkFile2() {
-    var picI2 = document.getElementById("img2");
-    var quanI = document.getElementById("ItemQ");
-    var fileExtension2 = "";
-    if (picI2.value.lastIndexOf(".") > 0) {
-      fileExtension2 = picI2.value.substring(
-        picI2.value.lastIndexOf(".") + 1,
-        picI2.value.length
-      );
-    }
-    if (
-      fileExtension2.toLowerCase() != "png" &&
-      fileExtension2.toLowerCase() != "jpeg" &&
-      fileExtension2.toLowerCase() != "jpg"
-    ) {
-      JSAlert.alert(
-        "",
-        "Please select <.png, .jpg> image file 2 for upload...",
-        JSAlert.Icons.Warning
-      );
-      quanI.value = "";
-      throw "exit";
-    }
-  }
-
-  {
-    /* File Check 3 */
-  }
-  function checkFile3() {
-    var picI3 = document.getElementById("img3");
-    var quanI = document.getElementById("ItemQ");
-    var fileExtension3 = "";
-    if (picI3.value.lastIndexOf(".") > 0) {
-      fileExtension3 = picI3.value.substring(
-        picI3.value.lastIndexOf(".") + 1,
-        picI3.value.length
-      );
-    }
-    if (
-      fileExtension3.toLowerCase() != "png" &&
-      fileExtension3.toLowerCase() != "jpeg" &&
-      fileExtension3.toLowerCase() != "jpg"
-    ) {
-      JSAlert.alert(
-        "",
-        "Please select <.png, .jpg> image file 3 for upload...",
-        JSAlert.Icons.Warning
-      );
-      quanI.value = "";
-      throw "exit";
-    }
-  }
-
-  {
-    /* File Check 4 */
-  }
-  function checkFile4() {
-    var picI4 = document.getElementById("img4");
-    var quanI = document.getElementById("ItemQ");
-    var fileExtension4 = "";
-    if (picI4.value.lastIndexOf(".") > 0) {
-      fileExtension4 = picI4.value.substring(
-        picI4.value.lastIndexOf(".") + 1,
-        picI4.value.length
-      );
-    }
-    if (
-      fileExtension4.toLowerCase() != "png" &&
-      fileExtension4.toLowerCase() != "jpeg" &&
-      fileExtension4.toLowerCase() != "jpg"
-    ) {
-      JSAlert.alert(
-        "",
-        "Please select <.png, .jpg> image file 4 for upload...",
-        JSAlert.Icons.Warning
-      );
-      quanI.value = "";
-      throw "exit";
-    }
-  }
-
-  {
-    /* Item Post */
-  }
-  const I_reward = async () => {
-    checkString();
-    checkFile1();
-    checkFile2();
-    checkFile3();
-    checkFile4();
-    Axios.post("http://localhost:5000/I_reward", {
-      Obj: I_Obj,
-      Pic1: I_Pic1,
-      Pic2: I_Pic2,
-      Pic3: I_Pic3,
-      Pic4: I_Pic4,
-      Type_ID: I_Type,
-      Quantity: I_Num,
-      Detail: I_Desp,
-      Fragile: I_Frag,
-    }).then((response) => {
-      console.log(response);
-    });
+  const ProfileInfo = async () => {
+    Axios.get(`http://localhost:5000/D_Account/${Donor_ID}`).then(
+      (response) => {
+        setUser_Account(response.data);
+      }
+    );
   };
 
   {
     /* Load Function */
   }
   window.onload = function () {
-    CategBox();
+    ItemBlock();
+    ProfileInfo();
   };
+
+  {
+    /* Album Function */
+  }
+  const Album = `
+  <div>
+    <a class="prev" onClick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onClick="plusSlides(1)">&#10095;</a>
+  </div>
+  <br>
+  <div style="text-align:center">
+    <span class="dot" onclick="currentSlide(1)"></span>&nbsp;&nbsp;&nbsp;
+    <span class="dot" onclick="currentSlide(2)"></span>&nbsp;&nbsp;&nbsp;
+    <span class="dot" onclick="currentSlide(3)"></span>&nbsp;&nbsp;&nbsp;
+    <span class="dot" onclick="currentSlide(4)"></span>
+  </div>
+  <script>
+    var slideIndex = 1;
+    showSlides(slideIndex);
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
+    function currentSlide(n) {
+      showSlides(slideIndex = n);
+    }
+    function showSlides(n) {
+      var i;
+      var slides = document.getElementsByClassName("mySlides");
+      var dots = document.getElementsByClassName("dot");
+      if (n > slides.length) {slideIndex = 1}
+      if (n < 1) {slideIndex = slides.length}
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex-1].style.display = "block";
+      dots[slideIndex-1].className += " active";
+    }
+    var modal_1 = document.getElementById("myModal1");
+    var image_1 = document.getElementById("preImg1");
+    var modalImage_1 = document.getElementById("img01");
+    image_1.onclick = function(){
+      modal_1.style.display = "block";
+      modalImage_1.src = this.src;
+    }
+    var modal_2 = document.getElementById("myModal2");
+    var image_2 = document.getElementById("preImg2");
+    var modalImage_2 = document.getElementById("img02");
+    image_2.onclick = function(){
+      modal_2.style.display = "block";
+      modalImage_2.src = this.src;
+    }
+    var modal_3 = document.getElementById("myModal3");
+    var image_3 = document.getElementById("preImg3");
+    var modalImage_3 = document.getElementById("img03");
+    image_3.onclick = function(){
+      modal_3.style.display = "block";
+      modalImage_3.src = this.src;
+    }
+    var modal_4 = document.getElementById("myModal4");
+    var image_4 = document.getElementById("preImg4");
+    var modalImage_4 = document.getElementById("img04");
+    image_4.onclick = function(){
+      modal_4.style.display = "block";
+      modalImage_4.src = this.src;
+    }
+    var span_1 = document.getElementsByClassName("close one")[0];
+    span_1.onclick = function() { 
+      modal_1.style.display = "none";
+    }
+    var span_2 = document.getElementsByClassName("close two")[0];
+    span_2.onclick = function() { 
+      modal_2.style.display = "none";
+    }
+    var span_3 = document.getElementsByClassName("close three")[0];
+    span_3.onclick = function() { 
+      modal_3.style.display = "none";
+    }
+    var span_4 = document.getElementsByClassName("close four")[0];
+    span_4.onclick = function() { 
+      modal_4.style.display = "none";
+    }
+  </script>
+  `;
 
   return (
     <div className="App">
@@ -302,6 +180,7 @@ function S_Rewa() {
           <link rel="stylesheet" href="resources/css/bootstrap-theme.min.css" />
           <link rel="stylesheet" href="resources/css/fontAwesome.css" />
           <link rel="stylesheet" href="resources/css/templatemo-style.css" />
+          <link rel="stylesheet" href="resources/css/Page_View.css" />
           <link
             href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900"
             rel="stylesheet"
@@ -318,115 +197,45 @@ function S_Rewa() {
             rel="stylesheet"
           />
         </Helmet>
+
         <style>{`
-      .midimg
-      {
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-      }
-      .searchform input 
-      {
-          width: 169px;
-          height: 33px
-      }
-      ::-webkit-input-placeholder 
-      { /* Chrome/Opera/Safari */
-          color: lightgrey;
-      }
-      ::-moz-placeholder 
-      { /* Firefox 19+ */
-          color: lightgrey;
-      }
-      :-ms-input-placeholder 
-      { /* IE 10+ */
-          color: lightgrey;
-      }
-      :-moz-placeholder 
-      { /* Firefox 18- */
-          color: lightgrey;
-      }
-      .swapper:hover 
-      {
-          color: #F39C12;
-          border: 1px solid #F39C12;
-      }
-      .aswap:hover
-      {
-          color: white;
-          background: #F39C12;
-          border: 1px solid #F39C12;
-      }
-      .swappor  
-      {
-          color: white;
-          background: #F39C12;
-          border: 1px solid #F39C12;
-      }
-      .swappor:hover 
-      {
-          color: black;
-          background: #EBEDEF;
-          border: 1px solid black;
-      }
-      .pull-center:hover 
-      {
-          color: black;
-          font-weight: bold;
-      }
-      .demo
-      {
-        display: inline-block;
-      }
-      .demo a
-      {
-        color: red; 
-        padding: 5px 12px; 
-        text-decoration: none; 
-        transition: background-color 2s; 
-        border: 1px solid orange; 
-        font-size: 15px;
-      } 
-      .demo a.active
-      {
-        background-color: orange; 
-        color: white;
-      }
-            .demo a:hover
-      {
-        background-color: orange; 
-        color: white;
-      }
-        .reddit 
-      {
-          border: 2px solid red;
-      }
-    .reddot:hover 
-      {
-          border: 2px solid red;
-      }
-       #ItemN
-    {
-     font-size:16pt;
-     width:500px;
-     text-align:center;
-    }
-     #ItemD
-    {
-     font-size:12pt;
-     height:200px;
-     width:700px;
-     background-color:white;
-     border:solid 1px black;
-    }
-    .fitBox
-    {
-     font-size:10pt;
-     width:300px;
-     background-color:white;
-     border:solid 1px black;
-    }
-    `}</style>
+          .swapper:hover {
+            color: #f39c12;
+            border: 1px solid #f39c12;
+          }
+          .aswap:hover {
+            color: white;
+            background: #f39c12;
+            border: 1px solid #f39c12;
+          }
+          .swappor {
+            color: white;
+            background: #f39c12;
+            border: 1px solid #f39c12;
+          }
+          .swappor:hover {
+            color: green;
+            background: #ebedef;
+            border: 1px solid green;
+          }
+        `}</style>
+
+        <div id="myModal1" class="modal">
+          <span class="close one">&times;</span>
+          <img class="modal-content" id="img01" />
+        </div>
+        <div id="myModal2" class="modal">
+          <span class="close two">&times;</span>
+          <img class="modal-content" id="img02" />
+        </div>
+        <div id="myModal3" class="modal">
+          <span class="close three">&times;</span>
+          <img class="modal-content" id="img03" />
+        </div>
+        <div id="myModal4" class="modal">
+          <span class="close four">&times;</span>
+          <img class="modal-content" id="img04" />
+        </div>
         <div className="overlay" />
         <section className="top-part">
           <img src={wall} />
@@ -463,220 +272,200 @@ function S_Rewa() {
             </nav>
           </div>
           <ul className="cd-hero-slider">
-            <li className="selected">
-              <div className="heading"></div>
-              <form onSubmit={handleSubmit}>
-                <div className="cd-full-width first-slide">
-                  <div className="container">
-                    <div className="row">
-                      <div className="col-md-13">
-                        <div className="content first-content">
-                          <div className="container">
-                            <div id="gallery" className="col-sm-3">
-                              <Gallereact
-                                images={images}
-                                slideStyle={{ width: "255px", height: "340px" }}
-                              />
-                              <br />
-                              <br />
-                              <label style={{ color: "red", fontSize: "15px" }}>
-                                &nbsp; Item Photo (.png, .jpg) &nbsp;
-                              </label>
-                              <br />
-                              <br />
-                              <input
-                                type="file"
-                                id="img1"
-                                accept=".png, .jpg, .jpeg"
-                                required
-                                onInvalid={I_reward.exit}
-                                onChange={(x) => setI_Pic1(x.target.value)}
-                              />
-                              <br />
-                              <input
-                                type="file"
-                                id="img2"
-                                accept=".png, .jpg, .jpeg"
-                                required
-                                onInvalid={I_reward.exit}
-                                onChange={(x) => setI_Pic2(x.target.value)}
-                              />
-                              <br />
-                              <input
-                                type="file"
-                                id="img3"
-                                accept=".png, .jpg, .jpeg"
-                                required
-                                onInvalid={I_reward.exit}
-                                onChange={(x) => setI_Pic3(x.target.value)}
-                              />
-                              <br />
-                              <input
-                                type="file"
-                                id="img4"
-                                accept=".png, .jpg, .jpeg"
-                                required
-                                onInvalid={I_reward.exit}
-                                onChange={(x) => setI_Pic4(x.target.value)}
-                              />
-                            </div>
-                            <div className="col-sm-9">
-                              <table
-                                className="table-condensed"
-                                style={{ float: "right" }}
-                              >
-                                <tbody>
-                                  <tr>
-                                    <td className="cart_delete">
-                                      <a
-                                        className="cart_quantity_delete"
-                                        onClick={() => {
-                                          history.push("/s_main");
-                                          window.location.reload();
-                                        }}
-                                      >
-                                        <i className="fa fa-times" />
-                                      </a>
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                              <h2 className="title text-center">
-                                <input
-                                  type="text"
-                                  id="ItemN"
-                                  placeholder="Item Name"
+            {Reward_Detail.map((val, key) => {
+              return (
+                <li className="selected">
+                  <div className="heading"></div>
+                  <div className="cd-full-width first-slide">
+                    <div className="container">
+                      <div className="row">
+                        <div className="col-md-13">
+                          <div className="content first-content">
+                            <div className="container">
+                              <div id="gallery" className="col-sm-3">
+                                <div id="slideshow">
+                                  <div class="mySlides">
+                                    <div class="numbertext">1 / 4</div>
+                                    <img
+                                      id="preImg1"
+                                      src={val.Pic1}
+                                      style={{
+                                        width: "255px",
+                                        height: "340px",
+                                      }}
+                                    />
+                                  </div>
+                                  <div class="mySlides">
+                                    <div class="numbertext">2 / 4</div>
+                                    <img
+                                      id="preImg2"
+                                      src={val.Pic2}
+                                      style={{
+                                        width: "255px",
+                                        height: "340px",
+                                      }}
+                                    />
+                                  </div>
+                                  <div class="mySlides">
+                                    <div class="numbertext">3 / 4</div>
+                                    <img
+                                      id="preImg3"
+                                      src={val.Pic3}
+                                      style={{
+                                        width: "255px",
+                                        height: "340px",
+                                      }}
+                                    />
+                                  </div>
+                                  <div class="mySlides">
+                                    <div class="numbertext">4 / 4</div>
+                                    <img
+                                      id="preImg4"
+                                      src={val.Pic4}
+                                      style={{
+                                        width: "255px",
+                                        height: "340px",
+                                      }}
+                                    />
+                                  </div>
+                                </div>
+                                <InnerHTML html={Album} />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <div className="demo">
+                                  <a href>
+                                    <i className="fa fa-exclamation-triangle" />{" "}
+                                    Report
+                                  </a>
+                                </div>
+                              </div>
+                              <div className="col-sm-9">
+                                <table
+                                  className="table-condensed"
+                                  style={{ float: "right" }}
+                                >
+                                  <tbody>
+                                    <tr>
+                                      <td className="cart_delete">
+                                        <a
+                                          className="cart_quantity_delete"
+                                          onClick={() => {
+                                            history.push(
+                                              `/d_main/${Donor_ID}`
+                                            );
+                                            window.location.reload();
+                                          }}
+                                        >
+                                          <i className="fa fa-times" />
+                                        </a>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                                <h2
+                                  className="title text-center"
+                                  style={{ fontSize: "14pt" }}
+                                >
+                                  {val.Obj}
+                                </h2>
+                                <hr className="soft" />
+                                <h4 style={{ textAlign: "left" }}>
+                                  Description
+                                </h4>
+                                <textarea
+                                  type="address"
+                                  id="ItemD"
+                                  placeholder={val.Detail}
                                   autocomplete="off"
-                                  required
-                                  onInvalid={I_reward.exit}
-                                  onChange={(x) => setI_Obj(x.target.value)}
+                                  disabled
                                 />
-                              </h2>
-                              <hr className="soft" />
-                              <h4 style={{ textAlign: "left" }}>Description</h4>
-                              <textarea
-                                type="address"
-                                id="ItemD"
-                                placeholder="Item Description"
-                                autocomplete="off"
-                                required
-                                onInvalid={I_reward.exit}
-                                onChange={(x) => setI_Desp(x.target.value)}
-                              />
-                              <hr className="soft" />
-                              <h4 style={{ textAlign: "left" }}>
-                                General Information
-                              </h4>
-                              <table className="table table-bordered">
-                                <tbody>
-                                  <tr className="techSpecRow">
-                                    <td className="techSpecTD1">
-                                      <b>Category:</b>
-                                    </td>
-                                    <td className="techSpecTD1">
-                                      <select
-                                        id="ItemC"
-                                        className="fitBox"
-                                        required
-                                        onInvalid={I_reward.exit}
-                                        onChange={(x) =>
-                                          setI_Type(x.target.value)
-                                        }
-                                      >
-                                        <option
-                                          value=""
-                                          disabled
-                                          selected="selected"
-                                        >
-                                          -- Select Category --
-                                        </option>
-                                        {Categ_List.map((val, key) => (
-                                          <option
-                                            key={val.Type_ID}
-                                            value={val.Type_ID}
-                                          >
-                                            {val.Category}
-                                          </option>
-                                        ))}
-                                      </select>
-                                    </td>
-                                  </tr>
-                                  <tr className="techSpecRow">
-                                    <td className="techSpecTD1">
-                                      <b>Fragile:</b>
-                                    </td>
-                                    <td className="techSpecTD1">
-                                      <select
-                                        id="ItemF"
-                                        className="fitBox"
-                                        required
-                                        onInvalid={I_reward.exit}
-                                        onChange={(x) =>
-                                          setI_Frag(x.target.value)
-                                        }
-                                      >
-                                        <option
-                                          value=""
-                                          disabled
-                                          selected="selected"
-                                        >
-                                          -- Select Fragility --
-                                        </option>
-                                        <option value="0">No</option>
-                                        <option value="1">Yes</option>
-                                      </select>
-                                    </td>
-                                  </tr>
-                                  <tr className="techSpecRow">
-                                    <td className="techSpecTD1">
-                                      <b>Quantity:</b>
-                                    </td>
-                                    <td className="techSpecTD1">
-                                      <input
-                                        type="text"
-                                        id="ItemQ"
-                                        placeholder="Item Quantity"
-                                        autocomplete="off"
-                                        required
-                                        onInvalid={I_reward.exit}
-                                        onChange={(x) =>
-                                          setI_Num(x.target.value)
-                                        }
-                                      />
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                              <hr className="soft" />
-                              <button
-                                type="submit"
-                                className="btn btn-default swappor"
-                                onClick={I_reward}
-                              >
-                                <i className="fa fa fa-edit" />
-                                 Save detail
-                              </button>
-                              <img
-                                style={{ width: "180px", height: "50px" }}
-                                src={blank}
-                                alt=""
-                              />
-                              <button
-                                type="submit"
-                                className="btn btn-default swapper"
-                              >
-                                <i className="fa fa-trash-o" />
-                                 Delete item
-                              </button>
+                                <hr className="soft" />
+                                <h4 style={{ textAlign: "left" }}>
+                                  General Information
+                                </h4>
+                                <table className="table table-bordered">
+                                  <tbody>
+                                    <tr className="techSpecRow">
+                                      <td className="techSpecTD1">
+                                        <b>Category:</b>
+                                      </td>
+                                      <td className="techSpecTD2">
+                                        <div
+                                          style={{
+                                            width: "300px",
+                                            textAlign: "center",
+                                          }}
+                                        ></div>
+                                        <div style={{ height: "29px" }}>
+                                          {val.Category}
+                                        </div>
+                                      </td>
+                                    </tr>
+                                    <tr className="techSpecRow">
+                                      <td className="techSpecTD1">
+                                        <b>Fragile:</b>
+                                      </td>
+                                      <td className="techSpecTD2">
+                                        <div style={{ height: "29px" }}>
+                                          {val.YesNo}
+                                        </div>
+                                      </td>
+                                    </tr>
+                                    <tr className="techSpecRow">
+                                      <td className="techSpecTD1">
+                                        <b>Quantity:</b>
+                                      </td>
+                                      <td className="techSpecTD2">
+                                        <div style={{ height: "29px" }}>
+                                          {val.Quantity}
+                                        </div>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                                <hr className="soft" />
+                                <span
+                                  className="cart-total-price text-center"
+                                  style={{ fontSize: "18px", color: "#F39C12" }}
+                                >
+                                  Weekly request chance:&nbsp;
+                                </span>
+                                {User_Account.map((val, key) => {
+                                  return (
+                                    <span
+                                      className="cart-total-price text-center"
+                                      style={{ fontSize: "16px" }}
+                                    >
+                                      ({val.Chance}/5)
+                                    </span>
+                                  );
+                                })}
+                                <hr className="soft" />
+                                <button type="submit" className="btn swappor">
+                                  <i className="fa fa-download" />
+                                   Send request
+                                </button>
+                                <img
+                                  style={{ width: "180px", height: "50px" }}
+                                  src={blank}
+                                  alt=""
+                                />
+                                <button type="submit" className="btn swapper">
+                                  <i className="fa fa-plus" />
+                                   Add to wishlist
+                                </button>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </form>
-            </li>
+                </li>
+              );
+            })}
           </ul>
         </section>
         <footer>
@@ -689,4 +478,4 @@ function S_Rewa() {
   );
 }
 
-export default withRouter(S_Rewa);
+export default withRouter(D_Rewa);

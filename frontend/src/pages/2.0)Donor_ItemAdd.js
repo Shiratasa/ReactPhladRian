@@ -432,87 +432,86 @@ function D_Add() {
     /* Album Function */
   }
   const Album = `
-    <div>
+  <div>
     <a class="prev" onClick="plusSlides(-1)">&#10094;</a>
   	<a class="next" onClick="plusSlides(1)">&#10095;</a>
-    </div>
-    <br>
-    <div style="text-align:center">
-      <span class="dot" onclick="currentSlide(1)"></span>&nbsp;&nbsp;&nbsp;
-      <span class="dot" onclick="currentSlide(2)"></span>&nbsp;&nbsp;&nbsp;
-      <span class="dot" onclick="currentSlide(3)"></span>&nbsp;&nbsp;&nbsp;
-      <span class="dot" onclick="currentSlide(4)"></span>
-    </div>
-    <script>
-    	var slideIndex = 1;
-showSlides(slideIndex);
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
-function showSlides(n) {
-  var i;
-  var slides = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("dot");
-  if (n > slides.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";
-  }
-  for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";
-  dots[slideIndex-1].className += " active";
-}
-var modal_1 = document.getElementById("myModal1");
-var image_1 = document.getElementById("preImg1");
-var modalImage_1 = document.getElementById("img01");
-image_1.onclick = function(){
-  modal_1.style.display = "block";
-  modalImage_1.src = this.src;
-}
-var modal_2 = document.getElementById("myModal2");
-var image_2 = document.getElementById("preImg2");
-var modalImage_2 = document.getElementById("img02");
-image_2.onclick = function(){
-  modal_2.style.display = "block";
-  modalImage_2.src = this.src;
-}
-var modal_3 = document.getElementById("myModal3");
-var image_3 = document.getElementById("preImg3");
-var modalImage_3 = document.getElementById("img03");
-image_3.onclick = function(){
-  modal_3.style.display = "block";
-  modalImage_3.src = this.src;
-}
-var modal_4 = document.getElementById("myModal4");
-var image_4 = document.getElementById("preImg4");
-var modalImage_4 = document.getElementById("img04");
-image_4.onclick = function(){
-  modal_4.style.display = "block";
-  modalImage_4.src = this.src;
-}
-var span_1 = document.getElementsByClassName("close one")[0];
-span_1.onclick = function() { 
-  modal_1.style.display = "none";
-}
-var span_2 = document.getElementsByClassName("close two")[0];
-span_2.onclick = function() { 
-  modal_2.style.display = "none";
-}
-var span_3 = document.getElementsByClassName("close three")[0];
-span_3.onclick = function() { 
-  modal_3.style.display = "none";
-}
-var span_4 = document.getElementsByClassName("close four")[0];
-span_4.onclick = function() { 
-  modal_4.style.display = "none";
-}
-    </script>
- 
+  </div>
+  <br>
+  <div style="text-align:center">
+    <span class="dot" onclick="currentSlide(1)"></span>&nbsp;&nbsp;&nbsp;
+    <span class="dot" onclick="currentSlide(2)"></span>&nbsp;&nbsp;&nbsp;
+    <span class="dot" onclick="currentSlide(3)"></span>&nbsp;&nbsp;&nbsp;
+    <span class="dot" onclick="currentSlide(4)"></span>
+  </div>
+  <script>
+    var slideIndex = 1;
+    showSlides(slideIndex);
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
+    function currentSlide(n) {
+      showSlides(slideIndex = n);
+    }
+    function showSlides(n) {
+      var i;
+      var slides = document.getElementsByClassName("mySlides");
+      var dots = document.getElementsByClassName("dot");
+      if (n > slides.length) {slideIndex = 1}
+      if (n < 1) {slideIndex = slides.length}
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex-1].style.display = "block";
+      dots[slideIndex-1].className += " active";
+    }
+    var modal_1 = document.getElementById("myModal1");
+    var image_1 = document.getElementById("preImg1");
+    var modalImage_1 = document.getElementById("img01");
+    image_1.onclick = function(){
+      modal_1.style.display = "block";
+      modalImage_1.src = this.src;
+    }
+    var modal_2 = document.getElementById("myModal2");
+    var image_2 = document.getElementById("preImg2");
+    var modalImage_2 = document.getElementById("img02");
+    image_2.onclick = function(){
+      modal_2.style.display = "block";
+      modalImage_2.src = this.src;
+    }
+    var modal_3 = document.getElementById("myModal3");
+    var image_3 = document.getElementById("preImg3");
+    var modalImage_3 = document.getElementById("img03");
+    image_3.onclick = function(){
+      modal_3.style.display = "block";
+      modalImage_3.src = this.src;
+    }
+    var modal_4 = document.getElementById("myModal4");
+    var image_4 = document.getElementById("preImg4");
+    var modalImage_4 = document.getElementById("img04");
+    image_4.onclick = function(){
+      modal_4.style.display = "block";
+      modalImage_4.src = this.src;
+    }
+    var span_1 = document.getElementsByClassName("close one")[0];
+    span_1.onclick = function() { 
+      modal_1.style.display = "none";
+    }
+    var span_2 = document.getElementsByClassName("close two")[0];
+    span_2.onclick = function() { 
+      modal_2.style.display = "none";
+    }
+    var span_3 = document.getElementsByClassName("close three")[0];
+    span_3.onclick = function() { 
+      modal_3.style.display = "none";
+    }
+    var span_4 = document.getElementsByClassName("close four")[0];
+    span_4.onclick = function() { 
+      modal_4.style.display = "none";
+    }
+  </script>
   `;
 
   {
@@ -568,16 +567,16 @@ span_4.onclick = function() {
         </Helmet>
 
         <style>{`
-        .swappor {
-          color: white;
-          background: #f39c12;
-          border: 1px solid #f39c12;
-        }
-        .swappor:hover {
-          color: green;
-          background: #ebedef;
-          border: 1px solid green;
-        }
+          .swappor {
+            color: white;
+            background: #f39c12;
+            border: 1px solid #f39c12;
+          }
+          .swappor:hover {
+            color: green;
+            background: #ebedef;
+            border: 1px solid green;
+          }
         `}</style>
 
         <div id="myModal1" class="modal">
