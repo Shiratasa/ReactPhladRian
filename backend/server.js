@@ -1082,13 +1082,93 @@ app.post("/I_update/:Item_ID", function (req, resp) {
 });
 
 {
-  /* Item Update Post */
+  /* Item Delete Post */
 }
 app.post("/I_delete/:Item_ID", function (req, resp) {
   connection.query(
     `UPDATE ItemDonate 
      SET State=0
      WHERE Item_ID = ${req.params.Item_ID}`,
+    function (error, result) {
+      if (error) {
+        console.error("Insert failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      }
+    }
+  );
+});
+
+{
+  /* Reward Update Post */
+}
+app.post("/I_update2/:Reward_ID", function (req, resp) {
+  var Obj = req.body.Obj;
+  var Pic1 = req.body.Pic1;
+  var Pic2 = req.body.Pic2;
+  var Pic3 = req.body.Pic3;
+  var Pic4 = req.body.Pic4;
+  var Type_ID = req.body.Type_ID;
+  var Quantity = req.body.Quantity;
+  var Detail = req.body.Detail;
+  var Fragile = req.body.Fragile;
+  connection.query(
+    `UPDATE ItemReward SET
+     Obj = CASE
+     WHEN '${Obj}' != '' THEN '${Obj}'
+     ELSE Obj
+     END,
+     Pic1 = CASE
+     WHEN '${Pic1}' != '' THEN '${Pic1}'
+     ELSE Pic1
+     END,
+     Pic2 = CASE
+     WHEN '${Pic2}' != '' THEN '${Pic2}'
+     ELSE Pic2
+     END,
+     Pic3 = CASE
+     WHEN '${Pic3}' != '' THEN '${Pic3}'
+     ELSE Pic3
+     END,
+     Pic4 = CASE
+     WHEN '${Pic4}' != '' THEN '${Pic4}'
+     ELSE Pic4
+     END,
+     Type_ID = CASE
+     WHEN '${Type_ID}' != '' THEN '${Type_ID}'
+     ELSE Type_ID
+     END,
+     Quantity = CASE
+     WHEN '${Quantity}' != '' THEN '${Quantity}'
+     ELSE Quantity
+     END,
+     Detail = CASE
+     WHEN '${Detail}' != '' THEN '${Detail}'
+     ELSE Detail
+     END,
+     Fragile = CASE
+     WHEN '${Fragile}' != '' THEN '${Fragile}'
+     ELSE Fragile
+     END
+     WHERE Reward_ID = ${req.params.Reward_ID}`,
+    function (error, result) {
+      if (error) {
+        console.error("Insert failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      }
+    }
+  );
+});
+
+{
+  /* Reward Delete Post */
+}
+app.post("/I_delete2/:Reward_ID", function (req, resp) {
+  connection.query(
+    `UPDATE ItemReward
+     SET State=0
+     WHERE Reward_ID = ${req.params.Reward_ID}`,
     function (error, result) {
       if (error) {
         console.error("Insert failed:\n" + error.stack);
@@ -1136,6 +1216,98 @@ app.post("/I_reward", function (req, resp) {
         console.error("Insert failed:\n" + error.stack);
         connection.end();
         throw error;
+      }
+    }
+  );
+});
+
+{
+  /* Request List1 Get */
+}
+app.get("/Re1/:Student_ID", function (req, resp) {
+  connection.query(
+    `SELECT * FROM WebRequest
+     JOIN ItemDonate ON WebRequest.Item_ID = ItemDonate.Item_ID 
+     WHERE WebRequest.Student_ID=${req.params.Student_ID}
+     AND WebRequest.Company_ID IS NULL AND WebRequest.Sponsor_ID IS NULL
+     AND WebRequest.Accept=0 AND WebRequest.State=1`,
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      } else {
+        resp.send(result);
+        console.log(result);
+      }
+    }
+  );
+});
+
+{
+  /* Request List2 Get */
+}
+app.get("/Re2/:Student_ID", function (req, resp) {
+  connection.query(
+    `SELECT * FROM WebRequest
+     JOIN ItemDonate ON WebRequest.Item_ID = ItemDonate.Item_ID 
+     WHERE WebRequest.Student_ID=${req.params.Student_ID}
+     AND WebRequest.Company_ID IS NOT NULL AND WebRequest.Sponsor_ID IS NULL
+     AND WebRequest.Accept=0 AND WebRequest.State=1`,
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      } else {
+        resp.send(result);
+        console.log(result);
+      }
+    }
+  );
+});
+
+{
+  /* Request List3 Get */
+}
+app.get("/Re3/:Student_ID", function (req, resp) {
+  connection.query(
+    `SELECT * FROM WebRequest
+     JOIN ItemDonate ON WebRequest.Item_ID = ItemDonate.Item_ID 
+     WHERE WebRequest.Student_ID=${req.params.Student_ID}
+     AND WebRequest.Company_ID IS NOT NULL AND WebRequest.Sponsor_ID IS NOT NULL
+     AND WebRequest.Accept=0 AND WebRequest.State=1`,
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      } else {
+        resp.send(result);
+        console.log(result);
+      }
+    }
+  );
+});
+
+{
+  /* Request List4 Get */
+}
+app.get("/Re4/:Student_ID", function (req, resp) {
+  connection.query(
+    `SELECT * FROM WebRequest
+     JOIN ItemDonate ON WebRequest.Item_ID = ItemDonate.Item_ID 
+     WHERE WebRequest.Student_ID=${req.params.Student_ID}
+     AND WebRequest.Company_ID IS NOT NULL AND WebRequest.Sponsor_ID IS NOT NULL
+     AND WebRequest.Accept=1 AND WebRequest.State=1`,
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      } else {
+        resp.send(result);
+        console.log(result);
       }
     }
   );

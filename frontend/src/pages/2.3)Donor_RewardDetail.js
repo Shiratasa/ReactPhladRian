@@ -214,9 +214,9 @@ function D_Rewa() {
             border: 1px solid #f39c12;
           }
           .swappor:hover {
-            color: green;
+            color: #90EE90;
             background: #ebedef;
-            border: 1px solid green;
+            border: 1px solid #90EE90;
           }
         `}</style>
 
@@ -352,9 +352,7 @@ function D_Rewa() {
                                         <a
                                           className="cart_quantity_delete"
                                           onClick={() => {
-                                            history.push(
-                                              `/d_main/${Donor_ID}`
-                                            );
+                                            history.push(`/d_main/${Donor_ID}`);
                                             window.location.reload();
                                           }}
                                         >

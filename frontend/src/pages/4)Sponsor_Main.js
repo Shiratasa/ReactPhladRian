@@ -36,7 +36,7 @@ function S_Main() {
   const del1 = window.location.origin + "/resources/imgs/shop/grab.png";
   const eng = window.location.origin + "/resources/imgs/authen/eng.png";
   const tha = window.location.origin + "/resources/imgs/authen/tha.png";
- 
+
   {
     /* Values */
   }
@@ -191,7 +191,7 @@ function S_Main() {
     ) {
       JSAlert.alert(
         "(Ex): 0891608019",
-        "Please enter your phone number without <-> or space...",
+        "Please enter your true phone number without <-> or space...",
         JSAlert.Icons.Warning
       );
       gate.value = "";
@@ -374,9 +374,9 @@ function S_Main() {
             border: 1px solid #f39c12;
           }
           .swappor:hover {
-            color: green;
+            color: #90EE90;
             background: #ebedef;
-            border: 1px solid green;
+            border: 1px solid #90EE90;
           }
         `}</style>
 
@@ -520,7 +520,8 @@ function S_Main() {
                               <div className="features_items">
                                 <div className="brands_products">
                                   <h2 className="title text-center">
-                                    Your Items&nbsp;&nbsp;&nbsp;
+                                    Items ({Reward_List.length}
+                                    )&nbsp;&nbsp;&nbsp;
                                     <button
                                       class="swappor"
                                       onClick={() => {
@@ -683,7 +684,7 @@ function S_Main() {
                                         textAlign: "center",
                                       }}
                                     >
-                                      Forgot password?
+                                      FAQ
                                     </h2>
                                     <fieldset>
                                       <div>
@@ -695,7 +696,7 @@ function S_Main() {
                                           }}
                                         >
                                           <span className="pull-center">
-                                            -Click here-
+                                            -Read Policy-
                                           </span>
                                         </p>
                                       </div>
@@ -725,10 +726,13 @@ function S_Main() {
                                           style={{ fontSize: "16px" }}
                                         >
                                           <img
-                                      style={{ width: "35px", height: "35px" }}
-                                      src={val.Icon}
-                                      alt=""
-                                    />
+                                            style={{
+                                              width: "35px",
+                                              height: "35px",
+                                            }}
+                                            src={val.Icon}
+                                            alt=""
+                                          />
                                         </span>
                                       </p>
                                     </fieldset>
@@ -970,13 +974,41 @@ function S_Main() {
                                     />
                                   </fieldset>
                                 </div>
-                                <div className="col-md-8">
+                                <div className="col-md-4">
                                   <fieldset>
                                     <img
                                       style={{ width: "750px", height: "85px" }}
                                       src={blank}
                                       alt=""
                                     />
+                                  </fieldset>
+                                </div>
+                                <div className="col-md-4">
+                                  <fieldset>
+                                    <h2
+                                      style={{
+                                        fontSize: "18px",
+                                        color: "#F39C12",
+                                        textAlign: "center",
+                                      }}
+                                    >
+                                      Forgot Password?
+                                    </h2>
+                                  </fieldset>
+                                  <fieldset>
+                                    <div>
+                                      <p
+                                        className="greatCenter"
+                                        style={{
+                                          textAlign: "center",
+                                          color: "#3498DB",
+                                        }}
+                                      >
+                                        <span className="pull-center">
+                                          -Click Here-
+                                        </span>
+                                      </p>
+                                    </div>
                                   </fieldset>
                                 </div>
                                 <br />

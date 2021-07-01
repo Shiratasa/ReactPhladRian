@@ -214,9 +214,9 @@ function R_Item() {
             border: 1px solid #f39c12;
           }
           .swappor:hover {
-            color: green;
+            color: #90EE90;
             background: #ebedef;
-            border: 1px solid green;
+            border: 1px solid #90EE90;
           }
         `}</style>
 

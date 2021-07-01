@@ -228,7 +228,7 @@ function D_Add() {
     ) {
       JSAlert.alert(
         "(Ex): An English book for the high school year 3 education.",
-        "Please enter item information in full detail...",
+        "Please enter item information in full detail without space at beginning & ending...",
         JSAlert.Icons.Warning
       );
       quanI.value = "";
@@ -603,9 +603,9 @@ function D_Add() {
             border: 1px solid #f39c12;
           }
           .swappor:hover {
-            color: green;
+            color: #90EE90;
             background: #ebedef;
-            border: 1px solid green;
+            border: 1px solid #90EE90;
           }
         `}</style>
 

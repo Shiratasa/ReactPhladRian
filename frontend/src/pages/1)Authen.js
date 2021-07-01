@@ -238,7 +238,7 @@ function Authen() {
     ) {
       JSAlert.alert(
         "(Ex): 0891608019",
-        "Please enter your phone number without <-> or space...",
+        "Please enter your true phone number without <-> or space...",
         JSAlert.Icons.Warning
       );
       pass2R.value = "";
@@ -264,7 +264,7 @@ function Authen() {
     ) {
       JSAlert.alert(
         "(Ex): 37/2, San Chaomae Thapthim Alley, Tha Kham, Bang Khun Thian, Bangkok 10150",
-        "Please enter your location information in full detail...",
+        "Please enter your real location information in full detail without space at beginning & ending...",
         JSAlert.Icons.Warning
       );
       pass2R.value = "";
@@ -366,7 +366,7 @@ function Authen() {
     ) {
       JSAlert.alert(
         "(Ex): 0891608019",
-        "Please enter your phone number without <-> or space...",
+        "Please enter your true phone number without <-> or space...",
         JSAlert.Icons.Warning
       );
       pass2D.value = "";
@@ -392,7 +392,7 @@ function Authen() {
     ) {
       JSAlert.alert(
         "(Ex): 37/2, San Chaomae Thapthim Alley, Tha Kham, Bang Khun Thian, Bangkok 10150",
-        "Please enter your location information in full detail...",
+        "Please enter your real location information in full detail without space at beginning & ending...",
         JSAlert.Icons.Warning
       );
       pass2D.value = "";
