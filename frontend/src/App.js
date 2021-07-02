@@ -42,14 +42,14 @@ function App() {
             <Route path="/d_main/:Donor_ID" exact component={D_Main} />
             <Route path="/d_main/:Donor_ID/d_add" exact component={D_Add} />
             <Route path="/d_main/:Donor_ID/d_item/:Item_ID" exact component={D_Item} />
-            <Route path="/d_main/:Donor_ID/d_deli" exact component={D_Deli} />
+            <Route path="/d_main/:Donor_ID/d_deli/:Request_ID" exact component={D_Deli} />
             <Route path="/d_main/:Donor_ID/d_rewa/:Reward_ID" exact component={D_Rewa} />
             <Route path="/r_main/:Student_ID" exact component={R_Main} />
             <Route path="/r_main/:Student_ID/r_item/:Item_ID" exact component={R_Item} />
             <Route path="/s_main/:Sponsor_ID" exact component={S_Main} />
             <Route path="/s_main/:Sponsor_ID/s_add" exact component={S_Add} />
             <Route path="/s_main/:Sponsor_ID/s_rewa/:Reward_ID" exact component={S_Rewa} />
-            <Route path="/s_main/:Sponsor_ID/s_qr" exact component={S_QR} />
+            <Route path="/s_main/:Sponsor_ID/s_qr/:Request_ID" exact component={S_QR} />
           </Switch>
         </Router>
       </div>
