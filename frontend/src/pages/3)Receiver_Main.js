@@ -194,22 +194,22 @@ function R_Main() {
     /* Request Get */
   }
   const Re1Block = async () => {
-    Axios.get(`http://localhost:5000/Re1/${Student_ID}`).then((response) => {
+    Axios.get(`http://localhost:5000/Re1_R/${Student_ID}`).then((response) => {
       setRe1_List(response.data);
     });
   };
   const Re2Block = async () => {
-    Axios.get(`http://localhost:5000/Re2/${Student_ID}`).then((response) => {
+    Axios.get(`http://localhost:5000/Re2_R/${Student_ID}`).then((response) => {
       setRe2_List(response.data);
     });
   };
   const Re3Block = async () => {
-    Axios.get(`http://localhost:5000/Re3/${Student_ID}`).then((response) => {
+    Axios.get(`http://localhost:5000/Re3_R/${Student_ID}`).then((response) => {
       setRe3_List(response.data);
     });
   };
   const Re4Block = async () => {
-    Axios.get(`http://localhost:5000/Re4/${Student_ID}`).then((response) => {
+    Axios.get(`http://localhost:5000/Re4_R/${Student_ID}`).then((response) => {
       setRe4_List(response.data);
     });
   };
@@ -506,22 +506,6 @@ function R_Main() {
   };
 
   {
-    /* Load Function */
-  }
-  window.onload = function () {
-    ItemBlock();
-    WishBlock();
-    SchoolBox();
-    GradeBox();
-    CategBox();
-    ProfileInfo();
-    Re1Block();
-    Re2Block();
-    Re3Block();
-    Re4Block();
-  };
-
-  {
     /* Album Function */
   }
   const Album = `
@@ -556,13 +540,13 @@ function R_Main() {
       class="tablinks"
       onclick="openTab(event, 'Deli2')"
     >
-      2 - Donor delivers the item
+      2 - Item is transporting
     </button>
     <button
       class="tablinks"
       onclick="openTab(event, 'Deli3')"
     >
-      3 - Item is transporting
+      3 - Confirm for item arrival
     </button>
     <button
       class="tablinks"
@@ -588,6 +572,22 @@ function R_Main() {
     document.getElementById('tabF').click();
   </script>
   `;
+
+  {
+    /* Load Function */
+  }
+  window.onload = function () {
+    ItemBlock();
+    WishBlock();
+    SchoolBox();
+    GradeBox();
+    CategBox();
+    ProfileInfo();
+    Re1Block();
+    Re2Block();
+    Re3Block();
+    Re4Block();
+  };
 
   return (
     <div className="App">
@@ -1482,7 +1482,7 @@ function R_Main() {
                                           className="cart-total-price text-center"
                                           style={{ fontSize: "16px" }}
                                         >
-                                          7
+                                          {Re4_List.length}
                                         </span>
                                       </p>
                                     </fieldset>

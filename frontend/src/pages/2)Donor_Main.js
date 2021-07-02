@@ -2,6 +2,7 @@
 import React, { useEffect, useState, Component } from "react";
 import ReactDOM from "react-dom";
 import { Helmet } from "react-helmet";
+import InnerHTML from "dangerously-set-html-content";
 import Axios from "axios";
 import Pagination from "./Pagination.js";
 import $ from "jquery";
@@ -84,6 +85,50 @@ function D_Main() {
   const TradeCount = Math.ceil(Trade_List.length / Page_AllPost2);
   const paginate2 = (pageNum) => setCurrent_Page2(pageNum);
   {
+    /*Request1 Num-tab*/
+  }
+  const [Current_Page3, setCurrent_Page3] = useState(1);
+  const [Page_AllPost3, setPage_AllPost3] = useState(4);
+  const LastQuery3 = Current_Page3 * Page_AllPost3;
+  const FirstQuery3 = LastQuery3 - Page_AllPost3;
+  const [Re1_List, setRe1_List] = useState([]);
+  const Re1Slice = Re1_List.slice(FirstQuery3, LastQuery3);
+  const Re1Count = Math.ceil(Re1_List.length / Page_AllPost3);
+  const paginate3 = (pageNum) => setCurrent_Page3(pageNum);
+  {
+    /*Request2 Num-tab*/
+  }
+  const [Current_Page4, setCurrent_Page4] = useState(1);
+  const [Page_AllPost4, setPage_AllPost4] = useState(4);
+  const LastQuery4 = Current_Page4 * Page_AllPost4;
+  const FirstQuery4 = LastQuery4 - Page_AllPost4;
+  const [Re2_List, setRe2_List] = useState([]);
+  const Re2Slice = Re2_List.slice(FirstQuery4, LastQuery4);
+  const Re2Count = Math.ceil(Re2_List.length / Page_AllPost4);
+  const paginate4 = (pageNum) => setCurrent_Page4(pageNum);
+  {
+    /*Request3 Num-tab*/
+  }
+  const [Current_Page5, setCurrent_Page5] = useState(1);
+  const [Page_AllPost5, setPage_AllPost5] = useState(4);
+  const LastQuery5 = Current_Page5 * Page_AllPost5;
+  const FirstQuery5 = LastQuery5 - Page_AllPost5;
+  const [Re3_List, setRe3_List] = useState([]);
+  const Re3Slice = Re3_List.slice(FirstQuery5, LastQuery5);
+  const Re3Count = Math.ceil(Re3_List.length / Page_AllPost5);
+  const paginate5 = (pageNum) => setCurrent_Page5(pageNum);
+  {
+    /*Request4 Num-tab*/
+  }
+  const [Current_Page6, setCurrent_Page6] = useState(1);
+  const [Page_AllPost6, setPage_AllPost6] = useState(4);
+  const LastQuery6 = Current_Page6 * Page_AllPost6;
+  const FirstQuery6 = LastQuery6 - Page_AllPost6;
+  const [Re4_List, setRe4_List] = useState([]);
+  const Re4Slice = Re4_List.slice(FirstQuery6, LastQuery6);
+  const Re4Count = Math.ceil(Re4_List.length / Page_AllPost6);
+  const paginate6 = (pageNum) => setCurrent_Page6(pageNum);
+  {
     /*Query Constant*/
   }
   const [School_List, setSchool_List] = useState([]);
@@ -112,6 +157,30 @@ function D_Main() {
       await timeout(1000).then($(this).unbind("submit").submit());
       window.location.reload();
     }
+  };
+
+  {
+    /* Request Get */
+  }
+  const Re1Block = async () => {
+    Axios.get(`http://localhost:5000/Re1_D/${Donor_ID}`).then((response) => {
+      setRe1_List(response.data);
+    });
+  };
+  const Re2Block = async () => {
+    Axios.get(`http://localhost:5000/Re2_D/${Donor_ID}`).then((response) => {
+      setRe2_List(response.data);
+    });
+  };
+  const Re3Block = async () => {
+    Axios.get(`http://localhost:5000/Re3_D/${Donor_ID}`).then((response) => {
+      setRe3_List(response.data);
+    });
+  };
+  const Re4Block = async () => {
+    Axios.get(`http://localhost:5000/Re4_D/${Donor_ID}`).then((response) => {
+      setRe4_List(response.data);
+    });
   };
 
   {
@@ -339,6 +408,55 @@ function D_Main() {
   };
 
   {
+    /* Tab Function */
+  }
+  const Tabs = `
+  <div class="tab">
+    <button
+      id="tabF"
+      class="tablinks active"
+      onclick="openTab(event, 'Deli1')"
+    >
+      1 - Select delivery method
+    </button>
+    <button
+      class="tablinks"
+      onclick="openTab(event, 'Deli2')"
+    >
+      2 - Wait for Sponsor deliverer
+    </button>
+    <button
+      class="tablinks"
+      onclick="openTab(event, 'Deli3')"
+    >
+      3 - Item is transporting
+    </button>
+    <button
+      class="tablinks"
+      onclick="openTab(event, 'Deli4')"
+    >
+      4 - Successful donation
+    </button>
+  </div>
+  <script>
+    function openTab(evt, cityName) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(cityName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+    document.getElementById('tabF').click();
+  </script>
+  `;
+
+  {
     /* Load Function */
   }
   window.onload = function () {
@@ -347,6 +465,10 @@ function D_Main() {
     TradeBlock();
     CategBox();
     ProfileInfo();
+    Re1Block();
+    Re2Block();
+    Re3Block();
+    Re4Block();
   };
 
   return (
@@ -688,7 +810,10 @@ function D_Main() {
                           <section id="cart_items">
                             <div className="container">
                               <br />
-                              <div className="table-responsive cart_info">
+                              <div
+                                className="table-responsive cart_info"
+                                style={{ overflow: "hidden" }}
+                              >
                                 <table className="table table-condensed">
                                   <thead>
                                     <tr className="cart_menu">
@@ -696,217 +821,330 @@ function D_Main() {
                                         className="image"
                                         style={{ textAlign: "left" }}
                                       >
-                                        Request Items (3/100)
+                                        Request Items ({Re1_List.length} /{" "}
+                                        {Re2_List.length} / {Re3_List.length} /{" "}
+                                        {Re4_List.length})
                                       </td>
                                       <td className="description" />
                                       <td />
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    <tr>
-                                      <td
-                                        className="cart_product"
-                                        style={{ float: "left" }}
-                                      >
-                                        <a href>
-                                          <img
-                                            src="white"
-                                            alt=""
-                                            width={127}
-                                            height={158}
-                                          />
-                                        </a>
-                                      </td>
-                                      <td
-                                        className="cart_description"
-                                        style={{ float: "left" }}
-                                      >
-                                        <br />
-                                        <h2
-                                          className="cart_total_price"
-                                          style={{
-                                            textAlign: "left",
-                                            fontSize: "18px",
-                                          }}
-                                        >
-                                                Thai Literature Book 1
-                                        </h2>
-                                        <p style={{ textAlign: "justify" }}>
-                                                   Thai book with a summary of
-                                          the content example of doing the
-                                          problem Both a basic form and a
-                                          shortcut way with
-                                          <br />
-                                                   exercises and solutions by
-                                          explaining in simple language,
-                                          according to the latest curriculum by
-                                          explaining to be
-                                          <br />
-                                                   easy to understand, not
-                                          boring, to create a good attitude...
-                                        </p>
-                                      </td>
-                                      <td
-                                        className="cart_delete"
-                                        style={{ float: "right" }}
-                                      >
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <a
-                                          className="btn btn-default add-to-cart"
-                                          onClick={() => {
-                                            history.push(
-                                              `/d_main/${Donor_ID}/d_deli`
-                                            );
-                                            window.location.reload();
-                                          }}
-                                        >
-                                          <i className="fa fa-truck" />
-                                          Deliver
-                                        </a>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td
-                                        className="cart_product"
-                                        style={{ float: "left" }}
-                                      >
-                                        <a href>
-                                          <img
-                                            src="black"
-                                            alt=""
-                                            width={127}
-                                            height={158}
-                                          />
-                                        </a>
-                                      </td>
-                                      <td
-                                        className="cart_description"
-                                        style={{ float: "left" }}
-                                      >
-                                        <br />
-                                        <h2
-                                          className="cart_total_price"
-                                          style={{
-                                            textAlign: "left",
-                                            fontSize: "18px",
-                                          }}
-                                        >
-                                                Mathematic Book 2
-                                        </h2>
-                                        <p style={{ textAlign: "justify" }}>
-                                                   Math book with a summary of
-                                          the content example of doing the
-                                          problem Both a basic form and a
-                                          shortcut way with
-                                          <br />
-                                                   exercises and solutions by
-                                          explaining in simple language,
-                                          according to the latest curriculum by
-                                          explaining to be
-                                          <br />
-                                                   easy to understand, not
-                                          boring, to create a good attitude...
-                                        </p>
-                                      </td>
-                                      <td
-                                        className="cart_delete"
-                                        style={{ float: "right" }}
-                                      >
+                                    <InnerHTML html={Tabs} />
+                                    <div id="Deli1" class="tabcontent">
+                                      <tbody>
+                                        {Re1Slice.map((val, key) => {
+                                          return (
+                                            <tr>
+                                              <td
+                                                className="cart_product"
+                                                style={{ float: "left" }}
+                                              >
+                                                <a href>
+                                                  <img
+                                                    src={val.Pic1}
+                                                    alt=""
+                                                    width={127}
+                                                    height={158}
+                                                  />
+                                                </a>
+                                              </td>
+                                              <td
+                                                className="cart_description"
+                                                style={{ float: "left" }}
+                                              >
+                                                <br />
+                                                <h2
+                                                  className="cart_total_price"
+                                                  style={{
+                                                    textAlign: "left",
+                                                    fontSize: "18px",
+                                                  }}
+                                                >
+                                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                  &nbsp;&nbsp;&nbsp;&nbsp;
+                                                  {val.Obj}
+                                                </h2>
+                                                <textarea
+                                                  className="wishbox"
+                                                  autocomplete="off"
+                                                  disabled
+                                                >
+                                                  {val.Detail}
+                                                </textarea>
+                                              </td>
+                                              <td
+                                                className="cart_delete"
+                                                style={{ float: "right" }}
+                                              >
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <a class="btn add-to-cart">
+                                                  <i class="fa fa-search"></i>
+                                                  Delivery
+                                                </a>
+                                              </td>
+                                            </tr>
+                                          );
+                                        })}
+                                      </tbody>
+                                      <div className="col-sm-11">
                                         <br />
                                         <br />
+                                      </div>
+                                      <div className="col-sm-11">
+                                        <Pagination
+                                          Page_AllPost={Page_AllPost3}
+                                          TotalPost={Re1_List.length}
+                                          Current_Page={Current_Page3}
+                                          paginate={paginate3}
+                                          PostCount={Re1Count}
+                                        />
+                                      </div>
+                                    </div>
+                                    <div id="Deli2" class="tabcontent">
+                                      <tbody>
+                                        {Re2Slice.map((val, key) => {
+                                          return (
+                                            <tr>
+                                              <td
+                                                className="cart_product"
+                                                style={{ float: "left" }}
+                                              >
+                                                <a href>
+                                                  <img
+                                                    src={val.Pic1}
+                                                    alt=""
+                                                    width={127}
+                                                    height={158}
+                                                  />
+                                                </a>
+                                              </td>
+                                              <td
+                                                className="cart_description"
+                                                style={{ float: "left" }}
+                                              >
+                                                <br />
+                                                <h2
+                                                  className="cart_total_price"
+                                                  style={{
+                                                    textAlign: "left",
+                                                    fontSize: "18px",
+                                                  }}
+                                                >
+                                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                  &nbsp;&nbsp;&nbsp;&nbsp;
+                                                  {val.Obj}
+                                                </h2>
+                                                <textarea
+                                                  className="wishbox"
+                                                  autocomplete="off"
+                                                  disabled
+                                                >
+                                                  {val.Detail}
+                                                </textarea>
+                                              </td>
+                                              <td
+                                                className="cart_delete"
+                                                style={{ float: "right" }}
+                                              >
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <h2
+                                                  style={{
+                                                    fontSize: "18px",
+                                                    color: "red",
+                                                  }}
+                                                >
+                                                  <i className="fa fa-clock-o" />
+                                                  Pending
+                                                </h2>
+                                              </td>
+                                            </tr>
+                                          );
+                                        })}
+                                      </tbody>
+                                      <div className="col-sm-11">
                                         <br />
                                         <br />
+                                      </div>
+                                      <div className="col-sm-11">
+                                        <Pagination
+                                          Page_AllPost={Page_AllPost4}
+                                          TotalPost={Re2_List.length}
+                                          Current_Page={Current_Page4}
+                                          paginate={paginate4}
+                                          PostCount={Re2Count}
+                                        />
+                                      </div>
+                                    </div>
+                                    <div id="Deli3" class="tabcontent">
+                                      <tbody>
+                                        {Re3Slice.map((val, key) => {
+                                          return (
+                                            <tr>
+                                              <td
+                                                className="cart_product"
+                                                style={{ float: "left" }}
+                                              >
+                                                <a href>
+                                                  <img
+                                                    src={val.Pic1}
+                                                    alt=""
+                                                    width={127}
+                                                    height={158}
+                                                  />
+                                                </a>
+                                              </td>
+                                              <td
+                                                className="cart_description"
+                                                style={{ float: "left" }}
+                                              >
+                                                <br />
+                                                <h2
+                                                  className="cart_total_price"
+                                                  style={{
+                                                    textAlign: "left",
+                                                    fontSize: "18px",
+                                                  }}
+                                                >
+                                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                  &nbsp;&nbsp;&nbsp;&nbsp;
+                                                  {val.Obj}
+                                                </h2>
+                                                <textarea
+                                                  className="wishbox"
+                                                  autocomplete="off"
+                                                  disabled
+                                                >
+                                                  {val.Detail}
+                                                </textarea>
+                                              </td>
+                                              <td
+                                                className="cart_delete"
+                                                style={{ float: "right" }}
+                                              >
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <h2
+                                                  style={{
+                                                    fontSize: "18px",
+                                                    color: "#f39c12",
+                                                  }}
+                                                >
+                                                  <i className="fa fa-motorcycle" />
+                                                  Transport
+                                                </h2>
+                                              </td>
+                                            </tr>
+                                          );
+                                        })}
+                                      </tbody>
+                                      <div className="col-sm-11">
                                         <br />
                                         <br />
+                                      </div>
+                                      <div className="col-sm-11">
+                                        <Pagination
+                                          Page_AllPost={Page_AllPost5}
+                                          TotalPost={Re3_List.length}
+                                          Current_Page={Current_Page5}
+                                          paginate={paginate5}
+                                          PostCount={Re3Count}
+                                        />
+                                      </div>
+                                    </div>
+                                    <div id="Deli4" class="tabcontent">
+                                      <tbody>
+                                        {Re4Slice.map((val, key) => {
+                                          return (
+                                            <tr>
+                                              <td
+                                                className="cart_product"
+                                                style={{ float: "left" }}
+                                              >
+                                                <a href>
+                                                  <img
+                                                    src={val.Pic1}
+                                                    alt=""
+                                                    width={127}
+                                                    height={158}
+                                                  />
+                                                </a>
+                                              </td>
+                                              <td
+                                                className="cart_description"
+                                                style={{ float: "left" }}
+                                              >
+                                                <br />
+                                                <h2
+                                                  className="cart_total_price"
+                                                  style={{
+                                                    textAlign: "left",
+                                                    fontSize: "18px",
+                                                  }}
+                                                >
+                                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                  &nbsp;&nbsp;&nbsp;&nbsp;
+                                                  {val.Obj}
+                                                </h2>
+                                                <textarea
+                                                  className="wishbox"
+                                                  autocomplete="off"
+                                                  disabled
+                                                >
+                                                  {val.Detail}
+                                                </textarea>
+                                              </td>
+                                              <td
+                                                className="cart_delete"
+                                                style={{ float: "right" }}
+                                              >
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <h2
+                                                  style={{
+                                                    fontSize: "18px",
+                                                    color: "#90EE90",
+                                                  }}
+                                                >
+                                                  <i className="fa fa-check" />
+                                                  Success
+                                                </h2>
+                                              </td>
+                                            </tr>
+                                          );
+                                        })}
+                                      </tbody>
+                                      <div className="col-sm-11">
                                         <br />
-                                        <h2 style={{ fontSize: "18px" }}>
-                                          <i className="fa fa-motorcycle" />
-                                          Transport...
-                                        </h2>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td
-                                        className="cart_product"
-                                        style={{ float: "left" }}
-                                      >
-                                        <a href>
-                                          <img
-                                            src="red"
-                                            alt=""
-                                            width={127}
-                                            height={158}
-                                          />
-                                        </a>
-                                      </td>
-                                      <td
-                                        className="cart_description"
-                                        style={{ float: "left" }}
-                                      >
                                         <br />
-                                        <h2
-                                          className="cart_total_price"
-                                          style={{
-                                            textAlign: "left",
-                                            fontSize: "18px",
-                                          }}
-                                        >
-                                                English Activity Book 3
-                                        </h2>
-                                        <p style={{ textAlign: "justify" }}>
-                                                   English book with a summary
-                                          of the content example of doing the
-                                          problem Both a basic form and a
-                                          shortcut way with
-                                          <br />
-                                                   exercises and solutions by
-                                          explaining in simple language,
-                                          according to the latest curriculum by
-                                          explaining to be
-                                          <br />
-                                                   easy to understand, not
-                                          boring, to create a good attitude...
-                                        </p>
-                                      </td>
-                                      <td
-                                        className="cart_delete"
-                                        style={{ float: "right" }}
-                                      >
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <h2
-                                          style={{
-                                            fontSize: "18px",
-                                            color: "#90EE90",
-                                          }}
-                                        >
-                                          <i className="fa fa-check" />
-                                          Success
-                                        </h2>
-                                      </td>
-                                    </tr>
+                                      </div>
+                                      <div className="col-sm-11">
+                                        <Pagination
+                                          Page_AllPost={Page_AllPost6}
+                                          TotalPost={Re4_List.length}
+                                          Current_Page={Current_Page6}
+                                          paginate={paginate6}
+                                          PostCount={Re4Count}
+                                        />
+                                      </div>
+                                    </div>
                                   </tbody>
                                 </table>
                               </div>
-                              <div className="col-sm-11">
-                                <br />
-                                <ul className="pagination"></ul>
-                              </div>
-                              <br />
-                              <br />
-                              <br />
-                              <br />
                             </div>
                           </section>{" "}
                         </div>
@@ -1119,7 +1357,7 @@ function D_Main() {
                                           className="cart-total-price text-center"
                                           style={{ fontSize: "16px" }}
                                         >
-                                          7
+                                          {Re4_List.length}
                                         </span>
                                       </p>
                                     </fieldset>

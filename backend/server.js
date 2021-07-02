@@ -140,7 +140,7 @@ app.get("/A_list", function (req, resp) {
 }
 app.get("/Item", function (req, resp) {
   connection.query(
-    "SELECT * FROM ItemDonate WHERE State=1 ORDER BY Item_ID DESC",
+    "SELECT * FROM ItemDonate WHERE Quantity!=0 AND Warning!=5 AND State=1 ORDER BY Item_ID DESC",
     function (error, result) {
       if (error) {
         console.error("Query failed:\n" + error.stack);
@@ -159,7 +159,7 @@ app.get("/Item", function (req, resp) {
 }
 app.get("/Reward", function (req, resp) {
   connection.query(
-    "SELECT * FROM ItemReward WHERE State=1 ORDER BY Reward_ID DESC",
+    "SELECT * FROM ItemReward WHERE Quantity!=0 AND Warning!=5 AND State=1 ORDER BY Reward_ID DESC",
     function (error, result) {
       if (error) {
         console.error("Query failed:\n" + error.stack);
@@ -180,7 +180,8 @@ app.get("/Wish/:Student_ID", function (req, resp) {
   connection.query(
     `SELECT * FROM WebWishlist
      JOIN ItemDonate ON WebWishlist.Item_ID = ItemDonate.Item_ID 
-     WHERE WebWishlist.Student_ID=${req.params.Student_ID} AND WebWishlist.State=1`,
+     WHERE WebWishlist.Student_ID=${req.params.Student_ID} AND WebWishlist.State=1
+     ORDER BY Wish_ID DESC`,
     function (error, result) {
       if (error) {
         console.error("Query failed:\n" + error.stack);
@@ -383,38 +384,32 @@ app.get("/Company", function (req, resp) {
   /* Fragile List Get */
 }
 app.get("/Frag", function (req, resp) {
-  connection.query(
-    "SELECT * FROM AllFragility",
-    function (error, result) {
-      if (error) {
-        console.error("Query failed:\n" + error.stack);
-        connection.end();
-        throw error;
-      } else {
-        resp.send(result);
-        console.log(result);
-      }
+  connection.query("SELECT * FROM AllFragility", function (error, result) {
+    if (error) {
+      console.error("Query failed:\n" + error.stack);
+      connection.end();
+      throw error;
+    } else {
+      resp.send(result);
+      console.log(result);
     }
-  );
+  });
 });
 
 {
   /* Quality List Get */
 }
 app.get("/Qual", function (req, resp) {
-  connection.query(
-    "SELECT * FROM AllCondition",
-    function (error, result) {
-      if (error) {
-        console.error("Query failed:\n" + error.stack);
-        connection.end();
-        throw error;
-      } else {
-        resp.send(result);
-        console.log(result);
-      }
+  connection.query("SELECT * FROM AllCondition", function (error, result) {
+    if (error) {
+      console.error("Query failed:\n" + error.stack);
+      connection.end();
+      throw error;
+    } else {
+      resp.send(result);
+      console.log(result);
     }
-  );
+  });
 });
 
 {
@@ -1222,15 +1217,16 @@ app.post("/I_reward", function (req, resp) {
 });
 
 {
-  /* Request List1 Get */
+  /* RequestStudent List1 Get */
 }
-app.get("/Re1/:Student_ID", function (req, resp) {
+app.get("/Re1_R/:Student_ID", function (req, resp) {
   connection.query(
     `SELECT * FROM WebRequest
      JOIN ItemDonate ON WebRequest.Item_ID = ItemDonate.Item_ID 
      WHERE WebRequest.Student_ID=${req.params.Student_ID}
      AND WebRequest.Company_ID IS NULL AND WebRequest.Sponsor_ID IS NULL
-     AND WebRequest.Accept=0 AND WebRequest.State=1`,
+     AND WebRequest.GetItem=0 AND WebRequest.Accept=0 AND WebRequest.State=1
+     ORDER BY Request_ID DESC`,
     function (error, result) {
       if (error) {
         console.error("Query failed:\n" + error.stack);
@@ -1245,15 +1241,112 @@ app.get("/Re1/:Student_ID", function (req, resp) {
 });
 
 {
-  /* Request List2 Get */
+  /* RequestStudent List2 Get */
 }
-app.get("/Re2/:Student_ID", function (req, resp) {
+app.get("/Re2_R/:Student_ID", function (req, resp) {
   connection.query(
     `SELECT * FROM WebRequest
      JOIN ItemDonate ON WebRequest.Item_ID = ItemDonate.Item_ID 
      WHERE WebRequest.Student_ID=${req.params.Student_ID}
+     AND WebRequest.Company_ID IS NOT NULL AND WebRequest.Sponsor_ID IS NOT NULL
+     AND WebRequest.GetItem=0 AND WebRequest.Accept=0 AND WebRequest.State=1
+     ORDER BY Request_ID DESC`,
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      } else {
+        resp.send(result);
+        console.log(result);
+      }
+    }
+  );
+});
+
+{
+  /* RequestStudent List3 Get */
+}
+app.get("/Re3_R/:Student_ID", function (req, resp) {
+  connection.query(
+    `SELECT * FROM WebRequest
+     JOIN ItemDonate ON WebRequest.Item_ID = ItemDonate.Item_ID 
+     WHERE WebRequest.Student_ID=${req.params.Student_ID}
+     AND WebRequest.Company_ID IS NOT NULL AND WebRequest.Sponsor_ID IS NOT NULL
+     AND WebRequest.GetItem=1 AND WebRequest.Accept=0 AND WebRequest.State=1
+     ORDER BY Request_ID DESC`,
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      } else {
+        resp.send(result);
+        console.log(result);
+      }
+    }
+  );
+});
+
+{
+  /* RequestStudent List4 Get */
+}
+app.get("/Re4_R/:Student_ID", function (req, resp) {
+  connection.query(
+    `SELECT * FROM WebRequest
+     JOIN ItemDonate ON WebRequest.Item_ID = ItemDonate.Item_ID 
+     WHERE WebRequest.Student_ID=${req.params.Student_ID}
+     AND WebRequest.Company_ID IS NOT NULL AND WebRequest.Sponsor_ID IS NOT NULL
+     AND WebRequest.GetItem=1 AND WebRequest.Accept=1 AND WebRequest.State=1
+     ORDER BY Request_ID DESC`,
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      } else {
+        resp.send(result);
+        console.log(result);
+      }
+    }
+  );
+});
+
+{
+  /* RequestDonor List1 Get */
+}
+app.get("/Re1_D/:Donor_ID", function (req, resp) {
+  connection.query(
+    `SELECT * FROM WebRequest
+     JOIN ItemDonate ON WebRequest.Item_ID = ItemDonate.Item_ID
+     WHERE ItemDonate.Donor_ID=${req.params.Donor_ID}
+     AND WebRequest.Company_ID IS NULL AND WebRequest.Sponsor_ID IS NULL
+     AND WebRequest.GetItem=0 AND WebRequest.Accept=0 AND WebRequest.State=1
+     ORDER BY Request_ID DESC`,
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      } else {
+        resp.send(result);
+        console.log(result);
+      }
+    }
+  );
+});
+
+{
+  /* RequestDonor List2 Get */
+}
+app.get("/Re2_D/:Donor_ID", function (req, resp) {
+  connection.query(
+    `SELECT * FROM WebRequest
+     JOIN ItemDonate ON WebRequest.Item_ID = ItemDonate.Item_ID 
+     WHERE ItemDonate.Donor_ID=${req.params.Donor_ID}
      AND WebRequest.Company_ID IS NOT NULL AND WebRequest.Sponsor_ID IS NULL
-     AND WebRequest.Accept=0 AND WebRequest.State=1`,
+     AND WebRequest.GetItem=0 AND WebRequest.Accept=0 AND WebRequest.State=1
+     ORDER BY Request_ID DESC`,
     function (error, result) {
       if (error) {
         console.error("Query failed:\n" + error.stack);
@@ -1268,15 +1361,16 @@ app.get("/Re2/:Student_ID", function (req, resp) {
 });
 
 {
-  /* Request List3 Get */
+  /* RequestDonor List3 Get */
 }
-app.get("/Re3/:Student_ID", function (req, resp) {
+app.get("/Re3_D/:Donor_ID", function (req, resp) {
   connection.query(
     `SELECT * FROM WebRequest
      JOIN ItemDonate ON WebRequest.Item_ID = ItemDonate.Item_ID 
-     WHERE WebRequest.Student_ID=${req.params.Student_ID}
+     WHERE ItemDonate.Donor_ID=${req.params.Donor_ID}
      AND WebRequest.Company_ID IS NOT NULL AND WebRequest.Sponsor_ID IS NOT NULL
-     AND WebRequest.Accept=0 AND WebRequest.State=1`,
+     AND WebRequest.GetItem=1 AND WebRequest.Accept=0 AND WebRequest.State=1
+     ORDER BY Request_ID DESC`,
     function (error, result) {
       if (error) {
         console.error("Query failed:\n" + error.stack);
@@ -1291,15 +1385,116 @@ app.get("/Re3/:Student_ID", function (req, resp) {
 });
 
 {
-  /* Request List4 Get */
+  /* RequestDonor List4 Get */
 }
-app.get("/Re4/:Student_ID", function (req, resp) {
+app.get("/Re4_D/:Donor_ID", function (req, resp) {
   connection.query(
     `SELECT * FROM WebRequest
      JOIN ItemDonate ON WebRequest.Item_ID = ItemDonate.Item_ID 
-     WHERE WebRequest.Student_ID=${req.params.Student_ID}
+     WHERE ItemDonate.Donor_ID=${req.params.Donor_ID}
      AND WebRequest.Company_ID IS NOT NULL AND WebRequest.Sponsor_ID IS NOT NULL
-     AND WebRequest.Accept=1 AND WebRequest.State=1`,
+     AND WebRequest.GetItem=1 AND WebRequest.Accept=1 AND WebRequest.State=1
+     ORDER BY Request_ID DESC`,
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      } else {
+        resp.send(result);
+        console.log(result);
+      }
+    }
+  );
+});
+
+{
+  /* RequestSponsor List1 Get */
+}
+app.get("/Re1_S/:Sponsor_ID", function (req, resp) {
+  connection.query(
+    `SELECT * FROM WebRequest
+     JOIN ItemDonate ON WebRequest.Item_ID = ItemDonate.Item_ID
+     JOIN UserSponsor ON WebRequest.Company_ID = UserSponsor.Company_ID
+     WHERE UserSponsor.Sponsor_ID=${req.params.Sponsor_ID}
+     AND WebRequest.Company_ID = UserSponsor.Company_ID AND WebRequest.Sponsor_ID IS NULL
+     AND WebRequest.GetItem=0 AND WebRequest.Accept=0 AND WebRequest.State=1
+     ORDER BY Request_ID DESC`,
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      } else {
+        resp.send(result);
+        console.log(result);
+      }
+    }
+  );
+});
+
+{
+  /* RequestSponsor List2 Get */
+}
+app.get("/Re2_S/:Sponsor_ID", function (req, resp) {
+  connection.query(
+    `SELECT * FROM WebRequest
+     JOIN ItemDonate ON WebRequest.Item_ID = ItemDonate.Item_ID
+     JOIN UserSponsor ON WebRequest.Company_ID = UserSponsor.Company_ID
+     WHERE UserSponsor.Sponsor_ID=${req.params.Sponsor_ID}
+     AND WebRequest.Company_ID = UserSponsor.Company_ID AND WebRequest.Sponsor_ID=${req.params.Sponsor_ID}
+     AND WebRequest.GetItem=0 AND WebRequest.Accept=0 AND WebRequest.State=1
+     ORDER BY Request_ID DESC`,
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      } else {
+        resp.send(result);
+        console.log(result);
+      }
+    }
+  );
+});
+
+{
+  /* RequestSponsor List3 Get */
+}
+app.get("/Re3_S/:Sponsor_ID", function (req, resp) {
+  connection.query(
+    `SELECT * FROM WebRequest
+     JOIN ItemDonate ON WebRequest.Item_ID = ItemDonate.Item_ID
+     JOIN UserSponsor ON WebRequest.Company_ID = UserSponsor.Company_ID
+     WHERE UserSponsor.Sponsor_ID=${req.params.Sponsor_ID}
+     AND WebRequest.Company_ID = UserSponsor.Company_ID AND WebRequest.Sponsor_ID=${req.params.Sponsor_ID}
+     AND WebRequest.GetItem=1 AND WebRequest.Accept=0 AND WebRequest.State=1
+     ORDER BY Request_ID DESC`,
+    function (error, result) {
+      if (error) {
+        console.error("Query failed:\n" + error.stack);
+        connection.end();
+        throw error;
+      } else {
+        resp.send(result);
+        console.log(result);
+      }
+    }
+  );
+});
+
+{
+  /* RequestSponsor List4 Get */
+}
+app.get("/Re4_S/:Sponsor_ID", function (req, resp) {
+  connection.query(
+    `SELECT * FROM WebRequest
+     JOIN ItemDonate ON WebRequest.Item_ID = ItemDonate.Item_ID
+     JOIN UserSponsor ON WebRequest.Company_ID = UserSponsor.Company_ID
+     WHERE UserSponsor.Sponsor_ID=${req.params.Sponsor_ID}
+     AND WebRequest.Company_ID = UserSponsor.Company_ID AND WebRequest.Sponsor_ID=${req.params.Sponsor_ID}
+     AND WebRequest.GetItem=1 AND WebRequest.Accept=1 AND WebRequest.State=1
+     ORDER BY Request_ID DESC`,
     function (error, result) {
       if (error) {
         console.error("Query failed:\n" + error.stack);
