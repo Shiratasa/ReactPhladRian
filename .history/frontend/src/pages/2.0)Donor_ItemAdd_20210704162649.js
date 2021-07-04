@@ -2,7 +2,7 @@
 import React, { useEffect, useState, Component } from "react";
 import ReactDOM from "react-dom";
 import { Helmet } from "react-helmet";
-import Gallereact from "gallereact";
+import InnerHTML from "dangerously-set-html-content";
 import Axios from "axios";
 import $ from "jquery";
 import JSAlert from "js-alert";
@@ -17,14 +17,16 @@ import {
   useParams,
 } from "react-router-dom";
 
+history.pushState(null, document.title, location.href);
+history.back();
+history.forward();
+window.onpopstate = function () {
+  history.go(1);
+};
+
 function D_Add() {
   const wall = window.location.origin + "/resources/imgs/wallpaper.jpg";
-  const but1 = window.location.origin + "/resources/imgs/home.png";
-  const but2 = window.location.origin + "/resources/imgs/request.png";
-  const but3 = window.location.origin + "/resources/imgs/reward.png";
-  const but4 = window.location.origin + "/resources/imgs/account.png";
-  const but5 = window.location.origin + "/resources/imgs/report.png";
-  const but6 = window.location.origin + "/resources/imgs/logout.png";
+  const but1 = window.location.origin + "/resources/imgs/detail.png";
   const blank = window.location.origin + "/resources/imgs/shop/white.jpg";
   const eng = window.location.origin + "/resources/imgs/authen/eng.png";
   const tha = window.location.origin + "/resources/imgs/authen/tha.png";
@@ -39,12 +41,16 @@ function D_Add() {
   var p2 = adder;
   var p3 = adder;
   var p4 = adder;
+  var invali = "1";
   const [file_Array1, setFile_Array1] = useState("");
   const [file_Array2, setFile_Array2] = useState("");
   const [file_Array3, setFile_Array3] = useState("");
   const [file_Array4, setFile_Array4] = useState("");
   const [School_List, setSchool_List] = useState([]);
   const [Categ_List, setCateg_List] = useState([]);
+  const [Frag_List, setFrag_List] = useState([]);
+  const [Qual_List, setQual_List] = useState([]);
+  const [I_Param, setI_Param] = useState("");
   const [I_Obj, setI_Obj] = useState("");
   const [I_Pic1, setI_Pic1] = useState("");
   const [I_Pic2, setI_Pic2] = useState("");
@@ -57,6 +63,8 @@ function D_Add() {
   const [I_Desp, setI_Desp] = useState("");
   const [I_Frag, setI_Frag] = useState("");
   const images = [p1, p2, p3, p4];
+  let { Donor_ID } = useParams();
+  let { Item_ID } = useParams();
   let history = useHistory();
 
   {
@@ -67,10 +75,12 @@ function D_Add() {
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
-    JSAlert.alert("", "Submit Success!", JSAlert.Icons.Success);
-    await timeout(1000).then($(this).unbind("submit").submit());
-    history.push("/d_main");
-    location.reload();
+    if (invali == "0") {
+      JSAlert.alert("", "Submit Success!", JSAlert.Icons.Success);
+      await timeout(1000).then($(this).unbind("submit").submit());
+      history.push(`/d_main/${Donor_ID}`);
+      window.location.reload();
+    }
   };
 
   {
@@ -88,6 +98,24 @@ function D_Add() {
   const CategBox = async () => {
     Axios.get("http://localhost:5000/Categ_I").then((response) => {
       setCateg_List(response.data);
+    });
+  };
+
+  {
+    /* Fragile Get */
+  }
+  const FragBox = async () => {
+    Axios.get("http://localhost:5000/Frag").then((response) => {
+      setFrag_List(response.data);
+    });
+  };
+
+  {
+    /* Quality Get */
+  }
+  const QualBox = async () => {
+    Axios.get("http://localhost:5000/Qual").then((response) => {
+      setQual_List(response.data);
     });
   };
 
@@ -207,7 +235,7 @@ function D_Add() {
     ) {
       JSAlert.alert(
         "(Ex): An English book for the high school year 3 education.",
-        "Please enter item information in full detail...",
+        "Please enter item information in full detail without space at beginning & ending...",
         JSAlert.Icons.Warning
       );
       quanI.value = "";
@@ -376,12 +404,15 @@ function D_Add() {
     /* Item Post */
   }
   const I_donate = async () => {
+    invali = "1";
     checkString();
     checkFile1();
     checkFile2();
     checkFile3();
     checkFile4();
+    invali = "0";
     Axios.post("http://localhost:5000/I_donate", {
+      Donor_ID: I_Param,
       Obj: I_Obj,
       Pic1: file_Array1,
       Pic2: file_Array2,
@@ -399,20 +430,100 @@ function D_Add() {
   };
 
   {
+    /* Album Function */
+  }
+  const Album = `
+  <div>
+    <a class="prev" onClick="plusSlides(-1)">&#10094;</a>
+  	<a class="next" onClick="plusSlides(1)">&#10095;</a>
+  </div>
+  <br>
+  <div style="text-align:center">
+    <span class="dot" onclick="currentSlide(1)"></span>&nbsp;&nbsp;&nbsp;
+    <span class="dot" onclick="currentSlide(2)"></span>&nbsp;&nbsp;&nbsp;
+    <span class="dot" onclick="currentSlide(3)"></span>&nbsp;&nbsp;&nbsp;
+    <span class="dot" onclick="currentSlide(4)"></span>
+  </div>
+  <script>
+    var slideIndex = 1;
+    showSlides(slideIndex);
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
+    function currentSlide(n) {
+      showSlides(slideIndex = n);
+    }
+    function showSlides(n) {
+      var i;
+      var slides = document.getElementsByClassName("mySlides");
+      var dots = document.getElementsByClassName("dot");
+      if (n > slides.length) {slideIndex = 1}
+      if (n < 1) {slideIndex = slides.length}
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex-1].style.display = "block";
+      dots[slideIndex-1].className += " active";
+    }
+    var modal_1 = document.getElementById("myModal1");
+    var image_1 = document.getElementById("preImg1");
+    var modalImage_1 = document.getElementById("img01");
+    image_1.onclick = function(){
+      modal_1.style.display = "block";
+      modalImage_1.src = this.src;
+    }
+    var modal_2 = document.getElementById("myModal2");
+    var image_2 = document.getElementById("preImg2");
+    var modalImage_2 = document.getElementById("img02");
+    image_2.onclick = function(){
+      modal_2.style.display = "block";
+      modalImage_2.src = this.src;
+    }
+    var modal_3 = document.getElementById("myModal3");
+    var image_3 = document.getElementById("preImg3");
+    var modalImage_3 = document.getElementById("img03");
+    image_3.onclick = function(){
+      modal_3.style.display = "block";
+      modalImage_3.src = this.src;
+    }
+    var modal_4 = document.getElementById("myModal4");
+    var image_4 = document.getElementById("preImg4");
+    var modalImage_4 = document.getElementById("img04");
+    image_4.onclick = function(){
+      modal_4.style.display = "block";
+      modalImage_4.src = this.src;
+    }
+    var span_1 = document.getElementsByClassName("close one")[0];
+    span_1.onclick = function() { 
+      modal_1.style.display = "none";
+    }
+    var span_2 = document.getElementsByClassName("close two")[0];
+    span_2.onclick = function() { 
+      modal_2.style.display = "none";
+    }
+    var span_3 = document.getElementsByClassName("close three")[0];
+    span_3.onclick = function() { 
+      modal_3.style.display = "none";
+    }
+    var span_4 = document.getElementsByClassName("close four")[0];
+    span_4.onclick = function() { 
+      modal_4.style.display = "none";
+    }
+  </script>
+  `;
+
+  {
     /* Load Function */
   }
   window.onload = function () {
     CategBox();
     SchoolBox();
-    $("#slideshow > div:gt(0)").hide();
-    setInterval(function () {
-      $("#slideshow > div:first")
-        .fadeOut(1000)
-        .next()
-        .fadeIn(1000)
-        .end()
-        .appendTo("#slideshow");
-    }, 3000);
+    FragBox();
+    QualBox();
+    setI_Param(Donor_ID);
   };
 
   return (
@@ -437,6 +548,7 @@ function D_Add() {
           <link rel="stylesheet" href="resources/css/bootstrap-theme.min.css" />
           <link rel="stylesheet" href="resources/css/fontAwesome.css" />
           <link rel="stylesheet" href="resources/css/templatemo-style.css" />
+          <link rel="stylesheet" href="resources/css/Page_Detail.css" />
           <link
             href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900"
             rel="stylesheet"
@@ -446,6 +558,7 @@ function D_Add() {
           <link href="resources/css/prettyPhoto.css" rel="stylesheet" />
           <link href="resources/css/price-range.css" rel="stylesheet" />
           <link href="resources/css/animate.css" rel="stylesheet" />
+          DetailDetail
           <link href="resources/css/main.css" rel="stylesheet" />
           <link href="resources/css/responsive.css" rel="stylesheet" />
           <link
@@ -453,123 +566,36 @@ function D_Add() {
             rel="stylesheet"
           />
         </Helmet>
+
         <style>{`
-      .midimg
-      {
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-      }
-      .searchform input 
-      {
-          width: 169px;
-          height: 33px
-      }
-      ::-webkit-input-placeholder 
-      { /* Chrome/Opera/Safari */
-          color: lightgrey;
-      }
-      ::-moz-placeholder 
-      { /* Firefox 19+ */
-          color: lightgrey;
-      }
-      :-ms-input-placeholder 
-      { /* IE 10+ */
-          color: lightgrey;
-      }
-      :-moz-placeholder 
-      { /* Firefox 18- */
-          color: lightgrey;
-      }
-      .swapper:hover 
-      {
-          color: #F39C12;
-          border: 1px solid #F39C12;
-      }
-      .aswap:hover
-      {
-          color: white;
-          background: #F39C12;
-          border: 1px solid #F39C12;
-      }
-      .swappor  
-      {
-          color: white;
-          background: #F39C12;
-          border: 1px solid #F39C12;
-      }
-      .swappor:hover 
-      {
-          color: black;
-          background: #EBEDEF;
-          border: 1px solid black;
-      }
-      .pull-center:hover 
-      {
-          color: black;
-          font-weight: bold;
-      }
-      .demo
-      {
-        display: inline-block;
-      }
-      .demo a
-      {
-        color: red; 
-        padding: 5px 12px; 
-        text-decoration: none; 
-        transition: background-color 2s; 
-        border: 1px solid orange; 
-        font-size: 15px;
-      } 
-      .demo a.active
-      {
-        background-color: orange; 
-        color: white;
-      }
-            .demo a:hover
-      {
-        background-color: orange; 
-        color: white;
-      }
-        .reddit 
-      {
-          border: 2px solid red;
-      }
-    .reddot:hover 
-      {
-          border: 2px solid red;
-      }
-    #ItemN
-    {
-     font-size:16pt;
-     width:500px;
-     text-align:center;
-    }
-     #ItemD
-    {
-     font-size:12pt;
-     height:200px;
-     width:700px;
-     background-color:white;
-     border:solid 1px black;
-    }
-    .fitBox
-    {
-     font-size:10pt;
-     width:300px;
-     background-color:white;
-     border:solid 1px black;
-    }
-    #slideshow { 
-      position: relative; 
-      width: 250px; 
-      height: 340px; 
-    }
-    #slideshow > div { 
-      position: absolute; 
-    }
-    `}</style>
+          .swappor {
+            color: white;
+            background: #f39c12;
+            border: 1px solid #f39c12;
+          }
+          .swappor:hover {
+            color: #90EE90;
+            background: #ebedef;
+            border: 1px solid #90EE90;
+          }
+        `}</style>
+
+        <div id="myModal1" class="modal">
+          <span class="close one">&times;</span>
+          <img class="modal-content" id="img01" />
+        </div>
+        <div id="myModal2" class="modal">
+          <span class="close two">&times;</span>
+          <img class="modal-content" id="img02" />
+        </div>
+        <div id="myModal3" class="modal">
+          <span class="close three">&times;</span>
+          <img class="modal-content" id="img03" />
+        </div>
+        <div id="myModal4" class="modal">
+          <span class="close four">&times;</span>
+          <img class="modal-content" id="img04" />
+        </div>
         <div className="overlay" />
         <section className="top-part">
           <img src={wall} />
@@ -595,58 +621,17 @@ function D_Add() {
               <span className="cd-marker item-1" />
               <ul>
                 <li className="selected">
-                  <a href="#0">
+                  <a>
                     <div className="image-icon">
-                      <img src={but1} width={40} height={35} />
+                      <img src={but1} width={42} height={42} />
                     </div>
-                    <h6>Home</h6>
-                  </a>
-                </li>
-                <li>
-                  <a href="#0">
-                    <div className="image-icon">
-                      <img src={but2} width={43} height={35} />
-                    </div>
-                    <h6>Request</h6>
-                  </a>
-                </li>
-                <li>
-                  <a href="#0">
-                    <div className="image-icon">
-                      <img src={but3} width={45} height={40} />
-                    </div>
-                    <h6>Trade</h6>
-                  </a>
-                </li>
-                <li>
-                  <a href="#0">
-                    <div className="image-icon">
-                      <img src={but4} width={40} height={38} />
-                    </div>
-                    <h6>Account</h6>
-                  </a>
-                </li>
-                <li>
-                  <a href="#0">
-                    <div className="image-icon">
-                      <img src={but5} width={38} height={33} />
-                    </div>
-                    <h6>Contact</h6>
-                  </a>
-                </li>
-                <li>
-                  <a href="#0">
-                    <div className="image-icon">
-                      <img src={but6} width={39} height={35} />
-                    </div>
-                    <h6>Logout</h6>
+                    <h6>Detail</h6>
                   </a>
                 </li>
               </ul>
             </nav>
           </div>
           <ul className="cd-hero-slider">
-            {/*-/Home page-*/}
             <li className="selected">
               <div className="heading"></div>
               <form onSubmit={handleSubmit}>
@@ -658,28 +643,32 @@ function D_Add() {
                           <div className="container">
                             <div id="gallery" className="col-sm-3">
                               <div id="slideshow">
-                                <div>
+                                <div class="mySlides">
+                                  <div class="numbertext">1 / 4</div>
                                   <img
                                     id="preImg1"
-                                    src={wall}
+                                    src={adder}
                                     style={{ width: "255px", height: "340px" }}
                                   />
                                 </div>
-                                <div>
+                                <div class="mySlides">
+                                  <div class="numbertext">2 / 4</div>
                                   <img
                                     id="preImg2"
-                                    src={eng}
+                                    src={adder}
                                     style={{ width: "255px", height: "340px" }}
                                   />
                                 </div>
-                                <div>
+                                <div class="mySlides">
+                                  <div class="numbertext">3 / 4</div>
                                   <img
                                     id="preImg3"
-                                    src={tha}
+                                    src={adder}
                                     style={{ width: "255px", height: "340px" }}
                                   />
                                 </div>
-                                <div>
+                                <div class="mySlides">
+                                  <div class="numbertext">4 / 4</div>
                                   <img
                                     id="preImg4"
                                     src={adder}
@@ -687,6 +676,7 @@ function D_Add() {
                                   />
                                 </div>
                               </div>
+                              <InnerHTML html={Album} />
                               <br />
                               <br />
                               <label style={{ color: "red", fontSize: "15px" }}>
@@ -748,7 +738,10 @@ function D_Add() {
                                     <td className="cart_delete">
                                       <a
                                         className="cart_quantity_delete"
-                                        href="/d_main"
+                                        onClick={() => {
+                                          history.push(`/d_main/${Donor_ID}`);
+                                          window.location.reload();
+                                        }}
                                       >
                                         <i className="fa fa-times" />
                                       </a>
@@ -759,6 +752,7 @@ function D_Add() {
                               <h2 className="title text-center">
                                 <input
                                   type="text"
+                                  className="inputField"
                                   id="ItemN"
                                   placeholder="Item Name"
                                   autocomplete="off"
@@ -771,6 +765,7 @@ function D_Add() {
                               <h4 style={{ textAlign: "left" }}>Description</h4>
                               <textarea
                                 type="address"
+                                className="inputField"
                                 id="ItemD"
                                 placeholder="Item Description"
                                 autocomplete="off"
@@ -791,7 +786,7 @@ function D_Add() {
                                     <td className="techSpecTD1">
                                       <select
                                         id="ItemC"
-                                        className="fitBox"
+                                        className="fitBox inputField"
                                         required
                                         onInvalid={I_donate.exit}
                                         onChange={(x) =>
@@ -823,7 +818,7 @@ function D_Add() {
                                     <td className="techSpecTD1">
                                       <select
                                         id="ItemS"
-                                        className="fitBox"
+                                        className="fitBox inputField"
                                         required
                                         onInvalid={I_donate.exit}
                                         onChange={(x) =>
@@ -855,7 +850,7 @@ function D_Add() {
                                     <td className="techSpecTD1">
                                       <select
                                         id="ItemA"
-                                        className="fitBox"
+                                        className="fitBox inputField"
                                         required
                                         onInvalid={I_donate.exit}
                                         onChange={(x) =>
@@ -869,10 +864,14 @@ function D_Add() {
                                         >
                                           -- Select Conditon --
                                         </option>
-                                        <option value="4">New</option>
-                                        <option value="3">Excellent</option>
-                                        <option value="2">Good</option>
-                                        <option value="1">Fair</option>
+                                        {Qual_List.map((val, key) => (
+                                          <option
+                                            key={val.Quality}
+                                            value={val.Quality}
+                                          >
+                                            {val.I_Con}
+                                          </option>
+                                        ))}
                                       </select>
                                     </td>
                                   </tr>
@@ -883,7 +882,7 @@ function D_Add() {
                                     <td className="techSpecTD1">
                                       <select
                                         id="ItemF"
-                                        className="fitBox"
+                                        className="fitBox inputField"
                                         required
                                         onInvalid={I_donate.exit}
                                         onChange={(x) =>
@@ -897,8 +896,14 @@ function D_Add() {
                                         >
                                           -- Select Fragility --
                                         </option>
-                                        <option value="0">No</option>
-                                        <option value="1">Yes</option>
+                                        {Frag_List.map((val, key) => (
+                                          <option
+                                            key={val.Fragile}
+                                            value={val.Fragile}
+                                          >
+                                            {val.YesNo}
+                                          </option>
+                                        ))}
                                       </select>
                                     </td>
                                   </tr>
@@ -907,17 +912,20 @@ function D_Add() {
                                       <b>Quantity:</b>
                                     </td>
                                     <td className="techSpecTD1">
-                                      <input
-                                        type="text"
-                                        id="ItemQ"
-                                        placeholder="Item Quantity"
-                                        autocomplete="off"
-                                        required
-                                        onInvalid={I_donate.exit}
-                                        onChange={(x) =>
-                                          setI_Num(x.target.value)
-                                        }
-                                      />
+                                      <div style={{ height: "29px" }}>
+                                        <input
+                                          type="text"
+                                          className="inputField"
+                                          id="ItemQ"
+                                          placeholder="Item Quantity"
+                                          autocomplete="off"
+                                          required
+                                          onInvalid={I_donate.exit}
+                                          onChange={(x) =>
+                                            setI_Num(x.target.value)
+                                          }
+                                        />
+                                      </div>
                                     </td>
                                   </tr>
                                 </tbody>
@@ -925,7 +933,7 @@ function D_Add() {
                               <hr className="soft" />
                               <button
                                 type="submit"
-                                className="btn btn-default swappor"
+                                className="btn swappor"
                                 onClick={I_donate}
                               >
                                 <i className="fa fa fa-edit" />
@@ -939,27 +947,6 @@ function D_Add() {
                   </div>
                 </div>
               </form>
-            </li>
-            {/*-/Home page-*/}
-            <li>
-              <div className="heading"></div>
-            </li>
-            <li>
-              <div className="heading"></div>
-            </li>
-            <li>
-              <div className="heading"></div>
-            </li>
-            <li>
-              <div className="heading"></div>
-            </li>
-            <li>
-              <div className="heading">
-                <h1>Logout</h1>
-                <a href="/" className="button">
-                  EXIT
-                </a>
-              </div>
             </li>
           </ul>
         </section>

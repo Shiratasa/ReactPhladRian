@@ -79,7 +79,7 @@ function S_Add() {
       JSAlert.alert("", "Submit Success!", JSAlert.Icons.Success);
       await timeout(1000).then($(this).unbind("submit").submit());
       history.push(`/s_main/${Sponsor_ID}`);
-      location.reload();
+      window.location.reload();
     }
   };
 

@@ -79,7 +79,7 @@ function D_Add() {
       JSAlert.alert("", "Submit Success!", JSAlert.Icons.Success);
       await timeout(1000).then($(this).unbind("submit").submit());
       history.push(`/d_main/${Donor_ID}`);
-      location.reload();
+      window.location.reload();
     }
   };
 

@@ -17,6 +17,7 @@ import D_Main from "./pages/2)Donor_Main.js";
 import D_Add from "./pages/2.0)Donor_ItemAdd.js";
 import D_Item from "./pages/2.1)Donor_ItemDetail.js";
 import D_Deli from "./pages/2.2)Donor_Delivery.js";
+import D_DeliFar from "./pages/2.2)Donor_DeliveryFar.js";
 import D_Rewa from "./pages/2.3)Donor_RewardDetail.js";
 import R_Main from "./pages/3)Receiver_Main.js";
 import R_Item from "./pages/3.1)Receiver_ItemDetail.js";
@@ -43,6 +44,7 @@ function App() {
             <Route path="/d_main/:Donor_ID/d_add" exact component={D_Add} />
             <Route path="/d_main/:Donor_ID/d_item/:Item_ID" exact component={D_Item} />
             <Route path="/d_main/:Donor_ID/d_deli/:Request_ID" exact component={D_Deli} />
+            <Route path="/d_main/:Donor_ID/d_delifar/:Request_ID" exact component={D_DeliFar} />
             <Route path="/d_main/:Donor_ID/d_rewa/:Reward_ID" exact component={D_Rewa} />
             <Route path="/r_main/:Student_ID" exact component={R_Main} />
             <Route path="/r_main/:Student_ID/r_item/:Item_ID" exact component={R_Item} />
