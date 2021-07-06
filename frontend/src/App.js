@@ -25,6 +25,9 @@ import S_Main from "./pages/4)Sponsor_Main.js";
 import S_Add from "./pages/4.0)Sponsor_RewardAdd.js";
 import S_Rewa from "./pages/4.1)Sponsor_RewardDetail.js";
 import S_QR from "./pages/4.2)Sponsor_QR.js";
+import S_QRview from "./pages/4.2)Sponsor_QRview.js";
+import S_AQR from "./pages/4.2)Sponsor_AQR.js";
+import S_AQRview from "./pages/4.2)Sponsor_AQRview.js";
 
 function App() {
   return (
@@ -52,6 +55,9 @@ function App() {
             <Route path="/s_main/:Sponsor_ID/s_add" exact component={S_Add} />
             <Route path="/s_main/:Sponsor_ID/s_rewa/:Reward_ID" exact component={S_Rewa} />
             <Route path="/s_main/:Sponsor_ID/s_qr/:Request_ID" exact component={S_QR} />
+            <Route path="/s_main/:Sponsor_ID/s_qrview/:Request_ID" exact component={S_QRview} />
+            <Route path="/s_main/:Sponsor_ID/s_aqr/:Request_ID" exact component={S_AQR} />
+            <Route path="/s_main/:Sponsor_ID/s_aqrview/:Request_ID" exact component={S_AQRview} />
           </Switch>
         </Router>
       </div>
