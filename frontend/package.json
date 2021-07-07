@@ -11,6 +11,7 @@
     "axios": "^0.21.1",
     "dangerously-set-html-content": "^1.0.8",
     "delay": "^5.0.0",
+    "email": "^0.2.6",
     "file-api": "^0.10.4",
     "form-data": "^4.0.0",
     "gallereact": "^1.2.2",
