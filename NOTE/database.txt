@@ -6,3 +6,5 @@ node server.js
 4,294,967,295 LONGTEXT for FileReader.readAsDataURL(image_file)
 
 SET GLOBAL event_scheduler="ON"
+
+NodeMailer: https://www.youtube.com/watch?v=NB71vyCj2X4
