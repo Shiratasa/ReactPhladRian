@@ -9,12 +9,15 @@ This project is created by Putthiwat Chalermvongsavej. (https://www.facebook.com
 - HTML
 - CSS
 - MySQL
+- Azure
 
 ## Execution commands
 
 ```
 - Backend
   - cd D:/PhladRian
+  or
+  - pm2 start backend/server.js --exp-backoff-restart-delay=100
 - Frontend
   - cd D:/PhladRian/frontend
 ```

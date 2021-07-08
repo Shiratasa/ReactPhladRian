@@ -3,3 +3,5 @@ npm init -y
 npm install --save component
 cd folder
 npm start
+
+pm2 start backend/server.js --exp-backoff-restart-delay=100

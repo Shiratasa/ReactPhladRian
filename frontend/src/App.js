@@ -21,6 +21,7 @@ import D_DeliFar from "./pages/2.2)Donor_DeliveryFar.js";
 import D_Rewa from "./pages/2.3)Donor_RewardDetail.js";
 import R_Main from "./pages/3)Receiver_Main.js";
 import R_Item from "./pages/3.1)Receiver_ItemDetail.js";
+import R_Noti from "./pages/3.2)Receiver_Notify.js";
 import S_Main from "./pages/4)Sponsor_Main.js";
 import S_Add from "./pages/4.0)Sponsor_RewardAdd.js";
 import S_Rewa from "./pages/4.1)Sponsor_RewardDetail.js";
@@ -54,6 +55,7 @@ function App() {
             <Route path="/d_main/:Donor_ID/d_rewa/:Reward_ID" exact component={D_Rewa} />
             <Route path="/r_main/:Student_ID" exact component={R_Main} />
             <Route path="/r_main/:Student_ID/r_item/:Item_ID" exact component={R_Item} />
+            <Route path="/r_main/:Student_ID/r_noti/:School_ID" exact component={R_Noti} />
             <Route path="/s_main/:Sponsor_ID" exact component={S_Main} />
             <Route path="/s_main/:Sponsor_ID/s_add" exact component={S_Add} />
             <Route path="/s_main/:Sponsor_ID/s_rewa/:Reward_ID" exact component={S_Rewa} />
