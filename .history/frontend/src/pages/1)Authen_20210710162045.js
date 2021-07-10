@@ -565,8 +565,9 @@ function Authen() {
         Card_Image: file_Array,
         Password: R_passReg,
         ZIP: R_zipReg,
+      }).then((response) => {
+        console.log(response);
       });
-      R_authenMail();
     }
   };
 
@@ -603,8 +604,9 @@ function Authen() {
         Address: D_localReg,
         Password: D_passReg,
         ZIP: D_zipReg,
+      }).then((response) => {
+        console.log(response);
       });
-      D_authenMail();
     }
   };
 
@@ -665,7 +667,7 @@ function Authen() {
     });
   };
   const D_authenMail = async () => {
-    Axios.post("http://localhost:5000/D_mailAu", {
+    Axios.post("http://localhost:5000/R_mailAu", {
       Email: D_emailReg,
     });
   };

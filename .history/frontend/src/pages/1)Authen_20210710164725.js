@@ -603,8 +603,9 @@ function Authen() {
         Address: D_localReg,
         Password: D_passReg,
         ZIP: D_zipReg,
+      }).then((response) => {
+        console.log(response);
       });
-      D_authenMail();
     }
   };
 

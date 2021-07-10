@@ -13,6 +13,8 @@ import {
   useParams,
 } from "react-router-dom";
 import Authen from "./pages/1)Authen.js";
+import R_Auth from "./pages/1.1)Receiver_Mail.js";
+import D_Auth from "./pages/1.2)Donor_Mail.js";
 import D_Main from "./pages/2)Donor_Main.js";
 import D_Add from "./pages/2.0)Donor_ItemAdd.js";
 import D_Item from "./pages/2.1)Donor_ItemDetail.js";
@@ -46,6 +48,8 @@ function App() {
         <Router>
           <Switch>
             <Route path="/" exact component={Authen} />
+            <Route path="/r_auth/:Email" exact component={R_Auth} />
+            <Route path="/d_auth/:Email" exact component={D_Auth} />
             <Route path="/d_main/:Donor_ID" exact component={D_Main} />
             <Route path="/d_main/:Donor_ID/d_add" exact component={D_Add} />
             <Route path="/d_main/:Donor_ID/d_item/:Item_ID" exact component={D_Item} />

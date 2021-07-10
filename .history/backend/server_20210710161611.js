@@ -2165,18 +2165,7 @@ app.post("/Report", function (req, resp) {
   var State = req.body.State;
   connection.query(
     "INSERT INTO WebReport (Item_ID, Reward_ID, Student_ID, Donor_ID, Sponsor_ID, Topic, Email, Message, View, State) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0, 1)",
-    [
-      Item_ID,
-      Reward_ID,
-      Student_ID,
-      Donor_ID,
-      Sponsor_ID,
-      Topic,
-      Email,
-      Message,
-      View,
-      State,
-    ],
+    [Item_ID, Reward_ID, Student_ID, Donor_ID, Sponsor_ID, Topic, Email, Message, View, State],
     function (error, result) {
       if (error) {
         console.error("Insert failed:\n" + error.stack);
@@ -2337,105 +2326,29 @@ app.post("/NotiBellDel", function (req, resp) {
 });
 
 {
-  /* Success Account */
-}
-app.post("/R_Create/:Email", function (req, resp) {
-  connection.query(
-    `UPDATE UserStudent SET State=1 WHERE Email='${req.params.Email}'`,
-    function (error, result) {
-      if (error) {
-        console.error("Insert failed:\n" + error.stack);
-        connection.end();
-        throw error;
-      }
-    }
-  );
-});
-app.post("/D_Create/:Email", function (req, resp) {
-  connection.query(
-    `UPDATE UserDonor SET State=1 WHERE Email='${req.params.Email}'`,
-    function (error, result) {
-      if (error) {
-        console.error("Insert failed:\n" + error.stack);
-        connection.end();
-        throw error;
-      }
-    }
-  );
-});
-
-{
   /* Send email to confirm account */
 }
-app.post("/R_mailAu", function (req, resp) {
+app.post("/forgot_pass",function(req,resp){
   var Email = req.body.Email;
+  var Password = req.body.Password
   var transporter = nodemailer.createTransport({
-    service: "gmail",
+    service: 'gmail',
     auth: {
-      user: "phladriansystem@gmail.com",
-      pass: "finalPro",
-    },
-  });
-  var mailOptions = {
-    from: "phladriansystem@gmail.com",
-    to: `${Email}`,
-    subject: "Recover the PhladRian account password",
-    text: `Please confirm your email through this link --> (http://localhost:3000/r_auth/${Email})`,
-  };
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Email sent: " + info.response);
+      user: 'phladriansystem@gmail.com',
+      pass: 'finalPro'
     }
   });
-});
-
-app.post("/D_mailAu", function (req, resp) {
-  var Email = req.body.Email;
-  var transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: "phladriansystem@gmail.com",
-      pass: "finalPro",
-    },
-  });
   var mailOptions = {
-    from: "phladriansystem@gmail.com",
+    from: 'phladriansystem@gmail.com',
     to: `${Email}`,
-    subject: "Recover the PhladRian account password",
-    text: `Please confirm your email through this link --> (http://localhost:3000/d_auth/${Email})`,
+    subject: 'Recover the PhladRian account password',
+    text: `Your password is ${Password}`
   };
-  transporter.sendMail(mailOptions, function (error, info) {
+  transporter.sendMail(mailOptions, function(error, info){
     if (error) {
       console.log(error);
     } else {
-      console.log("Email sent: " + info.response);
-    }
-  });
-});
-
-app.post("/forgot_pass", function (req, resp) {
-  var Email = req.body.Email;
-  var Password = req.body.Password;
-  var transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: "phladriansystem@gmail.com",
-      pass: "finalPro",
-    },
-  });
-  var mailOptions = {
-    from: "phladriansystem@gmail.com",
-    to: `${Email}`,
-    subject: "Recover the PhladRian account password",
-    text: `Your password is ${Password}`,
-  };
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Email sent: " + info.response);
+      console.log('Email sent: ' + info.response);
     }
   });
 });

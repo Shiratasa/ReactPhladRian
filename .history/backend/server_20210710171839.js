@@ -2351,18 +2351,6 @@ app.post("/R_Create/:Email", function (req, resp) {
     }
   );
 });
-app.post("/D_Create/:Email", function (req, resp) {
-  connection.query(
-    `UPDATE UserDonor SET State=1 WHERE Email='${req.params.Email}'`,
-    function (error, result) {
-      if (error) {
-        console.error("Insert failed:\n" + error.stack);
-        connection.end();
-        throw error;
-      }
-    }
-  );
-});
 
 {
   /* Send email to confirm account */

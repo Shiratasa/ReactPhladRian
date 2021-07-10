@@ -2351,18 +2351,6 @@ app.post("/R_Create/:Email", function (req, resp) {
     }
   );
 });
-app.post("/D_Create/:Email", function (req, resp) {
-  connection.query(
-    `UPDATE UserDonor SET State=1 WHERE Email='${req.params.Email}'`,
-    function (error, result) {
-      if (error) {
-        console.error("Insert failed:\n" + error.stack);
-        connection.end();
-        throw error;
-      }
-    }
-  );
-});
 
 {
   /* Send email to confirm account */
@@ -2381,30 +2369,6 @@ app.post("/R_mailAu", function (req, resp) {
     to: `${Email}`,
     subject: "Recover the PhladRian account password",
     text: `Please confirm your email through this link --> (http://localhost:3000/r_auth/${Email})`,
-  };
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Email sent: " + info.response);
-    }
-  });
-});
-
-app.post("/D_mailAu", function (req, resp) {
-  var Email = req.body.Email;
-  var transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: "phladriansystem@gmail.com",
-      pass: "finalPro",
-    },
-  });
-  var mailOptions = {
-    from: "phladriansystem@gmail.com",
-    to: `${Email}`,
-    subject: "Recover the PhladRian account password",
-    text: `Please confirm your email through this link --> (http://localhost:3000/d_auth/${Email})`,
   };
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
