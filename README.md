@@ -1,6 +1,6 @@
-# Phlad Rian, the school equipment donation website
+# Phlad Rian, the School Equipment Donation Website
 
-This project is created by Putthiwat Chalermvongsavej. (https://www.facebook.com/shiratasa.kusharane/)
+This project is created by Mr.Putthiwat Chalermvongsavej --> (https://www.facebook.com/shiratasa.kusharane/)
 
 ## Tools for development
 
@@ -9,7 +9,8 @@ This project is created by Putthiwat Chalermvongsavej. (https://www.facebook.com
 - HTML
 - CSS
 - MySQL
-- Azure
+- XAMPP
+- Azure Cloud
 
 ## Execution commands
 
