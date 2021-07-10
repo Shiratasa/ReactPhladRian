@@ -31,7 +31,6 @@ import S_AQR from "./pages/4.2)Sponsor_AQR.js";
 import S_AQRview from "./pages/4.2)Sponsor_AQRview.js";
 import I_Report from "./pages/5)Item_Report.js";
 import I_Report2 from "./pages/5)Reward_Report.js";
-import A_Main from "./pages/6)Admin_Main.js";
 
 function App() {
   return (
@@ -65,7 +64,6 @@ function App() {
             <Route path="/s_main/:Sponsor_ID/s_aqrview/:Request_ID" exact component={S_AQRview} />
             <Route path="/r_main/:Student_ID/r_item/:Item_ID/i_report" exact component={I_Report} />
             <Route path="/d_main/:Donor_ID/d_rewa/:Reward_ID/i_report2" exact component={I_Report2} />
-            <Route path="/a_main/:Admin_ID" exact component={A_Main} />
           </Switch>
         </Router>
       </div>

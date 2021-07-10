@@ -164,7 +164,7 @@ function Authen() {
       JSAlert.alert("", "Login Success!", JSAlert.Icons.Success);
       await timeout(1000).then($(this).unbind("submit").submit());
       UserA_Ref.current.map((val, key) => {
-        return history.push(`/a_main/${val.Admin_ID}`);
+        return history.push(`/`);
       });
       window.location.reload();
     }
