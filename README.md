@@ -9,18 +9,21 @@ This project is created by Mr.Putthiwat Chalermvongsavej --> (https://www.facebo
 - HTML
 - CSS
 - MySQL
-- XAMPP
-- Azure Cloud
 
 ## Execution commands
 
 ```
 - Backend
   - cd D:/PhladRian
+  - npm install
+  and then
+  - npm start
   or
   - pm2 start backend/server.js --exp-backoff-restart-delay=100
 - Frontend
   - cd D:/PhladRian/frontend
+  - npm install
+  - npm start
 ```
 
 ## Useful lessons
